@@ -1,0 +1,83 @@
+.contact-co {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 65px;
+}
+.contact-co form {
+  position: relative;
+}
+.contact-co .cards-side {
+  display: grid;
+  grid-template-rows: repeat(auto-fill, 150px);
+  gap: 15px;
+}
+.contact-co .cards-side p.sub-text a {
+  text-transform: none;
+}
+.contact-co .cards-side a {
+  color: var(--color-primary);
+}
+.contact-co .inp-co {
+  margin: 12px 0;
+  position: relative;
+}
+label {
+  position: absolute;
+  left: 5px;
+  top: 10px;
+  font-size: 12px;
+  opacity: 0.7;
+  cursor: text;
+  padding: 0 7px;
+  transition: 150ms ease-in all;
+  background-color: var(--color-background);
+  user-select: none;
+}
+
+input {
+  width: 410px;
+  outline: none;
+  border: 3px solid var(--color-primary-variant);
+  background-color: transparent;
+  height: 38px;
+  padding: 12px;
+  color: var(--color-white);
+  border-radius: 4px;
+}
+textarea {
+  border-radius: 4px;
+  width: 410px;
+  min-width: 410px;
+  max-width: 410px;
+  outline: none;
+  min-height: 203px;
+  border: 3px solid var(--color-primary-variant);
+  background-color: transparent;
+  padding: 12px;
+  color: var(--color-white);
+}
+
+input:focus + label,
+textarea:focus + label,
+input:not(:placeholder-shown) + label,
+textarea:not(:placeholder-shown) + label {
+  opacity: 1;
+  top: -8px;
+  font-size: 10px;
+}
+
+@media screen and (max-width: 768px) {
+  .contact-side {
+    width: 100%;
+  }
+  input,
+  textarea {
+    max-width: 100%;
+    min-width: 100%;
+  }
+  .contact-co .cards-side {
+    width: 100%;
+  }
+}
