@@ -2,6 +2,7 @@ import React, { forwardRef, useState } from 'react'
 import Section from '../Section'
 import Button from '../Button'
 import Nav from './Nav'
+import Download from '../Download'
 import Typewriter from 'typewriter-effect'
 import '../css/home.css'
 import { BsFacebook, BsGithub, BsInstagram } from 'react-icons/bs'
@@ -10,7 +11,6 @@ const Home = forwardRef(({ hash, setHashtag }, homeRef) => {
   return (
     <Section className='home-sec' id='home' ref={homeRef}>
       <div className='animation'>
-        {/*<p className='hello'>Welcome,</p>*/}
         <span className='hello'>
           <Typewriter
             options={{
@@ -72,7 +72,7 @@ const Home = forwardRef(({ hash, setHashtag }, homeRef) => {
           <Button primary='true' href='#contact-me'>
             Let's Talk!
           </Button>
-          <Button>Download CV</Button>
+          <Download />
         </div>
       </div>
       <Nav hash={hash} setHash={setHashtag} navAppear={navAppear} />

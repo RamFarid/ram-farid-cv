@@ -3,40 +3,48 @@ import Button from './Button'
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { motion } from 'framer-motion'
+
 function WorkCards(props) {
-  const { img, title, website, github, delay, children } = props
-  const detectedGithub = () => {
+  const { img, title, website, github, react } = props
+
+  const detectedGithub = (e) => {
+    e.preventDefault()
     if (github) {
       window.open(github, '_blank')
     } else {
-      warning()
+      warning('Sorry, there is no source code for this work')
     }
   }
+
   const liveDemoHandler = (e) => {
     e.preventDefault()
     if (title.toLowerCase() === 'my cv') {
-      info()
+      info('Great! You are already in my website')
+    } else if (website === '') {
+      warning("Sorry! The work hasn't been deployed")
     } else {
       window.open(website, '_blank')
     }
   }
-  const warning = () => {
-    toast.warning('Sorry, there is no source code for this work', {
+
+  const warning = (msg) => {
+    toast.warning(msg, {
       position: 'top-right',
       autoClose: 5000,
       hideProgressBar: false,
-      closeOnClick: false,
+      closeOnClick: true,
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
     })
   }
-  const info = () => {
-    toast.info('Great! You are already in my website', {
+
+  const info = (msg) => {
+    toast.info(msg, {
       position: 'top-right',
       autoClose: 5000,
       hideProgressBar: false,
-      closeOnClick: false,
+      closeOnClick: true,
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
@@ -47,14 +55,13 @@ function WorkCards(props) {
       className='portfolio-card-co'
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
-      transition={{ duration: 0.9, delay: delay }}
+      transition={{ duration: 0.9 }}
       viewport={{ once: true }}
     >
       <div className='img-co'>
-        <img src={img} alt='cover' />
+        <img src={img} alt={title} />
       </div>
       <div className='title'>{title}</div>
-      {children}
       <div className='btns-co'>
         <Button
           primary='true'
@@ -66,8 +73,13 @@ function WorkCards(props) {
           Live Show
         </Button>
 
-        <Button onClick={() => detectedGithub()}>Github</Button>
+        <Button onClick={(e) => detectedGithub(e)}>Github</Button>
       </div>
+      {react && (
+        <div className='react-flag'>
+          <span>React JS</span>
+        </div>
+      )}
     </motion.div>
   )
 }

@@ -5,8 +5,11 @@ import SmallCards from '../SmallCards'
 import meAbout from '../../Assets/me-about.jpeg'
 import { FaUserPlus, FaAward } from 'react-icons/fa'
 import { VscFolderLibrary } from 'react-icons/vsc'
+import { worksData } from '../../data/worksData'
+import { useDateExperience } from '../../hooks/useDateExperience'
 import '../css/about.css'
 const About = forwardRef((props, aboutRef) => {
+  const { time } = useDateExperience()
   return (
     <Section
       sub='get to know'
@@ -21,13 +24,15 @@ const About = forwardRef((props, aboutRef) => {
         </div>
         <div className='right-hand'>
           <div className='cards'>
-            <SmallCards icon={<FaAward />} head='Experience' sub='6 Monthes' />
+            <SmallCards icon={<FaAward />} head='Experience' sub={time} />
             <SmallCards icon={<FaUserPlus />} head='Clients' sub='No clients' />
-            <SmallCards
-              icon={<VscFolderLibrary />}
-              head='Projects'
-              sub='3 Projects'
-            />
+            <a href='#portfolio'>
+              <SmallCards
+                icon={<VscFolderLibrary />}
+                head='Projects'
+                sub={`${worksData.length} Projects`}
+              />
+            </a>
           </div>
           <div className='sub-text'>
             That is my first real project, I thought it was better to build that

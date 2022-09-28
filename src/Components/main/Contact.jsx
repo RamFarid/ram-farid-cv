@@ -38,29 +38,27 @@ const Contact = forwardRef((props, contactRef) => {
               autoClose: 5000,
               hideProgressBar: false,
               closeOnClick: false,
-              pauseOnHover: true,
+              pauseOnHover: false,
               draggable: true,
               progress: undefined,
             })
             e.target.reset()
           }
-          console.log('SUCCESS!', response.status, response.text)
         },
         function (error) {
           if (error) {
             setLoading(false)
-            toast.error('Error occurred', {
+            toast.error('Error occurred, try again later', {
               position: 'top-right',
               autoClose: 5000,
               hideProgressBar: false,
               closeOnClick: false,
-              pauseOnHover: true,
+              pauseOnHover: false,
               draggable: true,
               progress: undefined,
             })
             e.target.reset()
           }
-          console.log('FAILED...', error)
         }
       )
   }
@@ -157,10 +155,14 @@ const Contact = forwardRef((props, contactRef) => {
               />
               <label htmlFor='msg'>Your message</label>
             </div>
+            {/*<div className='remember'>
+              <input type='checkbox' name='checkbox' id='checkbox' ref={}/>
+              <label htmlFor='checkbox'>Remember me</label>
+          </div>*/}
             <button type='submit' className='primary-btn'>
               Send
             </button>
-            {loading ? <Loading /> : ''}
+            {loading && <Loading />}
           </form>
         </div>
       </div>

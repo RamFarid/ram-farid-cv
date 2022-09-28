@@ -5,10 +5,15 @@ function Footer() {
   return (
     <footer>
       <div className='top'>
-        <div className='copyrights'>
-          Copyright
-          <sup>&copy; </sup>
-          {new Date().getFullYear()} Ram Farid
+        <div>
+          <div className='copyrights'>
+            Copyright
+            <sup>&copy; </sup>
+            {new Date().getFullYear()} Ram Farid
+          </div>
+          <div className='signature'>
+            Designed, made, and deployed by <span>Ram Farid</span>
+          </div>
         </div>
         <div className='links'>
           <div className='link-co'>

@@ -6,6 +6,7 @@ import { MdOutlineMiscellaneousServices } from 'react-icons/md'
 import { FaRegFolderOpen } from 'react-icons/fa'
 import { TiContacts } from 'react-icons/ti'
 import { motion } from 'framer-motion'
+import { GrCertificate } from 'react-icons/gr'
 import '../css/nav.css'
 function Nav({ hash, setHash, navAppear }) {
   return (
@@ -53,6 +54,13 @@ function Nav({ hash, setHash, navAppear }) {
           className={hash === '#portfolio' ? 'active' : ''}
         >
           <FaRegFolderOpen />
+        </a>
+        <a
+          href='#testmonials'
+          onClick={() => setHash('#testmonials')}
+          className={hash === '#testmonials' ? 'active' : ''}
+        >
+          <GrCertificate />
         </a>
         <a
           href='#contact-me'

@@ -121,3 +121,10 @@ a {
 section {
   margin-top: var(--sction-margin);
 }
+/* 
+@media screen and (max-height: 530px) {
+  nav {
+    transform: translateX(-100vh);
+    display: none;
+  }
+} */

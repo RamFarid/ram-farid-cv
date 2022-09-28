@@ -1,9 +1,7 @@
 import React from 'react'
 
 function Button(props) {
-  const { primary } = props
-  const { onClick } = props
-  const { href } = props
+  const { primary, href, onClick } = props
   return (
     <a
       href={href}

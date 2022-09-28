@@ -1,6 +1,7 @@
 import React, { forwardRef } from 'react'
 import Section from '../Section'
 import { BsPatchCheckFill } from 'react-icons/bs'
+
 import { motion } from 'framer-motion'
 import '../css/experience.css'
 const Experience = forwardRef((props, experienceRef) => {
@@ -25,6 +26,7 @@ const Experience = forwardRef((props, experienceRef) => {
           <Skills skill='JavaScript' skillRatio='80%' />
           <Skills skill='React JS' skillRatio='60%' />
           <Skills skill='BootStrap' skillRatio='30%' />
+          <Skills skill='SASS' skillRatio='80%' />
         </motion.article>
         <motion.article
           className='knowlege skill-card'
@@ -38,7 +40,7 @@ const Experience = forwardRef((props, experienceRef) => {
             <AddintionalSkills head='Node JS' skillRatio='Intermidiate' />
             <AddintionalSkills head='GitHub' skillRatio='Experienced' />
             <AddintionalSkills head='Git' skillRatio='Basic' />
-            <AddintionalSkills head='MongoDB' skillRatio='Experienced' />
+            <AddintionalSkills head='MongoDB' skillRatio='Basic' />
             <AddintionalSkills head='Express JS' skillRatio='Basic' />
           </div>
         </motion.article>

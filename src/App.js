@@ -6,6 +6,7 @@ import Services from './Components/main/Services'
 import Portfolio from './Components/main/Portfolio'
 import Contact from './Components/main/Contact'
 import Footer from './Components/main/Footer'
+import Testmonials from './Components/main/Testmonials'
 function App() {
   const [hashtag, setHashtag] = useState('#home')
   const homeRef = useRef()
@@ -14,10 +15,13 @@ function App() {
   const servicesRef = useRef()
   const portfolioRef = useRef()
   const contactRef = useRef()
+  const testmonialsRef = useRef()
   useEffect(() => {
     function handleScroll(event) {
       if (window.scrollY >= contactRef.current.offsetTop - 250) {
         setHashtag('#contact-me')
+      } else if (window.scrollY >= testmonialsRef.current.offsetTop - 250) {
+        setHashtag('#testmonials')
       } else if (window.scrollY >= portfolioRef.current.offsetTop - 250) {
         setHashtag('#portfolio')
       } else if (window.scrollY >= servicesRef.current.offsetTop - 250) {
@@ -45,6 +49,7 @@ function App() {
         <Experience ref={experienceRef} />
         <Services ref={servicesRef} />
         <Portfolio ref={portfolioRef} />
+        <Testmonials ref={testmonialsRef} />
         <Contact ref={contactRef} />
       </div>
       <Footer />

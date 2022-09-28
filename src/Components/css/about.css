@@ -33,7 +33,9 @@
   gap: 17px;
   width: 100%;
 }
-
+.about .cards a {
+  color: var(--color-white);
+}
 .about .right-hand {
   display: flex;
   flex-direction: column;

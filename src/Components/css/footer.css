@@ -26,10 +26,15 @@ footer .top .links .link-co {
   align-items: center;
 }
 
-footer .top .copyrights {
+footer .top .copyrights,
+.signature {
   font-size: 12px;
   color: var(--color-background-variant);
   font-weight: 700;
+}
+
+.signature span {
+  font-weight: 900;
 }
 
 footer .top .links .link-co a {
@@ -48,4 +53,10 @@ footer .top .links .link-co a[href='https://www.instagram.com/ramfarid_s/']:hove
 footer .top .links .link-co a[href='https://github.com/RamFarid']:hover
 {
   color: black;
+}
+
+@media screen and (max-width: 768px) {
+  footer .top {
+    flex-direction: column;
+  }
 }
