@@ -3,13 +3,11 @@
   flex-wrap: wrap;
 }
 
-.experience-container .front {
-  flex-grow: 1;
-}
-
+.experience-container .front,
 .experience-container .knowlege {
   flex-grow: 1;
 }
+
 .experience-container .skill-card {
   background-color: var(--color-background-variant);
   margin: 0px 9px;
@@ -72,6 +70,7 @@
   row-gap: 50px;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr;
+  justify-content: center;
 }
 
 .experience-container .ad-skills-container .add-skill {
@@ -88,13 +87,7 @@
   .ad-skills-container {
     column-gap: 34px;
   }
+  .experience-container .ad-skills-container {
+    justify-content: unset;
+  }
 }
-
-/* @keyframes skill-bar {
-  0% {
-    width: 0;
-  }
-  100% {
-    width: attr(data-skill);
-  }
-} */
