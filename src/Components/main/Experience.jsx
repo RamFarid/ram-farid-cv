@@ -1,9 +1,16 @@
 import React, { forwardRef } from 'react'
+// Import Main
 import Section from '../Section'
+
+// Import data
+import { mainSkills } from '../../data/mainSkills'
+import { knowledgeSkill } from '../../data/knowledgeSkill'
 import { BsPatchCheckFill } from 'react-icons/bs'
 
+// Import Animations
 import { motion } from 'framer-motion'
 import '../css/experience.css'
+
 const Experience = forwardRef((props, experienceRef) => {
   return (
     <Section
@@ -21,12 +28,15 @@ const Experience = forwardRef((props, experienceRef) => {
           viewport={{ once: true }}
         >
           <div className='section-header'>Frontend development</div>
-          <Skills skill='HTML' skillRatio='90%' />
-          <Skills skill='CSS' skillRatio='90%' />
-          <Skills skill='JavaScript' skillRatio='80%' />
-          <Skills skill='React JS' skillRatio='60%' />
-          <Skills skill='BootStrap' skillRatio='30%' />
-          <Skills skill='SASS' skillRatio='80%' />
+          {mainSkills.map((el, id) => {
+            return (
+              <Skills
+                skill={el.skill}
+                skillRatio={el.skillRatio}
+                key={id + 14}
+              />
+            )
+          })}
         </motion.article>
         <motion.article
           className='knowlege skill-card'
@@ -37,11 +47,15 @@ const Experience = forwardRef((props, experienceRef) => {
         >
           <div className='section-header'>I also have knowledge in:</div>
           <div className='ad-skills-container'>
-            <AddintionalSkills head='Node JS' skillRatio='Intermidiate' />
-            <AddintionalSkills head='GitHub' skillRatio='Experienced' />
-            <AddintionalSkills head='Git' skillRatio='Basic' />
-            <AddintionalSkills head='MongoDB' skillRatio='Basic' />
-            <AddintionalSkills head='Express JS' skillRatio='Basic' />
+            {knowledgeSkill.map((el, id) => {
+              return (
+                <AddintionalSkills
+                  head={el.head}
+                  skillRatio={el.skillRatio}
+                  key={id + 12}
+                />
+              )
+            })}
           </div>
         </motion.article>
       </div>
