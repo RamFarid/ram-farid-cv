@@ -14,7 +14,7 @@
   background-color: var(--color-background-variant);
   margin: 0px 9px;
   margin-bottom: 35px;
-  padding: 10px 28px;
+  padding: 10px 28px 34px;
   border-radius: 20px;
 }
 
@@ -68,8 +68,6 @@
 }
 
 .experience-container .ad-skills-container {
-  width: 80%;
-  margin: auto;
   display: grid;
   row-gap: 50px;
   grid-template-columns: 1fr 1fr;
