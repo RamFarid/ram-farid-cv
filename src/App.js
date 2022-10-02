@@ -7,6 +7,9 @@ import Portfolio from './Components/main/Portfolio'
 import Contact from './Components/main/Contact'
 import Footer from './Components/main/Footer'
 import Testmonials from './Components/main/Testmonials'
+
+// Import context
+
 function App() {
   const [hashtag, setHashtag] = useState('#home')
   const homeRef = useRef()
@@ -41,19 +44,22 @@ function App() {
       window.removeEventListener('scroll', handleScroll)
     }
   }, [])
+
   return (
-    <div className='App'>
-      <div className='container'>
-        <Home hash={hashtag} setHashtag={setHashtag} ref={homeRef} />
-        <About ref={aboutRef} />
-        <Experience ref={experienceRef} />
-        <Services ref={servicesRef} />
-        <Portfolio ref={portfolioRef} />
-        <Testmonials ref={testmonialsRef} />
-        <Contact ref={contactRef} />
+    <React.StrictMode>
+      <div className='App'>
+        <div className='container'>
+          <Home hashtag={hashtag} ref={homeRef} />
+          <About ref={aboutRef} />
+          <Experience ref={experienceRef} />
+          <Services ref={servicesRef} />
+          <Portfolio ref={portfolioRef} />
+          <Testmonials ref={testmonialsRef} />
+          <Contact ref={contactRef} />
+        </div>
+        <Footer />
       </div>
-      <Footer />
-    </div>
+    </React.StrictMode>
   )
 }
 

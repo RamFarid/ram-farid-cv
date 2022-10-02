@@ -2,6 +2,7 @@ import weather from '../Assets/weather.png'
 import qrcode from '../Assets/qrcode.png'
 import logo from '../Assets/logo.png'
 import news from '../Assets/news.jpg'
+import mcq from '../Assets/mcq.png'
 export const worksData = [
   {
     title: 'My CV',
@@ -37,5 +38,13 @@ export const worksData = [
     github: 'https://github.com/RamFarid/elaseema-clone/',
     delay: '0.6',
     isReact: true,
+  },
+  {
+    title: 'Demo quiz App',
+    img: mcq,
+    website: 'https://welcome0to0rams0server.on.drv.tw/mcq/',
+    github: '',
+    delay: '0.6',
+    isReact: false,
   },
 ]

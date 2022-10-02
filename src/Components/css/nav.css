@@ -18,7 +18,7 @@ nav a {
   justify-content: center;
   align-items: center;
   margin: 0px 3px;
-  color: black;
+  color: var(--color-white) !important;
   transition: all 0.5s ease;
 }
 

@@ -1,4 +1,9 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+
+// Import Components
+import NavItems from '../NavItems'
+
+// Import Icons
 import { AiOutlineHome } from 'react-icons/ai'
 import { BsFillInfoCircleFill } from 'react-icons/bs'
 import { TbTimeline } from 'react-icons/tb'
@@ -6,69 +11,55 @@ import { MdOutlineMiscellaneousServices } from 'react-icons/md'
 import { FaRegFolderOpen } from 'react-icons/fa'
 import { TiContacts } from 'react-icons/ti'
 import { motion } from 'framer-motion'
-import { GrCertificate } from 'react-icons/gr'
+import { AiOutlineSafetyCertificate } from 'react-icons/ai'
+
+// Import Keyboard Hook
+import useDetectKeyboardOpen from 'use-detect-keyboard-open'
+// Import styles
 import '../css/nav.css'
-function Nav({ hash, setHash, navAppear }) {
+function Nav({ hashtag }) {
+  const isKeyboardOpen = useDetectKeyboardOpen()
+  const [nav, setNav] = useState(true)
+  useEffect(() => {
+    if (isKeyboardOpen) {
+      setNav(false)
+    } else {
+      setNav(true)
+    }
+  }, [isKeyboardOpen])
   return (
-    navAppear && (
+    nav && (
       <motion.nav
         initial={{ y: 100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{
           duration: 2,
+          delay: 0.5,
           type: 'spring',
-          stiffness: 200,
+          stiffness: 100,
         }}
       >
-        <a
-          href='#home'
-          className={hash === '#home' ? 'active' : ''}
-          onClick={() => setHash('#home')}
-        >
+        <NavItems link='#home' hashtag={hashtag}>
           <AiOutlineHome />
-        </a>
-        <a
-          href='#about'
-          onClick={() => setHash('#about')}
-          className={hash === '#about' ? 'active' : ''}
-        >
+        </NavItems>
+        <NavItems link='#about' hashtag={hashtag}>
           <BsFillInfoCircleFill />
-        </a>
-        <a
-          href='#experience'
-          onClick={() => setHash('#experience')}
-          className={hash === '#experience' ? 'active' : ''}
-        >
+        </NavItems>
+        <NavItems link='#experience' hashtag={hashtag}>
           <TbTimeline />
-        </a>
-        <a
-          href='#services'
-          onClick={() => setHash('#services')}
-          className={hash === '#services' ? 'active' : ''}
-        >
+        </NavItems>
+        <NavItems link='#services' hashtag={hashtag}>
           <MdOutlineMiscellaneousServices />
-        </a>
-        <a
-          href='#portfolio'
-          onClick={() => setHash('#portfolio')}
-          className={hash === '#portfolio' ? 'active' : ''}
-        >
+        </NavItems>
+        <NavItems link='#portfolio' hashtag={hashtag}>
           <FaRegFolderOpen />
-        </a>
-        <a
-          href='#testmonials'
-          onClick={() => setHash('#testmonials')}
-          className={hash === '#testmonials' ? 'active' : ''}
-        >
-          <GrCertificate />
-        </a>
-        <a
-          href='#contact-me'
-          onClick={() => setHash('#contact-me')}
-          className={hash === '#contact-me' ? 'active' : ''}
-        >
+        </NavItems>
+        <NavItems link='#testmonials' hashtag={hashtag}>
+          <AiOutlineSafetyCertificate />
+        </NavItems>
+        <NavItems link='#contact-me' hashtag={hashtag}>
           <TiContacts />
-        </a>
+        </NavItems>
       </motion.nav>
     )
   )

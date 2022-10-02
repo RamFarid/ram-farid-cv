@@ -8,6 +8,9 @@ import '../css/contact.css'
 import Loading from '../Loading'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+
+// Import Keyboard Hook
+
 const Contact = forwardRef((props, contactRef) => {
   const [loading, setLoading] = useState(false)
   const telRef = useRef()
@@ -30,14 +33,14 @@ const Contact = forwardRef((props, contactRef) => {
         'g3uAsxNxP3mh6Ixsj'
       )
       .then(
-        function (response) {
+        (response) => {
           if (response.status === 200) {
             setLoading(false)
-            toast.success('Massage sent successfully', {
+            toast.success('Thanks for contact me!', {
               position: 'top-right',
               autoClose: 5000,
               hideProgressBar: false,
-              closeOnClick: false,
+              closeOnClick: true,
               pauseOnHover: false,
               draggable: true,
               progress: undefined,
@@ -45,14 +48,30 @@ const Contact = forwardRef((props, contactRef) => {
             e.target.reset()
           }
         },
-        function (error) {
-          if (error) {
+        (error) => {
+          if (error.status === 400) {
             setLoading(false)
-            toast.error('Error occurred, try again later', {
+            toast.error(
+              'Sorry! technical problem happend, Try contact me on socil media',
+              {
+                position: 'top-right',
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: false,
+                draggable: true,
+                progress: undefined,
+              }
+            )
+            e.target.reset()
+          }
+          if (error.status === 0) {
+            setLoading(false)
+            toast.error('No internet connection', {
               position: 'top-right',
               autoClose: 5000,
               hideProgressBar: false,
-              closeOnClick: false,
+              closeOnClick: true,
               pauseOnHover: false,
               draggable: true,
               progress: undefined,
@@ -155,10 +174,6 @@ const Contact = forwardRef((props, contactRef) => {
               />
               <label htmlFor='msg'>Your message</label>
             </div>
-            {/*<div className='remember'>
-              <input type='checkbox' name='checkbox' id='checkbox' ref={}/>
-              <label htmlFor='checkbox'>Remember me</label>
-          </div>*/}
             <button type='submit' className='primary-btn'>
               Send
             </button>
