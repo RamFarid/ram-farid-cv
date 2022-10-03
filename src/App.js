@@ -20,6 +20,7 @@ function App() {
   const contactRef = useRef()
   const testmonialsRef = useRef()
   useEffect(() => {
+    console.log('All done')
     function handleScroll(event) {
       if (window.scrollY >= contactRef.current.offsetTop - 250) {
         setHashtag('#contact-me')
