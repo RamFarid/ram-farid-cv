@@ -1,8 +1,8 @@
 import React from 'react'
 import Button from './Button'
-import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { motion } from 'framer-motion'
+import { information, warning } from '../toastingMsgs'
 
 function WorkCards(props) {
   const { img, title, website, github, react } = props
@@ -19,36 +19,12 @@ function WorkCards(props) {
   const liveDemoHandler = (e) => {
     e.preventDefault()
     if (title.toLowerCase() === 'my cv') {
-      info('Great! You are already in my website')
+      information('Great! You are already in my website')
     } else if (website === '') {
       warning("Sorry! The work hasn't been deployed")
     } else {
       window.open(website, '_blank')
     }
-  }
-
-  const warning = (msg) => {
-    toast.warning(msg, {
-      position: 'top-right',
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    })
-  }
-
-  const info = (msg) => {
-    toast.info(msg, {
-      position: 'top-right',
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    })
   }
   return (
     <motion.div

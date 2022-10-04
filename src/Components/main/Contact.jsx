@@ -1,4 +1,4 @@
-import React, { useRef, useState, forwardRef } from 'react'
+import React, { useState, forwardRef } from 'react'
 import Section from '../Section'
 import { BsMessenger, BsWhatsapp } from 'react-icons/bs'
 import { MdEmail } from 'react-icons/md'
@@ -6,17 +6,14 @@ import SmallCards from '../SmallCards'
 import emailjs from '@emailjs/browser'
 import '../css/contact.css'
 import Loading from '../Loading'
-import { ToastContainer, toast } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
+import { ToastContainer } from 'react-toastify'
+import { success, error } from '../../toastingMsgs'
 
 // Import Keyboard Hook
 
 const Contact = forwardRef((props, contactRef) => {
   const [loading, setLoading] = useState(false)
-  const telRef = useRef()
-  const nameRef = useRef()
-  const emailRef = useRef()
-  const msgRef = useRef()
+
   const sendMsg = (e) => {
     setLoading(true)
     e.preventDefault()
@@ -25,10 +22,10 @@ const Contact = forwardRef((props, contactRef) => {
         'service_3nm6s4c',
         'template_prri59z',
         {
-          name: nameRef.current.value,
-          tel: telRef.current.value,
-          email: emailRef.current.value,
-          msg: msgRef.current.value,
+          name: e.target.name.value,
+          tel: e.target.tel.value,
+          email: e.target.email.value,
+          msg: e.target.msg.value,
         },
         'g3uAsxNxP3mh6Ixsj'
       )
@@ -36,51 +33,27 @@ const Contact = forwardRef((props, contactRef) => {
         (response) => {
           if (response.status === 200) {
             setLoading(false)
-            toast.success('Thanks for contact me!', {
-              position: 'top-right',
-              autoClose: 5000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: false,
-              draggable: true,
-              progress: undefined,
-            })
+            success('Thanks for contact me!')
             e.target.reset()
           }
         },
-        (error) => {
-          if (error.status === 400) {
+        (e) => {
+          if (e.status === 400) {
             setLoading(false)
-            toast.error(
-              'Sorry! technical problem happend, Try contact me on socil media',
-              {
-                position: 'top-right',
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: false,
-                draggable: true,
-                progress: undefined,
-              }
+            error(
+              'Sorry! technical problem happend, Try contact me on social media'
             )
             e.target.reset()
           }
-          if (error.status === 0) {
+          if (e.status === 0) {
             setLoading(false)
-            toast.error('No internet connection', {
-              position: 'top-right',
-              autoClose: 5000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: false,
-              draggable: true,
-              progress: undefined,
-            })
+            error('No internet connection')
             e.target.reset()
           }
         }
       )
   }
+
   return (
     <Section
       sub='get in touch'
@@ -135,7 +108,6 @@ const Contact = forwardRef((props, contactRef) => {
                 id='name'
                 autoComplete='off'
                 placeholder=' '
-                ref={nameRef}
                 required
               />
               <label htmlFor='name'>Your full name</label>
@@ -147,7 +119,6 @@ const Contact = forwardRef((props, contactRef) => {
                 id='email'
                 autoComplete='off'
                 placeholder=' '
-                ref={emailRef}
                 required
               />
               <label htmlFor='email'>Email</label>
@@ -159,19 +130,12 @@ const Contact = forwardRef((props, contactRef) => {
                 id='tel'
                 autoComplete='off'
                 placeholder=' '
-                ref={telRef}
                 required
               />
               <label htmlFor='tel'>Phone number</label>
             </div>
             <div className='inp-co'>
-              <textarea
-                name='msg'
-                id='msg'
-                placeholder=' '
-                ref={msgRef}
-                required
-              />
+              <textarea name='msg' id='msg' placeholder=' ' required />
               <label htmlFor='msg'>Your message</label>
             </div>
             <button type='submit' className='primary-btn'>
