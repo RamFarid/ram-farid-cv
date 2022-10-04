@@ -26,6 +26,8 @@ After setup my environment in my machine with `create-react-app`, I made a direc
 
 - **`src/App.js`** that is the main component that contains all main comoponents in`src/Components/main` folder
 
-- **`src/index.js`** this file rendering the my `App.js` component that contain main components after `npm start command`
+- **`src/index.js`** this file rendering my application in `App.js` component, after `npm start` command
 
 - **`src/index.css`** contains general css styles
+
+- **`src/toastingMsgs.js`** contains functions that i need from `react-toastify` library
