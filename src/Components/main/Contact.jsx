@@ -135,7 +135,13 @@ const Contact = forwardRef((props, contactRef) => {
               <label htmlFor='tel'>Phone number</label>
             </div>
             <div className='inp-co'>
-              <textarea name='msg' id='msg' placeholder=' ' required />
+              <textarea
+                name='msg'
+                id='msg'
+                placeholder=' '
+                required
+                dir='auto'
+              />
               <label htmlFor='msg'>Your message</label>
             </div>
             <button type='submit' className='primary-btn'>
