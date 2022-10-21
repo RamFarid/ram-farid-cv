@@ -50,7 +50,7 @@ const route = createBrowserRouter([
   },
   {
     path: '*',
-    element: <ErrorPage />,
+    element: <ErrorPage title='Not Found!' />,
   },
 ])
 
