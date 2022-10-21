@@ -12,8 +12,10 @@ import { motion } from 'framer-motion'
 
 // import style
 import '../Components/css/experience.css'
+import usePageTitle from '../hooks/usePageTitle'
 
-const Experience = () => {
+const Experience = ({ title }) => {
+  usePageTitle(title)
   return (
     <Section head='My Experience' sub='What skills i have?'>
       <div className='experience-container mb-sections'>

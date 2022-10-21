@@ -3,7 +3,9 @@ import Section from '../Components/Section'
 import ServicesSkill from '../Components/ServicesSkill'
 import { motion } from 'framer-motion'
 import '../Components/css/services.css'
-const Services = () => {
+import usePageTitle from '../hooks/usePageTitle'
+const Services = ({ title }) => {
+  usePageTitle(title)
   return (
     <Section head='Services' sub='what i offer?'>
       <div className='services-container mb-sections'>

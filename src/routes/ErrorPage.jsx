@@ -4,7 +4,9 @@ import '../Components/css/error.css'
 import errorPhoto from '../Assets/error.svg'
 import { NavLink } from 'react-router-dom'
 import Footer from './Footer'
-function ErrorPage() {
+import usePageTitle from '../hooks/usePageTitle'
+function ErrorPage({ title }) {
+  usePageTitle(title)
   return (
     <React.Fragment>
       <section className='Error'>

@@ -18,8 +18,10 @@ import { useDateExperience } from '../hooks/useDateExperience'
 
 // import style
 import '../Components/css/about.css'
+import usePageTitle from '../hooks/usePageTitle'
 
-const About = () => {
+const About = ({ title }) => {
+  usePageTitle(title)
   const { time } = useDateExperience()
   return (
     <Section sub='get to know' head='about me' className='about'>

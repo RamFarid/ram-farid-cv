@@ -5,8 +5,10 @@ import Typewriter from 'typewriter-effect'
 import '../Components/css/home.css'
 import { BsFacebook, BsGithub, BsInstagram } from 'react-icons/bs'
 import { NavLink } from 'react-router-dom'
+import usePageTitle from '../hooks/usePageTitle'
 
-const Home = () => {
+const Home = ({ title }) => {
+  usePageTitle(title)
   return (
     <Section className='home-sec'>
       <div className='animation mb-sections'>

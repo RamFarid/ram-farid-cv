@@ -3,8 +3,10 @@ import Section from '../Components/Section'
 import WorkCards from '../Components/WorkCards'
 import { worksData } from '../data/worksData'
 import '../Components/css/portfolio.css'
+import usePageTitle from '../hooks/usePageTitle'
 
-const Portfolio = (props, portfolioRef) => {
+const Portfolio = ({ title }) => {
+  usePageTitle(title)
   return (
     <Section sub='my works' head='portfolio'>
       <div className='portfolio-co mb-sections'>

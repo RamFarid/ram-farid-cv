@@ -15,10 +15,11 @@ import { success, error } from '../toastingMsgs'
 
 // import style
 import '../Components/css/contact.css'
+import usePageTitle from '../hooks/usePageTitle'
 
-const Contact = () => {
+const Contact = ({ title }) => {
   const [loading, setLoading] = useState(false)
-
+  usePageTitle(title)
   const sendMsg = (e) => {
     setLoading(true)
     e.preventDefault()

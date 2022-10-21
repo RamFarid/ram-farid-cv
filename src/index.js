@@ -20,31 +20,31 @@ const route = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Home />,
+        element: <Home title='Home' />,
       },
       {
         path: 'about',
-        element: <About />,
+        element: <About title='About' />,
       },
       {
         path: 'experience',
-        element: <Experience />,
+        element: <Experience title='Experience' />,
       },
       {
         path: 'services',
-        element: <Services />,
+        element: <Services title='Services' />,
       },
       {
         path: 'portfolio',
-        element: <Portfolio />,
+        element: <Portfolio title='Portfolio' />,
       },
       {
         path: 'contact',
-        element: <Contact />,
+        element: <Contact title='Contact' />,
       },
       {
         path: 'testmonials',
-        element: <Testmonials />,
+        element: <Testmonials title='Testmonials' />,
       },
     ],
   },

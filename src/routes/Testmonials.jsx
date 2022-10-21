@@ -17,8 +17,10 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/css'
 import 'swiper/css/pagination'
 import { Pagination } from 'swiper'
+import usePageTitle from '../hooks/usePageTitle'
 
-const Testmonials = () => {
+const Testmonials = ({ title }) => {
+  usePageTitle(title)
   return (
     <Section head='Testmonials' sub='look at the sources'>
       <Swiper
