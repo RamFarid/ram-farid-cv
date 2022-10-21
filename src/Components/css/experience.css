@@ -14,6 +14,7 @@
   margin-bottom: 35px;
   padding: 10px 28px 34px;
   border-radius: 20px;
+  max-width: 50%;
 }
 
 .experience-container .section-header {
@@ -89,5 +90,8 @@
   }
   .experience-container .ad-skills-container {
     justify-content: unset;
+  }
+  .experience-container .skill-card {
+    max-width: unset;
   }
 }

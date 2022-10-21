@@ -1,0 +1,19 @@
+{
+  "short_name": "Ram Farid",
+  "name": "Ram's curriculum vitae",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1f1f38",
+  "icons": [
+    {
+      "src": "favicon.ico",
+      "sizes": "2000x1247",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "favicon.png",
+      "sizes": "2000x1247",
+      "type": "image/x-icon"
+    }
+  ]
+}

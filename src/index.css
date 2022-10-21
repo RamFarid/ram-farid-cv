@@ -54,6 +54,8 @@ body {
   background-color: var(--color-background);
   color: var(--color-white);
   font-family: 'Poppins', sans-serif;
+  width: 100%;
+  min-height: 100vh;
 }
 
 .container {
@@ -117,9 +119,10 @@ a.secondary-btn {
 a {
   text-decoration: none;
 }
-
 section {
-  margin-top: var(--sction-margin);
+  min-height: 90vh;
+  padding-bottom: 75px;
+  padding-top: 65px;
 }
 /* 
 @media screen and (max-height: 530px) {

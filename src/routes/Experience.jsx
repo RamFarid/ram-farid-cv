@@ -1,25 +1,22 @@
-import React, { forwardRef } from 'react'
+import React from 'react'
 // Import Main
-import Section from '../Section'
+import Section from '../Components/Section'
 
 // Import data
-import { mainSkills } from '../../data/mainSkills'
-import { knowledgeSkill } from '../../data/knowledgeSkill'
+import { mainSkills } from '../data/mainSkills'
+import { knowledgeSkill } from '../data/knowledgeSkill'
 import { BsPatchCheckFill } from 'react-icons/bs'
 
 // Import Animations
 import { motion } from 'framer-motion'
-import '../css/experience.css'
 
-const Experience = forwardRef((props, experienceRef) => {
+// import style
+import '../Components/css/experience.css'
+
+const Experience = () => {
   return (
-    <Section
-      head='My Experience'
-      sub='What skills i have?'
-      id='experience'
-      ref={experienceRef}
-    >
-      <div className='experience-container'>
+    <Section head='My Experience' sub='What skills i have?'>
+      <div className='experience-container mb-sections'>
         <motion.article
           className='front skill-card'
           initial={{ opacity: 0 }}
@@ -61,7 +58,7 @@ const Experience = forwardRef((props, experienceRef) => {
       </div>
     </Section>
   )
-})
+}
 
 function Skills(props) {
   const { skill, skillRatio } = props

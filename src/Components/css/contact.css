@@ -4,6 +4,7 @@
   align-items: flex-start;
   flex-wrap: wrap;
   gap: 65px;
+  margin-bottom: 150px;
 }
 .contact-co form {
   position: relative;

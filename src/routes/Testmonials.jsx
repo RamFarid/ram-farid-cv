@@ -1,24 +1,26 @@
 import React from 'react'
-import { forwardRef } from 'react'
-import Section from '../Section'
-import '../css/testmonials.css'
-import html from '../../Assets/html_cirt.jpg'
-import css from '../../Assets/css_cert.jpg'
-import js from '../../Assets/js_cert.png'
-import webFund from '../../Assets/web_Fund_cirt.jpg'
 
+// import use components
+import Section from '../Components/Section'
+
+// import style
+import '../Components/css/testmonials.css'
+
+// import certfications images
+import html from '../Assets/html_cirt.jpg'
+import css from '../Assets/css_cert.jpg'
+import js from '../Assets/js_cert.png'
+import webFund from '../Assets/web_Fund_cirt.jpg'
+
+// import swiper
 import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/css'
 import 'swiper/css/pagination'
 import { Pagination } from 'swiper'
-const Testmonials = forwardRef((props, testmonialsRef) => {
+
+const Testmonials = () => {
   return (
-    <Section
-      head='Testmonials'
-      sub='look at the sources'
-      id='testmonials'
-      ref={testmonialsRef}
-    >
+    <Section head='Testmonials' sub='look at the sources'>
       <Swiper
         spaceBetween={30}
         pagination={{
@@ -42,6 +44,6 @@ const Testmonials = forwardRef((props, testmonialsRef) => {
       </Swiper>
     </Section>
   )
-})
+}
 
 export default Testmonials

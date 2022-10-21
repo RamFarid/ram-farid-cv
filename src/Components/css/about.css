@@ -22,7 +22,8 @@
 }
 
 .about img {
-  width: 330px;
+  min-width: 330px;
+  max-width: 330px;
 }
 
 .about .cards {

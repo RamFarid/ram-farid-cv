@@ -20,7 +20,7 @@ function WorkCards(props) {
     e.preventDefault()
     if (title.toLowerCase() === 'my cv') {
       information('Great! You are already in my website')
-    } else if (website === '') {
+    } else if (!website) {
       warning("Sorry! The work hasn't been deployed")
     } else {
       window.open(website, '_blank')

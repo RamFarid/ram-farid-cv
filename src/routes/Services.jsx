@@ -1,17 +1,12 @@
-import React, { forwardRef } from 'react'
-import Section from '../Section'
-import ServicesSkill from '../ServicesSkill.jsx'
+import React from 'react'
+import Section from '../Components/Section'
+import ServicesSkill from '../Components/ServicesSkill'
 import { motion } from 'framer-motion'
-import '../css/services.css'
-const Services = forwardRef((props, servicesRef) => {
+import '../Components/css/services.css'
+const Services = () => {
   return (
-    <Section
-      head='Services'
-      sub='what i offer?'
-      id='services'
-      ref={servicesRef}
-    >
-      <div className='services-container'>
+    <Section head='Services' sub='what i offer?'>
+      <div className='services-container mb-sections'>
         <div className='front-services'>
           <motion.div
             className='header'
@@ -44,6 +39,6 @@ const Services = forwardRef((props, servicesRef) => {
       </div>
     </Section>
   )
-})
+}
 
 export default Services

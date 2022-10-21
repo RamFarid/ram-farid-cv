@@ -6,8 +6,12 @@ nav {
   padding: 12px;
   border-radius: 50px;
   position: fixed;
+  left: 50%;
   bottom: 46px;
   z-index: 99;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 nav a {

@@ -15,7 +15,7 @@ export function useDateExperience() {
     if (years < 1 && Math.round(months) !== 12) {
       setTime(`${Math.round(months)} monthes`)
     } else if (years > 1 || Math.round(months) === 12) {
-      setTime(`${Math.round(years)} years`)
+      setTime(`${Math.round(years)}+ years`)
     }
   }, [])
   return {

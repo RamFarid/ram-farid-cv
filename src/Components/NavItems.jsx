@@ -1,10 +1,10 @@
 import React from 'react'
-
-function NavItems({ link, hashtag, children }) {
+import { NavLink } from 'react-router-dom'
+function NavItems({ link, children }) {
   return (
-    <a href={link} className={hashtag === link ? 'active' : ''}>
+    <NavLink to={link} end>
       {children}
-    </a>
+    </NavLink>
   )
 }
 

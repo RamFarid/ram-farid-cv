@@ -1,17 +1,22 @@
-import React, { useState, forwardRef } from 'react'
-import Section from '../Section'
+import React, { useState } from 'react'
+
+// import use components
+import Section from '../Components/Section'
+import SmallCards from '../Components/SmallCards'
+
+// import icons
 import { BsMessenger, BsWhatsapp } from 'react-icons/bs'
 import { MdEmail } from 'react-icons/md'
-import SmallCards from '../SmallCards'
+
+// import email modul
 import emailjs from '@emailjs/browser'
-import '../css/contact.css'
-import Loading from '../Loading'
-import { ToastContainer } from 'react-toastify'
-import { success, error } from '../../toastingMsgs'
+import Loading from '../Components/Loading'
+import { success, error } from '../toastingMsgs'
 
-// Import Keyboard Hook
+// import style
+import '../Components/css/contact.css'
 
-const Contact = forwardRef((props, contactRef) => {
+const Contact = () => {
   const [loading, setLoading] = useState(false)
 
   const sendMsg = (e) => {
@@ -55,13 +60,8 @@ const Contact = forwardRef((props, contactRef) => {
   }
 
   return (
-    <Section
-      sub='get in touch'
-      head='contact me'
-      id='contact-me'
-      ref={contactRef}
-    >
-      <div className='contact-co'>
+    <Section sub='get in touch' head='contact me'>
+      <div className='contact-co mb-sections'>
         <div className='cards-side'>
           <SmallCards
             icon={<BsMessenger />}
@@ -77,11 +77,11 @@ const Contact = forwardRef((props, contactRef) => {
             head='Gmail'
             sub={
               <a
-                href='mailto:ramfarid3@gmail.com'
+                href='mailto:workprojects22@gmail.com'
                 target='_blank'
                 rel='noreferrer'
               >
-                ramfarid3@gmail.com
+                workprojects22@gmail.com
               </a>
             }
           />
@@ -151,9 +151,8 @@ const Contact = forwardRef((props, contactRef) => {
           </form>
         </div>
       </div>
-      <ToastContainer />
     </Section>
   )
-})
+}
 
 export default Contact

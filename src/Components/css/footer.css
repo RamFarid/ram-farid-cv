@@ -1,7 +1,7 @@
 footer {
   background-color: var(--color-primary);
   padding: 12px;
-  margin-top: 150px;
+  height: 10vh;
 }
 
 footer .top {
@@ -21,9 +21,6 @@ footer .top .links .link-co {
   height: 30px;
   border-radius: 5px;
   cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 footer .top .copyrights,
@@ -40,6 +37,11 @@ footer .top .copyrights,
 footer .top .links .link-co a {
   color: var(--color-white);
   transition: all 0.3s;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 footer .top .links .link-co a[href='https://facebook.com/rraaamm_s']:hover
@@ -53,6 +55,14 @@ footer .top .links .link-co a[href='https://www.instagram.com/ramfarid_s/']:hove
 footer .top .links .link-co a[href='https://github.com/RamFarid']:hover
 {
   color: black;
+}
+footer .top .links .link-co a[href='https://m.me/rraaamm_s']:hover
+{
+  color: rgb(15, 159, 241);
+}
+footer .top .links .link-co a[href='https://api.whatsapp.com/send?phone=201553706448&text=Welcome%20from%20your%20website!']:hover
+{
+  color: rgb(27, 247, 27);
 }
 
 @media screen and (max-width: 768px) {

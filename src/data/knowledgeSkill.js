@@ -5,7 +5,7 @@ export const knowledgeSkill = [
   },
   {
     head: 'Git',
-    skillRatio: 'Basic',
+    skillRatio: 'Basics',
   },
   {
     head: 'GitHub',
@@ -13,10 +13,13 @@ export const knowledgeSkill = [
   },
   {
     head: 'MongoDB',
-    skillRatio: 'Basic',
+    skillRatio: 'Basics',
   },
   {
     head: 'Express JS',
-    skillRatio: 'Basic',
+    skillRatio: 'Basics',
+  },
+  {
+    head: 'Progressive web application (PWA)',
   },
 ]

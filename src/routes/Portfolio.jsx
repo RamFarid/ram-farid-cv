@@ -1,12 +1,13 @@
-import React, { forwardRef } from 'react'
-import Section from '../Section'
-import WorkCards from '../WorkCards'
-import { worksData } from '../../data/worksData'
-import '../css/portfolio.css'
-const Portfolio = forwardRef((props, portfolioRef) => {
+import React from 'react'
+import Section from '../Components/Section'
+import WorkCards from '../Components/WorkCards'
+import { worksData } from '../data/worksData'
+import '../Components/css/portfolio.css'
+
+const Portfolio = (props, portfolioRef) => {
   return (
-    <Section sub='my works' head='portfolio' id='portfolio' ref={portfolioRef}>
-      <div className='portfolio-co'>
+    <Section sub='my works' head='portfolio'>
+      <div className='portfolio-co mb-sections'>
         {worksData.map((work, id) => {
           return (
             <WorkCards
@@ -22,6 +23,6 @@ const Portfolio = forwardRef((props, portfolioRef) => {
       </div>
     </Section>
   )
-})
+}
 
 export default Portfolio

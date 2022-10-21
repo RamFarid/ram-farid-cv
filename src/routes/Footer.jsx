@@ -1,6 +1,13 @@
 import React from 'react'
-import { BsFacebook, BsGithub, BsInstagram } from 'react-icons/bs'
-import '../css/footer.css'
+import {
+  BsFacebook,
+  BsGithub,
+  BsInstagram,
+  BsMessenger,
+  BsVoicemail,
+  BsWhatsapp,
+} from 'react-icons/bs'
+import '../Components/css/footer.css'
 function Footer() {
   return (
     <footer>
@@ -17,7 +24,11 @@ function Footer() {
         </div>
         <div className='links'>
           <div className='link-co'>
-            <a href='https://github.com/RamFarid'>
+            <a
+              href='https://github.com/RamFarid'
+              target='_blank'
+              rel='noreferrer'
+            >
               <BsGithub />
             </a>
           </div>
@@ -37,6 +48,29 @@ function Footer() {
               rel='noreferrer'
             >
               <BsInstagram />
+            </a>
+          </div>
+          <div className='link-co'>
+            <a href='https://m.me/rraaamm_s' target='_blank' rel='noreferrer'>
+              <BsMessenger />
+            </a>
+          </div>
+          <div className='link-co'>
+            <a
+              href='mailto:workprojects22@gmail.com'
+              target='_blank'
+              rel='noreferrer'
+            >
+              <BsVoicemail />
+            </a>
+          </div>
+          <div className='link-co'>
+            <a
+              href='https://api.whatsapp.com/send?phone=201553706448&text=Welcome%20from%20your%20website!'
+              target='_blank'
+              rel='noreferrer'
+            >
+              <BsWhatsapp />
             </a>
           </div>
         </div>

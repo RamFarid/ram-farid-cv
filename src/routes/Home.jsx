@@ -1,16 +1,15 @@
-import React, { forwardRef } from 'react'
-import Section from '../Section'
-import Button from '../Button'
-import Nav from './Nav'
-import Download from '../Download'
+import React from 'react'
+import Section from '../Components/Section'
+import Download from '../Components/Download'
 import Typewriter from 'typewriter-effect'
-import '../css/home.css'
+import '../Components/css/home.css'
 import { BsFacebook, BsGithub, BsInstagram } from 'react-icons/bs'
+import { NavLink } from 'react-router-dom'
 
-const Home = forwardRef(({ hashtag }, homeRef) => {
+const Home = () => {
   return (
-    <Section className='home-sec' id='home' ref={homeRef}>
-      <div className='animation'>
+    <Section className='home-sec'>
+      <div className='animation mb-sections'>
         <span className='hello'>
           <Typewriter
             options={{
@@ -77,15 +76,14 @@ const Home = forwardRef(({ hashtag }, homeRef) => {
           </div>
         </div>
         <div className='btns-home'>
-          <Button primary='true' href='#contact-me'>
+          <NavLink className='primary-btn' to='contact'>
             Let's Talk!
-          </Button>
+          </NavLink>
           <Download />
         </div>
       </div>
-      <Nav hashtag={hashtag} />
     </Section>
   )
-})
+}
 
 export default Home
