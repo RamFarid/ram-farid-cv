@@ -19,6 +19,7 @@ const Portfolio = ({ title }) => {
               github={work.github}
               react={work.isReact}
               key={id + 2}
+              id={id}
             />
           )
         })}

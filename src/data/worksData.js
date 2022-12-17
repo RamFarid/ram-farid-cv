@@ -3,7 +3,15 @@ import qrcode from '../Assets/qrcode.png'
 import logo from '../Assets/logo.png'
 import news from '../Assets/news.jpg'
 import mcq from '../Assets/mcq.png'
+import netflix from '../Assets/netflix.png'
 export const worksData = [
+  {
+    title: 'Netflix clone',
+    img: netflix,
+    website: 'https://netflix-ram.netlify.app',
+    github: 'https://github.com/RamFarid/netflix-clone',
+    isReact: true,
+  },
   {
     title: 'My CV',
     img: logo,

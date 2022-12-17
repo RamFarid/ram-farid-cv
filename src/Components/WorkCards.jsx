@@ -4,9 +4,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import { motion } from 'framer-motion'
 import { information, warning } from '../toastingMsgs'
 
-function WorkCards(props) {
-  const { img, title, website, github, react } = props
-
+function WorkCards({ img, title, website, github, react, id }) {
   const detectedGithub = (e) => {
     e.preventDefault()
     if (github) {
@@ -29,6 +27,7 @@ function WorkCards(props) {
   return (
     <motion.div
       className='portfolio-card-co'
+      style={id === 0 ? { backgroundColor: '#e50914' } : {}}
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       transition={{ duration: 0.9 }}
