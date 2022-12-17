@@ -1,5 +1,5 @@
 import React from 'react'
-import resume from '../Assets/Ram_Farid_CV.pdf'
+import resume from '../Assets/Ram_CV_v5.pdf'
 function Download() {
   return (
     <a className='secondary-btn' href={resume} download='Ram_Farid_CV.pdf'>
