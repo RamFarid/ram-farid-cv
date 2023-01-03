@@ -32,7 +32,7 @@ const About = ({ title }) => {
         <div className='right-hand'>
           <div className='cards'>
             <SmallCards icon={<FaAward />} head='Experience' sub={time} />
-            <SmallCards icon={<FaUserPlus />} head='Clients' sub='No clients' />
+            <SmallCards icon={<FaUserPlus />} head='Clients' sub='5 clients' />
             <NavLink to='/portfolio'>
               <SmallCards
                 icon={<VscFolderLibrary />}

@@ -1,0 +1,40 @@
+.filteration-co::-webkit-scrollbar {
+  display: none;
+}
+
+/* .filteration {
+  font-weight: 700;
+  text-align: center; 
+  font-size: 16px;
+  letter-spacing: 7px;
+  margin-bottom: 4px;
+} */
+
+.filteration-co {
+  display: flex;
+  margin-bottom: 3rem;
+  flex-wrap: nowrap;
+  /* justify-content: center; */
+  align-items: center;
+  gap: 0.8rem;
+  overflow-x: scroll;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  padding: 6px 21px;
+  background: var(--color-primary);
+}
+
+.filteration-co .filter-item {
+  background: var(--color-background-variant);
+  cursor: pointer;
+  white-space: nowrap;
+  padding: 6px 11px;
+  border-radius: 6px;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.filteration-co .filter-item.active {
+  opacity: 0.6;
+}

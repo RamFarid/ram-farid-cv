@@ -4,7 +4,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import { motion } from 'framer-motion'
 import { information, warning } from '../toastingMsgs'
 
-function WorkCards({ img, title, website, github, react, id }) {
+function WorkCards({ img, title, website, github, status }) {
   const detectedGithub = (e) => {
     e.preventDefault()
     if (github) {
@@ -27,10 +27,9 @@ function WorkCards({ img, title, website, github, react, id }) {
   return (
     <motion.div
       className='portfolio-card-co'
-      style={id === 0 ? { backgroundColor: '#e50914' } : {}}
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
-      transition={{ duration: 0.9 }}
+      transition={{ duration: 1, type: 'just' }}
       viewport={{ once: true }}
     >
       <div className='img-co'>
@@ -38,19 +37,13 @@ function WorkCards({ img, title, website, github, react, id }) {
       </div>
       <div className='title'>{title}</div>
       <div className='btns-co'>
-        <Button
-          primary='true'
-          href={website}
-          onClick={(e) => {
-            liveDemoHandler(e)
-          }}
-        >
+        <Button primary='true' href={website} onClick={liveDemoHandler}>
           Live Show
         </Button>
 
         <Button onClick={(e) => detectedGithub(e)}>Github</Button>
       </div>
-      {react && (
+      {status.react && (
         <div className='react-flag'>
           <span>React JS</span>
         </div>
