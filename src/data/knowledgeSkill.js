@@ -22,4 +22,7 @@ export const knowledgeSkill = [
   {
     head: 'Progressive web application (PWA)',
   },
+  {
+    head: 'Web sockets',
+  },
 ]
