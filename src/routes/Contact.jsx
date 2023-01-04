@@ -11,11 +11,12 @@ import { MdEmail } from 'react-icons/md'
 // import email modul
 import emailjs from '@emailjs/browser'
 import Loading from '../Components/Loading'
-import { success, error } from '../toastingMsgs'
+// import { success, error } from '../toastingMsgs'
 
 // import style
 import '../Components/css/contact.css'
 import usePageTitle from '../hooks/usePageTitle'
+import { toast } from 'react-toastify'
 
 const Contact = ({ title }) => {
   const [loading, setLoading] = useState(false)
@@ -23,7 +24,7 @@ const Contact = ({ title }) => {
   const sendMsg = (e) => {
     setLoading(true)
     e.preventDefault()
-    emailjs
+    const sendMsg = emailjs
       .send(
         'service_3nm6s4c',
         'template_prri59z',
@@ -35,29 +36,15 @@ const Contact = ({ title }) => {
         },
         'g3uAsxNxP3mh6Ixsj'
       )
-      .then(
-        (response) => {
-          if (response.status === 200) {
-            setLoading(false)
-            success('Thanks for contact me!')
-            e.target.reset()
-          }
-        },
-        (e) => {
-          if (e.status === 400) {
-            setLoading(false)
-            error(
-              'Sorry! technical problem happend, Try contact me on social media'
-            )
-            e.target.reset()
-          }
-          if (e.status === 0) {
-            setLoading(false)
-            error('No internet connection')
-            e.target.reset()
-          }
-        }
-      )
+      .finally(() => {
+        e.target.reset()
+        setLoading(false)
+      })
+    toast.promise(sendMsg, {
+      pending: 'Sending message...',
+      error: 'Sorry! Something went wrong, Try contact me on social accounts',
+      success: 'Thanks for contact me!',
+    })
   }
 
   return (
