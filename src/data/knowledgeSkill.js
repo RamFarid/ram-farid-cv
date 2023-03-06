@@ -20,6 +20,9 @@ export const knowledgeSkill = [
     skillRatio: 'Basics',
   },
   {
+    head: 'Firebase',
+  },
+  {
     head: 'Progressive web application (PWA)',
   },
   {

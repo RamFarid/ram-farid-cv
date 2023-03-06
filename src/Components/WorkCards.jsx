@@ -7,21 +7,25 @@ import { information, warning } from '../toastingMsgs'
 function WorkCards({ img, title, website, github, status }) {
   const detectedGithub = (e) => {
     e.preventDefault()
-    if (github) {
-      window.open(github, '_blank')
-    } else {
+    if (!github) {
       warning('Sorry, there is no source code for this work')
+      return
     }
+    window.open(github, '_blank')
   }
 
   const liveDemoHandler = (e) => {
     e.preventDefault()
-    if (title.toLowerCase() === 'my cv') {
-      information('Great! You are already in my website')
-    } else if (!website) {
+    if (!website && title.toLowerCase() !== 'my cv') {
       warning("Sorry! The work hasn't been deployed")
-    } else {
-      window.open(website, '_blank')
+      return
+    }
+    switch (title.toLowerCase()) {
+      case 'my cv':
+        information('Great! You are already in my website')
+        return
+      default:
+        window.open(website, '_blank')
     }
   }
   return (

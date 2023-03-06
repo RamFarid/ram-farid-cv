@@ -18,16 +18,7 @@ const Portfolio = ({ title }) => {
       /> */}
       <div className='portfolio-co mb-sections'>
         {worksData.map((val, id) => {
-          return (
-            <WorkCards
-              github={val.github}
-              img={val.img}
-              status={val.status}
-              title={val.title}
-              website={val.website}
-              key={id + 2}
-            />
-          )
+          return <WorkCards {...val} key={id} />
         })}
       </div>
     </Section>
