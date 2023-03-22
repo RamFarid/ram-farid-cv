@@ -5,23 +5,23 @@ export const mainSkills = [
   },
   {
     skill: 'CSS',
-    skillRatio: '90%',
+    skillRatio: '92%',
   },
   {
     skill: 'JavaScript',
-    skillRatio: '90%',
+    skillRatio: '95%',
   },
   {
     skill: 'React JS',
-    skillRatio: '75%',
+    skillRatio: '93%',
   },
   {
-    skill: 'BootStrap',
-    skillRatio: '30%',
+    skill: 'Next JS',
+    skillRatio: '80%',
   },
 
   {
     skill: 'SASS',
-    skillRatio: '90%',
+    skillRatio: '70%',
   },
 ]

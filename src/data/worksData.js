@@ -4,10 +4,11 @@ import logo from '../Assets/logo.png'
 import news from '../Assets/news.jpg'
 import mcq from '../Assets/mcq.png'
 import netflix from '../Assets/netflix.png'
+import taktekha from '../Assets/taktekha.webp'
 export const worksData = [
   {
     title: 'Taktekha',
-    img: 'https://play-lh.googleusercontent.com/anLbS8SyY8e0O733iV9RKOY983pGb4vPHOgSLExg9QgeAFUDmbhLXgqK8Az0ncPYmEk=w240-h480-rw',
+    img: taktekha,
     website: 'https://taktekha.vercel.app',
     github: 'https://github.com/RamFarid/taktekha',
     status: {

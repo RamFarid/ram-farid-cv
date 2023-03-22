@@ -7,10 +7,12 @@ import Section from '../Components/Section'
 import '../Components/css/testmonials.css'
 
 // import certfications images
-import html from '../Assets/html_cirt.jpg'
-import css from '../Assets/css_cert.jpg'
-import js from '../Assets/js_cert.png'
-import webFund from '../Assets/web_Fund_cirt.jpg'
+import html from '../Assets/HTML_cert.jpg'
+import css from '../Assets/CSS_cert.jpg'
+import js from '../Assets/js_cert.jpg'
+import webFund from '../Assets/web_fundemintals_cert.jpg'
+import responsiveDesign from '../Assets/responsive_design_cert.jpg'
+import reactRedux from '../Assets/react_redux_cert.jpg'
 
 // import swiper
 import { Swiper, SwiperSlide } from 'swiper/react'
@@ -42,6 +44,12 @@ const Testmonials = ({ title }) => {
         </SwiperSlide>
         <SwiperSlide className='img'>
           <img src={webFund} alt='' />
+        </SwiperSlide>
+        <SwiperSlide className='img'>
+          <img src={reactRedux} alt='' />
+        </SwiperSlide>
+        <SwiperSlide className='img'>
+          <img src={responsiveDesign} alt='' />
         </SwiperSlide>
       </Swiper>
     </Section>
