@@ -8,7 +8,7 @@ import '../Components/css/testmonials.css'
 
 // import certfications images
 import html from '../Assets/HTML_cert.jpg'
-import css from '../Assets/CSS_cert.jpg'
+import css from '../Assets/css_cert.jpg'
 import js from '../Assets/js_cert.jpg'
 import webFund from '../Assets/web_fundemintals_cert.jpg'
 import responsiveDesign from '../Assets/responsive_design_cert.jpg'
