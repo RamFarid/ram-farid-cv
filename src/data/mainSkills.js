@@ -24,4 +24,12 @@ export const mainSkills = [
     skill: 'SASS',
     skillRatio: '70%',
   },
+  {
+    skill: 'MUI',
+    skillRatio: '80%',
+  },
+  {
+    skill: 'Redux',
+    skillRatio: '60%',
+  },
 ]

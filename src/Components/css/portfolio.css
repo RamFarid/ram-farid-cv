@@ -93,3 +93,12 @@
   width: 200px;
   right: 0;
 }
+
+.react-flag.next span {
+  background-color: black;
+}
+
+.react-flag.next::after,
+.react-flag.next::before {
+  border-color: #000;
+}

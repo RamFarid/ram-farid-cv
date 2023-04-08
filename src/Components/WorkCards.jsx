@@ -47,11 +47,11 @@ function WorkCards({ img, title, website, github, status }) {
 
         <Button onClick={(e) => detectedGithub(e)}>Github</Button>
       </div>
-      {status.react && (
-        <div className='react-flag'>
-          <span>React JS</span>
+      {status.react || status.next ? (
+        <div className={`react-flag ${status.next && 'next'}`}>
+          <span>{status.react ? 'React JS' : 'Next js'}</span>
         </div>
-      )}
+      ) : null}
     </motion.div>
   )
 }

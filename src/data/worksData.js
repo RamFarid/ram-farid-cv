@@ -7,6 +7,20 @@ import netflix from '../Assets/netflix.png'
 import taktekha from '../Assets/taktekha.webp'
 export const worksData = [
   {
+    title: 'Freevee',
+    img: 'https://upload.wikimedia.org/wikipedia/commons/8/8e/Nextjs-logo.svg',
+    website: 'https://freevee.vercel.app',
+    github: 'https://github.com/RamFarid/freevee',
+    status: {
+      react: false,
+      pure: false,
+      sass: false,
+      bootStrap: false,
+      mui: true,
+      next: true,
+    },
+  },
+  {
     title: 'Taktekha',
     img: taktekha,
     website: 'https://taktekha.vercel.app',
