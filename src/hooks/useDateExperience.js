@@ -1,24 +1,21 @@
 import { useState, useEffect } from 'react'
 
-let exBegain = new Date('Nov 16, 2021').getTime()
-
+let exBegain = new Date('Nov 16, 2021')
 export function useDateExperience() {
-  const [time, setTime] = useState()
-  useEffect(() => {
-    // Get time now
-    let dateNow = new Date().getTime()
+  const [time, setTime] = useState('')
+  function calculateTimeDifference(date) {
+    const now = new Date()
+    const yearsDiff = now.getFullYear() - date.getFullYear()
+    const monthsDiff = now.getMonth() - date.getMonth()
+    const totalMonths = yearsDiff * 12 + monthsDiff
 
-    // Difference between begain and now
-    let actualDate = dateNow - exBegain
-    let years = actualDate / 1000 / 60 / 60 / 24 / 365.242199
-    let months = actualDate / 1000 / 60 / 60 / 24 / 30
-    if (years < 1 && Math.round(months) !== 12) {
-      setTime(`${Math.round(months)} monthes`)
-    } else if (years > 1 || Math.round(months) === 12) {
-      setTime(`${Math.round(years)}+ years`)
-    }
-  }, [])
-  return {
-    time,
+    const years = totalMonths / 12
+
+    setTime(`+${years.toFixed(1)} years`)
   }
+
+  useEffect(() => {
+    calculateTimeDifference(exBegain)
+  }, [])
+  return time
 }

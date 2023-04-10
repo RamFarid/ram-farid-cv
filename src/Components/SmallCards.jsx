@@ -1,8 +1,5 @@
 import './css/smallCards.css'
-function Cards(props) {
-  const { icon } = props
-  const { head } = props
-  const { sub } = props
+function Cards({ icon, head, sub }) {
   return (
     <div className='card'>
       <div className='icon'>{icon}</div>

@@ -22,7 +22,7 @@ import usePageTitle from '../hooks/usePageTitle'
 
 const About = ({ title }) => {
   usePageTitle(title)
-  const { time } = useDateExperience()
+  const time = useDateExperience()
   return (
     <Section sub='get to know' head='about me' className='about'>
       <div className='main mb-sections'>
