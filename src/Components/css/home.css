@@ -55,6 +55,10 @@
 {
   color: black;
 }
+.home-sec .home-links .link-co a[href='https://www.linkedin.com/in/ram-farid-2a6760273']:hover
+{
+  color: #0072b1;
+}
 
 .btns-home {
   width: fit-content;

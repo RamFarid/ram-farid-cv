@@ -18,6 +18,8 @@ import '../Components/css/contact.css'
 import usePageTitle from '../hooks/usePageTitle'
 import { toast } from 'react-toastify'
 
+import { AiFillLinkedin } from 'react-icons/ai'
+
 const Contact = ({ title }) => {
   const [loading, setLoading] = useState(false)
   usePageTitle(title)
@@ -52,11 +54,15 @@ const Contact = ({ title }) => {
       <div className='contact-co mb-sections'>
         <div className='cards-side'>
           <SmallCards
-            icon={<BsMessenger />}
-            head='messenger'
+            icon={<AiFillLinkedin />}
+            head='LinkidIn'
             sub={
-              <a href='https://m.me/rraaamm_s' target='_blank' rel='noreferrer'>
-                rraaamm_s
+              <a
+                href='https://www.linkedin.com/in/ram-farid-2a6760273'
+                target='_blank'
+                rel='noreferrer'
+              >
+                ram-farid-2a6760273
               </a>
             }
           />
@@ -64,13 +70,23 @@ const Contact = ({ title }) => {
             icon={<MdEmail />}
             head='Gmail'
             sub={
-              <a
-                href='mailto:workprojects22@gmail.com'
-                target='_blank'
-                rel='noreferrer'
-              >
-                workprojects22@gmail.com
-              </a>
+              <>
+                <a
+                  href='mailto:workprojects22@gmail.com'
+                  target='_blank'
+                  rel='noreferrer'
+                >
+                  workprojects22@gmail.com
+                </a>
+                <br />
+                <a
+                  href='mailto:ramfarid3@gmail.com'
+                  target='_blank'
+                  rel='noreferrer'
+                >
+                  ramfarid3@gmail.com
+                </a>
+              </>
             }
           />
           <SmallCards
@@ -83,6 +99,15 @@ const Contact = ({ title }) => {
                 rel='noreferrer'
               >
                 +201553706448
+              </a>
+            }
+          />
+          <SmallCards
+            icon={<BsMessenger />}
+            head='messenger'
+            sub={
+              <a href='https://m.me/rraaamm_s' target='_blank' rel='noreferrer'>
+                rraaamm_s
               </a>
             }
           />

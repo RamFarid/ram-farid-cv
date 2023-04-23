@@ -15,7 +15,6 @@ export const worksData = [
       react: false,
       pure: false,
       sass: false,
-      bootStrap: false,
       mui: true,
       next: true,
     },
@@ -29,7 +28,7 @@ export const worksData = [
       react: true,
       pure: false,
       sass: false,
-      bootStrap: false,
+      mui: false,
     },
   },
   {
@@ -41,7 +40,7 @@ export const worksData = [
       react: true,
       pure: false,
       sass: false,
-      bootStrap: false,
+      mui: false,
     },
   },
   // {
@@ -53,7 +52,7 @@ export const worksData = [
   //     react: true,
   //     pure: false,
   //     sass: false,
-  //     bootStrap: false,
+  //     mui: false,
   //   },
   // },
   {
@@ -65,7 +64,7 @@ export const worksData = [
       react: true,
       pure: false,
       sass: false,
-      bootStrap: false,
+      mui: false,
     },
   },
 
@@ -79,20 +78,21 @@ export const worksData = [
       react: false,
       pure: true,
       sass: false,
-      bootStrap: false,
+      mui: false,
     },
   },
 
   {
     title: 'QR code generator',
     img: qrcode,
-    website: 'https://welcome0to0rams0server.on.drv.tw/qr-code-generator/',
-    github: '',
+    website: 'https://qrcode-generation.vercel.app/',
+    github: 'https://github.com/RamFarid/qrcode-generator',
     status: {
+      next: true,
       react: false,
-      pure: true,
+      pure: false,
       sass: false,
-      bootStrap: false,
+      mui: false,
     },
   },
 
@@ -105,7 +105,7 @@ export const worksData = [
       react: true,
       pure: false,
       sass: true,
-      bootStrap: false,
+      mui: false,
     },
   },
   {
@@ -117,7 +117,7 @@ export const worksData = [
       react: false,
       pure: true,
       sass: false,
-      bootStrap: false,
+      mui: false,
     },
   },
 ]

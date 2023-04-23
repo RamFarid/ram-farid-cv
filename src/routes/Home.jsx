@@ -3,9 +3,9 @@ import Section from '../Components/Section'
 import Download from '../Components/Download'
 import Typewriter from 'typewriter-effect'
 import '../Components/css/home.css'
-import { BsFacebook, BsGithub, BsInstagram } from 'react-icons/bs'
 import { NavLink } from 'react-router-dom'
 import usePageTitle from '../hooks/usePageTitle'
+import links from '../data/homeLinks'
 
 const Home = ({ title }) => {
   usePageTitle(title)
@@ -49,33 +49,15 @@ const Home = ({ title }) => {
           />
         </span>
         <div className='home-links'>
-          <div className='link-co'>
-            <a
-              href='https://github.com/RamFarid'
-              target='_blank'
-              rel='noreferrer'
-            >
-              <BsGithub />
-            </a>
-          </div>
-          <div className='link-co'>
-            <a
-              href='https://facebook.com/rraaamm_s'
-              target='_blank'
-              rel='noreferrer'
-            >
-              <BsFacebook />
-            </a>
-          </div>
-          <div className='link-co'>
-            <a
-              href='https://www.instagram.com/ramfarid_s/'
-              target='_blank'
-              rel='noreferrer'
-            >
-              <BsInstagram />
-            </a>
-          </div>
+          {links.map(({ link, icon }) => {
+            return (
+              <div className='link-co'>
+                <a href={link} target='_blank' rel='noreferrer'>
+                  {icon}
+                </a>
+              </div>
+            )
+          })}
         </div>
         <div className='btns-home'>
           <NavLink className='primary-btn' to='contact'>

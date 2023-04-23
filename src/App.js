@@ -1,28 +1,31 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import Footer from './routes/Footer'
 
 // Import router-dom
-import { Outlet } from 'react-router-dom'
+import { Outlet, useLocation } from 'react-router-dom'
 
 import Nav from './routes/Nav'
 
 import { ToastContainer } from 'react-toastify'
 
-// import Scroll top provider
-import ScrollToTop from './ScrollToTop'
-
 function App() {
+  const { pathname } = useLocation()
+
+  useEffect(() => {
+    document.documentElement.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth',
+    })
+  }, [pathname])
   return (
-    <React.StrictMode>
-      <div className='App'>
-        <div className='container'>{<Outlet />}</div>
-        <Nav />
-        <Footer />
-        <ToastContainer />
-      </div>
-      <ScrollToTop />
-    </React.StrictMode>
+    <div className='App'>
+      <div className='container'>{<Outlet />}</div>
+      <Nav />
+      <Footer />
+      <ToastContainer />
+    </div>
   )
 }
 
