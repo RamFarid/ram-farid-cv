@@ -65,7 +65,7 @@ input {
 }
 
 label[for='clientno'] {
-  position: static;
+  /* position: static; */
   display: block;
 }
 input[type='number'] {
@@ -99,6 +99,10 @@ input[type='radio'] + label {
 
 .DASHBOARD_PAGE label[for='clientno'] {
   width: fit-content;
+}
+
+.DASHBOARD_PAGE .clients-wrapper .clients-no {
+  display: inline-block;
 }
 
 .DASHBOARD_PAGE hr {

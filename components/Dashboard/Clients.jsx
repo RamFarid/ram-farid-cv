@@ -10,9 +10,8 @@ function Clients({ clientsNo = 0 }) {
   const [clients, setClients] = useState(clientsNo)
 
   return (
-    <>
+    <div className='clients-wrapper'>
       <div className='inp-co clients-no'>
-        <label htmlFor='clientno'>Clients Number</label>
         <input
           type='number'
           id='clientno'
@@ -21,26 +20,27 @@ function Clients({ clientsNo = 0 }) {
           min={0}
           onChange={(e) => setClients(e.target.value)}
         />
-        <button
-          className='primary-btn'
-          disabled={isPending || currentClientNo.current === clients}
-          onClick={async () => {
-            setIsPending(true)
-            try {
-              const isUpdated = await updateClientNo(clients)
-              if (isUpdated) toast.success('Clients number updated')
-              currentClientNo.current = clients
-            } catch (error) {
-              toast.error("Can't update the client number" + error)
-            } finally {
-              setIsPending(false)
-            }
-          }}
-        >
-          {isPending ? 'Loading...' : 'Submit Client number'}
-        </button>
+        <label htmlFor='clientno'>Clients Number</label>
       </div>
-    </>
+      <button
+        className='primary-btn'
+        disabled={isPending || currentClientNo.current === clients}
+        onClick={async () => {
+          setIsPending(true)
+          try {
+            const isUpdated = await updateClientNo(clients)
+            if (isUpdated) toast.success('Clients number updated')
+            currentClientNo.current = clients
+          } catch (error) {
+            toast.error("Can't update the client number: " + error.message)
+          } finally {
+            setIsPending(false)
+          }
+        }}
+      >
+        {isPending ? 'Loading...' : 'Submit Client number'}
+      </button>
+    </div>
   )
 }
 
