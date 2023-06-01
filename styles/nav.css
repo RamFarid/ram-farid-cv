@@ -1,0 +1,32 @@
+nav {
+  background: rgba(44, 44, 108, 0.4);
+  backdrop-filter: blur(5px);
+  width: -moz-fit-content;
+  width: fit-content;
+  padding: 12px;
+  border-radius: 50px;
+  position: fixed;
+  left: 50%;
+  bottom: 46px;
+  z-index: 99;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+nav a {
+  display: inline-flex;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  justify-content: center;
+  align-items: center;
+  margin: 0px 3px;
+  color: var(--color-white) !important;
+  transition: all 0.5s ease;
+}
+
+nav a.active {
+  background-color: var(--color-primary-variant);
+  opacity: 1;
+}

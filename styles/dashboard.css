@@ -1,0 +1,235 @@
+.form {
+  border-radius: 20px;
+  box-sizing: border-box;
+  min-height: 500px;
+  padding: 20px;
+  max-width: 500px;
+  border: 0.2px solid var(--color-primary-variant);
+  margin: auto;
+}
+
+hr {
+  margin-block: 20px;
+}
+
+.title {
+  color: #eee;
+  font-family: sans-serif;
+  font-size: 32px;
+  font-weight: 600;
+  margin-top: 30px;
+}
+
+.subtitle {
+  color: #eee;
+  font-family: sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  margin-top: 10px;
+}
+.ic1 {
+  margin-top: 40px;
+}
+
+.ic2 {
+  margin-top: 30px;
+}
+
+.submit {
+  background-color: var(--color-primary);
+  border-radius: 12px;
+  border: 0;
+  box-sizing: border-box;
+  color: #eee;
+  cursor: pointer;
+  font-size: 18px;
+  height: 50px;
+  margin-top: 38px;
+  outline: 0;
+  text-align: center;
+  width: 100%;
+}
+
+.submit:active {
+  background-color: #06b;
+}
+
+input {
+  width: 100%;
+}
+
+.delete-btn {
+  --delete-color: #c70000;
+  color: var(--delete-color);
+  border: 1px solid var(--delete-color);
+}
+
+label[for='clientno'] {
+  position: static;
+  display: block;
+}
+input[type='number'] {
+  width: unset;
+  margin-right: 10px;
+}
+input[type='radio'] {
+  width: unset;
+  height: unset;
+}
+input[type='radio'] + label {
+  all: unset;
+  color: var(--color-white);
+  opacity: 0.7;
+  font-size: 12px;
+}
+
+.radio-co {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.projects-section h1 {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.DASHBOARD_PAGE label[for='clientno'] {
+  width: fit-content;
+}
+
+.DASHBOARD_PAGE hr {
+  margin-block: 20px;
+  border: 1px solid gray;
+}
+
+.DASHBOARD_PAGE .messages figcaption .title-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.DASHBOARD_PAGE .messages figcaption .title-wrapper div {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.DASHBOARD_PAGE figure {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+
+  margin: 1rem 0;
+  padding: 1rem;
+}
+
+.DASHBOARD_PAGE figure h3 {
+  font-size: 24px;
+  color: var(--color-primary);
+}
+
+.DASHBOARD_PAGE figcaption {
+  flex: 1;
+}
+
+figure .email-icon,
+figure .phone-icon {
+  display: inline-block;
+  cursor: pointer;
+  margin-right: 9px;
+}
+
+.DASHBOARD_PAGE figure div.email,
+.DASHBOARD_PAGE figure div.phone-no {
+  font-size: 14px;
+  font-weight: 200;
+}
+
+.DASHBOARD_PAGE figure p {
+  font-size: 14px;
+}
+
+.DASHBOARD_PAGE .inp-file-co {
+  position: relative;
+  border-style: dotted;
+  border-color: var(--color-primary-variant);
+  height: 165px;
+  cursor: pointer;
+  margin-bottom: 1rem;
+}
+
+.DASHBOARD_PAGE .inp-file-co .file-name {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  cursor: default;
+  width: max-content;
+}
+
+.DASHBOARD_PAGE input[type='file'] {
+  width: 100%;
+  height: 100%;
+  visibility: hidden;
+}
+
+.DASHBOARD_PAGE .messages-btn {
+  display: block;
+  width: fit-content;
+  margin-top: 9px;
+}
+
+.DASHBOARD_PAGE input[type='file'] + label {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 22px;
+  cursor: pointer;
+  background-color: transparent;
+  flex-direction: column;
+}
+
+.DASHBOARD_PAGE .login-form {
+  display: flex;
+  flex-direction: column;
+  max-width: 350px;
+}
+
+.DASHBOARD_PAGE .login-form button {
+  margin-top: auto;
+}
+
+.DASHBOARD_PAGE .login-form .alert {
+  color: #e57373;
+  border: 1px solid;
+  padding: 11px;
+  font-size: 12px;
+  margin: 12px 0;
+  border-radius: 6px;
+}
+
+.DASHBOARD_PAGE .version-no {
+  display: inline-block;
+}
+
+.DASHBOARD_PAGE hr.inner-separator {
+  width: 430px;
+  margin-inline: auto;
+  border-style: dotted;
+}
+
+@media screen and (max-width: 768px) {
+  .DASHBOARD_PAGE .messages figcaption .title-wrapper {
+    flex-direction: column;
+  }
+  .DASHBOARD_PAGE .messages figcaption .title-wrapper h3 {
+    font-size: 22px;
+  }
+  .DASHBOARD_PAGE .messages figcaption .title-wrapper div {
+    font-size: 14px;
+  }
+}

@@ -1,0 +1,71 @@
+footer {
+  background-color: var(--color-primary);
+  padding: 12px;
+}
+
+footer .top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+footer .top .links {
+  display: flex;
+  gap: 20px;
+}
+
+footer .top .links .link-co {
+  background-color: var(--color-background-variant);
+  width: 30px;
+  height: 30px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+footer .top .copyrights,
+.signature {
+  font-size: 12px;
+  color: var(--color-background-variant);
+  font-weight: 700;
+}
+
+.signature span {
+  font-weight: 900;
+}
+
+footer .top .links .link-co a {
+  color: var(--color-white);
+  transition: all 0.3s;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+footer .top .links .link-co a[href='https://facebook.com/rraaamm_s']:hover
+{
+  color: rgb(57, 138, 204);
+}
+footer .top .links .link-co a[href='https://www.instagram.com/ramfarid_s/']:hover
+{
+  color: rgb(216, 23, 23);
+}
+footer .top .links .link-co a[href='https://github.com/RamFarid']:hover
+{
+  color: black;
+}
+footer .top .links .link-co a[href='https://m.me/rraaamm_s']:hover
+{
+  color: rgb(15, 159, 241);
+}
+footer .top .links .link-co a[href='https://api.whatsapp.com/send?phone=201553706448&text=Welcome%20from%20your%20website!']:hover
+{
+  color: rgb(27, 247, 27);
+}
+
+@media screen and (max-width: 768px) {
+  footer .top {
+    flex-direction: column;
+  }
+}

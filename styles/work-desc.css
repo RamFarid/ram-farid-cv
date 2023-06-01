@@ -1,0 +1,16 @@
+[data-rsbs-overlay] {
+  background-color: var(--color-background) !important;
+}
+
+.sheet-co {
+  width: 80%;
+  margin: auto;
+  min-height: 30vh;
+  background-color: var(--color-background);
+  display: flex;
+  flex-direction: column;
+}
+
+.sheet-btns {
+  margin-top: auto;
+}

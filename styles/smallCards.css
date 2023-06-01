@@ -1,0 +1,15 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--color-background-variant);
+  padding: 20px;
+  border-radius: 7px;
+}
+
+.card .sub-text,
+.card h5 {
+  margin: 6px 0;
+  text-align: center;
+}

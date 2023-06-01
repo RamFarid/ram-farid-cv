@@ -1,0 +1,21 @@
+section.Error {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.Error p {
+  font-size: 14px;
+  font-weight: 200;
+}
+
+section.Error img {
+  max-width: 112px;
+}
+
+.Error.dashboard-error img {
+  max-width: 100%;
+  max-height: 370px;
+}

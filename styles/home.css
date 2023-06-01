@@ -1,0 +1,95 @@
+.home-sec {
+  height: 100vh;
+  margin-top: 0;
+  text-align: center;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.home-sec .animation {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.hello {
+  font-size: 16px;
+  letter-spacing: 5px;
+}
+
+.my-name {
+  font-size: 50px;
+  font-weight: 700;
+  letter-spacing: 6px;
+}
+
+.my-name span.span {
+  color: var(--color-primary);
+}
+
+.home-sec .home-links .link-co {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  margin: 8px 10px 0 10px;
+  border-radius: 5px;
+}
+
+.home-sec .home-links a {
+  color: var(--color-primary);
+  transition: all 0.4s;
+}
+
+.home-sec .home-links .link-co a[href='https://facebook.com/rraaamm_s']:hover
+{
+  color: rgb(57, 138, 204);
+}
+.home-sec .home-links .link-co a[href='https://www.instagram.com/ramfarid_s/']:hover
+{
+  color: rgb(216, 23, 23);
+}
+.home-sec .home-links .link-co a[href='https://github.com/RamFarid']:hover
+{
+  color: black;
+}
+.home-sec .home-links .link-co a[href='https://www.linkedin.com/in/ram-farid-2a6760273']:hover
+{
+  color: #0072b1;
+}
+
+.btns-home {
+  width: fit-content;
+  height: fit-content;
+  margin-top: 16px;
+}
+
+.home-sec .primary-btn,
+.home-sec .secondary-btn {
+  margin: 10px 15px 0px 0px;
+}
+.home-sec img {
+  background: linear-gradient(var(--color-primary), transparent);
+  display: block;
+  border-radius: 313px 313px 0px 0px;
+  margin: 0 auto;
+  height: 424px;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.Typewriter__cursor {
+  font-weight: 100;
+}
+
+@media screen and (max-width: 768px) {
+  .my-name {
+    letter-spacing: 6px;
+    font-size: 22px;
+    font-weight: 600;
+  }
+}

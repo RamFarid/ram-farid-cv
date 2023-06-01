@@ -1,0 +1,188 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --sction-margin: 150px;
+  --color-white: #fff;
+  --color-light: rgba(255, 255, 255, 0.6);
+  --color-background: #1f1f38;
+  --color-background-variant: #2c2c6c;
+  --color-primary: #4db5ff;
+  --color-primary-variant: rgba(77, 181, 255, 0.4);
+  --transition: 0.4s;
+}
+
+::-webkit-scrollbar {
+  background-color: var(--color-background-variant);
+  border-radius: 30px;
+  width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--color-primary);
+  width: 10px;
+  border-radius: 30px;
+  border: 4px solid var(--color-primary-variant);
+}
+
+::-moz-selection {
+  color: var(--color-background-variant);
+  background: var(--color-primary);
+}
+
+::-webkit-selection {
+  color: var(--color-background-variant);
+  background: var(--color-primary);
+}
+
+::selection {
+  color: var(--color-background-variant);
+  background: var(--color-primary);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-image: url(/Assets/bg-texture.png);
+  background-color: var(--color-background);
+  color: var(--color-white);
+  font-family: 'Poppins', sans-serif;
+  width: 100%;
+  min-height: 100vh;
+}
+
+.container {
+  width: 88%;
+  margin: 0px auto;
+}
+
+.sub-text {
+  color: var(--color-light);
+  font-size: 14px;
+}
+.sub-title {
+  text-align: center;
+  color: var(--color-light);
+  font-size: 14px;
+  text-transform: capitalize;
+}
+.section-header {
+  text-align: center;
+  text-transform: capitalize;
+  color: var(--color-primary);
+  font-size: 26px;
+  margin-bottom: 30px;
+}
+
+.primary-btn {
+  outline: none;
+  background-color: var(--color-primary);
+  padding: 10px;
+  border-radius: 5px;
+  outline: none;
+  cursor: pointer;
+  transition: all var(--transition);
+  border: none;
+  font-size: 12px;
+}
+
+.primary-btn:disabled {
+  background-color: var(--color-light);
+  color: var(--color-white);
+  pointer-events: none;
+}
+
+.secondary-btn {
+  outline: none;
+  color: var(--color-primary);
+  border-radius: 5px;
+  background-color: transparent;
+  padding: 10px;
+  outline: none;
+  border: 1px solid var(--color-primary);
+  cursor: pointer;
+  font-size: 12px;
+  transition: all var(--transition);
+}
+
+.secondary-btn:disabled {
+  border: 1px solid var(--color-light);
+  color: var(--color-light);
+  pointer-events: none;
+}
+
+a.primary-btn {
+  color: var(--color-background-variant);
+}
+
+a.secondary-btn {
+  color: var(--color-primary);
+}
+
+.secondary-btn:hover,
+.primary-btn:hover {
+  background-color: var(--color-light);
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+section {
+  min-height: 90vh;
+  padding-bottom: 75px;
+  padding-top: 65px;
+}
+
+.inp-co {
+  margin: 12px 0;
+  position: relative;
+}
+
+label {
+  position: absolute;
+  left: 5px;
+  top: 10px;
+  font-size: 12px;
+  opacity: 0.7;
+  cursor: text;
+  padding: 0 7px;
+  transition: 150ms ease-in all;
+  background-color: var(--color-background);
+  user-select: none;
+}
+
+input {
+  width: 410px;
+  outline: none;
+  border: 3px solid var(--color-primary-variant);
+  background-color: transparent;
+  height: 38px;
+  padding: 12px;
+  color: var(--color-white);
+  border-radius: 4px;
+}
+
+input:focus + label,
+textarea:focus + label,
+input:not(:placeholder-shown) + label,
+textarea:not(:placeholder-shown) + label {
+  opacity: 1;
+  top: -8px;
+  font-size: 10px;
+}
+
+/* 
+@media screen and (max-height: 530px) {
+  nav {
+    transform: translateX(-100vh);
+    display: none;
+  }
+} */
