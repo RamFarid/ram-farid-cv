@@ -1,34 +1,53 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# My curriculum vitae new version (10)! :stuck_out_tongue_winking_eye:
 
-## Getting Started
+The new version of my cv with **`next js`** version 13.4 **(Stable)** :grin: Build the new version with my own [dashboard](https://ramfarid.vercel.app/dashboard), I made my cv **full-stack** website
 
-First, run the development server:
+## Usages and dependencies
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+There are many features come with the latest version of **Next.js 13.4** :fire:.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Imagine that I build my new cv version with:
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+- Messages system
+- Database for:
+  - My Projects
+  - My PDF CV to download
+  - Clients number
+  - Messages recieve (On dashboard)
+  - Message send (On [Contact page](https://ramfarid.vercel.app/contact))
+- Authorization (For dashboard)
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+> _All these stuff **without** even a single API route!_
 
-## Learn More
+The secret in one word **_Server Actions_**
 
-To learn more about Next.js, take a look at the following resources:
+### Features with Next.js
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Server actions
+- App directory
+- Server components
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+> No uses of built-in images optimization because I hate it :angry:
 
-## Deploy on Vercel
+### Dependencies
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+##### Server packages
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- Firebase Admin SDK
+- Firebase
+- bcrypt
+- jsonwebtoken
+
+> I uses storage and firestore db from Firebase
+> jsonwebtoken is used to handle the login for my [dashboard](https://ramfarid.vercel.app/dashboard)
+> bcrypt is used to hash the password of the [dashboard](https://ramfarid.vercel.app/dashboard)
+
+##### Client packages
+
+- framer-motion
+- react-avatar
+- react-icons
+- react-toastify
+- swiper
+- typewriter-effect
+- use-detect-keyboard-open
