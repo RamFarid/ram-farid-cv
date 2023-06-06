@@ -16,7 +16,7 @@ function LoginForm() {
       setIsLoading(true)
       const res = await login(form.username.value, form.password.value)
       if (res === true) router.push('/dashboard')
-      setResponse(res)
+      if (res && res !== true) setResponse(res)
     } catch (error) {
       setResponse(error.message)
     } finally {
