@@ -10,7 +10,9 @@ export default async function getProjects() {
   if (res.size === 0) return projects
   res.docs.forEach((doc) => {
     if (doc.exists) {
-      projects.push({ ...doc.data(), id: doc.id })
+      const currentDoc = structuredClone(doc.data())
+      currentDoc.time = doc.data().time.toDate().getTime()
+      projects.push(currentDoc)
     }
   })
   return projects
