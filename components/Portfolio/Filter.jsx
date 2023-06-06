@@ -1,56 +1,44 @@
-import React from 'react'
-import './css/filteration.css'
-function Filter({ setProjectStatus, projectStatus }) {
+'use client'
+import '@/styles/filteration.css'
+function Filter({ filters, setFilters }) {
   return (
-    <React.Fragment>
-      {/* <div className='filteration'>Filter:</div> */}
+    <>
       <div className='filteration-co'>
-        <div
-          className='filter-item'
-          onClick={() =>
-            setProjectStatus({
-              ...projectStatus,
-              pure: !projectStatus.pure || true,
+        <div className='filteration'>Filters:</div>
+        <select
+          name='fw'
+          value={filters[0]}
+          onChange={(e) =>
+            setFilters((pre) => {
+              const currentFilter = [...pre]
+              currentFilter[0] = e.target.value
+              return currentFilter
             })
           }
         >
-          HTML & CSS & JS
-        </div>
-        <div
-          className='filter-item'
-          onClick={() =>
-            setProjectStatus({
-              ...projectStatus,
-              react: !projectStatus.react || true,
+          <option value='all'>Framework</option>
+          <option value='pure'>HTML & CSS & JS</option>
+          <option value='react'>React js</option>
+          <option value='next'>Next js</option>
+        </select>
+        {/* <select
+          name='styles'
+          value={filters[1]}
+          onChange={(e) =>
+            setFilters((pre) => {
+              const currentFilter = [...pre]
+              currentFilter[1] = e.target.value
+              return currentFilter
             })
           }
         >
-          React js
-        </div>
-        <div
-          className='filter-item'
-          onClick={() =>
-            setProjectStatus({
-              ...projectStatus,
-              sass: !projectStatus.sass || true,
-            })
-          }
-        >
-          SASS
-        </div>
-        <div
-          className='filter-item'
-          onClick={() =>
-            setProjectStatus({
-              ...projectStatus,
-              bootStrap: !projectStatus.bootStrap || true,
-            })
-          }
-        >
-          BootStrap
-        </div>
+          <option value='all'>Styles</option>
+          <option value='sass'>SASS</option>
+          <option value='mui'>MUI</option>
+          <option value='css'>CSS</option>
+        </select> */}
       </div>
-    </React.Fragment>
+    </>
   )
 }
 
