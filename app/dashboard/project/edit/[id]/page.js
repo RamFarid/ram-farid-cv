@@ -17,13 +17,14 @@ export default async function EditProject({ params: { id } }) {
   try {
     await checkToken(token)
     const project = await getProjectByID(id)
-    if (!project) return notFound()
+    if (!project) notFound()
     return (
       <>
         <EditProjectForm project={project} id={id} />
       </>
     )
   } catch (error) {
-    return redirect('/dashboard/login')
+    if (error.message === 'NEXT_NOT_FOUND') notFound()
+    redirect('/dashboard/login')
   }
 }

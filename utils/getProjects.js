@@ -12,6 +12,7 @@ export default async function getProjects() {
     if (doc.exists) {
       const currentDoc = structuredClone(doc.data())
       currentDoc.time = doc.data().time.toDate().getTime()
+      currentDoc.id = doc.id
       projects.push(currentDoc)
     }
   })

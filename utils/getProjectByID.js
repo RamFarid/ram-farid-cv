@@ -7,7 +7,13 @@ export default async function getProjectByID(projectID) {
       .collection('projects')
       .doc(projectID)
       .get()
-    return !doc.exists ? false : { ...doc.data(), id: doc.id }
+    if (doc.exists) {
+      const project = structuredClone(doc.data())
+      project.id = doc.id
+      project.time = doc.data().time.toDate().getTime()
+      return project
+    }
+    return false
   } catch (error) {
     return false
   }
