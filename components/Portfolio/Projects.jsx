@@ -25,7 +25,7 @@ function Projects({ projectsDB }) {
       <div className='portfolio-co mb-sections'>
         {projects.length > 0 ? (
           projects.map((val, id) => {
-            return <WorkCards {...val} key={id} /> // { imgURL, title, demoURL, githubURL, usages }
+            return <WorkCards {...val} key={id + Math.random()} /> // { imgURL, title, demoURL, githubURL, usages }
           })
         ) : (
           <div>No projects</div>

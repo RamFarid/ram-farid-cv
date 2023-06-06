@@ -15,6 +15,7 @@
   align-items: flex-start;
   justify-content: center;
   transition: all 0.4s ease-in-out;
+  animation: display 0.5s forwards ease-in-out;
 }
 .portfolio-card-co .img-co {
   width: 100%;
@@ -102,4 +103,15 @@
 .react-flag.next::after,
 .react-flag.next::before {
   border-color: #000;
+}
+
+@keyframes display {
+  from {
+    opacity: 0;
+    scale: 0.9;
+  }
+  to {
+    opacity: 1;
+    scale: 1;
+  }
 }
