@@ -28,7 +28,7 @@ function EditProjectForm({ project, id }) {
     const slug = makeSlug(projectH.title)
     projectH['slug'] = slug
     delete projectH.id
-    const inline = otherInline.includes(',') ? otherInline.split(',') : []
+    const inline = otherInline.length ? otherInline.split(',') : []
     projectH.usages = projectH.usages.concat(inline)
     try {
       const url = file ? await uploadProjectImg(file, slug) : null
