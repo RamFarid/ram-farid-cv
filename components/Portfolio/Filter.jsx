@@ -20,6 +20,7 @@ function Filter({ filters, setFilters }) {
           <option value='pure'>HTML & CSS & JS</option>
           <option value='react'>React js</option>
           <option value='next'>Next js</option>
+          <option value='other'>Other</option>
         </select>
         {/* <select
           name='styles'

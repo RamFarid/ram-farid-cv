@@ -12,8 +12,9 @@ function Projects({ projectsDB }) {
         return setProjects(projectsDB)
       if (filters[0] !== 'all') {
         const currentProjects = []
-        projectsDB.forEach((pro) => {
-          if (pro.usages.includes(filters[0])) currentProjects.push(pro)
+        projectsDB.forEach((singleProduct) => {
+          if (singleProduct.usages.includes(filters[0]))
+            currentProjects.push(singleProduct)
         })
         setProjects(currentProjects)
       }

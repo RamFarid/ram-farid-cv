@@ -67,30 +67,68 @@ function NewProjectForm() {
       <div className='inp-co ic2'>
         <h4>Framework</h4>
         <div className='radio-co'>
-          <input type='radio' name='fw' id='reactjs' value='react' />
+          <input type='radio' name='fw' id='reactjs' defaultValue='react' />
           <label htmlFor='reactjs'>React js</label>
         </div>
         <div className='radio-co'>
-          <input type='radio' name='fw' id='nextjs' value='next' required />
+          <input
+            type='radio'
+            name='fw'
+            id='nextjs'
+            defaultValue='next'
+            required
+          />
           <label htmlFor='nextjs'>Next js</label>
         </div>
         <div className='radio-co'>
-          <input type='radio' name='fw' id='pure' value='pure' />
+          <input type='radio' name='fw' id='pure' defaultValue='pure' />
           <label htmlFor='pure'>Pure</label>
+        </div>
+        <div className='radio-co'>
+          <input type='radio' name='fw' id='other' defaultValue='other' />
+          <label htmlFor='other'>Other</label>
         </div>
         <h4>Styles</h4>
         <div className='radio-co'>
-          <input type='radio' name='styles' id='sass' value='sass' />
+          <input type='radio' name='styles' id='sass' defaultValue='sass' />
           <label htmlFor='sass'>SASS</label>
         </div>
         <div className='radio-co'>
-          <input type='radio' name='styles' id='css' value='css' />
+          <input type='radio' name='styles' id='css' defaultValue='css' />
           <label htmlFor='css'>CSS</label>
         </div>
         <div className='radio-co'>
-          <input type='radio' name='styles' id='mui' required value='mui' />
+          <input
+            type='radio'
+            name='styles'
+            id='mui'
+            required
+            defaultValue='mui'
+          />
           <label htmlFor='mui'>Material UI</label>
         </div>
+        <div className='radio-co'>
+          <input
+            type='radio'
+            name='styles'
+            id='other'
+            required
+            defaultValue='other'
+          />
+          <label htmlFor='other'>Other</label>
+        </div>
+      </div>
+      <div className='inp-co ic2'>
+        <input
+          id='otherInline'
+          type='text'
+          placeholder=' '
+          defaultValue={''}
+          name='otherInline'
+        />
+        <label htmlFor='otherInline' className='placeholder'>
+          Others
+        </label>
       </div>
       <button type='submit' className='submit' disabled={isLoading}>
         {isLoading ? 'Loading...' : 'Add project'}

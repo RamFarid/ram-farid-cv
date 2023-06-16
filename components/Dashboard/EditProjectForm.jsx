@@ -16,6 +16,9 @@ function EditProjectForm({ project, id }) {
     demoURL: project.demoURL,
     usages: project.usages,
   })
+  const [otherInline, setOtherInline] = useState(
+    project.usages.slice(2).join(',')
+  )
   const [isLoading, setIsLoading] = useState(false)
   const [file, setFile] = useState(null)
   const hanleEditProject = async (e) => {
@@ -25,6 +28,8 @@ function EditProjectForm({ project, id }) {
     const slug = makeSlug(projectH.title)
     projectH['slug'] = slug
     delete projectH.id
+    const inline = otherInline.includes(',') ? otherInline.split(',') : []
+    projectH.usages = projectH.usages.concat(inline)
     try {
       const url = file ? await uploadProjectImg(file, slug) : null
       if (url) projectH['imgURL'] = url
@@ -142,6 +147,22 @@ function EditProjectForm({ project, id }) {
           />
           <label htmlFor='pure'>Pure</label>
         </div>
+        <div className='radio-co'>
+          <input
+            type='radio'
+            name='fw'
+            id='other1'
+            defaultChecked={form?.usages?.includes('other')}
+            value='other'
+            onChange={(e) =>
+              setForm((pre) => ({
+                ...pre,
+                usages: [e.target.value, form.usages[1]],
+              }))
+            }
+          />
+          <label htmlFor='other1'>Other</label>
+        </div>
         <h4>Styles</h4>
         <div className='radio-co'>
           <input
@@ -192,6 +213,36 @@ function EditProjectForm({ project, id }) {
           />
           <label htmlFor='mui'>Material UI</label>
         </div>
+        <div className='radio-co'>
+          <input
+            type='radio'
+            name='styles'
+            id='other'
+            defaultChecked={form?.usages?.includes('other')}
+            value='other'
+            onChange={(e) =>
+              setForm((pre) => ({
+                ...pre,
+                usages: [form.usages[0], e.target.value],
+              }))
+            }
+            required
+          />
+          <label htmlFor='other'>Other</label>
+        </div>
+      </div>
+      <div className='inp-co ic2'>
+        <input
+          id='otherInline'
+          type='text'
+          placeholder=' '
+          value={otherInline}
+          name='otherInline'
+          onChange={(e) => setOtherInline(e.target.value)}
+        />
+        <label htmlFor='otherInline' className='placeholder'>
+          Others
+        </label>
       </div>
       <button
         type='button'
