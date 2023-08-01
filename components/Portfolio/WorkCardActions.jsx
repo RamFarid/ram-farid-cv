@@ -23,11 +23,17 @@ function WorkCardActions({ githubURL, title, demoURL }) {
     }
   }
   return (
-    <div className='btns-co'>
+    <div className='actions'>
       <Button primary onClick={liveDemoHandler}>
         Live Show
       </Button>
-      <Button onClick={detectedGithub}>Github</Button>
+      <Button
+        onClick={detectedGithub}
+        // eslint-disable-next-line @next/next/no-img-element
+        endIcon={<img alt='GitHub' src={'/Assets/github.svg'} />}
+      >
+        Github
+      </Button>
     </div>
   )
 }

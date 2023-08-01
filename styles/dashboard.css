@@ -8,6 +8,11 @@
   margin: auto;
 }
 
+.form textarea {
+  max-width: 100%;
+  min-width: 100%;
+}
+
 hr {
   margin-block: 20px;
 }

@@ -4,6 +4,7 @@ export default function getProjectFormData(form) {
   const demoURL = form.get('demoUrl')
   const githubURL = form.get('githubUrl')
   const usages = [form.get('fw'), form.get('styles')]
+  const description = form.get('description')
   const inline = form.get('otherInline').length
     ? form.get('otherInline').split(',')
     : []
@@ -13,5 +14,6 @@ export default function getProjectFormData(form) {
     demoURL,
     githubURL,
     usages: newOne,
+    description,
   }
 }

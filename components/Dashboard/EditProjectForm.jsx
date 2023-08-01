@@ -15,6 +15,7 @@ function EditProjectForm({ project, id }) {
     githubURL: project.githubURL,
     demoURL: project.demoURL,
     usages: project.usages,
+    description: project.description,
   })
   const [otherInline, setOtherInline] = useState(
     project.usages.slice(2).join(',')
@@ -93,6 +94,20 @@ function EditProjectForm({ project, id }) {
         />
         <label htmlFor='demoUrl' className='placeholder'>
           Demo Link
+        </label>
+      </div>
+      <div className='inp-co ic2'>
+        <textarea
+          id='description'
+          placeholder=' '
+          value={form.description}
+          name='description'
+          onChange={(e) =>
+            setForm((pre) => ({ ...pre, description: e.target.value }))
+          }
+        />
+        <label htmlFor='description' className='placeholder'>
+          Description
         </label>
       </div>
       <ImgInput file={file} setFile={setFile} />

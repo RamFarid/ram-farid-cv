@@ -1,0 +1,53 @@
+.single-project-page {
+  position: relative;
+}
+.single-project-page img {
+  max-width: 100%;
+  max-height: 350px;
+  border-radius: 12px;
+  display: block;
+  margin: auto;
+}
+
+.single-project-page .desc {
+  margin-block: 23px;
+  padding: 0 16px 10px;
+  border: 1px solid var(--color-primary);
+  border-radius: 7px;
+}
+
+.single-project-page .skills-co {
+  text-align: start;
+}
+
+.single-project-page .desc a {
+  text-decoration: underline;
+  color: var(--color-primary);
+}
+
+.single-project-page .back-btn {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+.single-project-page .actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.single-project-page .desc li {
+  margin-inline-start: 20px;
+}
+
+.single-project-page h1,
+.single-project-page h2,
+.single-project-page h3,
+.single-project-page h4,
+.single-project-page h5,
+.single-project-page h6 {
+  margin-top: 12px;
+  color: var(--color-primary);
+}

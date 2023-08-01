@@ -63,6 +63,12 @@ function NewProjectForm() {
           Demo Link
         </label>
       </div>
+      <div className='inp-co ic2'>
+        <textarea id='description' placeholder=' ' name='description' />
+        <label htmlFor='description' className='placeholder'>
+          Description
+        </label>
+      </div>
       <ImgInput setFile={setFile} file={file} />
       <div className='inp-co ic2'>
         <h4>Framework</h4>

@@ -81,6 +81,19 @@ body {
   margin-bottom: 30px;
 }
 
+.primary-btn,
+.secondary-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+}
+
+.primary-btn img,
+.secondary-btn img {
+  max-width: 16px !important;
+}
+
 .primary-btn {
   outline: none;
   background-color: var(--color-primary);
@@ -137,8 +150,8 @@ a {
 }
 section {
   min-height: 90vh;
-  padding-bottom: 75px;
-  padding-top: 65px;
+  margin-bottom: 75px;
+  margin-top: 65px;
 }
 
 .inp-co {
@@ -177,6 +190,40 @@ textarea:not(:placeholder-shown) + label {
   opacity: 1;
   top: -8px;
   font-size: 10px;
+}
+
+.skills-co {
+  text-align: center;
+  width: 100%;
+  margin-block-start: 12px;
+}
+
+.skills-co .single-skill {
+  width: 42px;
+  height: 42px;
+  display: inline-block;
+  margin-right: 12px;
+}
+.skills-co img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.skills-co img.react {
+  mix-blend-mode: lighten;
+}
+
+textarea {
+  border-radius: 4px;
+  width: 410px;
+  min-width: 410px;
+  max-width: 410px;
+  outline: none;
+  min-height: 203px;
+  border: 3px solid var(--color-primary-variant);
+  background-color: transparent;
+  padding: 12px;
+  color: var(--color-white);
 }
 
 /* 

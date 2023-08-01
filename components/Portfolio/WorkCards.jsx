@@ -1,7 +1,9 @@
+import Link from 'next/link'
+import Button from '../reusables/Button'
 import SingleSkill from './SingleSkill'
 import WorkCardActions from './WorkCardActions'
 
-function WorkCards({ imgURL, title, demoURL, githubURL, usages }) {
+function WorkCards({ imgURL, title, demoURL, githubURL, usages, slug }) {
   const hasReact = usages?.includes('react')
   const hasNext = usages?.includes('next')
   const hasMui = usages?.includes('mui')
@@ -18,7 +20,15 @@ function WorkCards({ imgURL, title, demoURL, githubURL, usages }) {
         <img src={imgURL} alt={title} />
       </div>
       <div className='title'>{title}</div>
-      <WorkCardActions demoURL={demoURL} title={title} githubURL={githubURL} />
+      <Link
+        href={`/portfolio/${slug}`}
+        className='secondary-btn'
+        style={{
+          width: '100%',
+        }}
+      >
+        More
+      </Link>
       {hasReact || hasNext ? (
         <div className={`react-flag ${hasNext && 'next'}`}>
           <span>{hasReact ? 'React JS' : 'Next js'}</span>
