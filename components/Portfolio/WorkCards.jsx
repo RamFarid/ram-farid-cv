@@ -13,6 +13,7 @@ function WorkCards({ imgURL, title, demoURL, githubURL, usages, slug }) {
   const hasFirebase = usages?.includes('firebase')
   const hasNode = usages?.includes('node.js')
   const hasTelegramBot = usages?.includes('telegraf.js')
+  const hasMongoDB = usages?.find((u) => u.toLowerCase() === 'mongodb')
   return (
     <div className='portfolio-card-co'>
       <div className='img-co'>
@@ -68,6 +69,9 @@ function WorkCards({ imgURL, title, demoURL, githubURL, usages, slug }) {
             img={'/Assets/bot-father-logo.jpg'}
             title={'Telegram bot'}
           />
+        )}
+        {hasMongoDB && (
+          <SingleSkill img={'/Assets/mongodb.svg'} title={'MongoDB'} />
         )}
       </div>
     </div>

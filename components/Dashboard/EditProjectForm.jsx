@@ -30,7 +30,7 @@ function EditProjectForm({ project, id }) {
     projectH['slug'] = slug
     delete projectH.id
     const inline = otherInline.length ? otherInline.split(',') : []
-    projectH.usages = projectH.usages.concat(inline)
+    projectH.usages = [projectH.usages[0], projectH.usages[1], ...inline]
     try {
       const url = file ? await uploadProjectImg(file, slug) : null
       if (url) projectH['imgURL'] = url

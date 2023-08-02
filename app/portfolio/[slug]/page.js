@@ -21,6 +21,7 @@ export default async function PortfolioSlug({ params: { slug } }) {
   const hasFirebase = project?.usages?.includes('firebase')
   const hasNode = project?.usages?.includes('node.js')
   const hasTelegramBot = project?.usages?.includes('telegraf.js')
+  const hasMongoDB = project?.usages?.find((u) => u.toLowerCase() === 'mongodb')
   if (!project) return notFound()
   return (
     <>
@@ -72,6 +73,9 @@ export default async function PortfolioSlug({ params: { slug } }) {
               img={'/Assets/bot-father-logo.jpg'}
               title={'Telegram bot'}
             />
+          )}
+          {hasMongoDB && (
+            <SingleSkill img={'/Assets/mongodb.svg'} title={'MongoDB'} />
           )}
         </div>
         <div className='actions'>
