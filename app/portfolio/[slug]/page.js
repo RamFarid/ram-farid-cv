@@ -10,6 +10,15 @@ import { BsArrowLeft } from 'react-icons/bs'
 import Link from 'next/link'
 export const dynamic = 'force-dynamic'
 
+export function generateMetadata({ params: { slug } }) {
+  let titleFromSlug = slug.replace(/-/g, ' ')
+  const f =
+    titleFromSlug.charAt(0).toUpperCase() + titleFromSlug.slice(1).toLowerCase()
+  return {
+    title: `${f} | Portfolio`,
+  }
+}
+
 export default async function PortfolioSlug({ params: { slug } }) {
   const project = await getProjectBySlug(slug)
   const hasReact = project?.usages?.includes('react')
