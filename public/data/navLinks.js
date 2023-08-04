@@ -9,30 +9,37 @@ const navLinks = [
   {
     href: '/',
     icon: <AiOutlineHome />,
+    text: 'Home',
   },
   {
     href: '/about',
     icon: <BsFillInfoCircleFill />,
+    text: 'About',
   },
   {
     href: '/experience',
     icon: <TbTimeline />,
+    text: 'Experience',
   },
   {
     href: '/services',
     icon: <MdOutlineMiscellaneousServices />,
+    text: 'Services',
   },
   {
     href: '/portfolio',
     icon: <FaRegFolderOpen />,
+    text: 'Projects',
   },
   {
     href: '/testmonials',
     icon: <AiOutlineSafetyCertificate />,
+    text: 'Testmonials',
   },
   {
     href: '/contact',
     icon: <TiContacts />,
+    text: 'Contact Us',
   },
 ]
 

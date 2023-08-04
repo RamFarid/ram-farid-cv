@@ -1,6 +1,7 @@
 footer {
   background-color: var(--color-primary);
   padding: 12px;
+  margin-bottom: 67px;
 }
 
 footer .top {
