@@ -15,6 +15,7 @@
   --color-primary: #4db5ff;
   --color-primary-variant: rgba(77, 181, 255, 0.4);
   --transition: 0.4s;
+  --error-color: #b0002070;
 }
 
 ::-webkit-scrollbar {
@@ -224,6 +225,26 @@ textarea {
   background-color: transparent;
   padding: 12px;
   color: var(--color-white);
+}
+
+.lose-alert {
+  padding: 5px;
+  background-color: var(--error-color);
+  margin: 20px 12px;
+  border-radius: 6px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 10px;
+  position: sticky;
+  top: 20px;
+  backdrop-filter: blur(7px);
+  z-index: 9;
+}
+
+button {
+  all: unset;
+  cursor: pointer;
 }
 
 /* 

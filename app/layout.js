@@ -7,6 +7,7 @@ import '@/styles/portfolio.css'
 import '@/styles/loading.css'
 import 'react-toastify/dist/ReactToastify.css'
 import ToastContanier from '@/components/ToastContanier'
+import LoseAlert from '@/components/LoseAlert'
 
 export const metadata = {
   title: 'Ram Farid',
@@ -18,6 +19,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang='en'>
       <body>
+        <LoseAlert />
         <main className='container'>{children}</main>
         <Footer />
         <Nav />
