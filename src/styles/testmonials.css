@@ -1,0 +1,32 @@
+.container-testmonials {
+  width: 100%;
+}
+
+.container-testmonials img {
+  max-width: 100%;
+  border-radius: 6px;
+}
+
+.container-testmonials .swiper-slide {
+  width: 50% !important;
+}
+
+.swiper-pagination-bullet.swiper-pagination-bullet-active {
+  background-color: var(--color-primary) !important;
+}
+
+.swiper-pagination-bullet {
+  background-color: white !important;
+  margin: 0 13px !important;
+  width: 12px !important;
+  height: 12px !important;
+}
+
+@media screen and (max-width: 768px) {
+  .container-testmonials {
+    width: 100%;
+  }
+  .container-testmonials .swiper-slide {
+    width: 100% !important;
+  }
+}

@@ -1,0 +1,145 @@
+.experience {
+  display: flex;
+  flex-direction: column;
+}
+
+.experience-container {
+  width: 100%;
+  flex-grow: 1;
+}
+
+/* .experience-content {
+  transition: transform var(--flip-time);
+  transform-style: preserve-3d;
+  position: relative;
+  height: 100%;
+} */
+
+/* .experience-container .experience-content.flip {
+  transform: rotateY(0.5turn);
+} */
+
+.experience .main-skills,
+.experience .knowlege-skills {
+  background-color: var(--color-background-variant);
+  padding: 10px 28px 34px;
+  border-radius: 20px;
+  position: absolute;
+
+  /* transform-style: preserve-3d;
+  inset: 0;
+  backface-visibility: hidden; */
+}
+
+/* .experience .knowlege-skills {
+  transform: rotateY(0.5turn);
+} */
+
+.experience .fs__container .section-header {
+  font-size: 18px;
+  font-weight: 800;
+  transform: var(--solidTranslate-v3);
+}
+.experience .skill-container {
+  margin: 12px 0;
+  transform-style: preserve-3d;
+}
+
+.experience .skill-container span {
+  font-size: 14px;
+  transform: var(--solidTranslate-v2);
+  display: block;
+}
+
+.experience .skill-container .skill-ratio {
+  position: relative;
+  background-color: #fff;
+  height: 17px;
+  border-radius: 2px;
+  transform: var(--solidTranslate-v1);
+}
+.experience .skill-container .skill-ratio .the-ratio {
+  animation: skill-bar 1s forwards ease-out;
+  position: absolute;
+  height: 100%;
+  background-color: var(--color-primary);
+}
+
+.experience .skill-container .skill-ratio .the-ratio::before {
+  position: absolute;
+  content: attr(data-skill);
+  bottom: 22px;
+  right: 0;
+  border: 1px solid white;
+  background-color: var(--color-white);
+  font-size: 12px;
+  padding: 2px;
+  color: var(--color-background-variant);
+  transform: translate(50%);
+}
+
+.experience .skill-container .skill-ratio .the-ratio::after {
+  content: '';
+  width: 6px;
+  height: 6px;
+  background-color: var(--color-white);
+  position: absolute;
+  right: 0;
+  bottom: 23px;
+  transform: rotate(45deg) translateX(5px);
+}
+
+.experience .ad-skills-container {
+  display: grid;
+  row-gap: 50px;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  justify-content: center;
+}
+
+.experience .ad-skills-container .add-skill {
+  display: flex;
+  gap: 12px;
+  font-size: 14px;
+  transform-style: preserve-3d;
+}
+.experience
+  .ad-skills-container
+  .add-skill
+  > div:nth-child(2)
+  > div:first-child {
+  transform: var(--solidTranslate-v2);
+}
+.experience
+  .ad-skills-container
+  .add-skill
+  > div:nth-child(2)
+  > div:first-child {
+  transform: var(--solidTranslate-v2);
+}
+
+.experience .ad-skills-container .add-skill .icon {
+  color: var(--color-primary);
+}
+
+@media screen and (max-width: 768px) {
+  .ad-skills-container {
+    column-gap: 34px;
+  }
+  .experience .ad-skills-container {
+    justify-content: unset;
+  }
+  .experience .skill-card {
+    max-width: unset;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .click-promotion {
+    display: none;
+  }
+  .experience .main-skills,
+  .experience .knowlege-skills {
+    background-color: var(--color-background-variant) !important;
+  }
+}

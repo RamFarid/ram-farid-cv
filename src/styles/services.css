@@ -1,0 +1,45 @@
+.services-container {
+  width: 100%;
+}
+
+.services-container .front-services {
+  width: 352px;
+  margin: 0 auto;
+  min-height: 470px;
+  background-color: var(--color-background-variant);
+  border-radius: 0 0 40px 40px;
+  border: 1px solid var(--color-primary);
+}
+
+.services-container .front-services .header {
+  height: 77px;
+  background-color: var(--color-primary);
+  border-radius: 0 0 24px 24px;
+  color: var(--color-background-variant);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.services-container .front-services .s-c {
+  margin: 32px 26px;
+}
+.services-container .front-services .s-c .services-skill-container {
+  font-size: 12px;
+  margin-bottom: 15px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.services-container .front-services .s-c .services-skill-container .icon {
+  color: var(--color-primary);
+}
+
+@media screen and (max-width: 768px) {
+  .services-container .front-services {
+    max-width: fit-content;
+  }
+}

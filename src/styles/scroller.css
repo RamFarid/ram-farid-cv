@@ -1,0 +1,63 @@
+:root {
+  --transition-home-scroller: 0.6s;
+}
+
+.scroller__container {
+  height: var(--net-viewport, 100vh);
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
+.scroller__content {
+  overflow: hidden;
+  transition: transform var(--transition-home-scroller) linear;
+}
+
+.scroller__container .scroller__content .scroller__item {
+  /* transition: transform var(--transition-home-scroller) ease; */
+  position: relative;
+  overflow: hidden;
+}
+
+.scroller__content::-webkit-scrollbar {
+  display: none;
+}
+
+.scroller__content > .scroller__item section {
+  position: relative;
+  scroll-snap-align: start;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: var(--net-viewport, 100vh);
+  /* background-attachment: fixed; */
+  transition: transform var(--transition-home-scroller) ease-in-out;
+}
+
+.scroller__item-next > section {
+  transform: translateY(-50%);
+  z-index: 1;
+}
+
+.scroller__item-prev > section {
+  transform: translateY(50%);
+}
+
+.scroller__content > .scroller__item:first-child section {
+  background-image: url('../../public/Assets/bg-1.jpg');
+}
+.scroller__content > .scroller__item:nth-child(2) section {
+  background-image: url('../../public/Assets/bg-2.jpg');
+}
+.scroller__content > .scroller__item:nth-child(3) section {
+  background-image: url('../../public/Assets/bg-3.jpg');
+}
+.scroller__content > .scroller__item:nth-child(4) section {
+  background-image: url('../../public/Assets/bg-4.jpg');
+}
+.scroller__content > .scroller__item:nth-child(5) section {
+  background-image: url('../../public/Assets/bg-5.jpg');
+}
+.scroller__content > .scroller__item:nth-child(6) section {
+  background-image: url('../../public/Assets/bg-6.jpg');
+}

@@ -1,0 +1,39 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--color-background-variant);
+  padding: 10px;
+  border-radius: 7px;
+  height: 170px;
+  border: 1.6px solid var(--color-primary-variant);
+  flex-grow: 1;
+  transform: var(--solidTranslate-v2);
+  transform-style: preserve-3d;
+}
+
+.card .sub-text,
+.card h5 {
+  margin: 6px 0;
+  text-align: center;
+}
+
+.card .sub-text a {
+  width: 100px;
+  display: block;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+@media screen and (max-width: 768px) {
+  .card {
+    width: 100%;
+    height: fit-content;
+    justify-content: flex-start;
+  }
+  .card .sub-text a {
+    width: unset;
+  }
+}

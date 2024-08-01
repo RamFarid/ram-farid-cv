@@ -1,0 +1,71 @@
+.contact {
+  display: flex;
+  flex-direction: column;
+}
+
+.contact form {
+  position: relative;
+  width: fit-content;
+  margin: auto;
+  transform-style: preserve-3d;
+}
+
+.contact .fs__content .section-header {
+  margin-bottom: 6px;
+  transform-style: preserve-3d;
+  transform: var(--solidTranslate-v3);
+}
+
+.contact .cards-side {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 15px;
+  padding: 6px;
+  height: 100%;
+  transform-style: preserve-3d;
+}
+.contact .cards-side p.sub-text a {
+  text-transform: none;
+}
+.contact .cards-side a {
+  color: var(--color-primary);
+}
+
+.contact .contact-side {
+  padding: 12px;
+}
+
+.contact .inp-co {
+  transform-style: preserve-3d;
+  transform: var(--solidTranslate-v1);
+}
+
+.contact button {
+  transform-style: preserve-3d;
+  transform: var(--solidTranslate-v1);
+}
+
+@media screen and (max-width: 768px) {
+  .contact-side {
+    width: 100%;
+  }
+  input,
+  textarea {
+    max-width: 100%;
+    min-width: 100%;
+  }
+  .contact .cards-side {
+    width: 100%;
+    flex-direction: column;
+  }
+  .contact .cards-side {
+    width: 100%;
+    flex-direction: column;
+    flex-wrap: nowrap;
+  }
+  .contact form {
+    width: 100%;
+  }
+}

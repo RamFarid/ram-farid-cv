@@ -1,0 +1,29 @@
+.filteration-co::-webkit-scrollbar {
+  display: none;
+}
+
+.filteration-co {
+  display: flex;
+  margin-bottom: 3rem;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.8rem;
+  overflow-x: scroll;
+  top: 0;
+  z-index: 1;
+  padding: 6px 21px;
+}
+
+.filteration-co .filter-item.active {
+  opacity: 0.6;
+}
+
+select {
+  outline: none;
+  border: 1px solid var(--color-primary-variant);
+  background: transparent;
+  padding: 6px 8px;
+  border-radius: 11px;
+  color: var(--white-color);
+}
