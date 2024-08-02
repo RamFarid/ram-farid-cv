@@ -9,6 +9,13 @@
   margin: auto;
 }
 
+.single-project-page .dates .single-date-data {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 200px;
+}
+
 .single-project-page .desc {
   position: relative;
   margin-block: 23px;
@@ -34,6 +41,9 @@
   .single-project-page .edit-project-btn {
     position: static;
     margin: 12px 0;
+  }
+  .single-project-page .dates .single-date-data {
+    width: 100%;
   }
 }
 

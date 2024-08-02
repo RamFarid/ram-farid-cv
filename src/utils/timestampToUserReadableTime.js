@@ -1,6 +1,6 @@
 import fixedNumber from './fixedNumber'
 
-function timestampToUserReadableTime(timestamp) {
+function timestampToUserReadableTime(timestamp, time = true) {
   const milliseconds = timestamp.toMillis()
   const date = new Date(milliseconds)
 
@@ -11,8 +11,9 @@ function timestampToUserReadableTime(timestamp) {
   const year = date.getFullYear()
 
   const formattedDate = `${hours}:${minutes}, ${day}-${month}-${year}`
+  const formattedDateWithoutTime = `${day}-${month}-${year}`
 
-  return formattedDate
+  return time ? formattedDate : formattedDateWithoutTime
 }
 
 export default timestampToUserReadableTime

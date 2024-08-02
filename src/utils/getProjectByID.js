@@ -10,7 +10,6 @@ export default async function getProjectByID(projectID) {
     if (doc.exists) {
       const project = structuredClone(doc.data())
       project.id = doc.id
-      project.time = doc.data().time.toDate().getTime()
       return project
     }
     return false
