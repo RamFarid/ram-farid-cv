@@ -10,7 +10,6 @@ function timestampToUserReadableTime(timestamp) {
   const month = fixedNumber(date.getMonth() + 1)
   const year = date.getFullYear()
 
-  // Format the date as desired: HH:SS, DD-MM-YYYY
   const formattedDate = `${hours}:${minutes}, ${day}-${month}-${year}`
 
   return formattedDate

@@ -2,7 +2,7 @@ import { Poppins } from 'next/font/google'
 import '@/styles/globals.css'
 import 'react-toastify/dist/ReactToastify.css'
 import ToastContanier from '@/components/ToastContanier'
-import Header from '@/components/Header/Header'
+import { SkeletonTheme } from 'react-loading-skeleton'
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -19,8 +19,12 @@ export default function RootLayout({ children }) {
   return (
     <html lang='en'>
       <body className={poppins.className}>
-        <Header />
-        {children}
+        <SkeletonTheme
+          baseColor='var(--color-background-variant)'
+          highlightColor='var(--color-primary)'
+        >
+          {children}
+        </SkeletonTheme>
         <ToastContanier />
       </body>
     </html>
