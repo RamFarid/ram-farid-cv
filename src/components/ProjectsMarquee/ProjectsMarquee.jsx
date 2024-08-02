@@ -11,17 +11,16 @@ function ProjectsMarquee({ projects }) {
         <h2>Portfolio</h2>
         <FaLink />
       </Link>
-      <Link href={'/portfolio'} style={{ cursor: 'pointer' }}>
-        <ProjectsMarqueeWrapper>
-          {projects.map((project) => (
-            <ProjectMarqueeItem
-              key={project.id}
-              img={project.imgURL}
-              alt={project.title}
-            />
-          ))}
-        </ProjectsMarqueeWrapper>
-      </Link>
+      <ProjectsMarqueeWrapper>
+        {projects.map((project) => (
+          <ProjectMarqueeItem
+            key={project.id}
+            img={project.imgURL}
+            alt={project.title}
+            slug={project.slug}
+          />
+        ))}
+      </ProjectsMarqueeWrapper>
     </>
   )
 }

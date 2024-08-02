@@ -7,7 +7,7 @@ export default async function Home() {
   const [projectsCount, clientsDoc, projects] = await Promise.all([
     getProjects(true),
     getClientsNo(),
-    getProjects(false, { select: ['imgURL', 'title'] }),
+    getProjects(false, { select: ['imgURL', 'title', 'slug'] }),
   ])
   return (
     <main>

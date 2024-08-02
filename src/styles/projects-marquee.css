@@ -39,10 +39,50 @@ ul {
   gap: 16px;
 }
 
+.marquee__content:hover {
+  animation-play-state: paused !important;
+}
+
 .project-marquee-item {
   width: 100px;
   height: 100px;
   flex-shrink: 0;
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.project-marquee-item .overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.568);
+  opacity: 0;
+  transition: all var(--transition);
+}
+
+.marquee__container .project-marquee-item span {
+  position: absolute;
+  padding: 2px;
+  inset: 0;
+  font-size: 12px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  font-weight: 700;
+  transition: opacity var(--transition) 0.2s,
+    transform var(--transition) ease-out;
+  opacity: 0;
+  transform: translateY(100%);
+}
+
+.marquee__container .project-marquee-item:hover span {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.marquee__container .project-marquee-item:hover .overlay {
+  opacity: 1;
 }
 
 .project-marquee-item .img-wrapper {

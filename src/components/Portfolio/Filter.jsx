@@ -16,7 +16,7 @@ function Filter({ filters, setFilters }) {
             })
           }
         >
-          <option value='all'>Framework</option>
+          <option value='all'>None</option>
           <option value='pure'>HTML & CSS & JS</option>
           <option value='react'>React js</option>
           <option value='next'>Next js</option>
