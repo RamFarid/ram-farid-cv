@@ -3,6 +3,7 @@ import '@/styles/globals.css'
 import 'react-toastify/dist/ReactToastify.css'
 import ToastContanier from '@/components/ToastContanier'
 import { SkeletonTheme } from 'react-loading-skeleton'
+import HomeBtn from '@/components/HomeBtn'
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -19,6 +20,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang='en'>
       <body className={poppins.className}>
+        <HomeBtn />
         <SkeletonTheme
           baseColor='var(--color-background-variant)'
           highlightColor='var(--color-primary)'
