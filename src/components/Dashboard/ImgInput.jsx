@@ -2,7 +2,7 @@
 import { useId } from 'react'
 import { AiOutlineCloudUpload } from 'react-icons/ai'
 
-function ImgInput({ setFile, file }) {
+function ImgInput({ setFile, file, noAccessEdit }) {
   const id = useId()
   return (
     <div className='inp-co ic2 inp-file-co'>
@@ -12,6 +12,7 @@ function ImgInput({ setFile, file }) {
         accept='image/*'
         name='imgFile'
         required
+        disabled={noAccessEdit}
         onChange={(e) => setFile(e.target.files[0])}
       />
       <label htmlFor={id} className='placeholder'>

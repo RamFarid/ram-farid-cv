@@ -1,7 +1,8 @@
 import { storage } from '@/lib/firebase/client'
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
 
-export default async function uploadProjectImg(file, slugName) {
+export default async function uploadProjectImg(file, slugName, noAccessEdit) {
+  if (noAccessEdit) return
   try {
     const img = await uploadBytes(ref(storage, 'projects/' + slugName), file)
     const url = await getDownloadURL(img.ref)

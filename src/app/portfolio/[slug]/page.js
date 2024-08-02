@@ -36,6 +36,12 @@ export default async function PortfolioSlug({ params: { slug } }) {
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={project.imgURL} alt={project.title} />
         <div className='desc'>
+          <Link
+            href={`/dashboard/project/edit/${project.id}`}
+            className='primary-btn edit-project-btn'
+          >
+            Edit the project
+          </Link>
           <MarkDown desc={project.description || ''} />
         </div>
         <h3 className='usages'>Usages</h3>

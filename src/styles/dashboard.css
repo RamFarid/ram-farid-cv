@@ -64,9 +64,8 @@ input {
 }
 
 .delete-btn {
-  --delete-color: #c70000;
-  color: var(--delete-color);
-  border: 1px solid var(--delete-color);
+  color: var(--error-color-light);
+  border: 1px solid var(--error-color-light);
 }
 
 label[for='clientno'] {
@@ -229,6 +228,23 @@ figure .phone-icon {
   width: 74%;
   margin-inline: auto;
   border-style: dotted;
+}
+
+.DASHBOARD_PAGE .no-access-alert {
+  color: var(--error-color-light);
+  padding: 8px;
+  border-radius: 6px;
+  border: var(--error-color) 4px dotted;
+  text-align: center;
+}
+
+.DASHBOARD_PAGE .no-access-alert .secondary-btn {
+  margin: 12px auto 0 auto;
+}
+
+.DASHBOARD_PAGE input:disabled,
+.DASHBOARD_PAGE textarea:disabled {
+  color: var(--color-light);
 }
 
 @media screen and (max-width: 768px) {

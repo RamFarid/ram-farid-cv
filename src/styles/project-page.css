@@ -10,10 +10,44 @@
 }
 
 .single-project-page .desc {
+  position: relative;
   margin-block: 23px;
   padding: 0 16px 10px;
   border: 1px solid var(--color-primary);
   border-radius: 7px;
+}
+
+.single-project-page .edit-project-btn {
+  color: var(--color-background-variant) !important;
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  text-decoration: none !important;
+  animation: edit-here 2s infinite ease-in-out;
+}
+.single-project-page .edit-project-btn:hover {
+  animation: none;
+  background-color: var(--color-primary);
+}
+
+@media screen and (max-width: 678px) {
+  .single-project-page .edit-project-btn {
+    position: static;
+    margin: 12px 0;
+  }
+}
+
+@keyframes edit-here {
+  40% {
+    background-color: transparent;
+    color: var(--color-primary);
+  }
+  50% {
+    background-color: var(--color-primary);
+  }
+  100% {
+    background-color: var(--color-primary);
+  }
 }
 
 .single-project-page .skills-co {

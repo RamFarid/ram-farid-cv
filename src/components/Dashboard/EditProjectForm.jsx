@@ -7,8 +7,9 @@ import { toast } from 'react-toastify'
 import editProject from '@/utils/editProject'
 import makeSlug from '@/utils/makeSlug'
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 
-function EditProjectForm({ project, id }) {
+function EditProjectForm({ project, id, noAccessEdit }) {
   const router = useRouter()
   const [form, setForm] = useState({
     title: project.title,
@@ -23,6 +24,7 @@ function EditProjectForm({ project, id }) {
   const [isLoading, setIsLoading] = useState(false)
   const [file, setFile] = useState(null)
   const hanleEditProject = async (e) => {
+    if (noAccessEdit) return
     e.preventDefault()
     setIsLoading(true)
     let projectH = JSON.parse(JSON.stringify(form))
@@ -32,7 +34,7 @@ function EditProjectForm({ project, id }) {
     const inline = otherInline.length ? otherInline.split(',') : []
     projectH.usages = [projectH.usages[0], projectH.usages[1], ...inline]
     try {
-      const url = file ? await uploadProjectImg(file, slug) : null
+      const url = file ? await uploadProjectImg(file, slug, noAccessEdit) : null
       if (url) projectH['imgURL'] = url
       const done = await editProject(projectH, id)
       if (done) toast.success(`Updated ${id} successfully`)
@@ -47,9 +49,16 @@ function EditProjectForm({ project, id }) {
   }
   return (
     <form className='form'>
-      <BackBtn />
+      <BackBtn noAccess={noAccessEdit} />
       <div className='title'>Edit project</div>
-      <div className='subtitle'>US. Ram Farid</div>
+      {noAccessEdit && (
+        <h2 className='no-access-alert'>
+          Only Me {'"Ram Farid"'} has the access to edit my projects
+          <Link href={'/dashboard'} className='secondary-btn'>
+            Login to Dashboard
+          </Link>
+        </h2>
+      )}
       <div className='inp-co ic1'>
         <input
           id='projectname'
@@ -58,6 +67,7 @@ function EditProjectForm({ project, id }) {
           value={form.title}
           required
           name='projectname'
+          disabled={noAccessEdit}
           onChange={(e) =>
             setForm((pre) => ({ ...pre, title: e.target.value }))
           }
@@ -73,6 +83,7 @@ function EditProjectForm({ project, id }) {
           placeholder=' '
           value={form.githubURL}
           name='githubUrl'
+          disabled={noAccessEdit}
           onChange={(e) =>
             setForm((pre) => ({ ...pre, githubURL: e.target.value }))
           }
@@ -83,6 +94,7 @@ function EditProjectForm({ project, id }) {
       </div>
       <div className='inp-co ic2'>
         <input
+          disabled={noAccessEdit}
           id='demoUrl'
           type='text'
           placeholder=' '
@@ -98,6 +110,7 @@ function EditProjectForm({ project, id }) {
       </div>
       <div className='inp-co ic2'>
         <textarea
+          disabled={noAccessEdit}
           id='description'
           placeholder=' '
           value={form.description}
@@ -110,11 +123,12 @@ function EditProjectForm({ project, id }) {
           Description
         </label>
       </div>
-      <ImgInput file={file} setFile={setFile} />
+      <ImgInput file={file} setFile={setFile} noAccessEdit />
       <div className='inp-co ic2'>
         <h4>Framework</h4>
         <div className='radio-co'>
           <input
+            disabled={noAccessEdit}
             type='radio'
             name='fw'
             id='reactjs'
@@ -131,6 +145,7 @@ function EditProjectForm({ project, id }) {
         </div>
         <div className='radio-co'>
           <input
+            disabled={noAccessEdit}
             type='radio'
             name='fw'
             id='nextjs'
@@ -153,6 +168,7 @@ function EditProjectForm({ project, id }) {
             id='pure'
             defaultChecked={form?.usages?.includes('pure')}
             value='pure'
+            disabled={noAccessEdit}
             onChange={(e) =>
               setForm((pre) => ({
                 ...pre,
@@ -164,6 +180,7 @@ function EditProjectForm({ project, id }) {
         </div>
         <div className='radio-co'>
           <input
+            disabled={noAccessEdit}
             type='radio'
             name='fw'
             id='other1'
@@ -181,6 +198,7 @@ function EditProjectForm({ project, id }) {
         <h4>Styles</h4>
         <div className='radio-co'>
           <input
+            disabled={noAccessEdit}
             type='radio'
             name='styles'
             id='sass'
@@ -197,6 +215,7 @@ function EditProjectForm({ project, id }) {
         </div>
         <div className='radio-co'>
           <input
+            disabled={noAccessEdit}
             type='radio'
             name='styles'
             id='css'
@@ -213,6 +232,7 @@ function EditProjectForm({ project, id }) {
         </div>
         <div className='radio-co'>
           <input
+            disabled={noAccessEdit}
             type='radio'
             name='styles'
             id='mui'
@@ -230,6 +250,7 @@ function EditProjectForm({ project, id }) {
         </div>
         <div className='radio-co'>
           <input
+            disabled={noAccessEdit}
             type='radio'
             name='styles'
             id='other'
@@ -248,6 +269,7 @@ function EditProjectForm({ project, id }) {
       </div>
       <div className='inp-co ic2'>
         <input
+          disabled={noAccessEdit}
           id='otherInline'
           type='text'
           placeholder=' '
@@ -262,7 +284,7 @@ function EditProjectForm({ project, id }) {
       <button
         type='button'
         className='submit primary-btn'
-        disabled={isLoading}
+        disabled={noAccessEdit || isLoading}
         onClick={hanleEditProject}
       >
         {isLoading ? 'Loading...' : 'Save and quit'}

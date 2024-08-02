@@ -16,6 +16,7 @@
   --color-primary-variant: rgba(77, 181, 255, 0.4);
   --transition: 0.4s;
   --error-color: #b0002070;
+  --error-color-light: #c70000;
   --solidTranslate-v1: translateZ(3rem);
   --solidTranslate-v2: translateZ(6rem);
   --solidTranslate-v3: translateZ(9rem);
