@@ -51,7 +51,7 @@
   .contact-side {
     width: 100%;
   }
-  input,
+  .contact-side input,
   textarea {
     max-width: 100%;
     min-width: 100%;

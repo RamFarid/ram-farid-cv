@@ -25,6 +25,7 @@ function WorkCards({ imgURL, title, demoURL, githubURL, usages, slug }) {
       <Link
         href={`/portfolio/${slug}`}
         className='secondary-btn'
+        scroll={false}
         style={{
           width: '100%',
         }}
