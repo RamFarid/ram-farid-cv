@@ -8,6 +8,7 @@ import editProject from '@/utils/editProject'
 import makeSlug from '@/utils/makeSlug'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
+import timestampToUserReadableTime from '@/utils/timestampToUserReadableTime'
 
 function EditProjectForm({ project, id, noAccessEdit }) {
   const router = useRouter()
@@ -17,6 +18,20 @@ function EditProjectForm({ project, id, noAccessEdit }) {
     demoURL: project.demoURL,
     usages: project.usages,
     description: project.description,
+    time: {
+      start: timestampToUserReadableTime(
+        project?.time?.start?._seconds * 1000,
+        false
+      ),
+      end: timestampToUserReadableTime(
+        project?.time?.end?._seconds * 1000,
+        false
+      ),
+      lastUpdate: timestampToUserReadableTime(
+        project?.time?.lastUpdate?._seconds * 1000,
+        false
+      ),
+    },
   })
   const [otherInline, setOtherInline] = useState(
     project.usages.slice(2).join(',')
@@ -122,6 +137,40 @@ function EditProjectForm({ project, id, noAccessEdit }) {
         <label htmlFor='description' className='placeholder'>
           Description
         </label>
+      </div>
+      <div className='inp-co'>
+        <div className='dates-editor'>
+          <label htmlFor='startdate'>Start date:</label>
+          <label htmlFor='enddate'>End date:</label>
+        </div>
+        <div className='dates-editor'>
+          <input
+            id='startdate'
+            type='date'
+            name='startdate'
+            disabled={noAccessEdit}
+            value={form.time.start}
+            onChange={(e) =>
+              setForm((pre) => ({
+                ...pre,
+                time: { ...pre.time, start: e.target.value },
+              }))
+            }
+          />
+          <input
+            onChange={(e) =>
+              setForm((pre) => ({
+                ...pre,
+                time: { ...pre.time, end: e.target.value },
+              }))
+            }
+            id='enddate'
+            type='date'
+            name='enddate'
+            value={form.time.end}
+            disabled={noAccessEdit}
+          />
+        </div>
       </div>
       <ImgInput file={file} setFile={setFile} noAccessEdit />
       <div className='inp-co ic2'>

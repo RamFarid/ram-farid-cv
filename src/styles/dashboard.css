@@ -8,6 +8,25 @@
   margin: auto;
 }
 
+.form .inp-co .dates-editor label {
+  position: static;
+}
+
+.form .inp-co .dates-editor:first-child {
+  justify-content: space-between;
+}
+
+.form .inp-co .dates-editor label {
+  flex-grow: 1;
+}
+
+.form .dates-editor {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: nowrap;
+}
+
 .form textarea {
   max-width: 100%;
   min-width: 100%;
