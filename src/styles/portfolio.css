@@ -72,7 +72,8 @@
   box-shadow: 0px 0px 10px rgba(255, 255, 255, 12%);
 }
 
-.react-flag {
+.react-flag,
+.next-flag {
   position: absolute;
   top: -10px;
   left: -10px;
@@ -82,7 +83,9 @@
 }
 
 .react-flag::after,
-.react-flag::before {
+.react-flag::before,
+.next-flag::after,
+.next-flag::before {
   display: block;
   position: absolute;
   content: '';
@@ -90,16 +93,20 @@
   border-top-color: transparent;
   border-left-color: transparent;
 }
-.react-flag::after {
+.react-flag::after,
+.next-flag::after {
   bottom: 31px;
   left: -2px;
 }
-.react-flag::before {
+
+.react-flag::before,
+.next-flag::before {
   top: -2px;
   right: 31px;
 }
 
-.react-flag span {
+.react-flag span,
+.next-flag span {
   position: absolute;
   display: block;
   transform: rotate(-45deg);
@@ -111,12 +118,12 @@
   right: 2px;
 }
 
-.react-flag.next span {
+.next-flag span {
   background-color: black;
 }
 
-.react-flag.next::after,
-.react-flag.next::before {
+.next-flag::after,
+.next-flag::before {
   border-color: #000;
 }
 

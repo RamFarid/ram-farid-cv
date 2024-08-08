@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { useState } from 'react'
 import { toast } from 'react-toastify'
 
-function SingleProductCardActions({ projectId, slug: imgName }) {
+function SingleProductCardActions({ projectId, slug }) {
   const [isLoading, setIsLoading] = useState(false)
   return (
     <div className='btns-co'>
@@ -18,7 +18,7 @@ function SingleProductCardActions({ projectId, slug: imgName }) {
         onClick={async () => {
           try {
             setIsLoading(true)
-            const done = await deleteProject(projectId, imgName)
+            await deleteProject(projectId, slug)
             toast.success('Deleted successfully')
           } catch (error) {
             toast.error(error.message)

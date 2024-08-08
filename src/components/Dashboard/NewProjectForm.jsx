@@ -1,37 +1,39 @@
 'use client'
 import { useState } from 'react'
 import BackBtn from './BackBtn'
-import ImgInput from './ImgInput'
+import ImgInput from './ImgsInput'
 import { toast } from 'react-toastify'
 import addProject from '@/utils/addProject'
-import uploadProjectImg from '@/utils/uploadProjectImg'
 import makeSlug from '@/utils/makeSlug'
 import { useRouter } from 'next/navigation'
+import uploadProjectImgs from '@/utils/uploadProjectImgs'
 
 function NewProjectForm() {
   const [isLoading, setIsLoading] = useState(false)
-  const [file, setFile] = useState(null)
+  const [gallery, setGallery] = useState([])
+  const [thumbnail, setThumbnail] = useState(null)
   const router = useRouter()
   const submitNewProject = async (e) => {
     e.preventDefault()
     setIsLoading(true)
     try {
       const form = new FormData(e.target)
-      const imgURL = await uploadProjectImg(
-        file,
+      const imgsURLs = await uploadProjectImgs(
+        [thumbnail, ...gallery],
         makeSlug(form.get('projectname'))
       )
-      await addProject(form, imgURL)
+      await addProject(form, imgsURLs)
       toast.success(`Added '${form.get('projectname')}' Project successfully`)
+      setThumbnail(null)
+      setGallery(null)
       router.prefetch('/dashboard')
       router.push('/dashboard')
       e.target.reset()
     } catch (error) {
-      toast.error('Error: ', error.message)
+      toast.error('Error: ' + error.message)
       console.log(error)
     } finally {
       setIsLoading(false)
-      setFile(null)
     }
   }
   return (
@@ -69,7 +71,22 @@ function NewProjectForm() {
           Description
         </label>
       </div>
-      <ImgInput setFile={setFile} file={file} />
+      <div className='inp-co'>
+        <div className='dates-editor'>
+          <label htmlFor='startdate'>Start date:</label>
+          <label htmlFor='enddate'>End date:</label>
+        </div>
+        <div className='dates-editor'>
+          <input id='startdate' type='date' name='startdate' required />
+          <input id='enddate' type='date' name='enddate' required />
+        </div>
+      </div>
+      <ImgInput
+        setGallery={setGallery}
+        gallery={gallery}
+        setThumbnail={setThumbnail}
+        thumbnail={thumbnail}
+      />
       <div className='inp-co ic2'>
         <h4>Framework</h4>
         <div className='radio-co'>
@@ -91,8 +108,8 @@ function NewProjectForm() {
           <label htmlFor='pure'>Pure</label>
         </div>
         <div className='radio-co'>
-          <input type='radio' name='fw' id='other' defaultValue='other' />
-          <label htmlFor='other'>Other</label>
+          <input type='radio' name='fw' id='otherfw' defaultValue='other' />
+          <label htmlFor='otherfw'>Other</label>
         </div>
         <h4>Styles</h4>
         <div className='radio-co'>
@@ -117,11 +134,11 @@ function NewProjectForm() {
           <input
             type='radio'
             name='styles'
-            id='other'
+            id='otherstyles'
             required
             defaultValue='other'
           />
-          <label htmlFor='other'>Other</label>
+          <label htmlFor='otherstyles'>Other</label>
         </div>
       </div>
       <div className='inp-co ic2'>

@@ -145,11 +145,11 @@ input:is(::-webkit-autofill, :autofil) {
   pointer-events: none;
 }
 
-a.primary-btn {
+.primary-btn {
   color: var(--color-background-variant);
 }
 
-a.secondary-btn {
+.secondary-btn {
   color: var(--color-primary);
 }
 

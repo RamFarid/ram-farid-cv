@@ -1,5 +1,6 @@
 .single-project-page {
   position: relative;
+  overflow-x: hidden;
 }
 .single-project-page img {
   max-width: 100%;
@@ -35,6 +36,10 @@
 .single-project-page .edit-project-btn:hover {
   animation: none;
   background-color: var(--color-primary);
+}
+
+.single-project-page .swiper-3d .swiper-slide-shadow {
+  background: none;
 }
 
 @media screen and (max-width: 678px) {

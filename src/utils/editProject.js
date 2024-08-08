@@ -3,6 +3,7 @@
 import checkToken from '@/lib/auth/checkToken'
 import admin from '@/lib/firebase/server'
 import { cookies } from 'next/headers'
+import getFirebaseDateFormat from './getFirebaseDateFormat'
 
 export default async function editProject(project, id) {
   const tooken = cookies().get('tooken')?.value.trim()
@@ -32,8 +33,3 @@ export default async function editProject(project, id) {
     throw error
   }
 }
-
-const getFirebaseDateFormat = (timeInterval) =>
-  timeInterval
-    ? admin.firestore.Timestamp.fromDate(new Date(timeInterval))
-    : null

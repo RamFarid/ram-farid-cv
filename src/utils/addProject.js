@@ -3,7 +3,7 @@ import admin from '@/lib/firebase/server'
 import makeSlug from './makeSlug'
 import getProjectFormData from './getProjectFormData'
 
-export default async function addProject(e, imgURL) {
+export default async function addProject(e, imgsURLs) {
   // { title, demoURL, githubURL, usages, slug }
   const projectData = getProjectFormData(e)
   const slugName = makeSlug(projectData.title)
@@ -14,8 +14,8 @@ export default async function addProject(e, imgURL) {
       .add({
         ...projectData,
         slug: slugName,
-        imgURL,
-        time: admin.firestore.FieldValue.serverTimestamp(),
+        imgURL: imgsURLs[0],
+        gallery: imgsURLs.slice(1),
       })
   } catch (error) {
     throw error

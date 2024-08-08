@@ -1,5 +1,6 @@
 'use server'
 import admin from '@/lib/firebase/server'
+import sortByPriority from './sortByPriority'
 
 export default async function getProjects(sizeOnly = false, options) {
   const projects = []
@@ -24,5 +25,5 @@ export default async function getProjects(sizeOnly = false, options) {
       projects.push(currentDoc)
     }
   })
-  return projects
+  return sortByPriority(projects)
 }

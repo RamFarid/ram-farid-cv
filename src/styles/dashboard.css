@@ -32,6 +32,19 @@
   min-width: 100%;
 }
 
+.form .inp-gallery {
+  width: 50%;
+  display: block;
+  margin: auto;
+}
+
+.form .inp-gallery label[for='gallery'] {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row !important;
+}
+
 hr {
   margin-block: 20px;
 }
@@ -185,6 +198,32 @@ figure .phone-icon {
   height: 165px;
   cursor: pointer;
   margin-bottom: 1rem;
+}
+
+.DASHBOARD_PAGE .inp-file-co img {
+  width: 100%;
+  object-fit: cover;
+  height: 100%;
+}
+
+.DASHBOARD_PAGE .form .gallery-view {
+  display: flex;
+  gap: 16px;
+  margin: 12px 0;
+  flex-wrap: wrap;
+}
+
+.DASHBOARD_PAGE .form .gallery-view .gallery-item {
+  width: 100px;
+  height: 100px;
+  overflow: hidden;
+  border-radius: 6px;
+}
+
+.DASHBOARD_PAGE .form .gallery-view .gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .DASHBOARD_PAGE .inp-file-co .file-name {

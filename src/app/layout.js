@@ -1,5 +1,7 @@
 import { Poppins } from 'next/font/google'
 import '@/styles/globals.css'
+import '@/styles/skeletons.css'
+import 'react-loading-skeleton/dist/skeleton.css'
 import 'react-toastify/dist/ReactToastify.css'
 import ToastContanier from '@/components/ToastContanier'
 import { SkeletonTheme } from 'react-loading-skeleton'

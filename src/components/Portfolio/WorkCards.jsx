@@ -2,9 +2,11 @@
 import Link from 'next/link'
 import Techs from './Techs'
 import { useEffect, useState } from 'react'
+import extractTechs from '@/utils/extractTechs'
 
 function WorkCards({ imgURL, title, demoURL, githubURL, usages, slug }) {
   const [state, setState] = useState({ isHydrated: false, hash: '' })
+  const { hasReact, hasNext } = extractTechs(usages)
   useEffect(() => {
     if (state.isHydrated)
       return setState((pre) => ({ ...pre, hash: window.location.hash }))
@@ -32,6 +34,11 @@ function WorkCards({ imgURL, title, demoURL, githubURL, usages, slug }) {
       >
         More
       </Link>
+      {hasReact || hasNext ? (
+        <div className={`${hasNext ? 'next' : 'react'}-flag`}>
+          <span>{hasReact ? 'React JS' : 'Next js'}</span>
+        </div>
+      ) : null}
       <Techs usages={usages} />
     </div>
   )

@@ -8,6 +8,7 @@ import WorkCardActions from '@/components/Portfolio/WorkCardActions'
 import { BsArrowLeft } from 'react-icons/bs'
 import Link from 'next/link'
 import Techs from '@/components/Portfolio/Techs'
+import ProjectGallery from '@/components/Portfolio/ProjectGallery'
 export const dynamic = 'force-dynamic'
 
 export function generateMetadata({ params: { slug } }) {
@@ -34,7 +35,10 @@ export default async function PortfolioSlug({ params: { slug } }) {
           <BsArrowLeft />
         </Link>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={project.imgURL} alt={project.title} />
+        {/* <img src={project.imgURL} alt={project.title} /> */}
+        <ProjectGallery
+          images={[project.imgURL, ...(project?.gallery || [])]}
+        />
         <div className='desc'>
           <div className='dates'>
             {/* Start and End | Start and First version and Last updated */}

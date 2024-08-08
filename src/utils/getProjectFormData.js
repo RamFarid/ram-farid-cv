@@ -1,3 +1,5 @@
+import getFirebaseDateFormat from './getFirebaseDateFormat'
+
 export default function getProjectFormData(form) {
   // { imgURL, title, demoURL, githubURL, usages, projectId}
   const title = form.get('projectname')
@@ -8,6 +10,11 @@ export default function getProjectFormData(form) {
   const inline = form.get('otherInline').length
     ? form.get('otherInline').split(',')
     : []
+  const time = {
+    start: getFirebaseDateFormat(form.get('startdate')),
+    end: getFirebaseDateFormat(form.get('enddate')),
+    lastUpdate: getFirebaseDateFormat(form.get('lastUpdate') || null),
+  }
   const newOne = usages.concat(inline)
   return {
     title,
@@ -15,5 +22,6 @@ export default function getProjectFormData(form) {
     githubURL,
     usages: newOne,
     description,
+    time,
   }
 }

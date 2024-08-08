@@ -1,6 +1,4 @@
 import Skeleton from 'react-loading-skeleton'
-import 'react-loading-skeleton/dist/skeleton.css'
-import '@/styles/skeletons.css'
 
 export default function SingleProjectSkeleton() {
   return (

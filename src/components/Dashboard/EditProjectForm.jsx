@@ -1,16 +1,17 @@
 'use client'
-import ImgInput from './ImgInput'
+import ImgInput from './ImgsInput'
 import BackBtn from './BackBtn'
 import { useState } from 'react'
-import uploadProjectImg from '@/utils/uploadProjectImg'
 import { toast } from 'react-toastify'
 import editProject from '@/utils/editProject'
 import makeSlug from '@/utils/makeSlug'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import timestampToUserReadableTime from '@/utils/timestampToUserReadableTime'
+import uploadProjectImgs from '@/utils/uploadProjectImgs'
 
 function EditProjectForm({ project, id, noAccessEdit }) {
+  console.log(project)
   const router = useRouter()
   const [form, setForm] = useState({
     title: project.title,
@@ -37,7 +38,9 @@ function EditProjectForm({ project, id, noAccessEdit }) {
     project.usages.slice(2).join(',')
   )
   const [isLoading, setIsLoading] = useState(false)
-  const [file, setFile] = useState(null)
+  const [thumbnail, setThumbnail] = useState(null)
+  const [gallery, setGallery] = useState(null)
+
   const hanleEditProject = async (e) => {
     if (noAccessEdit) return
     e.preventDefault()
@@ -49,8 +52,22 @@ function EditProjectForm({ project, id, noAccessEdit }) {
     const inline = otherInline.length ? otherInline.split(',') : []
     projectH.usages = [projectH.usages[0], projectH.usages[1], ...inline]
     try {
-      const url = file ? await uploadProjectImg(file, slug, noAccessEdit) : null
-      if (url) projectH['imgURL'] = url
+      const URLs =
+        thumbnail || gallery
+          ? await uploadProjectImgs(
+              [thumbnail, ...(gallery || [])],
+              slug,
+              noAccessEdit,
+              true
+            )
+          : null
+      if (URLs) {
+        if (!thumbnail) delete projectH['imgURL']
+        else projectH['imgURL'] = URLs[0]
+        if (!gallery) delete projectH['gallery']
+        else if (gallery && thumbnail) projectH['gallery'] = URLs.slice(1)
+        else if (gallery && !thumbnail) projectH['gallery'] = URLs
+      }
       const done = await editProject(projectH, id)
       if (done) toast.success(`Updated ${id} successfully`)
       router.prefetch('/dashboard')
@@ -172,7 +189,17 @@ function EditProjectForm({ project, id, noAccessEdit }) {
           />
         </div>
       </div>
-      <ImgInput file={file} setFile={setFile} noAccessEdit />
+      <ImgInput
+        setGallery={setGallery}
+        setThumbnail={setThumbnail}
+        gallery={gallery}
+        thumbnail={thumbnail}
+        noAccessEdit={noAccessEdit}
+        defaultImgs={{
+          gallery: project.gallery,
+          thumbnail: project.imgURL,
+        }}
+      />
       <div className='inp-co ic2'>
         <h4>Framework</h4>
         <div className='radio-co'>

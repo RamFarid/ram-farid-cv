@@ -1,17 +1,14 @@
 'use server'
 
 import admin from '@/lib/firebase/server'
-import { revalidatePath } from 'next/cache'
 
-async function deleteProject(projectId, fileName) {
+async function deleteProject(projectId, slugName) {
   try {
     await admin
       .storage()
       .bucket()
-      .file(`projects/${fileName}`)
-      .delete({ ignoreNotFound: true })
+      .deleteFiles({ prefix: `projects/${slugName}` })
     await admin.firestore().collection('projects').doc(projectId).delete()
-    revalidatePath('/dashboard')
   } catch (error) {
     throw error
   }
