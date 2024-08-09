@@ -249,6 +249,8 @@ textarea {
   background-color: transparent;
   padding: 12px;
   color: var(--color-white);
+  font: inherit;
+  font-size: 16px;
 }
 
 .lose-alert {

@@ -39,7 +39,7 @@ export default async function handleElderImgs(slugName, files) {
 
       if (removeElderThumbnail && fileFullName.startsWith('thumbnail')) {
         await deleteObject(itemRef)
-      } else if (!fileFullName.startsWith('thumbnail')) {
+      } else if (!fileFullName.startsWith('thumbnail') && files.length > 1) {
         await deleteObject(itemRef)
       }
     }
