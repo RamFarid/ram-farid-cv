@@ -26,6 +26,7 @@
     "react-loading-skeleton": "^3.4.0",
     "react-markdown": "^9.0.1",
     "react-toastify": "^10.0.5",
+    "remark-gfm": "^4.0.0",
     "swiper": "^9.3.2",
     "typewriter-effect": "^2.21.0"
   },

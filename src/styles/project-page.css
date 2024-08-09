@@ -101,6 +101,23 @@
   white-space: nowrap;
 }
 
+.single-project-page .desc table {
+  margin: 12px 0;
+  width: max(500px, 100%);
+  border: 1px solid var(--color-primary-variant);
+}
+
+.single-project-page .desc table thead {
+  display: table-header-group;
+  color: var(--color-primary);
+}
+
+.single-project-page .desc table th,
+.single-project-page .desc table td {
+  padding: 12px 8px;
+  border: 1.5px solid var(--color-primary-variant);
+}
+
 .single-project-page .desc li {
   margin-inline-start: 20px;
 }
