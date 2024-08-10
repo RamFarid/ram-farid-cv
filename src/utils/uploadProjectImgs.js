@@ -9,6 +9,7 @@ export default async function uploadProjectImgs(
 ) {
   if (noAccessEdit) return
   try {
+    isUpdate && (await handleElderImgs(slugName, files))
     let imagesPromises = []
     files.forEach((img, index) => {
       if (img) {
@@ -25,7 +26,6 @@ export default async function uploadProjectImgs(
         )
       }
     })
-    isUpdate && (await handleElderImgs(slugName, files))
     const imagesPaths = await Promise.all(imagesPromises)
     return imagesPaths
   } catch (error) {
