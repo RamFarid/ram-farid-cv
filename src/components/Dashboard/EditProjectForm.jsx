@@ -11,7 +11,6 @@ import timestampToUserReadableTime from '@/utils/timestampToUserReadableTime'
 import uploadProjectImgs from '@/utils/uploadProjectImgs'
 
 function EditProjectForm({ project, id, noAccessEdit }) {
-  console.log(project)
   const router = useRouter()
   const [form, setForm] = useState({
     title: project.title,
