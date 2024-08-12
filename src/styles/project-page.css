@@ -98,11 +98,19 @@
   background-color: var(--color-primary-variant);
   padding: 2px 5px;
   border-radius: 2px;
-  white-space: nowrap;
+}
+
+.single-project-page .desc .table-wrapper {
+  overflow-x: scroll;
+  margin: 12px 0;
+  width: 100%;
+}
+
+.single-project-page .desc .table-wrapper::-webkit-scrollbar {
+  height: 5.7px;
 }
 
 .single-project-page .desc table {
-  margin: 12px 0;
   width: max(500px, 100%);
   border: 1px solid var(--color-primary-variant);
 }
