@@ -5,7 +5,17 @@
   padding: 20px;
   max-width: 500px;
   border: 0.2px solid var(--color-primary-variant);
-  margin: auto;
+  flex: 1;
+}
+
+.form-desc-wrapper {
+  display: flex;
+  justify-content: flex-start;
+  gap: 16px;
+}
+
+.form-desc-wrapper .wrapper-mark__down {
+  margin: 0;
 }
 
 .form .inp-co .dates-editor label {

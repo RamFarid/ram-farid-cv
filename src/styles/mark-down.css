@@ -1,0 +1,73 @@
+.wrapper-mark__down {
+  position: relative;
+  margin-block: 23px;
+  padding: 0 16px 10px;
+  border: 1px solid var(--color-primary);
+  border-radius: 7px;
+  flex: 1;
+  min-height: 100%;
+}
+
+.wrapper-mark__down a {
+  text-decoration: underline;
+  color: var(--color-primary);
+}
+
+.wrapper-mark__down hr {
+  margin-block: 22px;
+}
+
+.wrapper-mark__down blockquote {
+  margin-block: 1.4rem;
+  padding-inline-start: 16px;
+  background-color: var(--color-primary-variant);
+  padding-block: 12px;
+  border-inline-start: 6px solid var(--color-primary-variant);
+  color: hsla(0, 0%, 100%, 0.86);
+}
+
+.wrapper-mark__down code {
+  background-color: var(--color-primary-variant);
+  padding: 2px 5px;
+  border-radius: 2px;
+}
+
+.wrapper-mark__down .table-wrapper {
+  overflow-x: scroll;
+  margin: 12px 0;
+  width: 100%;
+}
+
+.wrapper-mark__down .table-wrapper::-webkit-scrollbar {
+  height: 5.7px;
+}
+
+.wrapper-mark__down table {
+  width: max(500px, 100%);
+  border: 1px solid var(--color-primary-variant);
+}
+
+.wrapper-mark__down table thead {
+  display: table-header-group;
+  color: var(--color-primary);
+}
+
+.wrapper-mark__down table th,
+.wrapper-mark__down table td {
+  padding: 12px 8px;
+  border: 1.5px solid var(--color-primary-variant);
+}
+
+.wrapper-mark__down li {
+  margin-inline-start: 20px;
+}
+
+.wrapper-mark__down h1,
+.wrapper-mark__down h2,
+.wrapper-mark__down h3,
+.wrapper-mark__down h4,
+.wrapper-mark__down h5,
+.wrapper-mark__down h6 {
+  margin-top: 1rem;
+  color: var(--color-primary);
+}

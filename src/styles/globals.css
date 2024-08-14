@@ -251,6 +251,7 @@ textarea {
   color: var(--color-white);
   font: inherit;
   font-size: 16px;
+  resize: vertical;
 }
 
 .lose-alert {

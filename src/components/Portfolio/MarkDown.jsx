@@ -1,7 +1,7 @@
 'use client'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
-
+import "@/styles/mark-down.css"
 function MarkDown({ desc }) {
   return (
     <ReactMarkdown
@@ -13,6 +13,7 @@ function MarkDown({ desc }) {
           </div>
         ),
       }}
+      className='wrapper-mark__down'
     >
       {desc}
     </ReactMarkdown>

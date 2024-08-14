@@ -7,11 +7,13 @@ import addProject from '@/utils/addProject'
 import makeSlug from '@/utils/makeSlug'
 import { useRouter } from 'next/navigation'
 import uploadProjectImgs from '@/utils/uploadProjectImgs'
+import MarkDown from '../Portfolio/MarkDown'
 
 function NewProjectForm() {
   const [isLoading, setIsLoading] = useState(false)
   const [gallery, setGallery] = useState([])
   const [thumbnail, setThumbnail] = useState(null)
+  const [desc, setDesc] = useState("")
   const router = useRouter()
   const submitNewProject = async (e) => {
     e.preventDefault()
@@ -37,6 +39,8 @@ function NewProjectForm() {
     }
   }
   return (
+    <div className='form-desc-wrapper'>
+
     <form className='form' onSubmit={submitNewProject}>
       <BackBtn />
       <div className='title'>Add new project</div>
@@ -66,7 +70,7 @@ function NewProjectForm() {
         </label>
       </div>
       <div className='inp-co ic2'>
-        <textarea id='description' placeholder=' ' name='description' />
+        <textarea id='description' value={desc} onChange={(e)=>setDesc(e.target.value)} placeholder=' ' name='description' />
         <label htmlFor='description' className='placeholder'>
           Description
         </label>
@@ -157,6 +161,8 @@ function NewProjectForm() {
         {isLoading ? 'Loading...' : 'Add project'}
       </button>
     </form>
+    <MarkDown desc={desc} />
+    </div>
   )
 }
 
