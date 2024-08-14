@@ -325,4 +325,14 @@ figure .phone-icon {
   .DASHBOARD_PAGE .messages figcaption .title-wrapper div {
     font-size: 14px;
   }
+  .form-desc-wrapper .wrapper-mark__down {
+    display: none;
+  }
+  .form-desc-wrapper {
+    display: block;
+  }
+  .form-desc-wrapper .form {
+    margin-left: auto;
+    margin-right: auto;
+  }
 }

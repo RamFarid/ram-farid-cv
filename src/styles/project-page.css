@@ -15,7 +15,10 @@
   justify-content: space-between;
   align-items: center;
   width: 200px;
-  margin-inline-start: 16px;
+}
+
+.single-project-page .dates {
+  padding-inline: 16px;
 }
 
 .single-project-page .desc {
@@ -47,7 +50,7 @@
 @media screen and (max-width: 678px) {
   .single-project-page .edit-project-btn {
     position: static;
-    margin: 12px 0;
+    margin: 12px 16px;
   }
   .single-project-page .dates .single-date-data {
     width: 100%;
