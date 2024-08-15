@@ -7,6 +7,7 @@ export default function getProjectFormData(form) {
   const githubURL = form.get('githubUrl')
   const usages = [form.get('fw'), form.get('styles')]
   const description = form.get('description')
+  const starred = form.get('starred')
   const inline = form.get('otherInline').length
     ? form.get('otherInline').split(',')
     : []
@@ -23,5 +24,6 @@ export default function getProjectFormData(form) {
     usages: newOne,
     description,
     time,
+    starred: Boolean(starred),
   }
 }

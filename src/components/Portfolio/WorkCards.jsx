@@ -4,7 +4,15 @@ import Techs from './Techs'
 import { useEffect, useState } from 'react'
 import extractTechs from '@/utils/extractTechs'
 
-function WorkCards({ imgURL, title, demoURL, githubURL, usages, slug }) {
+function WorkCards({
+  imgURL,
+  title,
+  demoURL,
+  githubURL,
+  usages,
+  slug,
+  starred,
+}) {
   const [state, setState] = useState({ isHydrated: false, hash: '' })
   const { hasReact, hasNext } = extractTechs(usages)
   useEffect(() => {
@@ -15,7 +23,11 @@ function WorkCards({ imgURL, title, demoURL, githubURL, usages, slug }) {
   return (
     <div
       className={`portfolio-card-co ${
-        state.hash.replace('#', '') === slug ? 'fouced' : ''
+        state.hash.replace('#', '') === slug
+          ? 'fouced'
+          : starred
+          ? 'starred'
+          : ''
       }`.trim()}
       id={slug}
     >
@@ -39,6 +51,12 @@ function WorkCards({ imgURL, title, demoURL, githubURL, usages, slug }) {
           <span>{hasReact ? 'React JS' : 'Next js'}</span>
         </div>
       ) : null}
+      {starred && (
+        <div className='star-flag'>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src='/Assets/gold-common-star-svgrepo.svg' alt='star icon' />
+        </div>
+      )}
       <Techs usages={usages} />
     </div>
   )

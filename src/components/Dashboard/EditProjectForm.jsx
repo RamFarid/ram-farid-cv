@@ -19,6 +19,7 @@ function EditProjectForm({ project, id, noAccessEdit }) {
     demoURL: project.demoURL,
     usages: project.usages,
     description: project.description,
+    starred: project.starred,
     time: {
       start: timestampToUserReadableTime(
         project?.time?.start?._seconds * 1000,
@@ -357,6 +358,21 @@ function EditProjectForm({ project, id, noAccessEdit }) {
           <label htmlFor='otherInline' className='placeholder'>
             Others
           </label>
+        </div>
+        <div className='radio-co starred'>
+          <input
+            type='checkbox'
+            name='starred'
+            id='starred-box'
+            checked={form.starred}
+            onChange={(e) =>
+              setForm((pre) => ({
+                ...pre,
+                starred: e.target.checked,
+              }))
+            }
+          />
+          <label htmlFor='starred-box'>Starred</label>
         </div>
         <button
           type='button'

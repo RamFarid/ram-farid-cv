@@ -118,21 +118,34 @@ input[type='number'] {
   width: unset;
   margin-right: 10px;
 }
-input[type='radio'] {
+
+.radio-co input {
   width: unset;
   height: unset;
 }
-input[type='radio'] + label {
+
+.radio-co input + label {
   all: unset;
+  cursor: pointer;
   color: var(--color-white);
   opacity: 0.7;
   font-size: 12px;
+  user-select: none;
 }
 
 .radio-co {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+}
+
+.radio-co.starred label {
+  font-size: 16px;
+}
+
+.radio-co.starred input[type='checkbox'] {
+  width: 20px;
+  height: 20px;
 }
 
 .projects-section h1 {

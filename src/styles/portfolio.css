@@ -18,6 +18,11 @@
   animation: display 0.5s forwards ease-in-out;
 }
 
+.portfolio-card-co.starred {
+  border: 2px solid #fdd017;
+  cursor: url(/Assets/gold-common-star-svgrepo.svg), auto;
+}
+
 .portfolio-card-co.fouced {
   outline: 3px solid var(--color-primary);
   box-shadow: 0 0 15px var(--color-primary-variant);
@@ -125,6 +130,29 @@
 .next-flag::after,
 .next-flag::before {
   border-color: #000;
+}
+
+.star-flag {
+  position: absolute;
+  width: 43px;
+  top: -5%;
+  right: -5%;
+}
+
+.star-flag img {
+  width: 100%;
+  height: 100%;
+}
+
+.star-msg {
+  margin-bottom: 16px;
+  font-size: 1.25rem;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: var(--error-color);
+  padding: 12px;
+  border-radius: 6px;
 }
 
 @keyframes display {
