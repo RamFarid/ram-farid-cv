@@ -5,7 +5,7 @@ import experienceTime from '@/utils/experienceTime'
 import SmallCards from '../reusables/SmallCards'
 import Link from 'next/link'
 
-function AboutInfo({ className, clients, projectsCount }) {
+function AboutInfo({ className, clientsNo, projectsCount }) {
   return (
     <div className={`right-hand ${className}`.trim()}>
       <div className='cards'>
@@ -17,7 +17,7 @@ function AboutInfo({ className, clients, projectsCount }) {
         <SmallCards
           icon={<FaUserPlus />}
           head='Clients'
-          sub={`${clients?.clientsNo} Clients`}
+          sub={`${clientsNo} Clients`}
         />
         <Link href='/portfolio' passHref>
           <SmallCards

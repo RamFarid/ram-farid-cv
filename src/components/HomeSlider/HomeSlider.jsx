@@ -15,12 +15,15 @@ import SliderItem from './SliderItem'
 import SliderWrapper from './SliderWrapper'
 import { useState } from 'react'
 
-function HomeSlider({ projectsCount, clientsDoc }) {
+function HomeSlider({ projectsCount, clientsNo, cvFile }) {
   const [activeItem, setActiveItem] = useState(0)
   const items = [
-    { element: <Landing />, sectionProps: { className: 'home-sec' } },
     {
-      element: <About clientsDoc={clientsDoc} projectsCount={projectsCount} />,
+      element: <Landing cvFile={cvFile} />,
+      sectionProps: { className: 'home-sec' },
+    },
+    {
+      element: <About clientsNo={clientsNo} projectsCount={projectsCount} />,
       sectionProps: {
         sub: 'get to know',
         head: 'about me',

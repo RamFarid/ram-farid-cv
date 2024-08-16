@@ -6,7 +6,7 @@ export default async function getClientsNo() {
   const doc = await admin
     .firestore()
     .collection('metadata')
-    .doc('clients')
+    .doc('cv_data')
     .get()
-  return { ...doc.data(), id: doc.id }
+  return doc.data().clientsNo
 }

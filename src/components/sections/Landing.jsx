@@ -6,7 +6,7 @@ import '../../styles/home.css'
 import WelcomeTyper from '../Home/WelcomeTyper'
 import IntroTyper from '../Home/IntroTyper'
 
-export default function Landing() {
+export default function Landing({ cvFile }) {
   return (
     <>
       <div className='animation mb-sections'>
@@ -28,7 +28,7 @@ export default function Landing() {
           <Link className='primary-btn' href='/contact'>
             {"Let's Talk!"}
           </Link>
-          <CVBtn />
+          <CVBtn cvFile={cvFile} />
         </div>
       </div>
     </>

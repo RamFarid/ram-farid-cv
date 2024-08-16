@@ -1,5 +1,6 @@
 import { storage } from '@/lib/firebase/client'
 import { ref, uploadBytes } from 'firebase/storage'
+import getStorageURL from './getStorageURL'
 
 export default async function uploadProjectImg(file, PATH) {
   // projects
@@ -15,8 +16,3 @@ export default async function uploadProjectImg(file, PATH) {
     throw error
   }
 }
-
-const getStorageURL = (PATH) =>
-  `https://firebasestorage.googleapis.com/v0/b/ram-farid-cv-c3d7f.appspot.com/o/${encodeURIComponent(
-    PATH
-  )}?alt=media`

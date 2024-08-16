@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef } from 'react'
 
 function SliderWrapper({ children, activeItem, setActiveItem }) {
   const itemsLength = React.Children.count(children)

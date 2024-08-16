@@ -1,17 +1,21 @@
 import HomeSlider from '@/components/HomeSlider/HomeSlider'
 import ProjectsMarquee from '@/components/ProjectsMarquee/ProjectsMarquee'
-import getClientsNo from '@/utils/getClientsNo'
+import getCVMetaData from '@/utils/getCVMetaData'
 import getProjects from '@/utils/getProjects'
 
 export default async function Home() {
-  const [projectsCount, clientsDoc, projects] = await Promise.all([
+  const [projectsCount, metadata, projects] = await Promise.all([
     getProjects(true),
-    getClientsNo(),
+    getCVMetaData(),
     getProjects(false, { select: ['imgURL', 'title', 'slug'] }),
   ])
   return (
     <main>
-      <HomeSlider projectsCount={projectsCount} clientsDoc={clientsDoc} />
+      <HomeSlider
+        projectsCount={projectsCount}
+        clientsNo={metadata.clientsNo}
+        cvFile={metadata.cvFile}
+      />
       <ProjectsMarquee projects={projects} />
     </main>
   )
