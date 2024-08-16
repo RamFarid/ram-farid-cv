@@ -10,6 +10,7 @@ function FSWrapper({ frontFaceComponent, backFaceComponent }) {
   const [onceAppeared, setOnceAppeared] = useState(false)
 
   const onTouchStart = (e) => {
+    if (!isIntersecting) return
     if (isIntersecting) setOnceAppeared(true)
     startX.current = e.changedTouches[0].clientX
   }

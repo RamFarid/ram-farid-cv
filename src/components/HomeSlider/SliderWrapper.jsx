@@ -43,7 +43,7 @@ function SliderWrapper({ children, activeItem, setActiveItem }) {
       }
       animationTimeID.current = setTimeout(() => {
         animationTimeID.current = null
-      }, 700)
+      }, 2000)
     }
     const onWheel = (e) => {
       const { deltaY } = e
@@ -60,7 +60,7 @@ function SliderWrapper({ children, activeItem, setActiveItem }) {
       }
       animationTimeID.current = setTimeout(() => {
         animationTimeID.current = null
-      }, 700)
+      }, 2000)
     }
     const container = containerRef.current
     container.addEventListener('wheel', onWheel, { passive: false })

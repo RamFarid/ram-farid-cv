@@ -1,5 +1,5 @@
 :root {
-  --transition-home-scroller: 0.6s;
+  --transition-home-scroller: 1s;
 }
 
 .scroller__container {
@@ -10,7 +10,7 @@
 
 .scroller__content {
   overflow: hidden;
-  transition: transform var(--transition-home-scroller) linear;
+  transition: transform var(--transition-home-scroller) ease-out;
 }
 
 .scroller__container .scroller__content .scroller__item {
@@ -31,7 +31,7 @@
   background-size: cover;
   height: var(--net-viewport, 100vh);
   /* background-attachment: fixed; */
-  transition: transform var(--transition-home-scroller) ease-in-out;
+  transition: transform 0.8s ease;
 }
 
 .scroller__item-next > section {
