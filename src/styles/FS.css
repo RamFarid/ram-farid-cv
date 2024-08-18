@@ -43,6 +43,7 @@
 
 .fs__content.sayImHere {
   animation: sayImHere 1s forwards ease-in-out;
+  pointer-events: none;
 }
 
 @media screen and (min-width: 768px) {

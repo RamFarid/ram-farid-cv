@@ -61,3 +61,17 @@
 .scroller__content > .scroller__item:nth-child(6) section {
   background-image: url('../../public/Assets/bg-6.jpg');
 }
+
+.scroller__container div.overlay {
+  position: fixed;
+  inset: 0;
+  background: #00000085;
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.scroller__container .overlay > div {
+  position: static;
+}

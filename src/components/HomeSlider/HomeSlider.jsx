@@ -21,6 +21,8 @@ function HomeSlider({ projectsCount, clientsNo, cvFile }) {
     {
       element: <Landing cvFile={cvFile} />,
       sectionProps: { className: 'home-sec' },
+      id: 'landing',
+      hasFS: false,
     },
     {
       element: <About clientsNo={clientsNo} projectsCount={projectsCount} />,
@@ -29,6 +31,8 @@ function HomeSlider({ projectsCount, clientsNo, cvFile }) {
         head: 'about me',
         className: 'about',
       },
+      id: 'about-me',
+      hasFS: true,
     },
     {
       element: <Experience />,
@@ -37,10 +41,14 @@ function HomeSlider({ projectsCount, clientsNo, cvFile }) {
         sub: 'What skills i have?',
         className: 'experience',
       },
+      id: 'experience',
+      hasFS: true,
     },
     {
       element: <Services />,
       sectionProps: { head: 'Services', sub: 'what i offer?' },
+      id: 'services',
+      hasFS: false,
     },
     {
       element: <Testmonials />,
@@ -48,6 +56,8 @@ function HomeSlider({ projectsCount, clientsNo, cvFile }) {
         head: 'Testmonials',
         sub: 'Temporary Certs. until I graduate',
       },
+      id: 'testimonials',
+      hasFS: false,
     },
     {
       element: <ContactMe />,
@@ -56,6 +66,8 @@ function HomeSlider({ projectsCount, clientsNo, cvFile }) {
         sub: 'get in touch',
         head: 'contact me',
       },
+      id: 'contact-me',
+      hasFS: true,
     },
   ]
   return (
@@ -65,8 +77,10 @@ function HomeSlider({ projectsCount, clientsNo, cvFile }) {
           <SliderItem
             index={index}
             activeItem={activeItem}
-            key={index}
+            key={`${item.id}-${index}`}
             sectionProps={item.sectionProps}
+            elementId={item.id}
+            hasFS={item.hasFS}
           >
             {item.element}
           </SliderItem>

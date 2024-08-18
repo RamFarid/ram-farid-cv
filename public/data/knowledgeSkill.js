@@ -1,11 +1,11 @@
 export const knowledgeSkill = [
   {
     head: 'Node JS',
-    skillRatio: 'Intermidiate',
+    skillRatio: 'Intermediate',
   },
   {
     head: 'Git',
-    skillRatio: 'Intermidiate',
+    skillRatio: 'Intermediate',
   },
   {
     head: 'GitHub',
@@ -13,11 +13,11 @@ export const knowledgeSkill = [
   },
   {
     head: 'MongoDB',
-    skillRatio: 'Intermidiate',
+    skillRatio: 'Intermediate',
   },
   {
     head: 'Express JS',
-    skillRatio: 'Intermidiate',
+    skillRatio: 'Intermediate',
   },
   {
     head: 'Firebase',

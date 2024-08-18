@@ -1,13 +1,15 @@
 'use client'
-
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
+import Loading from '../Skeletons/SpinnerLoader'
 
 function SliderWrapper({ children, activeItem, setActiveItem }) {
   const itemsLength = React.Children.count(children)
   const animationTimeID = useRef(null)
   const startY = useRef(22)
   const containerRef = useRef(null)
+  const [isHydrated, setIsHydrated] = useState(false)
   useEffect(() => {
+    setIsHydrated(true)
     window.document.documentElement.style.setProperty(
       '--net-viewport',
       `${window.innerHeight}px`
@@ -15,6 +17,7 @@ function SliderWrapper({ children, activeItem, setActiveItem }) {
   }, [])
 
   useEffect(() => {
+    const scrollerAnimationDuration = 1000
     const handleScrollSections = (event) => {
       const isLastItem = activeItem + 1 === itemsLength
       if (!isLastItem || (isLastItem && animationTimeID.current)) {
@@ -43,7 +46,7 @@ function SliderWrapper({ children, activeItem, setActiveItem }) {
       }
       animationTimeID.current = setTimeout(() => {
         animationTimeID.current = null
-      }, 2000)
+      }, scrollerAnimationDuration)
     }
     const onWheel = (e) => {
       const { deltaY } = e
@@ -60,7 +63,7 @@ function SliderWrapper({ children, activeItem, setActiveItem }) {
       }
       animationTimeID.current = setTimeout(() => {
         animationTimeID.current = null
-      }, 2000)
+      }, scrollerAnimationDuration)
     }
     const container = containerRef.current
     container.addEventListener('wheel', onWheel, { passive: false })
@@ -73,10 +76,15 @@ function SliderWrapper({ children, activeItem, setActiveItem }) {
       container.removeEventListener('touchmove', onTouchMove)
       container.removeEventListener('touchend', onTouchEnd)
     }
-  }, [activeItem, itemsLength, setActiveItem])
+  }, [activeItem, children, itemsLength, setActiveItem])
 
   return (
     <div className='scroller__container' ref={containerRef}>
+      {!isHydrated && (
+        <div className='overlay'>
+          <Loading />
+        </div>
+      )}
       <div
         className='scroller__content'
         style={{

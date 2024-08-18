@@ -6,12 +6,12 @@ function FSWrapper({ frontFaceComponent, backFaceComponent }) {
   const [isFlipped, setIsFlipped] = useState(false)
   const startX = useRef(0)
   const containerRef = useRef(null)
-  const [isIntersecting, setIsIntersecting] = useState(false)
+  const [isIntersected, setIsIntersected] = useState(false)
   const [onceAppeared, setOnceAppeared] = useState(false)
 
   const onTouchStart = (e) => {
-    if (!isIntersecting) return
-    if (isIntersecting) setOnceAppeared(true)
+    if (!isIntersected) return
+    if (isIntersected) setOnceAppeared(true)
     startX.current = e.changedTouches[0].clientX
   }
   const onTouchEnd = (e) => {
@@ -30,8 +30,13 @@ function FSWrapper({ frontFaceComponent, backFaceComponent }) {
   useEffect(() => {
     const container = containerRef.current
     const observer = new IntersectionObserver(
-      ([entry]) =>
-        setIsIntersecting((pre) => (!pre ? entry.isIntersecting : true)),
+      ([entry]) => {
+        setIsIntersected((pre) => (!pre ? entry.isIntersecting : true))
+        const id = setTimeout(() => {
+          setOnceAppeared((pre) => pre || entry.isIntersecting)
+          clearTimeout(id)
+        }, 1000)
+      },
       { root: null, rootMargin: '0px', threshold: 1 }
     )
     observer.observe(container)
@@ -45,10 +50,13 @@ function FSWrapper({ frontFaceComponent, backFaceComponent }) {
       onTouchStart={onTouchStart}
       onTouchEnd={onTouchEnd}
       ref={containerRef}
+      style={{
+        pointerEvents: onceAppeared ? 'auto' : 'none',
+      }}
     >
       <div
         className={`fs__content ${
-          onceAppeared ? '' : isIntersecting ? 'sayImHere' : ''
+          onceAppeared ? '' : isIntersected ? 'sayImHere' : ''
         } ${isFlipped ? 'flip' : ''}`.trim()}
       >
         {frontFaceComponent &&
