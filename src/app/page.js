@@ -3,6 +3,8 @@ import ProjectsMarquee from '@/components/ProjectsMarquee/ProjectsMarquee'
 import getCVMetaData from '@/utils/getCVMetaData'
 import getProjects from '@/utils/getProjects'
 
+export const dynamic = 'force-dynamic'
+
 export default async function Home() {
   const [projectsCount, metadata, projects] = await Promise.all([
     getProjects(true),
