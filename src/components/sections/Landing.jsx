@@ -1,10 +1,10 @@
 import CVBtn from '../Home/CVBtn'
 import links from '../../../public/data/homeLinks'
-import Link from 'next/link'
 import '../../styles/home.css'
 
 import WelcomeTyper from '../Home/WelcomeTyper'
 import IntroTyper from '../Home/IntroTyper'
+import ContactBtn from '../About/ContactBtn'
 
 export default function Landing({ cvFile }) {
   return (
@@ -25,9 +25,7 @@ export default function Landing({ cvFile }) {
           })}
         </div>
         <div className='btns-home'>
-          <Link className='primary-btn' href='/contact'>
-            {"Let's Talk!"}
-          </Link>
+          <ContactBtn text={"Let's Talk!"} />
           <CVBtn cvFile={cvFile} />
         </div>
       </div>

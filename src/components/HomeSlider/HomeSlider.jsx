@@ -1,4 +1,3 @@
-'use client'
 import '@/styles/scroller.css'
 import 'swiper/css'
 import 'swiper/css/pagination'
@@ -13,10 +12,8 @@ import Services from '../sections/Services'
 import Testmonials from '../sections/Testimonials'
 import SliderItem from './SliderItem'
 import SliderWrapper from './SliderWrapper'
-import { useState } from 'react'
 
 function HomeSlider({ projectsCount, clientsNo, cvFile }) {
-  const [activeItem, setActiveItem] = useState(0)
   const items = [
     {
       element: <Landing cvFile={cvFile} />,
@@ -71,12 +68,11 @@ function HomeSlider({ projectsCount, clientsNo, cvFile }) {
     },
   ]
   return (
-    <SliderWrapper activeItem={activeItem} setActiveItem={setActiveItem}>
+    <SliderWrapper>
       {items.map((item, index) => {
         return (
           <SliderItem
             index={index}
-            activeItem={activeItem}
             key={`${item.id}-${index}`}
             sectionProps={item.sectionProps}
             elementId={item.id}

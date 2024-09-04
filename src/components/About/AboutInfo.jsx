@@ -4,6 +4,7 @@ import { VscFolderLibrary } from 'react-icons/vsc'
 import experienceTime from '@/utils/experienceTime'
 import SmallCards from '../reusables/SmallCards'
 import Link from 'next/link'
+import ContactBtn from './ContactBtn'
 
 function AboutInfo({ className, clientsNo, projectsCount }) {
   return (
@@ -36,9 +37,7 @@ function AboutInfo({ className, clientsNo, projectsCount }) {
         to the entire web creation process. {"I'm"} committed to crafting
         solutions that make a real impact in the digital world.
       </div>
-      <Link className='primary-btn' href='/contact'>
-        Contact Me
-      </Link>
+      <ContactBtn />
     </div>
   )
 }

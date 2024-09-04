@@ -61,15 +61,13 @@
 }
 
 .btns-home {
-  width: fit-content;
-  height: fit-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
   margin-top: 16px;
 }
 
-.home-sec .primary-btn,
-.home-sec .secondary-btn {
-  margin: 10px 15px 0px 0px;
-}
 /* .home-sec img {
   background: linear-gradient(var(--color-primary), transparent);
   display: block;

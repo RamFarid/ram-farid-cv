@@ -8,17 +8,6 @@
   flex-grow: 1;
 }
 
-/* .experience-content {
-  transition: transform var(--flip-time);
-  transform-style: preserve-3d;
-  position: relative;
-  height: 100%;
-} */
-
-/* .experience-container .experience-content.flip {
-  transform: rotateY(0.5turn);
-} */
-
 .experience .main-skills,
 .experience .knowlege-skills {
   background-color: var(--color-background-variant);
@@ -26,14 +15,8 @@
   border-radius: 20px;
   position: absolute;
 
-  /* transform-style: preserve-3d;
-  inset: 0;
-  backface-visibility: hidden; */
+  transform-style: preserve-3d;
 }
-
-/* .experience .knowlege-skills {
-  transform: rotateY(0.5turn);
-} */
 
 .experience .fs__container .section-header {
   font-size: 18px;
@@ -95,6 +78,7 @@
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr;
   justify-content: center;
+  transform-style: preserve-3d;
 }
 
 .experience .ad-skills-container .add-skill {
@@ -103,13 +87,12 @@
   font-size: 14px;
   transform-style: preserve-3d;
 }
-.experience
-  .ad-skills-container
-  .add-skill
-  > div:nth-child(2)
-  > div:first-child {
-  transform: var(--solidTranslate-v2);
+
+.experience .ad-skills-container .add-skill > div:nth-child(2) {
+  transform-style: preserve-3d;
+  /* transform: var(--solidTranslate-v2); */
 }
+
 .experience
   .ad-skills-container
   .add-skill
@@ -118,8 +101,18 @@
   transform: var(--solidTranslate-v2);
 }
 
+.experience
+  .ad-skills-container
+  .add-skill
+  > div:nth-child(2)
+  > div:nth-child(2) {
+  transform: var(--solidTranslate-v1);
+}
+
 .experience .ad-skills-container .add-skill .icon {
   color: var(--color-primary);
+  transform-style: preserve-3d;
+  transform: var(--solidTranslate-v2);
 }
 
 @media screen and (max-width: 768px) {

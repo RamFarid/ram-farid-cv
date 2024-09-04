@@ -1,8 +1,19 @@
 'use client'
-import React, { useEffect, useRef, useState } from 'react'
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from 'react'
 import Loading from '../Skeletons/SpinnerLoader'
 
-function SliderWrapper({ children, activeItem, setActiveItem }) {
+const SliderContenxt = createContext()
+
+export const useHomeSlider = () => useContext(SliderContenxt)
+
+function SliderWrapper({ children }) {
+  const [activeItem, setActiveItem] = useState(0)
   const itemsLength = React.Children.count(children)
   const animationTimeID = useRef(null)
   const startY = useRef(22)
@@ -22,7 +33,11 @@ function SliderWrapper({ children, activeItem, setActiveItem }) {
       const isLastItem = activeItem + 1 === itemsLength
       if (!isLastItem || (isLastItem && animationTimeID.current)) {
         containerRef.current.scrollIntoView()
-        event.preventDefault()
+        // Prevent the clickable elements from being non-clickable
+        const clickableElements = event.target.closest(
+          'button, a, input, select, textarea'
+        )
+        if (!clickableElements) event.preventDefault()
       }
     }
     const onTouchStart = (e) => {
@@ -79,21 +94,23 @@ function SliderWrapper({ children, activeItem, setActiveItem }) {
   }, [activeItem, children, itemsLength, setActiveItem])
 
   return (
-    <div className='scroller__container' ref={containerRef}>
-      {!isHydrated && (
-        <div className='overlay'>
-          <Loading />
+    <SliderContenxt.Provider value={{ setActiveItem, activeItem }}>
+      <div className='scroller__container' ref={containerRef}>
+        {!isHydrated && (
+          <div className='overlay'>
+            <Loading />
+          </div>
+        )}
+        <div
+          className='scroller__content'
+          style={{
+            transform: `translateY(calc(-${activeItem} * var(--net-viewport, 100vh)))`,
+          }}
+        >
+          {children.map((item) => React.cloneElement(item, { activeItem }))}
         </div>
-      )}
-      <div
-        className='scroller__content'
-        style={{
-          transform: `translateY(calc(-${activeItem} * var(--net-viewport, 100vh)))`,
-        }}
-      >
-        {children}
       </div>
-    </div>
+    </SliderContenxt.Provider>
   )
 }
 
