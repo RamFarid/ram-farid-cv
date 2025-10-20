@@ -4,7 +4,9 @@ import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 
 export default async function LoginPage() {
-  const token = cookies().get('tooken')?.value.trim()
+  const token = (await cookies()).get('tooken')?.value.trim()
+  console.log('Login: ', token)
+
   if (!token) return <LoginForm />
   try {
     await checkToken(token)

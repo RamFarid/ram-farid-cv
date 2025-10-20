@@ -1,12 +1,11 @@
 import CVBtn from '../Home/CVBtn'
 import links from '../../../public/data/homeLinks'
-import '../../styles/home.css'
 
 import WelcomeTyper from '../Home/WelcomeTyper'
 import IntroTyper from '../Home/IntroTyper'
 import ContactBtn from '../About/ContactBtn'
 
-export default function Landing({ cvFile }) {
+export default function Landing({ cvFile, socialLinks }) {
   return (
     <>
       <div className='animation mb-sections'>
@@ -14,10 +13,10 @@ export default function Landing({ cvFile }) {
         <IntroTyper />
         {/* <span className='my-name'>Ram fareed</span> */}
         <div className='home-links'>
-          {links.map(({ link, icon }, id) => {
+          {links.map(({ icon, id }) => {
             return (
               <div className='link-co' key={id + 5}>
-                <a href={link} target='_blank' rel='noreferrer'>
+                <a href={socialLinks[id]} target='_blank' rel='noreferrer'>
                   {icon}
                 </a>
               </div>

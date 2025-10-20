@@ -11,6 +11,7 @@
   flex-grow: 1;
   transform: var(--solidTranslate-v2);
   transform-style: preserve-3d;
+  width: 200px;
 }
 
 .card .sub-text,
@@ -20,7 +21,7 @@
 }
 
 .card .sub-text a {
-  width: 100px;
+  width: 200px;
   display: block;
   white-space: nowrap;
   text-overflow: ellipsis;

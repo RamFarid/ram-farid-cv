@@ -84,6 +84,52 @@
   font-weight: 100;
 }
 
+.scroll-container {
+  scroll-snap-type: y mandatory; /* or x for horizontal */
+  scroll-behavior: smooth;
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: 100vh; /* or any fixed height */
+}
+
+.scroll-container::-webkit-scrollbar {
+  display: none;
+}
+
+.scroll-item {
+  scroll-snap-align: start; /* or center / end */
+  height: 100dvh; /* full viewport height, for example */
+}
+
+section {
+  position: relative;
+  scroll-snap-align: start;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  /* background-attachment: fixed; */
+  transition: transform 0.8s ease;
+}
+
+section:first-child {
+  background-image: url('../../public/Assets/bg-1.jpg');
+}
+section:nth-child(2) {
+  background-image: url('../../public/Assets/bg-2.jpg');
+}
+section:nth-child(3) {
+  background-image: url('../../public/Assets/bg-3.jpg');
+}
+section:nth-child(4) {
+  background-image: url('../../public/Assets/bg-4.jpg');
+}
+section:nth-child(5) {
+  background-image: url('../../public/Assets/bg-5.jpg');
+}
+section:nth-child(6) {
+  background-image: url('../../public/Assets/bg-6.jpg');
+}
+
 @media screen and (max-width: 768px) {
   .my-name {
     letter-spacing: 6px;

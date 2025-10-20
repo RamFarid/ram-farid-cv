@@ -14,7 +14,8 @@ export const dynamic = 'force-dynamic'
 export const fetchCache = 'only-no-store'
 
 export default async function Dashboard() {
-  const token = cookies().get('tooken')?.value.trim()
+  const token = (await cookies()).get('tooken')?.value.trim()
+  console.log('Dashboard: ', token)
   if (!token) return redirect('/dashboard/login')
   try {
     await checkToken(token)
@@ -23,7 +24,6 @@ export default async function Dashboard() {
       getClientsNo(),
       // getCert(),
     ])
-    revalidatePath('/dashboard')
     return (
       <>
         <Projects projects={projects} />
@@ -32,6 +32,7 @@ export default async function Dashboard() {
       </>
     )
   } catch (error) {
+    console.log(error)
     return redirect('/dashboard/login')
   }
 }

@@ -18,7 +18,7 @@ function Clients({ clientsNo = 0 }) {
           placeholder=' '
           value={clients}
           min={0}
-          onChange={(e) => setClients(e.target.value)}
+          onChange={(e) => setClients(+e.target.value)}
         />
         <label htmlFor='clientno'>Clients Number</label>
       </div>

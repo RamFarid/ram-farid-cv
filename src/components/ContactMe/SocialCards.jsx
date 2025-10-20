@@ -2,7 +2,7 @@ import contactLinks from '../../../public/data/contactLinks'
 import React from 'react'
 import SmallCards from '../reusables/SmallCards'
 
-function SocialCards({ className = '' }) {
+function SocialCards({ className = '', socialLinks }) {
   return (
     <div className={`${className}`} style={{ padding: '6px' }}>
       <h2 className='section-header'>Social accounts</h2>
@@ -16,17 +16,17 @@ function SocialCards({ className = '' }) {
                 link.sub.map((tag, id) => (
                   <a
                     key={id + 5}
-                    href={tag.href}
+                    href={socialLinks[link.id][id]}
                     target='_blank'
                     style={{ display: 'block' }}
                     rel='noreferrer'
                   >
-                    {tag.text}
+                    {socialLinks[link.id][id]}
                   </a>
                 ))
               ) : (
-                <a href={link.sub.href} target='_blank' rel='noreferrer'>
-                  {link.sub.text}
+                <a href={socialLinks[link.id]} target='_blank' rel='noreferrer'>
+                  {socialLinks[link.id]}
                 </a>
               )
             }

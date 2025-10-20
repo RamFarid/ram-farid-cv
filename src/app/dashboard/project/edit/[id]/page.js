@@ -12,13 +12,18 @@ export const dynamic = 'force-dynamic'
 
 // { imgURL, title, demoURL, githubURL, usages, slug }
 export default async function EditProject({ params: { id } }) {
-  const token = cookies().get('tooken')?.value.trim()
+  const token = (await cookies()).get('tooken')?.value.trim()
   try {
     const project = await getProjectByID(id)
+    if (!project) notFound()
+  } catch {
+    notFound()
+  }
+  try {
     if (!token)
       return <EditProjectForm project={project} id={id} noAccessEdit={true} />
     await checkToken(token)
-    if (!project) notFound()
+    console.log('object')
     return (
       <>
         <EditProjectForm project={project} id={id} />

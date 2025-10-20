@@ -135,7 +135,7 @@ body {
   transition: all var(--transition);
 }
 
-input:is(::-webkit-autofill, :autofil) {
+input:is(::-webkit-autofill, ::autofil) {
   background-color: transparent !important;
 }
 
