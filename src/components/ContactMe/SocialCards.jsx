@@ -25,7 +25,15 @@ function SocialCards({ className = '', socialLinks }) {
                   </a>
                 ))
               ) : (
-                <a href={socialLinks[link.id]} target='_blank' rel='noreferrer'>
+                <a
+                  href={
+                    link.id === 'email'
+                      ? 'mailto:' + socialLinks[link.id]
+                      : socialLinks[link.id]
+                  }
+                  target='_blank'
+                  rel='noreferrer'
+                >
                   {socialLinks[link.id]}
                 </a>
               )
