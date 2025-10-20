@@ -12,13 +12,13 @@
     "bcrypt": "^5.1.1",
     "firebase": "^10.12.4",
     "firebase-admin": "^12.2.0",
-    "framer-motion": "^11.3.8",
+    "framer-motion": "^12.23.24",
     "install": "^0.13.0",
     "jsonwebtoken": "^9.0.2",
     "next": "15.3.2",
     "npm": "^10.8.2",
     "react": "19.1.0",
-    "react-avatar": "^5.0.3",
+    "react-avatar": "^5.0.4",
     "react-dnd": "^16.0.1",
     "react-dnd-html5-backend": "^16.0.1",
     "react-dom": "19.1.0",
@@ -29,10 +29,10 @@
     "react-toastify": "^10.0.5",
     "remark-gfm": "^4.0.0",
     "swiper": "^9.3.2",
-    "typewriter-effect": "^2.21.0"
+    "typewriter-effect": "^2.22.0"
   },
   "engines": {
-    "node": ">=22.0.0"
+    "node": "22.x"
   },
   "devDependencies": {
     "eslint": "^8",
