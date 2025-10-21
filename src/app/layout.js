@@ -6,6 +6,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import ToastContanier from '@/components/ToastContanier'
 import { SkeletonTheme } from 'react-loading-skeleton'
 import HomeBtn from '@/components/HomeBtn'
+import Script from 'next/script'
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -30,6 +31,19 @@ export default function RootLayout({ children }) {
           {children}
         </SkeletonTheme>
         <ToastContanier />
+        {/* Google Analytics */}
+        <Script
+          strategy='afterInteractive'
+          src={`https://www.googletagmanager.com/gtag/js?id=G-YK75Q6GDGZ`}
+        />
+        <Script id='google-analytics' strategy='afterInteractive'>
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-YK75Q6GDGZ');
+          `}
+        </Script>
       </body>
     </html>
   )
