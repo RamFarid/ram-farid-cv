@@ -9,11 +9,13 @@ function StarMsg() {
       />
       : the project starred is an important project and should be seen to
       enhance your confidence in me. It indicates that the project <br />
-      <li>For a client</li>
-      <li>
-        or the project is a large project and has a multiple features, not an
-        ordinary one
-      </li>
+      <ul>
+        <li>For a client</li>
+        <li>
+          or the project is a large project and has a multiple features, not an
+          ordinary one
+        </li>
+      </ul>
     </div>
   )
 }

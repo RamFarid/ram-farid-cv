@@ -27,7 +27,7 @@ export default async function Home() {
   ])
   return (
     <main>
-      <div className='scroll-container'>
+      <div className='scroll-container home_slider'>
         {/* <HomeSlider
         projectsCount={projectsCount}
         clientsNo={metadata.clientsNo}

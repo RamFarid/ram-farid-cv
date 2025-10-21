@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react'
 import WorkCards from './WorkCards'
 import Filter from './Filter'
+import { AnimatePresence } from 'framer-motion'
 
 function Projects({ projectsDB }) {
   const [projects, setProjects] = useState(projectsDB)
@@ -24,13 +25,15 @@ function Projects({ projectsDB }) {
     <>
       <Filter filters={filters} setFilters={setFilters} />
       <div className='portfolio-co mb-sections'>
-        {projects.length > 0 ? (
-          projects.map((val, id) => {
-            return <WorkCards {...val} key={id + Math.random()} /> // { imgURL, title, demoURL, githubURL, usages }
-          })
-        ) : (
-          <div>No projects</div>
-        )}
+        <AnimatePresence>
+          {projects.length > 0 ? (
+            projects.map((val, id) => {
+              return <WorkCards {...val} key={id + Math.random()} /> // { imgURL, title, demoURL, githubURL, usages }
+            })
+          ) : (
+            <div>No projects</div>
+          )}
+        </AnimatePresence>
       </div>
     </>
   )

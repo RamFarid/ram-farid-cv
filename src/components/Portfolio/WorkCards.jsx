@@ -3,6 +3,28 @@ import Link from 'next/link'
 import Techs from './Techs'
 import { useEffect, useState } from 'react'
 import extractTechs from '@/utils/extractTechs'
+import { motion } from 'framer-motion'
+
+const variants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.2,
+      ease: 'easeInOut',
+      delay: 0.6,
+    },
+  },
+  exit: {
+    opacity: 0,
+    y: -20,
+    transition: {
+      duration: 0.2,
+      ease: 'easeInOut',
+    },
+  },
+}
 
 function WorkCards({
   imgURL,
@@ -21,7 +43,7 @@ function WorkCards({
     else setState((pre) => ({ ...pre, isHydrated: true }))
   }, [state.isHydrated])
   return (
-    <div
+    <motion.div
       className={`portfolio-card-co ${
         state.hash.replace('#', '') === slug
           ? 'fouced'
@@ -29,6 +51,10 @@ function WorkCards({
           ? 'starred'
           : ''
       }`.trim()}
+      variants={variants}
+      initial='hidden'
+      animate='visible'
+      exit='exit'
       id={slug}
     >
       <div className='img-co'>
@@ -58,7 +84,7 @@ function WorkCards({
         </div>
       )}
       <Techs usages={usages} />
-    </div>
+    </motion.div>
   )
 }
 
