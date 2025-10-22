@@ -13,8 +13,9 @@ export const dynamic = 'force-dynamic'
 // { imgURL, title, demoURL, githubURL, usages, slug }
 export default async function EditProject({ params: { id } }) {
   const token = (await cookies()).get('tooken')?.value.trim()
+  let project
   try {
-    const project = await getProjectByID(id)
+    project = await getProjectByID(id)
     if (!project) notFound()
   } catch {
     notFound()
