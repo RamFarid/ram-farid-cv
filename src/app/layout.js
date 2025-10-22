@@ -7,6 +7,7 @@ import ToastContanier from '@/components/ToastContanier'
 import { SkeletonTheme } from 'react-loading-skeleton'
 import HomeBtn from '@/components/HomeBtn'
 import Script from 'next/script'
+import { Analytics } from '@vercel/analytics/next'
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -31,6 +32,8 @@ export default function RootLayout({ children }) {
           {children}
         </SkeletonTheme>
         <ToastContanier />
+        {/* Vercel Analytics */}
+        <Analytics />
         {/* Google Analytics */}
         <Script
           strategy='afterInteractive'
