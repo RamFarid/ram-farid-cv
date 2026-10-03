@@ -35,4 +35,4 @@ We build for all three from the first page. The finished site is audited with th
 
 ## Status
 
-- 2026-10-03: nothing implemented yet.
+- 2026-10-03: `app/icon.svg` (the brand icon) is in place. Nothing else yet.
