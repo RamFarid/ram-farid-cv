@@ -21,6 +21,10 @@ The folder tree and the short rules are in `CLAUDE.md`. This doc covers what eac
 - **Action results are plain serializable objects** (e.g. `{ ok: true, data } | { ok: false, error }`). The client turns them into UI feedback (Sonner toasts, field errors). Invalidation (`revalidatePath` / `revalidateTag`) happens inside the action after a successful write.
 - **`app/api/`** is for callers outside the app (webhooks, third parties). Internal UI never calls its own API routes.
 
+## Code style
+
+Single quotes, no semicolons (following Ram's `cn()`). No formatter is configured yet.
+
 ## Runtime notes
 
 - Mongoose and nodemailer need the **Node.js runtime**. Any route, action or proxy logic that touches them cannot run on the Edge runtime.
@@ -30,5 +34,5 @@ The folder tree and the short rules are in `CLAUDE.md`. This doc covers what eac
 ## Naming
 
 - Zod: `<thing>ZSchema` (`emailZSchema`, `contactZSchema`). Infer types with `z.infer<typeof contactZSchema>`.
-- Mongoose: `<thing>Schema` plus a model guarded against hot-reload re-compilation (`mongoose.models.X || mongoose.model('X', xSchema)`).
+- Mongoose: `<thing>Schema`; the model is singular and capitalized, the collection plural and capitalized and passed explicitly (`mongoose.model('ContactMsg', contactMsgSchema, 'ContactMsgs')`), guarded against hot-reload re-compilation. See `database.md#naming`.
 - Jotai: atoms go in `lib/state/<domain>.ts`, and only for state that more than one component tree shares. Local state stays local.

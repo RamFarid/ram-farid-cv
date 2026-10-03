@@ -7,8 +7,10 @@ This folder is the long-term memory for ramfarid.com. Every session and every AI
 | Doc | What it covers |
 | --- | --- |
 | [project.md](project.md) | What we're building: identity, site sections, `/console`, contact + Telegram flow, infrastructure |
+| [i18n.md](i18n.md) | next-intl routing, messages, RTL, digits, not-found behaviour |
 | [seo.md](seo.md) | SEO / AEO / GEO rules every public page follows, and site-wide files |
 | [architecture.md](architecture.md) | Layer contracts, data flow, server/client boundaries, naming |
+| [database.md](database.md) | MongoDB connection, model/collection naming, localized fields, collection contracts, seeding |
 | [decisions.md](decisions.md) | Dated log of choices that steer future work |
 | [design-system.md](design-system.md) | Where the design system comes from, how to re-sync it, how it maps to code |
 | [design-system/](design-system/) | Mirror of the Claude Design system: brand book, tokens, components, fonts, logos |

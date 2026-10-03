@@ -22,7 +22,7 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 ## Git
 
-- Work on `new-era` and commit locally after each task.
+- Work on `new-era`. **Don't commit** until Ram says to; leave changes in the working tree.
 - **Never push** until Ram asks.
 - `origin` (`RamFarid/ram-farid-cv`) still holds the old site on `master`, `nextjs` and `nextjs1.0`. Never touch those branches.
 
@@ -33,6 +33,7 @@ npm run dev          # dev server on http://localhost:3000
 npm run build        # production build (also type-checks)
 npm run start        # serve the production build
 npm run lint         # ESLint (flat config: next core-web-vitals + typescript)
+npm run db:seed      # insert the live projects (needs MONGO_URI in .env; never overwrites)
 npx next typegen && npx tsc --noEmit   # type-check only (typegen creates the global LayoutProps/PageProps types)
 ```
 
@@ -63,12 +64,16 @@ Use these and don't add an overlapping library without asking. Install each one 
 ## Naming: `*ZSchema` vs `*Schema`
 
 - `*ZSchema` is a **Zod** schema: `emailZSchema = z.string()...`, `contactZSchema = z.object({...})`.
-- `*Schema` is reserved for **Mongoose** schemas. The model guards against re-compilation on hot reload:
+- `*Schema` is reserved for **Mongoose** schemas.
+- Models are **singular, capitalized** (`Otp`, `ContactMsg`); collections are **plural, capitalized** (`Otps`, `ContactMsgs`) and always passed explicitly, because Mongoose otherwise lowercases and pluralizes the name itself. The model guards against re-compilation on hot reload:
 
 ```ts
 const otpSchema = new mongoose.Schema({ ... })
-export const Otp = mongoose.models.Otps || mongoose.model('Otps', otpSchema)
+export const Otp =
+  (mongoose.models.Otp as Model<OtpRecord> | undefined) ?? mongoose.model('Otp', otpSchema, 'Otps')
 ```
+
+Details: `docs/database.md`.
 
 ## File organization
 
@@ -98,8 +103,10 @@ src/
     common.types.ts           # genuinely cross-domain types only
   i18n/                       # next-intl routing / request / navigation glue
   utils/index.ts              # cn()
+  fonts/                      # woff2 files + next/font/local definitions
   proxy.ts                    # request routing, if needed (Next 16 renamed middleware.ts to proxy.ts)
 messages/                     # next-intl: one bundle per language
+scripts/                      # one-off Node scripts (tsx), e.g. the DB seed
 docs/                         # project memory (see above)
 ```
 
@@ -122,6 +129,14 @@ Write a comment only when it is necessary or semi-necessary. That means:
 
 Comments can sit above a function, a component or a single statement. Never write comments that repeat what the code says.
 
+## i18n (next-intl)
+
+English (default) and Arabic (RTL), always built together. Full contract: `docs/i18n.md`.
+
+- Every user-facing string lives in `messages/en.json` **and** `messages/ar.json`, changed in the same edit. Type-checking fails if their keys drift apart.
+- Import `Link`, `redirect`, `usePathname` and `useRouter` from `@/i18n/navigation`, never from `next/link` or `next/navigation`.
+- Use logical layout utilities only (`ps-`, `me-`, `start-`, `text-start`), so layouts mirror in RTL.
+
 ## SEO, AEO, GEO
 
 Search, answer-engine and AI-search readiness is part of building every page, not a final pass. Follow `docs/seo.md` and keep `lib/seo/` as the single source of URLs, metadata and JSON-LD. The finished site gets audited with the `seo-geo-aeo` skill.
@@ -131,5 +146,5 @@ Search, answer-engine and AI-search readiness is part of building every page, no
 The visual source of truth is `docs/design-system/` (`README.md` brand book, `tokens.json`, component guidelines, fonts and logos). It was pulled from Ram's Claude Design system and is mirrored, not edited, here; see `docs/design-system.md`.
 
 - Build every UI from its tokens, never from raw hex values or ad-hoc spacing.
+- Tokens are CSS variables and Tailwind utilities in `src/app/globals.css`. Tailwind's default palette and type scale are removed, so use `bg-surface`, `text-ink-muted`, `text-h2`, `p-space-5` and so on. The utility map is in `docs/design-system.md#tokens`.
 - Dark is the default theme.
-- Every layout must work in RTL: use logical properties and Tailwind's `ps-`/`pe-`/`ms-`/`me-`/`start-`/`end-` utilities.

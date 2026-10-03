@@ -1,0 +1,17 @@
+{
+  "Metadata": {
+    "title": "رام فريد — مهندس برمجيات Full-stack JavaScript",
+    "description": "رام فريد مهندس برمجيات Full-stack JavaScript من القاهرة، يبني تطبيقات ويب سريعة وواضحة بـ Next.js وReact وNode.js."
+  },
+  "Home": {
+    "eyebrow": "01 / الرموز",
+    "headline": "أبني تطبيقات ويب سريعة وواضحة.",
+    "intro": "مهندس برمجيات Full-stack JavaScript من القاهرة، أعمل بـ <code>Next.js</code> وReact وNode.",
+    "cta": "وظّفني"
+  },
+  "NotFound": {
+    "title": "الصفحة غير موجودة",
+    "description": "هذه الصفحة غير موجودة أو نُقلت إلى مكان آخر.",
+    "home": "العودة إلى الرئيسية"
+  }
+}

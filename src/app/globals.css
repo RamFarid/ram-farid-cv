@@ -1,26 +1,252 @@
-@import "tailwindcss";
+@import 'tailwindcss';
+
+/* docs/ holds the design-system mirror (its bundle and previews); keep its class names out of the build. */
+@source not '../../docs';
+
+/*
+ * Design tokens: values come from docs/design-system/tokens.json; how they map to CSS and Tailwind is in docs/design-system.md#tokens.
+ * Dark is the default theme; set data-theme="light" on <html> for the alternate.
+ */
+
+:root,
+:root[data-theme='dark'] {
+  color-scheme: dark;
+
+  --bg: #0b0910;
+  --surface: #131019;
+  --surface-raised: #1c1825;
+  --line: #2b2538;
+  --line-strong: #6c6380;
+  --ink: #f3f0f8;
+  --ink-muted: #9d95ae;
+  --primary: #a25bff;
+  --primary-hover: #b578ff;
+  --primary-ink: #be8cff;
+  --primary-soft: #24173a;
+  --on-primary: #0b0910;
+  --logo-word: #dcc6ff;
+  --success: #34d1bf;
+  --success-soft: #0e2826;
+  --warning: #f5b84a;
+  --warning-soft: #2c2010;
+  --danger: #ff7a6b;
+  --danger-soft: #321613;
+
+  --elevation-sm: 0 1px 2px rgba(0, 0, 0, 0.5);
+  --elevation-md: 0 8px 24px rgba(0, 0, 0, 0.45);
+  --elevation-glow: 0 0 0 1px rgba(162, 91, 255, 0.45), 0 12px 40px rgba(162, 91, 255, 0.18);
+}
+
+:root[data-theme='light'] {
+  color-scheme: light;
+
+  --bg: #faf9fc;
+  --surface: #ffffff;
+  --surface-raised: #f3f0f8;
+  --line: #e4dfec;
+  --line-strong: #8a8199;
+  --ink: #16121d;
+  --ink-muted: #5d566c;
+  --primary-ink: #7a2ee0;
+  --primary-soft: #f1e8ff;
+  --logo-word: #5a1fb5;
+  --success: #0a7568;
+  --success-soft: #e2f5f2;
+  --warning: #8a5a00;
+  --warning-soft: #fbefd9;
+  --danger: #c2361f;
+  --danger-soft: #fde8e4;
+
+  --elevation-sm: 0 1px 2px rgba(22, 18, 29, 0.06);
+  --elevation-md: 0 8px 24px rgba(22, 18, 29, 0.08);
+  --elevation-glow: 0 0 0 1px rgba(162, 91, 255, 0.45), 0 12px 32px rgba(122, 46, 224, 0.12);
+}
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Aliases (tokens.json `focus` and `link`) */
+  --focus: var(--primary);
+  --link: var(--primary-ink);
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-9: 96px;
+  --space-10: 128px;
+
+  --duration-fast: 120ms;
+  --duration-base: 200ms;
+  --duration-slow: 420ms;
+
+  --container: 1200px;
+  --measure: 68ch;
+  --nav-height: 64px;
 }
 
+/*
+ * Tailwind's default palette, type scale, radii, shadows and fonts are reset (`initial`),
+ * so only design-system values exist as utilities and off-system classes fail to compile.
+ */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-*: initial;
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-raised: var(--surface-raised);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-ink: var(--primary-ink);
+  --color-primary-soft: var(--primary-soft);
+  --color-on-primary: var(--on-primary);
+  --color-logo-word: var(--logo-word);
+  --color-focus: var(--focus);
+  --color-link: var(--link);
+  --color-success: var(--success);
+  --color-success-soft: var(--success-soft);
+  --color-warning: var(--warning);
+  --color-warning-soft: var(--warning-soft);
+  --color-danger: var(--danger);
+  --color-danger-soft: var(--danger-soft);
+
+  --font-*: initial;
+  /* Arabic leads: its face is limited to Arabic code points, so Latin text falls through to Readex Latin. */
+  --font-sans: var(--font-readex-arabic), var(--font-readex-latin), system-ui, sans-serif;
+  --font-mono: var(--font-readex-arabic), var(--font-jetbrains-mono);
+
+  /* Named spacing (p-space-5, gap-space-7, scroll-mt-nav, ...). Numeric utilities stay on Tailwind's 4px base. */
+  --spacing-space-1: var(--space-1);
+  --spacing-space-2: var(--space-2);
+  --spacing-space-3: var(--space-3);
+  --spacing-space-4: var(--space-4);
+  --spacing-space-5: var(--space-5);
+  --spacing-space-6: var(--space-6);
+  --spacing-space-7: var(--space-7);
+  --spacing-space-8: var(--space-8);
+  --spacing-space-9: var(--space-9);
+  --spacing-space-10: var(--space-10);
+  --spacing-nav: var(--nav-height);
+
+  --container-page: var(--container);
+  --container-measure: var(--measure);
+
+  --shadow-*: initial;
+  --shadow-sm: var(--elevation-sm);
+  --shadow-md: var(--elevation-md);
+  --shadow-glow: var(--elevation-glow);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@theme {
+  --radius-*: initial;
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+
+  --ease-*: initial;
+  --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+
+  --default-transition-duration: 120ms;
+  --default-transition-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
+
+  /* Each text-* sets size, leading, weight and tracking; pair eyebrow/code/numeral with font-mono. */
+  --text-*: initial;
+  --text-display: 64px;
+  --text-display--line-height: 68px;
+  --text-display--font-weight: 600;
+  --text-display--letter-spacing: -0.03em;
+  --text-h1: 44px;
+  --text-h1--line-height: 52px;
+  --text-h1--font-weight: 600;
+  --text-h1--letter-spacing: -0.02em;
+  --text-h2: 32px;
+  --text-h2--line-height: 40px;
+  --text-h2--font-weight: 600;
+  --text-h2--letter-spacing: -0.015em;
+  --text-h3: 22px;
+  --text-h3--line-height: 30px;
+  --text-h3--font-weight: 500;
+  --text-h3--letter-spacing: -0.01em;
+  --text-body-lg: 18px;
+  --text-body-lg--line-height: 30px;
+  --text-body-lg--font-weight: 300;
+  --text-body: 16px;
+  --text-body--line-height: 26px;
+  --text-body--font-weight: 400;
+  --text-small: 14px;
+  --text-small--line-height: 22px;
+  --text-small--font-weight: 400;
+  --text-label: 14px;
+  --text-label--line-height: 20px;
+  --text-label--font-weight: 500;
+  --text-eyebrow: 12px;
+  --text-eyebrow--line-height: 16px;
+  --text-eyebrow--font-weight: 500;
+  --text-eyebrow--letter-spacing: 0.12em;
+  --text-code: 14px;
+  --text-code--line-height: 22px;
+  --text-code--font-weight: 400;
+  --text-numeral: 40px;
+  --text-numeral--line-height: 44px;
+  --text-numeral--font-weight: 500;
+  --text-numeral--letter-spacing: -0.02em;
+  --text-display-ar: 56px;
+  --text-display-ar--line-height: 76px;
+  --text-display-ar--font-weight: 600;
+  --text-h2-ar: 30px;
+  --text-h2-ar--line-height: 44px;
+  --text-h2-ar--font-weight: 600;
+  --text-body-ar: 17px;
+  --text-body-ar--line-height: 30px;
+  --text-body-ar--font-weight: 400;
+}
+
+/* The design system's background pattern: 1px dots in `line` at a space-8 pitch. Hero and contact only. */
+@utility dot-grid {
+  background-image: radial-gradient(circle, var(--line) 1px, transparent 1px);
+  background-size: var(--space-8) var(--space-8);
+}
+
+@layer base {
+  body {
+    @apply bg-bg font-sans text-body text-ink antialiased;
+  }
+
+  ::selection {
+    background: var(--primary-soft);
+    color: var(--ink);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
+  }
+
+  [id] {
+    scroll-margin-top: calc(var(--nav-height) + var(--space-4));
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/*
+ * Tracking and uppercase break Arabic joins (docs/design-system/README.md#typography).
+ * Left unlayered on purpose: unlayered rules beat every Tailwind layer, so tracking-*, text-* and uppercase utilities can't reintroduce them.
+ */
+:lang(ar) {
+  letter-spacing: 0;
+  text-transform: none;
+
+  /* README's swap (display → display-ar, h2 → h2-ar, body → body-ar) done once here, so components write text-display / text-h2 / text-body in both languages. */
+  --text-display: --theme(--text-display-ar inline);
+  --text-display--line-height: --theme(--text-display-ar--line-height inline);
+  --text-h2: --theme(--text-h2-ar inline);
+  --text-h2--line-height: --theme(--text-h2-ar--line-height inline);
+  --text-body: --theme(--text-body-ar inline);
+  --text-body--line-height: --theme(--text-body-ar--line-height inline);
 }
