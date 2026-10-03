@@ -1,0 +1,15 @@
+<!-- @dsCard group="Content" height=128 -->
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>StatCard — preview</title></head>
+<body>
+<div class="rf-demo" id="a" style="display:grid;grid-template-columns:repeat(3,1fr)"></div>
+<script>
+  var R = window.RF, h = React.createElement;
+  ReactDOM.createRoot(document.getElementById('a')).render(h(React.Fragment, null,
+    h(R.StatCard, {value:'4.9', unit:'yrs', label:'Building for the web'}),
+    h(R.StatCard, {value:'15', label:'Clients served'}),
+    h(R.StatCard, {value:'16', unit:'+', label:'Projects shipped'})));
+</script>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!-- @dsCard height=320 -->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Ram Farid</title>
+<style>
+  html, body { margin:0; height:100%; }
+  body { background:var(--bg); color:var(--ink); font-family:var(--font-sans); overflow:hidden; }
+  .cover { position:relative; height:320px; overflow:hidden; }
+  .art { position:absolute; top:0; left:480px; width:480px; height:320px; overflow:hidden; }
+  .art svg { display:block; width:480px; height:320px; overflow:hidden; }
+  .brand { fill:var(--primary); }
+  .brand-ink { fill:var(--primary-ink); }
+  .tint { fill:var(--primary-soft); }
+  .deep { fill:var(--ink); }
+  .sig { fill:var(--success); }
+  .blk { rx:var(--radius-lg); }
+  .chip { rx:var(--radius-sm); }
+  .dot { fill:var(--primary); }
+  .dot.cut { fill:var(--bg); }
+  .words { position:absolute; left:var(--space-6); bottom:var(--space-6); max-width:440px; }
+  .name { margin:0; font-size:112px; line-height:.92; font-weight:600; letter-spacing:-.035em; color:var(--ink); }
+  .tag { margin:var(--space-3) 0 0 4px; font-size:14px; line-height:20px; color:var(--ink-muted); }
+</style>
+</head>
+<body>
+<div class="cover">
+<div class="art" aria-hidden="true">
+<svg viewBox="0 0 480 320" width="480" height="320">
+<!--
+  blocks      primary 160x268 slab bled off the top (the one brand hue, largest) · primary-ink 128x80 · ink 128x128 (deep contrast block, flips light/dark with the theme) · primary-soft 160x224 bleeding off the right edge (relief tint) · success 48x16 chip once (it only ever means "available") — about a third of 960x320
+  arrangement one tall violet slab with satellites, bottoms on one line at y=256, space-4 gutters; the tint bleeds right
+  pattern     dot grid — the README's "technical and precise, 4px grid" and its .rf-grid-bg pattern: 2px dots at a space-6 pitch in primary over the tint, eight cut out of the slab in bg
+  scales      sides in space-4/space-6 multiples; gutters space-4; pitch space-6; corners radius-lg (blocks), radius-sm (chip)
+-->
+<rect class="brand blk" x="32" y="-12" width="160" height="268" rx="12"/>
+<rect class="brand-ink blk" x="208" y="32" width="128" height="80" rx="12"/>
+<rect class="deep blk" x="208" y="128" width="128" height="128" rx="12"/>
+<rect class="tint blk" x="352" y="32" width="160" height="224" rx="12"/>
+<rect class="sig chip" x="32" y="272" width="48" height="16" rx="4"/>
+<circle class="dot" cx="368" cy="48" r="2"/>
+<circle class="dot" cx="368" cy="80" r="2"/>
+<circle class="dot" cx="368" cy="112" r="2"/>
+<circle class="dot" cx="368" cy="144" r="2"/>
+<circle class="dot" cx="368" cy="176" r="2"/>
+<circle class="dot" cx="368" cy="208" r="2"/>
+<circle class="dot" cx="368" cy="240" r="2"/>
+<circle class="dot" cx="400" cy="48" r="2"/>
+<circle class="dot" cx="400" cy="80" r="2"/>
+<circle class="dot" cx="400" cy="112" r="2"/>
+<circle class="dot" cx="400" cy="144" r="2"/>
+<circle class="dot" cx="400" cy="176" r="2"/>
+<circle class="dot" cx="400" cy="208" r="2"/>
+<circle class="dot" cx="400" cy="240" r="2"/>
+<circle class="dot" cx="432" cy="48" r="2"/>
+<circle class="dot" cx="432" cy="80" r="2"/>
+<circle class="dot" cx="432" cy="112" r="2"/>
+<circle class="dot" cx="432" cy="144" r="2"/>
+<circle class="dot" cx="432" cy="176" r="2"/>
+<circle class="dot" cx="432" cy="208" r="2"/>
+<circle class="dot" cx="432" cy="240" r="2"/>
+<circle class="dot" cx="464" cy="48" r="2"/>
+<circle class="dot" cx="464" cy="80" r="2"/>
+<circle class="dot" cx="464" cy="112" r="2"/>
+<circle class="dot" cx="464" cy="144" r="2"/>
+<circle class="dot" cx="464" cy="176" r="2"/>
+<circle class="dot" cx="464" cy="208" r="2"/>
+<circle class="dot" cx="464" cy="240" r="2"/>
+<circle class="dot cut" cx="64" cy="192" r="2"/>
+<circle class="dot cut" cx="64" cy="224" r="2"/>
+<circle class="dot cut" cx="96" cy="192" r="2"/>
+<circle class="dot cut" cx="96" cy="224" r="2"/>
+<circle class="dot cut" cx="128" cy="192" r="2"/>
+<circle class="dot cut" cx="128" cy="224" r="2"/>
+<circle class="dot cut" cx="160" cy="192" r="2"/>
+<circle class="dot cut" cx="160" cy="224" r="2"/>
+</svg>
+</div>
+<div class="words">
+<h1 class="name">Ram<br>Farid</h1>
+<p class="tag">Full-stack JavaScript developer in Cairo. English &amp; العربية.</p>
+</div>
+</div>
+</body>
+</html>

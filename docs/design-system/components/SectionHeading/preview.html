@@ -1,0 +1,14 @@
+<!-- @dsCard group="Layout" height=330 -->
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>SectionHeading — preview</title></head>
+<body>
+<div class="rf-demo rf-demo--stack" id="a" style="gap:32px"></div>
+<script>
+  var R = window.RF, h = React.createElement;
+  ReactDOM.createRoot(document.getElementById('a')).render(h(React.Fragment, null,
+    h(R.SectionHeading, {index:'02', eyebrow:'Skills', title:'What I work with', description:'The stack I reach for first: React and Next.js on the front, Node.js and MongoDB behind them.'}),
+    h('div', {dir:'rtl', lang:'ar'}, h(R.SectionHeading, {index:'02', eyebrow:'المهارات', title:'الأدوات التي أعمل بها'}))));
+</script>
+</body>
+</html>

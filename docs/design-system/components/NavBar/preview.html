@@ -1,0 +1,16 @@
+<!-- @dsCard group="Layout" height=176 -->
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>NavBar — preview</title></head>
+<body>
+<div class="rf-demo rf-demo--stack" id="a" style="gap:16px"></div>
+<script>
+  var R = window.RF, h = React.createElement;
+  var links = [{label:'About',href:'#about'},{label:'Skills',href:'#skills'},{label:'Projects',href:'#projects'},{label:'Contact',href:'#contact'}];
+  var linksAr = [{label:'نبذة',href:'#about'},{label:'المهارات',href:'#skills'},{label:'المشاريع',href:'#projects'},{label:'تواصل',href:'#contact'}];
+  ReactDOM.createRoot(document.getElementById('a')).render(h(React.Fragment, null,
+    h(R.NavBar, {name:'Ram', logoSrc:'/_blob/fa86c6f85fb1eca25df69439e62dcf5e', links:links, active:'#projects', action:h(R.Button, {variant:'primary', size:'sm'}, 'Hire me')}),
+    h('div', {dir:'rtl', lang:'ar'}, h(R.NavBar, {name:'Ram', logoSrc:'/_blob/fa86c6f85fb1eca25df69439e62dcf5e', links:linksAr, active:'#projects', action:h(R.Button, {variant:'secondary', size:'sm'}, 'English')}))));
+</script>
+</body>
+</html>

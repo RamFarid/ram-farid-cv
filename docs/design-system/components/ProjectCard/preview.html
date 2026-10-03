@@ -1,0 +1,14 @@
+<!-- @dsCard group="Content" height=540 -->
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>ProjectCard — preview</title></head>
+<body>
+<div class="rf-demo" id="a" style="display:grid;grid-template-columns:repeat(2,1fr);align-items:start"></div>
+<script>
+  var R = window.RF, h = React.createElement;
+  ReactDOM.createRoot(document.getElementById('a')).render(h(React.Fragment, null,
+    h(R.ProjectCard, {href:'#', title:'QR Code Generator', kind:'Tool', monogram:'QR', description:'Turn any link or text into a QR code you can download.', tags:['React','CSS']}),
+    h(R.ProjectCard, {href:'#', title:'Freevee', kind:'Web app', monogram:'Fv', description:'A YouTube downloader.', tags:['React','Node.js','Express.js']})));
+</script>
+</body>
+</html>

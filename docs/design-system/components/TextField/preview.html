@@ -1,0 +1,15 @@
+<!-- @dsCard group="Forms" height=400 -->
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>TextField — preview</title></head>
+<body>
+<div class="rf-demo rf-demo--stack" id="a" style="max-width:420px;gap:20px"></div>
+<script>
+  var R = window.RF, h = React.createElement;
+  ReactDOM.createRoot(document.getElementById('a')).render(h(React.Fragment, null,
+    h(R.TextField, {label:'Your name', placeholder:'Jane Doe'}),
+    h(R.TextField, {label:'Email', type:'email', defaultValue:'jane@', error:'Enter an email like name@domain.com'}),
+    h(R.TextField, {label:'Project details', multiline:true, rows:3, hint:'Scope, timeline and budget help me reply faster.'})));
+</script>
+</body>
+</html>

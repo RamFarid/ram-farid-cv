@@ -1,0 +1,19 @@
+<!-- @dsCard group="Actions" height=88 -->
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>Button — preview</title></head>
+<body>
+<div class="rf-demo">
+<div id="a"></div>
+</div>
+<script>
+  var R = window.RF, h = React.createElement;
+  ReactDOM.createRoot(document.getElementById('a')).render(h('div', {style:{display:'flex',gap:'12px',flexWrap:'wrap',alignItems:'center'}},
+    h(R.Button, {variant:'primary', arrow:true}, 'Hire me'),
+    h(R.Button, {variant:'secondary'}, 'View GitHub'),
+    h(R.Button, {variant:'ghost', arrow:true}, 'See all projects'),
+    h(R.Button, {variant:'secondary', size:'sm'}, 'Download CV'),
+    h(R.Button, {variant:'primary', disabled:true}, 'Sending…')));
+</script>
+</body>
+</html>

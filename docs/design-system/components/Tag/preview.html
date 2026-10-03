@@ -1,0 +1,14 @@
+<!-- @dsCard group="Content" height=72 -->
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>Tag — preview</title></head>
+<body>
+<div class="rf-demo" id="a"></div>
+<script>
+  var R = window.RF, h = React.createElement;
+  function Demo(){ var s = React.useState('Next.js'); return h(React.Fragment, null,
+    ['Next.js','React','Node.js','Express.js','MongoDB','PostgreSQL','MUI'].map(function(t){ return h(R.Tag, {key:t, selected:s[0]===t, onClick:function(){s[1](t)}}, t); })); }
+  ReactDOM.createRoot(document.getElementById('a')).render(h(Demo));
+</script>
+</body>
+</html>

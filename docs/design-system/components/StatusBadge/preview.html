@@ -1,0 +1,16 @@
+<!-- @dsCard group="Content" height=72 -->
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>StatusBadge — preview</title></head>
+<body>
+<div class="rf-demo" id="a"></div>
+<script>
+  var R = window.RF, h = React.createElement;
+  ReactDOM.createRoot(document.getElementById('a')).render(h(React.Fragment, null,
+    h(R.StatusBadge, {tone:'success'}, 'Available for work'),
+    h(R.StatusBadge, {tone:'warning'}, 'Limited availability'),
+    h(R.StatusBadge, {tone:'danger'}, 'Message not sent'),
+    h(R.StatusBadge, {tone:'neutral'}, 'Archived')));
+</script>
+</body>
+</html>

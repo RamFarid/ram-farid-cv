@@ -1,0 +1,66 @@
+{
+ "v": 3,
+ "assetGroups": {
+  "Logos": {
+   "name": "Logos",
+   "tile": "l",
+   "order": [
+    "ram-logo-on-dark.svg",
+    "ram-logo-on-light.svg",
+    "ram-icon.svg"
+   ],
+   "files": {
+    "ram-logo-on-dark.svg": {
+     "name": "ram-logo-on-dark.svg",
+     "blob": "31d58069bcd384e0a15da56e78abcccc",
+     "size": 6808,
+     "type": "image/svg+xml"
+    },
+    "ram-logo-on-light.svg": {
+     "name": "ram-logo-on-light.svg",
+     "blob": "244616d4845c86e6d29a7cc04cf72bbe",
+     "size": 6808,
+     "type": "image/svg+xml"
+    },
+    "ram-icon.svg": {
+     "name": "ram-icon.svg",
+     "blob": "fa86c6f85fb1eca25df69439e62dcf5e",
+     "size": 1308,
+     "type": "image/svg+xml"
+    }
+   }
+  }
+ },
+ "blobs": {},
+ "createdOnFiles": {
+  "at": "2026-10-02T21:39:22Z",
+  "v": 1
+ },
+ "docs": {
+  "readme": "project/README.md",
+  "sections": []
+ },
+ "groups": [
+  "Logos"
+ ],
+ "lastChange": {
+  "by": "Ram Farid",
+  "at": "2026-10-02T22:45:36Z",
+  "via": "Claude (Cowork)",
+  "note": "Logo unified to \"Ram\" only (no Arabic version); word now violet (logo-word token) in harmony with the R."
+ },
+ "layout": "files",
+ "libraries": [
+  {
+   "name": "react",
+   "version": "18"
+  },
+  {
+   "name": "react-dom",
+   "version": "18"
+  }
+ ],
+ "namespace": "RF",
+ "sections": {},
+ "title": "Ram Farid"
+}
