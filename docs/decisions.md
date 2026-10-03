@@ -2,6 +2,31 @@
 
 Newest first. Each entry gives the decision, why it was made, and what it constrains. When a decision is reversed, mark the old entry *Superseded* and link the new one; don't delete it.
 
+## 2026-10-04: Home page: the first two projects by order, then /portfolio
+
+- **Decision:** the home page's two project bands show the first two published projects by console `order`, not a hand-picked set. The bands are compact (screenshot at half width on desktop, an `h2` title, `space-8` padding). The Work heading carries **See all projects**, linking to `/portfolio`. The `featured` flag is removed from `Projects`.
+- **Why:** Ram: hand-picking specific projects for the home page isn't recommended. Order is the one ranking the console already controls, so the home page follows it, and `/portfolio` holds the full record.
+- **Constrains:** `/portfolio` is the next page to build; until then the link 404s. Amends "Home page: work first, in project bands" (2026-10-03): the bands stay, their selection and size change.
+
+## 2026-10-03: Violet fields remap colour roles instead of per-component variants
+
+- **Decision:** a region on violet gets the `field-violet` utility. It reassigns the colour roles inside it (`--ink`, `--primary`, `--on-primary`, `--line`, `--focus`, …) to the violet pair, so every primitive switches to on-primary ink on its own. There are no `tone="onViolet"` props.
+- **Why:** step 2 asked for an on-violet variant of every primitive. One scope gives all current and future components that variant, and it can't be forgotten on a new one.
+- **Constrains:** inside a field, `primary` means the dark ink. For the real violet and its ink, use `violet-fill` / `violet-ink` (resolved once on `:root`). Status colours aren't remapped, so don't put a StatusBadge on violet.
+- **Details:** `design-system.md#violet-fields`.
+
+## 2026-10-03: `cn()` knows the design-system tokens
+
+- **Decision:** `cn()` uses `extendTailwindMerge` with the token names for text styles, `space-N` spacing, `shadow-glow` and the `page`/`measure` containers. Approved by Ram.
+- **Why:** plain tailwind-merge read `text-label` as a colour, so `cn('text-label', 'text-ink')` silently dropped the size, and `space-N` steps never replaced each other.
+- **Constrains:** a new text, spacing or shadow token is added to `src/utils/index.ts` as well as `globals.css`.
+
+## 2026-10-03: Home page is static, regenerated daily
+
+- **Decision:** the home page reads MongoDB at build time and has `revalidate = 86400`.
+- **Why:** fast, indexable HTML, and the "years of experience" figure stays current. When the console exists, saving a project will revalidate the page on demand.
+- **Constrains:** `next build` needs a reachable `MONGO_URI`.
+
 ## 2026-10-03: Telegram contact notification: text plus two buttons
 
 - **Decision:** the contact notification shows the sender's email and phone as plain message text (Telegram makes both tappable). The only inline buttons are **WhatsApp** (`https://wa.me/<number>`, only when a phone was given) and **Show in console**.
@@ -16,9 +41,11 @@ Newest first. Each entry gives the decision, why it was made, and what it constr
 
 ## 2026-10-03: Home page: work first, in project bands
 
+- **Amended 2026-10-04:** see "Home page: the first two projects by order, then /portfolio" (selection by order, compact bands, link to /portfolio).
 - **Decision:** the home page leads with the work. A short intro strip (one heading, Start a project as the primary action, Download CV as the secondary), then one full-width band per featured project (the first on a violet field, the second on `surface`). Then About + stats, Services, Skills, Certifications, and Contact on a violet field. Violet fills whole regions, as the design system's Cover blocks do.
 - **Why:** clients first, recruiters second; the two live projects are the strongest proof. Chosen by Ram over a letter-style page, a stats-led hero, a block mosaic and a split hero.
 - **Constrains:** on violet fields, text, tags and the focus ring use `on-primary`, never `primary-ink` or the default violet ring. `/portfolio` is out of scope until the home page ships. Product context is in `PRODUCT.md`.
+- **Details:** `home.md` (sections, constraints, build steps).
 
 ## 2026-10-03: Pin `@swc/core` to 1.16.2 (temporary)
 
@@ -75,7 +102,7 @@ Newest first. Each entry gives the decision, why it was made, and what it constr
 
 - **Decision:** Zod, Mongoose, Jotai, date-fns, next-intl, lucide-react, clsx + tailwind-merge (`cn()`), Sonner, nodemailer. Cloudflare in front of the site.
 - **Why:** Ram's standing stack.
-- **Status:** as of this date only Next, React, Tailwind, clsx and tailwind-merge (for `cn()`) are installed. Add each library when the first feature needs it. Added 2026-10-03 with the data foundation: Mongoose, Zod, `server-only`, and tsx (dev, for `scripts/`).
+- **Status:** as of this date only Next, React, Tailwind, clsx and tailwind-merge (for `cn()`) are installed. Add each library when the first feature needs it. Added 2026-10-03 with the data foundation: Mongoose, Zod, `server-only`, and tsx (dev, for `scripts/`). Added 2026-10-03 with the home page UI: lucide-react, date-fns. Added 2026-10-04 at Ram's request: react-photo-view (the certificate viewer).
 - **Constrains:** no overlapping libraries (no other state, validation, icon or toast libraries) without asking.
 
 ## 2026-10-03: Zod vs Mongoose naming

@@ -55,7 +55,7 @@ Next.js 16 (App Router, React Compiler enabled in `next.config.ts`), React 19, T
 | Dates | date-fns |
 | i18n | next-intl (English + Arabic/RTL) |
 | Icons | lucide-react |
-| Class names | `cn()` = clsx + tailwind-merge, in `src/utils/index.ts` (Ram provides the implementation; use it, don't rewrite it) |
+| Class names | `cn()` = clsx + tailwind-merge, in `src/utils/index.ts` (Ram provides the implementation; use it, don't rewrite it). Its tailwind-merge knows the design-system token names: add new text, spacing or shadow tokens there too |
 | Toasts | Sonner |
 | Email | nodemailer |
 
@@ -69,7 +69,7 @@ Use these and don't add an overlapping library without asking. Install each one 
 
 ```ts
 const otpSchema = new mongoose.Schema({ ... })
-export const Otp =
+export const Otp: Model<OtpRecord> =
   (mongoose.models.Otp as Model<OtpRecord> | undefined) ?? mongoose.model('Otp', otpSchema, 'Otps')
 ```
 

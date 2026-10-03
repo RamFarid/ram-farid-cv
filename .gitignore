@@ -41,8 +41,9 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# impeccable decision-page sessions (local only)
+# impeccable local state: decision-page sessions and review screenshots
 .impeccable/questions/
+.impeccable/review/
 
 # Git Bash crash dumps
 *.stackdump

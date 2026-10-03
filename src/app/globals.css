@@ -85,6 +85,13 @@
   --container: 1200px;
   --measure: 68ch;
   --nav-height: 64px;
+
+  /*
+   * The violet pair, resolved here once. Custom properties inherit their computed value, so these keep the real
+   * violet and its ink inside a `field-violet`, which remaps --primary and --on-primary. See docs/design-system.md#violet-fields
+   */
+  --violet-fill: var(--primary);
+  --violet-ink: var(--on-primary);
 }
 
 /*
@@ -114,6 +121,8 @@
   --color-warning-soft: var(--warning-soft);
   --color-danger: var(--danger);
   --color-danger-soft: var(--danger-soft);
+  --color-violet-fill: var(--violet-fill);
+  --color-violet-ink: var(--violet-ink);
 
   --font-*: initial;
   /* Arabic leads: its face is limited to Arabic code points, so Latin text falls through to Readex Latin. */
@@ -155,6 +164,19 @@
 
   --default-transition-duration: 120ms;
   --default-transition-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
+
+  /* StatusBadge's success dot (README: "its dot pulses unless reduced motion"); use as motion-safe:animate-status-pulse. */
+  --animate-status-pulse: status-pulse 2.4s cubic-bezier(0.2, 0.8, 0.2, 1) infinite;
+
+  @keyframes status-pulse {
+    0% {
+      box-shadow: 0 0 0 0 color-mix(in srgb, currentColor 45%, transparent);
+    }
+    70%,
+    100% {
+      box-shadow: 0 0 0 6px transparent;
+    }
+  }
 
   /* Each text-* sets size, leading, weight and tracking; pair eyebrow/code/numeral with font-mono. */
   --text-*: initial;
@@ -214,9 +236,96 @@
   background-size: var(--space-8) var(--space-8);
 }
 
+/*
+ * A whole region on violet (home: project band 1, contact). It remaps the colour roles, so every primitive inside
+ * (text, tags, buttons, fields, the focus ring) switches to on-primary ink without its own variant.
+ * See docs/design-system.md#violet-fields
+ */
+@utility field-violet {
+  background-color: var(--violet-fill);
+  color: var(--violet-ink);
+
+  --ink: var(--violet-ink);
+  --ink-muted: var(--violet-ink);
+  --primary: var(--violet-ink);
+  --primary-hover: color-mix(in srgb, var(--violet-ink) 84%, var(--violet-fill));
+  --on-primary: var(--violet-fill);
+  --primary-ink: var(--violet-ink);
+  --primary-soft: color-mix(in srgb, var(--violet-ink) 12%, transparent);
+  --surface: transparent;
+  --surface-raised: color-mix(in srgb, var(--violet-ink) 10%, transparent);
+  --line: color-mix(in srgb, var(--violet-ink) 24%, transparent);
+  --line-strong: var(--violet-ink);
+  --logo-word: var(--violet-ink);
+  --focus: var(--violet-ink);
+  --elevation-glow: 0 12px 32px color-mix(in srgb, var(--violet-ink) 30%, transparent);
+}
+
+/*
+ * The page's one motion grammar (docs/home.md#constraints): scroll-linked, CSS only, no JavaScript.
+ * Where scroll timelines are unsupported or motion is reduced, nothing animates and everything stays visible.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    /* Project media rises into its band as the band scrolls in. */
+    .scroll-rise {
+      animation: scroll-rise linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 40%;
+    }
+
+    /* The floating nav bar gains its shadow over the first 64px of scroll (NavBar README: "once the page scrolls it gains shadow-md"). */
+    .scroll-shadow {
+      animation: scroll-shadow linear both;
+      animation-timeline: scroll(root);
+      animation-range: 0 64px;
+    }
+  }
+}
+
+@keyframes scroll-rise {
+  from {
+    translate: 0 var(--space-8);
+  }
+}
+
+@keyframes scroll-shadow {
+  to {
+    box-shadow: var(--elevation-md);
+  }
+}
+
+/*
+ * The certificate viewer (react-photo-view) in the design system's colours instead of its white-on-black defaults.
+ * Prefixed with .PhotoView-Portal so these beat the library's own stylesheet whatever the load order.
+ */
+.PhotoView-Portal .PhotoView-Slider__BannerWrap {
+  background-color: var(--surface);
+  border-bottom: 1px solid var(--line);
+  color: var(--ink-muted);
+  font-family: var(--font-mono);
+}
+
+.PhotoView-Portal .PhotoView-Slider__toolbarIcon {
+  fill: var(--ink);
+}
+
+.PhotoView-Portal .PhotoView-Slider__ArrowLeft svg,
+.PhotoView-Portal .PhotoView-Slider__ArrowRight svg {
+  fill: var(--ink);
+  background: var(--surface-raised);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+}
+
 @layer base {
+  html {
+    scrollbar-color: var(--line-strong) var(--bg);
+  }
+
   body {
     @apply bg-bg font-sans text-body text-ink antialiased;
+    caret-color: var(--primary);
   }
 
   ::selection {

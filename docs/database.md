@@ -20,10 +20,12 @@ MongoDB through Mongoose 9. Layer rules (who may query, who may import models) a
 
 ```ts
 export type ContactMsgRecord = InferSchemaType<typeof contactMsgSchema>
-export const ContactMsg =
+export const ContactMsg: Model<ContactMsgRecord> =
   (mongoose.models.ContactMsg as Model<ContactMsgRecord> | undefined) ??
   mongoose.model('ContactMsg', contactMsgSchema, 'ContactMsgs')
 ```
+
+- Keep the `: Model<…Record>` annotation on the export. Without it the export's type is a union of two model types, and TypeScript can't resolve `find()` and its filter (found 2026-10-03 with the first query).
 
 - Models import nothing server-only, so Node scripts (`scripts/`) can use them directly. The rule that client code never imports them is enforced by the layers: only `lib/db/<domain>.ts` queries import models, and those go through `connect.ts`.
 
@@ -50,11 +52,10 @@ Real client and production work only (`project.md`). Created, ordered and publis
 | `liveUrl` | string, optional | |
 | `cover` | `{ url, width, height, alt: localized }`, optional | 16:9 screenshot. Width and height are stored for `next/image`. |
 | `status` | `draft` \| `published` | Default `draft`. Only `published` is ever public. |
-| `featured` | boolean | Featured projects get the home page's project bands. |
 | `order` | number | Ascending; set by console reorder. |
 | `createdAt`, `updatedAt` | timestamps | |
 
-Index: `{ status, featured, order }` for the home page read. The site's "projects" figure is the count of `published` projects; it is never typed by hand.
+Index: `{ status, order }` for the home page read (the first two published by `order`). There is no `featured` flag: removed 2026-10-04, because the home page shows the first two by order, not a hand-picked set. The site's "projects" figure is the count of `published` projects; it is never typed by hand.
 
 ### `ContactMsgs` (model `ContactMsg`)
 
@@ -72,7 +73,7 @@ Index: `{ status, createdAt: -1 }` for the console inbox.
 
 ## Seeding
 
-`npm run db:seed` runs `scripts/seed.mts` with tsx (`--env-file=.env`). It inserts the two live client projects, **HISTORY game** and **Ramlyon**, as `published` and `featured`.
+`npm run db:seed` runs `scripts/seed.mts` with tsx (`--env-file=.env`). It inserts the two live client projects, **HISTORY game** and **Ramlyon**, as `published`, in order 1 and 2.
 
 - Upserts by `slug` with `$setOnInsert`, so re-running never overwrites a project edited since.
 - The copy is placeholder: fields prefixed `TODO:` need Ram's real content (client, kind, summary, stack, live URL, cover).

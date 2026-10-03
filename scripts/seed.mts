@@ -16,7 +16,6 @@ const projects = [
     kind: todo('kind, e.g. Web app', 'النوع، مثل تطبيق ويب'),
     summary: todo('one sentence on what it is and who it is for', 'جملة واحدة عن المشروع ولمن صُمّم'),
     status: 'published',
-    featured: true,
     order: 1,
   },
   {
@@ -26,7 +25,6 @@ const projects = [
     kind: todo('kind, e.g. Web app', 'النوع، مثل تطبيق ويب'),
     summary: todo('one sentence on what it is and who it is for', 'جملة واحدة عن المشروع ولمن صُمّم'),
     status: 'published',
-    featured: true,
     order: 2,
   },
 ]

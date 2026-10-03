@@ -27,16 +27,15 @@ const projectSchema = new mongoose.Schema(
     liveUrl: String,
     cover: coverSchema,
     status: { type: String, enum: projectStatuses, default: 'draft' },
-    featured: { type: Boolean, default: false },
     order: { type: Number, default: 0 },
   },
   { timestamps: true },
 )
 
-projectSchema.index({ status: 1, featured: 1, order: 1 })
+projectSchema.index({ status: 1, order: 1 })
 
 export type ProjectRecord = InferSchemaType<typeof projectSchema>
 
-export const Project =
+export const Project: Model<ProjectRecord> =
   (mongoose.models.Project as Model<ProjectRecord> | undefined) ??
   mongoose.model('Project', projectSchema, 'Projects')

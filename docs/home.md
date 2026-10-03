@@ -1,0 +1,95 @@
+# Home page
+
+The plan for `/[locale]` (the home page), agreed with Ram on 2026-10-03. Who the site is for and why is in `PRODUCT.md`; the layout decision is in `decisions.md` ("Home page: work first, in project bands").
+
+## Job
+
+- **Audience:** freelance clients first, hiring teams second.
+- **Primary action:** **Start a project**, which scrolls to the contact form. **Secondary:** **Download CV**, from R2. Both appear in the intro; the CV is also in the nav.
+- **Proof:** the two live client projects, figures computed live, and the certificates themselves, viewable full size. No testimonials, invented metrics or client logos.
+
+## Structure: work first, in project bands
+
+The work leads. The first two published projects by console `order` each get a compact full-width band; nothing is hand-picked, and the rest live in `/portfolio` (linked from the Work heading). Violet (`primary`) fills whole regions (project 1's band and the contact section), the way the design system's Cover blocks do, not just accents.
+
+0. **Nav:** the design system's floating `NavBar`: the R icon with "Ram", up to five section links (Work, About, Services, Skills, Contact), the language switch labelled in the other language, and **Download CV** as a small secondary button. There's no primary button in the nav, because the intro already has one.
+1. **Intro strip:** on the dot grid, about 40% of the viewport height so project 1's band starts above the fold. The page's only `h1` ("I build fast, clear web apps.", with "web apps" in `primary-ink`), a first-person lead naming Ram, an availability `StatusBadge`, then **Start a project** (primary) and **Download CV** (secondary).
+2. **Project band 1, on a violet field, full width:** the Work heading with **See all projects** (to `/portfolio`) at its end, then a 16:9 screenshot (half the width on desktop), `kind · year`, the title, a one-sentence summary, the client, stack tags and **Visit live site**.
+3. **Project band 2, on `surface`:** the same anatomy, so the two bands alternate.
+4. **About + stats:** the portrait and a first-person paragraph that opens with a plain one-sentence answer (AEO/GEO). Three figures, each in a form that fits it: years (calculated live from 2021-11-13), 16 clients, and the count of published projects.
+5. **Services:** what a client can hire Ram for, in plain outcomes: new web apps, rebuilds, multilingual products, performant server management. Full width, one ruled row each.
+6. **Skills:** nine groups in a three-column grid, below Services on the same `surface` band. Tech names are mono `Tag`s in Latin script; practices (database design, authorization, background jobs) are translated and set in the sans. Data in `lib/profile` (confirmed by Ram 2026-10-04).
+7. **Certifications:** a gallery of the certificates themselves (see Certifications below).
+8. **Contact, on a violet field:** the form (name, email, optional phone, message; Turnstile), social links (GitHub, LinkedIn, WhatsApp, Instagram) and email. This is where the page ends.
+9. **Footer:** the full logo lock-up, social links and copyright.
+
+## Constraints
+
+- **Violet fields:** text, tags, buttons and the focus ring use `on-primary`. Never use `primary-ink` text there or the default violet ring, which is invisible on violet.
+- **Phones:** each band stacks (screenshot, then text), with no horizontal scroll.
+- **RTL:** English and Arabic ship together; logical utilities only.
+- **SEO:** one `h1`, `<section aria-labelledby>` per section, `<article>` per project. JSON-LD (`Person`, `WebSite`, `ProfilePage`) comes from `lib/seo`. See `seo.md`.
+- **Motion:** one section-reveal style, arrow nudges on links, all off under `prefers-reduced-motion`.
+- **Data:** projects come from `Projects` (`status: published`, sorted by `order`, first two). The read path is page → `lib/projects` → `lib/db/projects.ts`. See `database.md`.
+- **See all projects** links to `/portfolio`, which is built right after the home page (Ram, 2026-10-04). Until then it 404s.
+
+## As built (steps 2–4)
+
+- **Files:** primitives in `src/components/ui/` (see `design-system.md#components-built`); the header, footer, mobile menu, language switch and CV button in `src/components/Reusable/site/`; the sections in `src/components/Home/`.
+- **Data:**
+  - Projects: page → `lib/projects` (resolves `{ en, ar }` to the page locale) → `lib/db/projects.ts`.
+  - Profile facts (career start, client count, availability, socials, skills, certifications, CV URL): `lib/profile`. The figures are computed there and formatted with next-intl, never typed into copy.
+- **Violet:** project band 1 uses `field-violet` (`design-system.md#violet-fields`). Bands alternate violet and `surface`, and the screenshot swaps sides.
+- **Motion:** project screenshots rise into their band as it scrolls in, and the nav bar gains its shadow over the first 64px of scroll. Both are CSS scroll-driven animations with no JavaScript. They're off under reduced motion, and content stays visible where scroll timelines aren't supported. Arrows nudge 3px on hover.
+- **Section indexes** follow the brand book's "01 / Work" eyebrows: Work 01, About 02, Services 03, Skills 04, Certifications 05 (Contact will be 06).
+- **Header:** fixed, so the intro's dot grid runs under it. The skip link goes to `#main`. Under `md`, the links and the CV button move into the menu.
+- **Download CV** is a disabled button until `CV_URL` is set in `.env`.
+- **Placeholders:** a missing screenshot or portrait shows a mono monogram, never a stock image.
+
+## Certifications
+
+Shaped with Ram on 2026-10-04: show the certificate itself, with its name and a description.
+
+- **Gallery:** 3 columns on desktop, 2 on tablet, 1 on phones; 3–8 certificates expected. Each certificate is a 4:3 mat on `surface-raised` with the whole image inside (`object-contain`, never cropped). Below it: the name (as issued, not translated), issuer · date in mono, a one-line description per locale, and up to four skill `Tag`s.
+- **Viewer:** `react-photo-view` (Ram's choice). One `PhotoProvider` wraps the gallery, so arrow keys step through every certificate and Esc closes it. Each thumbnail is a labelled `<button>` ("View certificate: <name>"). The caption (name, issuer · date) is passed as each `PhotoView`'s `overlay`, which the library only draws through the provider's `overlayRender`. The banner and arrows are themed from the tokens in `globals.css`. The zoom is near-instant under reduced motion.
+- **Server vs client:** only `CertificateViewer.tsx` (provider and thumbnail) is a client component; names, descriptions and tags render on the server.
+- **Data:** in code for now (`lib/profile`, `Certification` type), with images in `public/certificates/<slug>.(png|jpg)`. Without an image, a certificate shows a mat with the issuer's initials and no viewer. It moves to the console later.
+- **Dropped:** the Verify link (not wanted). The section title is "Certificates I’ve earned".
+
+## Rendering
+
+Static, with both locales prerendered and `revalidate = 86400`, so the years figure updates daily. The build reads MongoDB, so `next build` needs `MONGO_URI` (`decisions.md`, "Home page is static, regenerated daily"). When the console exists, saving a project will revalidate the page.
+
+## Build steps
+
+Each step stands alone and leaves the app working.
+
+| # | Step | Status |
+| --- | --- | --- |
+| 1 | Data foundation: Mongoose + Zod, `connectDB()`, `Project`/`ContactMsg` models, seed (see `database.md`) | Done 2026-10-03 |
+| 2 | UI primitives: Button, Tag, StatusBadge, SectionHeading, StatCard, TextField, NavBar, footer, each with an on-violet variant, in `src/components/ui/` | Done 2026-10-03 (on-violet through `field-violet`) |
+| 3 | Intro strip and the two project bands, reading from `Projects` | Done 2026-10-03 |
+| 4 | About + stats, Services, Skills, Certifications | Done 2026-10-03, with placeholder content (see Waiting on Ram) |
+| 5 | **Next.** Contact: form, Turnstile, Server Action (Zod), save to `ContactMsgs`, social links | |
+| 6 | Telegram: `src/lib/telegram/config.ts`, notification to the contact group with WhatsApp (when a phone is given) and Show in console buttons; email and phone as plain text | |
+| 7 | SEO: `lib/seo` metadata helper, JSON-LD, `sitemap.ts`, `robots.ts` | |
+
+Update the status column as each step lands.
+
+## Waiting on Ram
+
+- Project content for **HISTORY game** and **Ramlyon**: client, kind, year, one-sentence summary, stack, live URL, screenshot. The seed has `TODO:` placeholders.
+- **Services:** four are drafted in `messages/*.json` (`Home.services.items`): new web apps, rebuilds, multilingual products, and performant server management. Confirm or rewrite them.
+- **Certifications:** `lib/profile` has two `TODO:` rows. Each needs the image (in `public/certificates/`, with its pixel size), name, issuer, YYYY-MM date, a one-line description in English and Arabic, and up to four skills.
+- **Arabic copy:** drafted by Claude for Ram to review.
+- **Section eyebrows ("01 / Work"):** kept because the brand book pins them for SectionHeading. The design review flagged numbered eyebrows above headings as a template pattern. Keep them, or drop the index (or the whole eyebrow) site-wide in `SectionHeading`?
+- **Portrait, socials, availability and CV:**
+  - the portrait;
+  - LinkedIn, WhatsApp and Instagram URLs (only GitHub is set);
+  - whether to show "Available for work" (shown for now);
+  - the CV file (`CV_URL`).
+- Telegram bot token and contact group chat id (step 6); Turnstile site and secret keys (step 5). These go in `.env`.
+
+## Out of scope for now
+
+`/console`. `/portfolio` and `/portfolio/[project_id]` come next, right after the home page.

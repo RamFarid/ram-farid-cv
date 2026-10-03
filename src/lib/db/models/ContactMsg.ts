@@ -20,6 +20,6 @@ contactMsgSchema.index({ status: 1, createdAt: -1 })
 
 export type ContactMsgRecord = InferSchemaType<typeof contactMsgSchema>
 
-export const ContactMsg =
+export const ContactMsg: Model<ContactMsgRecord> =
   (mongoose.models.ContactMsg as Model<ContactMsgRecord> | undefined) ??
   mongoose.model('ContactMsg', contactMsgSchema, 'ContactMsgs')

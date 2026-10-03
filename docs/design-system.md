@@ -12,6 +12,7 @@
 - `docs/design-system/tokens.json`: exact values for the Dark (default) and Light themes.
 - `docs/design-system/components/<Name>/README.md`: what each component is for and the props it expects.
 - **Ignore** the README's motion notes about the 3D cube; the cube is dropped (see `decisions.md`).
+- `DESIGN.md` (repo root) and `.impeccable/design.json` describe the system as built, for the Impeccable design skill. They were generated from the code on 2026-10-03. Where they disagree with `docs/design-system/`, the mirror wins; regenerate them, don't hand-edit them.
 
 ## Tokens
 
@@ -67,3 +68,33 @@ Why it's ordered this way:
 
 - The logo SVGs live in `public/brand/` and are served at `/brand/*` (moved 2026-10-03): `ram-logo-on-dark.svg`, `ram-logo-on-light.svg`, `ram-icon.svg`. Their usage rules are still in `docs/design-system/assets/Logos/README.md`.
 - `src/app/icon.svg` is a copy of `ram-icon.svg`, using the App Router icon convention. Update both together.
+
+## Violet fields
+
+The home page fills whole regions with violet (project band 1, and later the contact section). Put `field-violet` on the region; don't give components an on-violet variant.
+
+- The utility sets the background to the violet and **reassigns the colour roles inside it**:
+  - text roles (`ink`, `ink-muted`, `primary-ink`, `logo-word`) and `line-strong` become the dark on-primary ink;
+  - `line` and `primary-soft` become translucent ink, and `surface` becomes transparent;
+  - `primary` becomes the dark ink and `on-primary` becomes the violet, so a primary button inside the field is dark with violet text (5.2:1);
+  - `focus` becomes the dark ink, so the focus ring stays visible on violet.
+- `--violet-fill` and `--violet-ink` (utilities `bg-violet-fill`, `bg-violet-ink`, `text-violet-*`) hold the real pair. They're resolved once on `:root`, and custom properties inherit their computed value, so the remapping can't change them. Use them for anything that must stay the real violet or the real ink inside a field, such as the dark screenshot slab in a project band.
+- Status colours aren't remapped: don't put a `StatusBadge` on violet.
+
+## Components (built)
+
+These live in `src/components/ui/` and follow their READMEs in `docs/design-system/components/`. Differences from the reference bundle:
+
+| Component | Notes |
+| --- | --- |
+| `Button`, `ButtonLink` | Split in two instead of one component with `href`. `ButtonLink` uses the locale-aware `Link` for paths starting with `/`, and plain `<a>` for hashes and URLs. `external` opens a new tab with an up-and-out arrow and screen-reader text. `buttonClasses()` styles other links as buttons (the language switch). |
+| `Arrow` | The trailing arrow: mirrors in RTL and nudges 3px on `group` hover, but not under reduced motion. |
+| `Tag` | Uses `text-code` (14px). The bundle's 13px has no token. |
+| `StatusBadge` | The success dot pulses with `motion-safe:animate-status-pulse`. |
+| `SectionHeading` | `id` goes on the heading, for `aria-labelledby`. |
+| `StatCard` | Adds an optional `note` line ("Since November 2021"). |
+| `TextField`, `TextArea` | The bundle's `multiline` is a separate `TextArea`. `id` defaults to `name`. The message is wired with `aria-describedby`, and `aria-invalid` is set on error. |
+| `NavBar` | Section links are plain hash anchors. Under `md` they collapse into `menu` (the site's `NavMenu`, a native popover). The shadow on scroll is CSS only (`.scroll-shadow`). |
+| `Container` | The 1200px page container with its gutters. |
+
+Icons are lucide-react at stroke 1.75 (the project's icon choice in `CLAUDE.md`). They replace the README's Material Symbols.

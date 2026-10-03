@@ -1,0 +1,624 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-03T19:49:35.665Z",
+  "title": "Design System: Ram Farid",
+  "extensions": {
+    "sourceOfTruth": [
+      "docs/design-system/README.md",
+      "docs/design-system/tokens.json",
+      "docs/design-system/components/*/README.md",
+      "docs/design-system.md"
+    ],
+    "colorMeta": {
+      "bg": {
+        "role": "neutral",
+        "displayName": "Night ground",
+        "canonical": "#0b0910",
+        "oklch": "oklch(14.6% 0.015 297.7)",
+        "tonalRamp": [
+          "oklch(15% 0.015 297.7)",
+          "oklch(25% 0.015 297.7)",
+          "oklch(35% 0.015 297.7)",
+          "oklch(45% 0.015 297.7)",
+          "oklch(55% 0.015 297.7)",
+          "oklch(68% 0.015 297.7)",
+          "oklch(82% 0.015 297.7)",
+          "oklch(95% 0.015 297.7)"
+        ],
+        "cssVar": "--bg",
+        "lightTheme": "#faf9fc"
+      },
+      "surface": {
+        "role": "neutral",
+        "displayName": "Raised night",
+        "canonical": "#131019",
+        "oklch": "oklch(18.1% 0.019 299.8)",
+        "tonalRamp": [
+          "oklch(15% 0.019 299.8)",
+          "oklch(25% 0.019 299.8)",
+          "oklch(35% 0.019 299.8)",
+          "oklch(45% 0.019 299.8)",
+          "oklch(55% 0.019 299.8)",
+          "oklch(68% 0.019 299.8)",
+          "oklch(82% 0.019 299.8)",
+          "oklch(95% 0.019 299.8)"
+        ],
+        "cssVar": "--surface",
+        "lightTheme": "#ffffff"
+      },
+      "surface-raised": {
+        "role": "neutral",
+        "displayName": "Panel night",
+        "canonical": "#1c1825",
+        "oklch": "oklch(22% 0.026 298.4)",
+        "tonalRamp": [
+          "oklch(15% 0.026 298.4)",
+          "oklch(25% 0.026 298.4)",
+          "oklch(35% 0.026 298.4)",
+          "oklch(45% 0.026 298.4)",
+          "oklch(55% 0.026 298.4)",
+          "oklch(68% 0.026 298.4)",
+          "oklch(82% 0.026 298.4)",
+          "oklch(95% 0.026 298.4)"
+        ],
+        "cssVar": "--surface-raised",
+        "lightTheme": "#f3f0f8"
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "Hairline",
+        "canonical": "#2b2538",
+        "oklch": "oklch(28% 0.035 298.6)",
+        "tonalRamp": [
+          "oklch(15% 0.035 298.6)",
+          "oklch(25% 0.035 298.6)",
+          "oklch(35% 0.035 298.6)",
+          "oklch(45% 0.035 298.6)",
+          "oklch(55% 0.035 298.6)",
+          "oklch(68% 0.035 298.6)",
+          "oklch(82% 0.035 298.6)",
+          "oklch(95% 0.035 298.6)"
+        ],
+        "cssVar": "--line",
+        "lightTheme": "#e4dfec"
+      },
+      "line-strong": {
+        "role": "neutral",
+        "displayName": "Strong hairline",
+        "canonical": "#6c6380",
+        "oklch": "oklch(51.9% 0.046 299)",
+        "tonalRamp": [
+          "oklch(15% 0.046 299)",
+          "oklch(25% 0.046 299)",
+          "oklch(35% 0.046 299)",
+          "oklch(45% 0.046 299)",
+          "oklch(55% 0.046 299)",
+          "oklch(68% 0.046 299)",
+          "oklch(82% 0.046 299)",
+          "oklch(95% 0.046 299)"
+        ],
+        "cssVar": "--line-strong",
+        "lightTheme": "#8a8199"
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Lavender white",
+        "canonical": "#f3f0f8",
+        "oklch": "oklch(96% 0.011 303.1)",
+        "tonalRamp": [
+          "oklch(15% 0.011 303.1)",
+          "oklch(25% 0.011 303.1)",
+          "oklch(35% 0.011 303.1)",
+          "oklch(45% 0.011 303.1)",
+          "oklch(55% 0.011 303.1)",
+          "oklch(68% 0.011 303.1)",
+          "oklch(82% 0.011 303.1)",
+          "oklch(95% 0.011 303.1)"
+        ],
+        "cssVar": "--ink",
+        "lightTheme": "#16121d"
+      },
+      "ink-muted": {
+        "role": "neutral",
+        "displayName": "Muted lavender",
+        "canonical": "#9d95ae",
+        "oklch": "oklch(68.5% 0.037 300)",
+        "tonalRamp": [
+          "oklch(15% 0.037 300)",
+          "oklch(25% 0.037 300)",
+          "oklch(35% 0.037 300)",
+          "oklch(45% 0.037 300)",
+          "oklch(55% 0.037 300)",
+          "oklch(68% 0.037 300)",
+          "oklch(82% 0.037 300)",
+          "oklch(95% 0.037 300)"
+        ],
+        "cssVar": "--ink-muted",
+        "lightTheme": "#5d566c"
+      },
+      "primary": {
+        "role": "primary",
+        "displayName": "Signal violet",
+        "canonical": "#a25bff",
+        "oklch": "oklch(63.3% 0.232 299.6)",
+        "tonalRamp": [
+          "oklch(15% 0.2 299.6)",
+          "oklch(25% 0.2 299.6)",
+          "oklch(35% 0.2 299.6)",
+          "oklch(45% 0.2 299.6)",
+          "oklch(55% 0.2 299.6)",
+          "oklch(68% 0.2 299.6)",
+          "oklch(82% 0.2 299.6)",
+          "oklch(95% 0.2 299.6)"
+        ],
+        "cssVar": "--primary"
+      },
+      "primary-hover": {
+        "role": "primary",
+        "displayName": "Lifted violet",
+        "canonical": "#b578ff",
+        "oklch": "oklch(69.4% 0.196 302.5)",
+        "tonalRamp": [
+          "oklch(15% 0.196 302.5)",
+          "oklch(25% 0.196 302.5)",
+          "oklch(35% 0.196 302.5)",
+          "oklch(45% 0.196 302.5)",
+          "oklch(55% 0.196 302.5)",
+          "oklch(68% 0.196 302.5)",
+          "oklch(82% 0.196 302.5)",
+          "oklch(95% 0.196 302.5)"
+        ],
+        "cssVar": "--primary-hover"
+      },
+      "primary-ink": {
+        "role": "primary",
+        "displayName": "Readable violet",
+        "canonical": "#be8cff",
+        "oklch": "oklch(73.4% 0.167 302.5)",
+        "tonalRamp": [
+          "oklch(15% 0.167 302.5)",
+          "oklch(25% 0.167 302.5)",
+          "oklch(35% 0.167 302.5)",
+          "oklch(45% 0.167 302.5)",
+          "oklch(55% 0.167 302.5)",
+          "oklch(68% 0.167 302.5)",
+          "oklch(82% 0.167 302.5)",
+          "oklch(95% 0.167 302.5)"
+        ],
+        "cssVar": "--primary-ink",
+        "lightTheme": "#7a2ee0"
+      },
+      "primary-soft": {
+        "role": "primary",
+        "displayName": "Violet wash",
+        "canonical": "#24173a",
+        "oklch": "oklch(24.1% 0.066 298.5)",
+        "tonalRamp": [
+          "oklch(15% 0.066 298.5)",
+          "oklch(25% 0.066 298.5)",
+          "oklch(35% 0.066 298.5)",
+          "oklch(45% 0.066 298.5)",
+          "oklch(55% 0.066 298.5)",
+          "oklch(68% 0.066 298.5)",
+          "oklch(82% 0.066 298.5)",
+          "oklch(95% 0.066 298.5)"
+        ],
+        "cssVar": "--primary-soft",
+        "lightTheme": "#f1e8ff"
+      },
+      "on-primary": {
+        "role": "neutral",
+        "displayName": "On-violet ink",
+        "canonical": "#0b0910",
+        "oklch": "oklch(14.6% 0.015 297.7)",
+        "tonalRamp": [
+          "oklch(15% 0.015 297.7)",
+          "oklch(25% 0.015 297.7)",
+          "oklch(35% 0.015 297.7)",
+          "oklch(45% 0.015 297.7)",
+          "oklch(55% 0.015 297.7)",
+          "oklch(68% 0.015 297.7)",
+          "oklch(82% 0.015 297.7)",
+          "oklch(95% 0.015 297.7)"
+        ],
+        "cssVar": "--on-primary"
+      },
+      "logo-word": {
+        "role": "primary",
+        "displayName": "Pale lilac",
+        "canonical": "#dcc6ff",
+        "oklch": "oklch(86.4% 0.081 302.4)",
+        "tonalRamp": [
+          "oklch(15% 0.081 302.4)",
+          "oklch(25% 0.081 302.4)",
+          "oklch(35% 0.081 302.4)",
+          "oklch(45% 0.081 302.4)",
+          "oklch(55% 0.081 302.4)",
+          "oklch(68% 0.081 302.4)",
+          "oklch(82% 0.081 302.4)",
+          "oklch(95% 0.081 302.4)"
+        ],
+        "cssVar": "--logo-word",
+        "lightTheme": "#5a1fb5"
+      },
+      "success": {
+        "role": "status",
+        "displayName": "Teal",
+        "canonical": "#34d1bf",
+        "oklch": "oklch(77.8% 0.128 183.4)",
+        "tonalRamp": [
+          "oklch(15% 0.128 183.4)",
+          "oklch(25% 0.128 183.4)",
+          "oklch(35% 0.128 183.4)",
+          "oklch(45% 0.128 183.4)",
+          "oklch(55% 0.128 183.4)",
+          "oklch(68% 0.128 183.4)",
+          "oklch(82% 0.128 183.4)",
+          "oklch(95% 0.128 183.4)"
+        ],
+        "cssVar": "--success",
+        "lightTheme": "#0a7568"
+      },
+      "success-soft": {
+        "role": "status",
+        "displayName": "Teal wash",
+        "canonical": "#0e2826",
+        "oklch": "oklch(25.6% 0.032 188.7)",
+        "tonalRamp": [
+          "oklch(15% 0.032 188.7)",
+          "oklch(25% 0.032 188.7)",
+          "oklch(35% 0.032 188.7)",
+          "oklch(45% 0.032 188.7)",
+          "oklch(55% 0.032 188.7)",
+          "oklch(68% 0.032 188.7)",
+          "oklch(82% 0.032 188.7)",
+          "oklch(95% 0.032 188.7)"
+        ],
+        "cssVar": "--success-soft",
+        "lightTheme": "#e2f5f2"
+      },
+      "warning": {
+        "role": "status",
+        "displayName": "Amber",
+        "canonical": "#f5b84a",
+        "oklch": "oklch(82% 0.142 78.9)",
+        "tonalRamp": [
+          "oklch(15% 0.142 78.9)",
+          "oklch(25% 0.142 78.9)",
+          "oklch(35% 0.142 78.9)",
+          "oklch(45% 0.142 78.9)",
+          "oklch(55% 0.142 78.9)",
+          "oklch(68% 0.142 78.9)",
+          "oklch(82% 0.142 78.9)",
+          "oklch(95% 0.142 78.9)"
+        ],
+        "cssVar": "--warning",
+        "lightTheme": "#8a5a00"
+      },
+      "warning-soft": {
+        "role": "status",
+        "displayName": "Amber wash",
+        "canonical": "#2c2010",
+        "oklch": "oklch(25.4% 0.033 73.4)",
+        "tonalRamp": [
+          "oklch(15% 0.033 73.4)",
+          "oklch(25% 0.033 73.4)",
+          "oklch(35% 0.033 73.4)",
+          "oklch(45% 0.033 73.4)",
+          "oklch(55% 0.033 73.4)",
+          "oklch(68% 0.033 73.4)",
+          "oklch(82% 0.033 73.4)",
+          "oklch(95% 0.033 73.4)"
+        ],
+        "cssVar": "--warning-soft",
+        "lightTheme": "#fbefd9"
+      },
+      "danger": {
+        "role": "status",
+        "displayName": "Coral",
+        "canonical": "#ff7a6b",
+        "oklch": "oklch(73.2% 0.165 28.3)",
+        "tonalRamp": [
+          "oklch(15% 0.165 28.3)",
+          "oklch(25% 0.165 28.3)",
+          "oklch(35% 0.165 28.3)",
+          "oklch(45% 0.165 28.3)",
+          "oklch(55% 0.165 28.3)",
+          "oklch(68% 0.165 28.3)",
+          "oklch(82% 0.165 28.3)",
+          "oklch(95% 0.165 28.3)"
+        ],
+        "cssVar": "--danger",
+        "lightTheme": "#c2361f"
+      },
+      "danger-soft": {
+        "role": "status",
+        "displayName": "Coral wash",
+        "canonical": "#321613",
+        "oklch": "oklch(24% 0.046 27.4)",
+        "tonalRamp": [
+          "oklch(15% 0.046 27.4)",
+          "oklch(25% 0.046 27.4)",
+          "oklch(35% 0.046 27.4)",
+          "oklch(45% 0.046 27.4)",
+          "oklch(55% 0.046 27.4)",
+          "oklch(68% 0.046 27.4)",
+          "oklch(82% 0.046 27.4)",
+          "oklch(95% 0.046 27.4)"
+        ],
+        "cssVar": "--danger-soft",
+        "lightTheme": "#fde8e4"
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Intro h1 from md up; mono monograms in empty media frames.",
+        "utility": "text-display",
+        "arabic": "56px / 76px"
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Intro h1 under md; project titles from md up.",
+        "utility": "text-h1"
+      },
+      "title-lg": {
+        "displayName": "Title large",
+        "purpose": "Section titles; project titles under md.",
+        "utility": "text-h2",
+        "arabic": "30px / 44px"
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Service and certificate names; nav wordmark.",
+        "utility": "text-h3"
+      },
+      "body-lg": {
+        "displayName": "Body large",
+        "purpose": "Leads and project summaries, 68ch measure.",
+        "utility": "text-body-lg"
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Running text and field values.",
+        "utility": "text-body",
+        "arabic": "17px / 30px"
+      },
+      "small": {
+        "displayName": "Small",
+        "purpose": "Meta labels, footer text, stat labels.",
+        "utility": "text-small"
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Buttons, nav links, field labels, link text.",
+        "utility": "text-label"
+      },
+      "code": {
+        "displayName": "Code",
+        "purpose": "Mono: tags, certificate issuer and date.",
+        "utility": "text-code"
+      },
+      "numeral": {
+        "displayName": "Numeral",
+        "purpose": "Mono, tabular: stat figures.",
+        "utility": "text-numeral"
+      }
+    },
+    "shadows": [
+      {
+        "name": "elevation-sm",
+        "value": "0 1px 2px rgba(0, 0, 0, 0.5)",
+        "purpose": "Text fields at rest."
+      },
+      {
+        "name": "elevation-md",
+        "value": "0 8px 24px rgba(0, 0, 0, 0.45)",
+        "purpose": "The nav bar after 64px of scroll, and the mobile menu popover."
+      },
+      {
+        "name": "elevation-glow",
+        "value": "0 0 0 1px rgba(162, 91, 255, 0.45), 0 12px 40px rgba(162, 91, 255, 0.18)",
+        "purpose": "Hover on the primary button and on linked project media, one element at a time. Inside a violet field it becomes 0 12px 32px of 30% ink."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-out",
+        "value": "cubic-bezier(0.2, 0.8, 0.2, 1)",
+        "purpose": "Default easing for every transition."
+      },
+      {
+        "name": "ease-in-out",
+        "value": "cubic-bezier(0.65, 0, 0.35, 1)",
+        "purpose": "Design-system curve for symmetric moves; unused on the home page."
+      },
+      {
+        "name": "duration-fast",
+        "value": "120ms",
+        "purpose": "Default: colour, border and shadow changes."
+      },
+      {
+        "name": "duration-base",
+        "value": "200ms",
+        "purpose": "The 3px arrow nudge and the 2px media hover lift."
+      },
+      {
+        "name": "duration-slow",
+        "value": "420ms",
+        "purpose": "Defined by the design system; unused on the home page."
+      },
+      {
+        "name": "scroll-rise",
+        "value": "translate 0 64px to 0; animation-timeline: view(); range entry 0% to cover 40%",
+        "purpose": "Project media rises into its band. CSS only, off under reduced motion, static without scroll timelines."
+      },
+      {
+        "name": "scroll-shadow",
+        "value": "box-shadow to elevation-md; animation-timeline: scroll(root); range 0 to 64px",
+        "purpose": "The nav bar gains its float shadow as the page scrolls."
+      },
+      {
+        "name": "status-pulse",
+        "value": "2.4s ease-out infinite, a 0 to 6px ring",
+        "purpose": "The success dot on the status badge, motion-safe only."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "sm",
+        "value": "640px"
+      },
+      {
+        "name": "md",
+        "value": "768px"
+      },
+      {
+        "name": "lg",
+        "value": "1024px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The one main action per view (Start a project), with a trailing arrow.",
+      "html": "<a class=\"ds-btn-primary\" href=\"#contact\">Start a project<svg aria-hidden=\"true\" width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M5 12h14\"/><path d=\"m12 5 7 7-7 7\"/></svg></a>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; justify-content: center; gap: var(--space-2); height: 44px; padding: 0 var(--space-5); border: 1px solid transparent; border-radius: 8px; font: 500 14px/20px var(--font-sans, \"Readex Pro\", system-ui, sans-serif); white-space: nowrap; cursor: pointer; text-decoration: none; transition: background-color 120ms cubic-bezier(0.2, 0.8, 0.2, 1), border-color 120ms cubic-bezier(0.2, 0.8, 0.2, 1), color 120ms cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 120ms cubic-bezier(0.2, 0.8, 0.2, 1); background: var(--primary); color: var(--on-primary); } .ds-btn-primary:hover { background: var(--primary-hover); box-shadow: var(--elevation-glow); } .ds-btn-primary:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; } .ds-btn-primary svg { transition: translate 200ms cubic-bezier(0.2, 0.8, 0.2, 1); } .ds-btn-primary:hover svg { translate: 3px 0; } @media (prefers-reduced-motion: reduce) { .ds-btn-primary svg { transition: none; } .ds-btn-primary:hover svg { translate: 3px 0; } }"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Download CV, the language switch, and Visit on project bands.",
+      "html": "<a class=\"ds-btn-secondary\" href=\"#\"><svg aria-hidden=\"true\" width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M12 15V3\"/><path d=\"M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4\"/><path d=\"m7 10 5 5 5-5\"/></svg>Download CV</a>",
+      "css": ".ds-btn-secondary { display: inline-flex; align-items: center; justify-content: center; gap: var(--space-2); height: 44px; padding: 0 var(--space-5); border: 1px solid transparent; border-radius: 8px; font: 500 14px/20px var(--font-sans, \"Readex Pro\", system-ui, sans-serif); white-space: nowrap; cursor: pointer; text-decoration: none; transition: background-color 120ms cubic-bezier(0.2, 0.8, 0.2, 1), border-color 120ms cubic-bezier(0.2, 0.8, 0.2, 1), color 120ms cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 120ms cubic-bezier(0.2, 0.8, 0.2, 1); background: transparent; border-color: var(--line-strong); color: var(--ink); } .ds-btn-secondary:hover { border-color: var(--ink-muted); background: var(--surface-raised); } .ds-btn-secondary:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }"
+    },
+    {
+      "name": "Ghost Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "A low-weight action in violet text.",
+      "html": "<button class=\"ds-btn-ghost\" type=\"button\">See the stack<svg aria-hidden=\"true\" width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M5 12h14\"/><path d=\"m12 5 7 7-7 7\"/></svg></button>",
+      "css": ".ds-btn-ghost { display: inline-flex; align-items: center; justify-content: center; gap: var(--space-2); height: 44px; padding: 0 var(--space-5); border: 1px solid transparent; border-radius: 8px; font: 500 14px/20px var(--font-sans, \"Readex Pro\", system-ui, sans-serif); white-space: nowrap; cursor: pointer; text-decoration: none; transition: background-color 120ms cubic-bezier(0.2, 0.8, 0.2, 1), border-color 120ms cubic-bezier(0.2, 0.8, 0.2, 1), color 120ms cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 120ms cubic-bezier(0.2, 0.8, 0.2, 1); padding: 0 var(--space-3); background: transparent; color: var(--primary-ink); } .ds-btn-ghost:hover { background: var(--primary-soft); } .ds-btn-ghost:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; } .ds-btn-ghost svg { transition: translate 200ms cubic-bezier(0.2, 0.8, 0.2, 1); } .ds-btn-ghost:hover svg { translate: 3px 0; } @media (prefers-reduced-motion: reduce) { .ds-btn-ghost svg { transition: none; } .ds-btn-ghost:hover svg { translate: 3px 0; } }"
+    },
+    {
+      "name": "Tag",
+      "kind": "chip",
+      "refersTo": "tag",
+      "description": "A mono chip for a technology, written as its project writes it.",
+      "html": "<span class=\"ds-tag\">Next.js</span> <span class=\"ds-tag\">MongoDB</span> <span class=\"ds-tag ds-tag-selected\">React</span>",
+      "css": ".ds-tag { display: inline-flex; align-items: center; height: 28px; padding: 0 10px; border: 1px solid var(--line); border-radius: 4px; background: var(--surface); color: var(--ink-muted); font: 400 14px/1 var(--font-mono, \"JetBrains Mono\", ui-monospace, monospace); white-space: nowrap; } .ds-tag-selected { border-color: var(--primary); background: var(--primary-soft); color: var(--primary-ink); }"
+    },
+    {
+      "name": "Status Badge",
+      "kind": "chip",
+      "refersTo": "status-badge-success",
+      "description": "Availability, one per area. The success dot pulses unless motion is reduced.",
+      "html": "<span class=\"ds-badge\"><span class=\"ds-badge-dot\"></span>Available for new projects</span>",
+      "css": ".ds-badge { display: inline-flex; align-items: center; gap: var(--space-2); height: 28px; padding: 0 var(--space-3) 0 10px; border-radius: 4px; background: var(--success-soft); color: var(--success); font: 500 14px/1 var(--font-sans, \"Readex Pro\", system-ui, sans-serif); } .ds-badge-dot { width: 8px; height: 8px; border-radius: 50%; background: currentColor; } @media (prefers-reduced-motion: no-preference) { .ds-badge-dot { animation: ds-pulse 2.4s cubic-bezier(0.2, 0.8, 0.2, 1) infinite; } } @keyframes ds-pulse { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, currentColor 45%, transparent); } 70%, 100% { box-shadow: 0 0 0 6px transparent; } }"
+    },
+    {
+      "name": "Text Field",
+      "kind": "input",
+      "refersTo": "text-field",
+      "description": "An always-visible label over a field with a strong hairline; the border turns violet on focus.",
+      "html": "<div class=\"ds-field\"><label class=\"ds-field-label\" for=\"ds-email\">Email</label><input class=\"ds-input\" id=\"ds-email\" placeholder=\"name@domain.com\"></div>",
+      "css": ".ds-field { display: grid; gap: var(--space-2); } .ds-field-label { font: 500 14px/20px var(--font-sans, \"Readex Pro\", system-ui, sans-serif); color: var(--ink); } .ds-input { height: 44px; padding: 0 var(--space-4); border: 1px solid var(--line-strong); border-radius: 8px; background: var(--surface); color: var(--ink); font: 400 16px/26px var(--font-sans, \"Readex Pro\", system-ui, sans-serif); box-shadow: var(--elevation-sm); transition: border-color 120ms cubic-bezier(0.2, 0.8, 0.2, 1); } .ds-input::placeholder { color: var(--ink-muted); } .ds-input:hover { border-color: var(--ink-muted); } .ds-input:focus-visible { border-color: var(--primary); outline: 2px solid var(--focus); outline-offset: 2px; }"
+    },
+    {
+      "name": "Nav Bar",
+      "kind": "nav",
+      "refersTo": "nav-bar",
+      "description": "The floating bordered top bar, shown in its scrolled state with the float shadow.",
+      "html": "<nav class=\"ds-nav\" aria-label=\"Main\"><a class=\"ds-nav-home\" href=\"#\">Ram</a><ul class=\"ds-nav-links\"><li><a class=\"ds-nav-link\" aria-current=\"location\" href=\"#work\">Work</a></li><li><a class=\"ds-nav-link\" href=\"#about\">About</a></li><li><a class=\"ds-nav-link\" href=\"#services\">Services</a></li><li><a class=\"ds-nav-link\" href=\"#skills\">Skills</a></li><li><a class=\"ds-nav-link\" href=\"#contact\">Contact</a></li></ul></nav>",
+      "css": ".ds-nav { display: flex; align-items: center; gap: var(--space-6); height: 64px; padding-inline: var(--space-5) var(--space-3); border: 1px solid var(--line); border-radius: 12px; background: var(--surface); box-shadow: var(--elevation-md); } .ds-nav-home { font: 700 22px/1 var(--font-sans, \"Readex Pro\", system-ui, sans-serif); letter-spacing: -0.03em; color: var(--logo-word); text-decoration: none; } .ds-nav-links { display: flex; gap: var(--space-1); margin: 0 0 0 auto; padding: 0; list-style: none; } .ds-nav-link { display: inline-flex; align-items: center; height: 36px; padding: 0 var(--space-3); border-radius: 8px; font: 500 14px/20px var(--font-sans, \"Readex Pro\", system-ui, sans-serif); color: var(--ink-muted); text-decoration: none; transition: background-color 120ms cubic-bezier(0.2, 0.8, 0.2, 1), color 120ms cubic-bezier(0.2, 0.8, 0.2, 1); } .ds-nav-link:hover { background: var(--surface-raised); color: var(--ink); } .ds-nav-link[aria-current] { background: var(--primary-soft); color: var(--primary-ink); } .ds-nav-link:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }"
+    },
+    {
+      "name": "Stat Card",
+      "kind": "card",
+      "refersTo": "stat-card",
+      "description": "One live figure in mono with its label. Grouped cards share one frame split by hairlines.",
+      "html": "<div class=\"ds-stat\"><p class=\"ds-stat-value\">4.9<span class=\"ds-stat-unit\"> yrs</span></p><p class=\"ds-stat-label\">Years building for the web</p></div>",
+      "css": ".ds-stat { padding: var(--space-5); border: 1px solid var(--line); border-radius: 12px; background: var(--surface); } .ds-stat-value { margin: 0; font: 500 40px/44px var(--font-mono, \"JetBrains Mono\", ui-monospace, monospace); letter-spacing: -0.02em; font-variant-numeric: tabular-nums; color: var(--ink); } .ds-stat-unit { color: var(--primary-ink); } .ds-stat-label { margin: var(--space-2) 0 0; font: 400 14px/22px var(--font-sans, \"Readex Pro\", system-ui, sans-serif); color: var(--ink); }"
+    },
+    {
+      "name": "Project Band on Violet",
+      "kind": "custom",
+      "refersTo": "violet-field",
+      "description": "Signature: one live project at screenshot scale on a violet field. Every role inside remaps to the on-violet ink.",
+      "html": "<div class=\"ds-band\"><div class=\"ds-band-media\"><span>HI</span></div><div class=\"ds-band-text\"><p class=\"ds-band-meta\">Web app · 2025</p><h3 class=\"ds-band-title\">HISTORY game</h3><p class=\"ds-band-summary\">What the project is and who it serves, in one or two plain sentences.</p><p class=\"ds-band-tags\"><span class=\"ds-band-tag\">Next.js</span><span class=\"ds-band-tag\">MongoDB</span></p><p><a class=\"ds-band-btn\" href=\"#\">Visit the site<svg aria-hidden=\"true\" width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M7 7h10v10\"/><path d=\"M7 17 17 7\"/></svg></a></p></div></div>",
+      "css": ".ds-band { display: grid; grid-template-columns: 7fr 5fr; gap: var(--space-7); align-items: center; padding: var(--space-9) var(--space-6); background: var(--violet-fill, var(--primary)); color: var(--violet-ink, var(--on-primary)); } .ds-band-media { display: grid; place-items: center; aspect-ratio: 16 / 9; border: 1px solid currentColor; border-radius: 12px; background: var(--violet-ink, var(--on-primary)); color: var(--violet-fill, var(--primary)); font: 600 64px/68px var(--font-mono, \"JetBrains Mono\", ui-monospace, monospace); } .ds-band-text { display: grid; gap: var(--space-4); align-content: start; } .ds-band-text p, .ds-band-title { margin: 0; } .ds-band-meta { font: 500 12px/16px var(--font-mono, \"JetBrains Mono\", ui-monospace, monospace); } .ds-band-title { font: 600 44px/52px var(--font-sans, \"Readex Pro\", system-ui, sans-serif); letter-spacing: -0.02em; } .ds-band-summary { font: 300 18px/30px var(--font-sans, \"Readex Pro\", system-ui, sans-serif); } .ds-band-tags { display: flex; flex-wrap: wrap; gap: var(--space-2); } .ds-band-tag { display: inline-flex; align-items: center; height: 28px; padding: 0 10px; border: 1px solid color-mix(in srgb, currentColor 24%, transparent); border-radius: 4px; font: 400 14px/1 var(--font-mono, \"JetBrains Mono\", ui-monospace, monospace); } .ds-band-btn { display: inline-flex; align-items: center; gap: var(--space-2); height: 44px; padding: 0 var(--space-5); border: 1px solid currentColor; border-radius: 8px; color: inherit; font: 500 14px/20px var(--font-sans, \"Readex Pro\", system-ui, sans-serif); text-decoration: none; transition: background-color 120ms cubic-bezier(0.2, 0.8, 0.2, 1); } .ds-band-btn:hover { background: color-mix(in srgb, currentColor 10%, transparent); } .ds-band-btn:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The work on a violet field",
+    "overview": "A near-black ground with one violet. The violet doesn't sprinkle accents across the page. It fills whole regions, the way the Cover blocks in Ram's system do, and shipped work sits inside them at screenshot scale. Everything else is quiet: violet-tinted neutrals, 1px hairlines, small radii, and type that does the work.\n\nThe look is technical and precise, not cold. Words are set in Readex Pro and anything that is data (tags, figures, project meta, issuers and dates) is set in JetBrains Mono. Density is calm: sections breathe on a 96px vertical rhythm on desktop, and content sits in a 1200px container with a 68ch reading measure.\n\nEnglish and Arabic are built together. Layout uses logical sides only, so the whole page mirrors in RTL, and Arabic swaps its own type metrics.",
+    "keyCharacteristics": [
+      "Dark by default; one violet; neutrals tinted toward it.",
+      "Violet as a field, not a sprinkle: a whole band goes violet and every primitive inside switches to the dark ink.",
+      "1px borders before shadows; shadows only for floating or hovered things.",
+      "Radii of 4, 8 and 12px, nothing rounder except status dots.",
+      "Mono for data, Readex Pro for words.",
+      "One motion grammar: a scroll-linked rise for media and the nav shadow, plus 3px arrow nudges. All off under reduced motion."
+    ],
+    "rules": [
+      {
+        "name": "The Field Not Sprinkle Rule",
+        "body": "Violet covers a whole region or a single primary control. It never decorates borders, icons or backgrounds in scattered spots.",
+        "section": "colors"
+      },
+      {
+        "name": "The Fill Versus Ink Rule",
+        "body": "`primary` is a fill and `primary-ink` is text. Never set body text in `primary`.",
+        "section": "colors"
+      },
+      {
+        "name": "The Field Remap Rule",
+        "body": "A region goes violet with the `field-violet` utility, which reassigns the colour roles inside it: text and strong lines become the on-violet ink, `line` and `primary-soft` become translucent ink, `surface` goes transparent, and the primary button becomes dark with violet text. Components never get their own on-violet variant. Use `violet-fill` and `violet-ink` for anything that must stay the real pair inside a field, such as the dark screenshot slab. Status colours aren't remapped, so no status badge on violet.",
+        "section": "colors"
+      },
+      {
+        "name": "The Data Is Mono Rule",
+        "body": "Tech names, figures, years, issuers and dates are JetBrains Mono, with tabular numerals for figures. Prose is never mono.",
+        "section": "typography"
+      },
+      {
+        "name": "The Arabic Swap Rule",
+        "body": "Under `:lang(ar)` letter-spacing and uppercase are removed, and display, h2 and body take their Arabic metrics (56/76, 30/44, 17/30). Write the same class in both languages. Digits stay Western.",
+        "section": "typography"
+      },
+      {
+        "name": "The Borders First Rule",
+        "body": "Separate with 1px borders first and shadows second.",
+        "section": "elevation"
+      },
+      {
+        "name": "The One Glow Rule",
+        "body": "The violet glow sits on one element at a time, and only on hover.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do build from the tokens in `src/app/globals.css` only. Tailwind's own palette, type scale, radii and shadows are reset, so off-system classes produce no CSS.",
+      "Do turn a whole region violet with `field-violet` and let the primitives inside remap themselves.",
+      "Do set data (tech names, figures, years, issuers, dates) in JetBrains Mono, figures with tabular numerals.",
+      "Do separate with 1px hairlines and step between `bg`, `surface` and `surface-raised` before reaching for a shadow.",
+      "Do keep motion to the scroll-linked rise, the nav shadow and 3px arrow nudges, all behind `prefers-reduced-motion: no-preference`, with content visible when it doesn't run.",
+      "Do use logical sides and build English and Arabic in the same change.",
+      "Do use lucide icons at stroke 1.75.",
+      "Do show a mono monogram where a screenshot or portrait is missing."
+    ],
+    "donts": [
+      "Don't use raw hex values or ad-hoc spacing in components.",
+      "Don't give components an on-violet variant, or put a status badge on violet.",
+      "Don't use gradients between hues or blue-to-purple washes; the only glow is the violet glow, one element at a time.",
+      "Don't put the dot grid behind long text or anywhere but the intro (and the contact section when it ships).",
+      "Don't use radii above 12px on anything but status dots.",
+      "Don't add letter-spacing or uppercase to Arabic text.",
+      "Don't use stock imagery for projects or the portrait."
+    ]
+  }
+}

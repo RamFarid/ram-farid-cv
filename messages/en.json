@@ -3,11 +3,104 @@
     "title": "Ram Farid — Full-stack JavaScript Engineer",
     "description": "Ram Farid is a full-stack JavaScript engineer in Cairo, building fast, clear web apps with Next.js, React and Node.js."
   },
+  "Common": {
+    "newTab": "(opens in a new tab)"
+  },
+  "Nav": {
+    "label": "Main",
+    "home": "Ram Farid, home",
+    "skip": "Skip to content",
+    "work": "Work",
+    "about": "About",
+    "services": "Services",
+    "skills": "Skills",
+    "contact": "Contact",
+    "cv": "Download CV",
+    "menu": "Menu",
+    "switchLocale": "العربية"
+  },
   "Home": {
-    "eyebrow": "01 / Tokens",
-    "headline": "I build fast, clear web apps.",
-    "intro": "Full-stack JavaScript engineer in Cairo, building with <code>Next.js</code>, React and Node.",
-    "cta": "Hire me"
+    "intro": {
+      "title": "I build fast, clear <hl>web apps</hl>.",
+      "lead": "I’m Ram Farid, a full-stack JavaScript engineer in Cairo. I work with Next.js, React and Node.js, from the screens people use to the server and database behind them.",
+      "available": "Available for work",
+      "start": "Start a project"
+    },
+    "work": {
+      "eyebrow": "Work",
+      "title": "Client projects, live in production",
+      "client": "Client",
+      "stack": "Built with",
+      "visit": "Visit live site",
+      "all": "See all projects"
+    },
+    "about": {
+      "eyebrow": "About",
+      "title": "One engineer, front to back",
+      "body1": "Since {since} I’ve built web apps for {clients, number} clients, and I own each one end to end: the interface, the API and the database, through to launch.",
+      "body2": "I work in English and Arabic, so right-to-left layouts are part of the build from day one, not a fix after launch.",
+      "years": "Years of client work",
+      "since": "Since {since}",
+      "clients": "Clients",
+      "projects": "Live client projects"
+    },
+    "services": {
+      "eyebrow": "Services",
+      "title": "What I can build for you",
+      "items": {
+        "apps": {
+          "title": "New web apps",
+          "body": "A product your customers sign in to and use, built with Next.js and Node.js from the first screen to the database."
+        },
+        "rebuilds": {
+          "title": "Rebuilds of dated sites",
+          "body": "Your current site moved to a modern, fast stack, keeping your content and your URLs."
+        },
+        "localization": {
+          "title": "Multilingual, localized products",
+          "body": "Sites and apps built for every language they serve: translated content, right-to-left layouts and local date and number formats, from the first release."
+        },
+        "servers": {
+          "title": "Performant server management",
+          "body": "Servers that stay fast and up under real traffic: deployment, monitoring, caching and tuning, handled end to end."
+        }
+      }
+    },
+    "skills": {
+      "eyebrow": "Skills",
+      "title": "The stack I work in",
+      "groups": {
+        "frontend": "Front end",
+        "state": "State and data fetching",
+        "backend": "Back end",
+        "data": "Databases",
+        "auth": "Auth and access control",
+        "devops": "Servers and DevOps",
+        "testing": "Testing",
+        "integrations": "Integrations",
+        "tools": "Tools"
+      },
+      "topics": {
+        "backgroundJobs": "Background jobs",
+        "cronJobs": "Cron jobs",
+        "workers": "Workers",
+        "databaseDesign": "Database design",
+        "queryOptimization": "Query optimization",
+        "transactions": "Transactions",
+        "authentication": "Authentication",
+        "authorization": "Authorization"
+      }
+    },
+    "certifications": {
+      "eyebrow": "Certifications",
+      "title": "Certificates I’ve earned",
+      "view": "View certificate: {name}"
+    }
+  },
+  "Footer": {
+    "tagline": "Full-stack JavaScript engineer in Cairo.",
+    "social": "Find me on",
+    "rights": "© {year} Ram Farid"
   },
   "NotFound": {
     "title": "Page not found",
