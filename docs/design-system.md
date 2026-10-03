@@ -71,15 +71,17 @@ Why it's ordered this way:
 
 ## Violet fields
 
-The home page fills whole regions with violet (project band 1, and later the contact section). Put `field-violet` on the region; don't give components an on-violet variant.
+The home page fills whole regions with violet (project band 1 and the contact section). Put `field-violet` on the region; don't give components an on-violet variant.
 
 - The utility sets the background to the violet and **reassigns the colour roles inside it**:
   - text roles (`ink`, `ink-muted`, `primary-ink`, `logo-word`) and `line-strong` become the dark on-primary ink;
   - `line` and `primary-soft` become translucent ink, and `surface` becomes transparent;
   - `primary` becomes the dark ink and `on-primary` becomes the violet, so a primary button inside the field is dark with violet text (5.2:1);
-  - `focus` becomes the dark ink, so the focus ring stays visible on violet.
+  - `focus` becomes the dark ink, so the focus ring stays visible on violet;
+  - `danger` becomes the dark ink too (added 2026-10-04 with the contact form), because the coral red is unreadable on violet. Errors there are told apart by their text, a `CircleAlert` icon and a doubled border, not by colour;
+  - the caret becomes the dark ink. `body` sets `caret-color` to the violet, which inherits as a resolved colour and would vanish in a field.
 - `--violet-fill` and `--violet-ink` (utilities `bg-violet-fill`, `bg-violet-ink`, `text-violet-*`) hold the real pair. They're resolved once on `:root`, and custom properties inherit their computed value, so the remapping can't change them. Use them for anything that must stay the real violet or the real ink inside a field, such as the dark screenshot slab in a project band.
-- Status colours aren't remapped: don't put a `StatusBadge` on violet.
+- `success` and `warning` aren't remapped: don't put a `StatusBadge` on violet.
 
 ## Components (built)
 
@@ -93,7 +95,7 @@ These live in `src/components/ui/` and follow their READMEs in `docs/design-syst
 | `StatusBadge` | The success dot pulses with `motion-safe:animate-status-pulse`. |
 | `SectionHeading` | `id` goes on the heading, for `aria-labelledby`. |
 | `StatCard` | Adds an optional `note` line ("Since November 2021"). |
-| `TextField`, `TextArea` | The bundle's `multiline` is a separate `TextArea`. `id` defaults to `name`. The message is wired with `aria-describedby`, and `aria-invalid` is set on error. |
+| `TextField`, `TextArea` | The bundle's `multiline` is a separate `TextArea`. `id` defaults to `name`. The message is wired with `aria-describedby`, and `aria-invalid` is set on error. An error also gets a `CircleAlert` icon and a doubled border (`ring-1`), so it never depends on colour alone. Fields in a two-column row align to the top (`content-start`) when one has a longer message. The browser's autofill tint is suppressed so text stays readable on violet. |
 | `NavBar` | Section links are plain hash anchors. Under `md` they collapse into `menu` (the site's `NavMenu`, a native popover). The shadow on scroll is CSS only (`.scroll-shadow`). |
 | `Container` | The 1200px page container with its gutters. |
 

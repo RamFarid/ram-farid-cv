@@ -1,8 +1,7 @@
 import Image from 'next/image'
 import { useTranslations } from 'next-intl'
-import { Arrow } from '@/components/ui/Arrow'
 import { Container } from '@/components/ui/Container'
-import { socialLinks } from '@/lib/profile'
+import { FooterChannels } from './ChannelLinks'
 
 export function SiteFooter() {
   const t = useTranslations('Footer')
@@ -18,21 +17,7 @@ export function SiteFooter() {
 
         <div className="grid gap-space-3 md:col-span-6 md:justify-items-end">
           <h2 className="text-small text-ink-muted">{t('social')}</h2>
-          <ul className="flex flex-wrap gap-x-space-5 gap-y-space-2">
-            {socialLinks.map((link) => (
-              <li key={link.id}>
-                <a
-                  href={link.href}
-                  target="_blank"
-                  rel="me noreferrer"
-                  className="group inline-flex items-center gap-space-1 text-label text-ink transition-colors hover:text-primary-ink"
-                >
-                  {link.label}
-                  <Arrow direction="external" className="text-ink-muted" />
-                </a>
-              </li>
-            ))}
-          </ul>
+          <FooterChannels />
         </div>
 
         <p className="text-small text-ink-muted md:col-span-12">{t('rights', { year: new Date().getFullYear() })}</p>

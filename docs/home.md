@@ -20,8 +20,8 @@ The work leads. The first two published projects by console `order` each get a c
 5. **Services:** what a client can hire Ram for, in plain outcomes: new web apps, rebuilds, multilingual products, performant server management. Full width, one ruled row each.
 6. **Skills:** nine groups in a three-column grid, below Services on the same `surface` band. Tech names are mono `Tag`s in Latin script; practices (database design, authorization, background jobs) are translated and set in the sans. Data in `lib/profile` (confirmed by Ram 2026-10-04).
 7. **Certifications:** a gallery of the certificates themselves (see Certifications below).
-8. **Contact, on a violet field:** the form (name, email, optional phone, message; Turnstile), social links (GitHub, LinkedIn, WhatsApp, Instagram) and email. This is where the page ends.
-9. **Footer:** the full logo lock-up, social links and copyright.
+8. **Contact, on a violet field:** the form (name, email, optional phone, message; Turnstile) and every contact channel: Email, WhatsApp, Messenger, GitHub, Facebook, Instagram. This is where the page ends. Contract: `contact.md`.
+9. **Footer:** the full logo lock-up, the footer channels (GitHub, Email, WhatsApp) and copyright.
 
 ## Constraints
 
@@ -38,10 +38,10 @@ The work leads. The first two published projects by console `order` each get a c
 - **Files:** primitives in `src/components/ui/` (see `design-system.md#components-built`); the header, footer, mobile menu, language switch and CV button in `src/components/Reusable/site/`; the sections in `src/components/Home/`.
 - **Data:**
   - Projects: page → `lib/projects` (resolves `{ en, ar }` to the page locale) → `lib/db/projects.ts`.
-  - Profile facts (career start, client count, availability, socials, skills, certifications, CV URL): `lib/profile`. The figures are computed there and formatted with next-intl, never typed into copy.
+  - Profile facts (career start, client count, availability, contact channels, skills, certifications, CV URL): `lib/profile`. The figures are computed there and formatted with next-intl, never typed into copy.
 - **Violet:** project band 1 uses `field-violet` (`design-system.md#violet-fields`). Bands alternate violet and `surface`, and the screenshot swaps sides.
 - **Motion:** project screenshots rise into their band as it scrolls in, and the nav bar gains its shadow over the first 64px of scroll. Both are CSS scroll-driven animations with no JavaScript. They're off under reduced motion, and content stays visible where scroll timelines aren't supported. Arrows nudge 3px on hover.
-- **Section indexes** follow the brand book's "01 / Work" eyebrows: Work 01, About 02, Services 03, Skills 04, Certifications 05 (Contact will be 06).
+- **Section indexes** follow the brand book's "01 / Work" eyebrows: Work 01, About 02, Services 03, Skills 04, Certifications 05, Contact 06.
 - **Header:** fixed, so the intro's dot grid runs under it. The skip link goes to `#main`. Under `md`, the links and the CV button move into the menu.
 - **Download CV** is a disabled button until `CV_URL` is set in `.env`.
 - **Placeholders:** a missing screenshot or portrait shows a mono monogram, never a stock image.
@@ -70,9 +70,9 @@ Each step stands alone and leaves the app working.
 | 2 | UI primitives: Button, Tag, StatusBadge, SectionHeading, StatCard, TextField, NavBar, footer, each with an on-violet variant, in `src/components/ui/` | Done 2026-10-03 (on-violet through `field-violet`) |
 | 3 | Intro strip and the two project bands, reading from `Projects` | Done 2026-10-03 |
 | 4 | About + stats, Services, Skills, Certifications | Done 2026-10-03, with placeholder content (see Waiting on Ram) |
-| 5 | **Next.** Contact: form, Turnstile, Server Action (Zod), save to `ContactMsgs`, social links | |
-| 6 | Telegram: `src/lib/telegram/config.ts`, notification to the contact group with WhatsApp (when a phone is given) and Show in console buttons; email and phone as plain text | |
-| 7 | SEO: `lib/seo` metadata helper, JSON-LD, `sitemap.ts`, `robots.ts` | |
+| 5 | Contact: form, Turnstile, Server Action (Zod), save to `ContactMsgs`, contact channels | Done 2026-10-04 (see `contact.md`) |
+| 6 | Telegram: `src/lib/telegram/config.ts`, notification to the contact group with WhatsApp (when a phone is given) and Show in console buttons; email and phone as plain text | Done 2026-10-04; untested against the real bot until the token and chat id are in `.env` |
+| 7 | **Next.** SEO: `lib/seo` metadata helper, JSON-LD, `sitemap.ts`, `robots.ts` | |
 
 Update the status column as each step lands.
 
@@ -83,12 +83,12 @@ Update the status column as each step lands.
 - **Certifications:** `lib/profile` has two `TODO:` rows. Each needs the image (in `public/certificates/`, with its pixel size), name, issuer, YYYY-MM date, a one-line description in English and Arabic, and up to four skills.
 - **Arabic copy:** drafted by Claude for Ram to review.
 - **Section eyebrows ("01 / Work"):** kept because the brand book pins them for SectionHeading. The design review flagged numbered eyebrows above headings as a template pattern. Keep them, or drop the index (or the whole eyebrow) site-wide in `SectionHeading`?
-- **Portrait, socials, availability and CV:**
+- **Portrait, availability and CV:**
   - the portrait;
-  - LinkedIn, WhatsApp and Instagram URLs (only GitHub is set);
   - whether to show "Available for work" (shown for now);
   - the CV file (`CV_URL`).
-- Telegram bot token and contact group chat id (step 6); Turnstile site and secret keys (step 5). These go in `.env`.
+- **LinkedIn:** dropped from the channels on 2026-10-04 (not in Ram's list). Say if it should come back.
+- **Secrets for `.env`:** the Telegram bot token and contact group chat id, and the production Turnstile site and secret keys (`.env.example` has Cloudflare's test keys).
 
 ## Out of scope for now
 

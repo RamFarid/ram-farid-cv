@@ -1,5 +1,5 @@
 import { differenceInCalendarDays } from 'date-fns'
-import type { Certification, SkillGroup, SocialLink } from './types'
+import type { Certification, ContactChannel, SkillGroup } from './types'
 
 // Facts about Ram shown across the site. Figures are never typed into copy; see docs/project.md#identity
 
@@ -20,8 +20,15 @@ export function getCvUrl() {
   return process.env.CV_URL || null
 }
 
-// TODO(Ram): add LinkedIn, WhatsApp and Instagram URLs.
-export const socialLinks: SocialLink[] = [{ id: 'github', label: 'GitHub', href: 'https://github.com/RamFarid' }]
+// Confirmed by Ram on 2026-10-04. Direct channels first; the footer keeps GitHub, Email and WhatsApp. See docs/contact.md#channels
+export const contactChannels: ContactChannel[] = [
+  { id: 'email', kind: 'direct', href: 'mailto:ram@ramfarid.com', handle: 'ram@ramfarid.com', footer: true },
+  { id: 'whatsapp', kind: 'direct', href: 'https://wa.me/201553706448', handle: '+20 155 370 6448', footer: true },
+  { id: 'messenger', kind: 'direct', href: 'https://m.me/ramfarid22', handle: 'ramfarid22' },
+  { id: 'github', kind: 'profile', href: 'https://github.com/RamFarid', handle: 'RamFarid', footer: true },
+  { id: 'facebook', kind: 'profile', href: 'https://www.facebook.com/ramfarid22', handle: 'ramfarid22' },
+  { id: 'instagram', kind: 'profile', href: 'https://www.instagram.com/ramfarid22', handle: '@ramfarid22' },
+]
 
 // Confirmed by Ram on 2026-10-04.
 export const skillGroups: SkillGroup[] = [

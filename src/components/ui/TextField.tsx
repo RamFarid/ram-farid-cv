@@ -1,4 +1,5 @@
 import type { ComponentProps, ReactNode } from 'react'
+import { CircleAlert } from 'lucide-react'
 import { cn } from '@/utils'
 
 // See docs/design-system/components/TextField/README.md. The label is always visible; `error` replaces `hint`.
@@ -14,7 +15,10 @@ type FieldProps = {
 const controlClasses = cn(
   'w-full rounded-md border border-line-strong bg-surface px-space-4 text-body text-ink shadow-sm',
   'transition-colors placeholder:text-ink-muted hover:border-ink-muted focus-visible:border-primary',
-  'aria-invalid:border-danger',
+  // A doubled border and an icon mark errors without relying on colour, which is the dark ink on violet fields.
+  'aria-invalid:border-danger aria-invalid:ring-1 aria-invalid:ring-danger',
+  // Keep the browser's autofill tint off the field, which would hide the text on violet fields.
+  'autofill:[-webkit-text-fill-color:var(--ink)] autofill:[transition:background-color_100000s_step-end]',
 )
 
 function FieldShell({
@@ -28,13 +32,17 @@ function FieldShell({
   const message = error ?? hint
 
   return (
-    <div className={cn('grid gap-space-2', className)}>
+    <div className={cn('grid content-start gap-space-2', className)}>
       <label htmlFor={id} className="text-label text-ink">
         {label}
       </label>
       {children}
       {message && (
-        <p id={`${id}-message`} className={cn('text-small', error ? 'text-danger' : 'text-ink-muted')}>
+        <p
+          id={`${id}-message`}
+          className={cn('flex items-start gap-space-2 text-small', error ? 'text-danger' : 'text-ink-muted')}
+        >
+          {error && <CircleAlert aria-hidden size={16} strokeWidth={2} className="mt-0.75 shrink-0" />}
           {message}
         </p>
       )}

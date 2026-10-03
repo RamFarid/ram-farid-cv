@@ -258,7 +258,12 @@
   --line-strong: var(--violet-ink);
   --logo-word: var(--violet-ink);
   --focus: var(--violet-ink);
+  /* Danger red is unreadable on violet; errors here carry an icon and a doubled border instead. */
+  --danger: var(--violet-ink);
+  --danger-soft: color-mix(in srgb, var(--violet-ink) 12%, transparent);
   --elevation-glow: 0 12px 32px color-mix(in srgb, var(--violet-ink) 30%, transparent);
+  /* body sets the caret to the real violet, which inherits as a resolved colour and would vanish here. */
+  caret-color: var(--violet-ink);
 }
 
 /*

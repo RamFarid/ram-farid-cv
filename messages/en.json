@@ -4,7 +4,15 @@
     "description": "Ram Farid is a full-stack JavaScript engineer in Cairo, building fast, clear web apps with Next.js, React and Node.js."
   },
   "Common": {
-    "newTab": "(opens in a new tab)"
+    "newTab": "(opens in a new tab)",
+    "channels": {
+      "email": "Email",
+      "whatsapp": "WhatsApp",
+      "messenger": "Messenger",
+      "github": "GitHub",
+      "facebook": "Facebook",
+      "instagram": "Instagram"
+    }
   },
   "Nav": {
     "label": "Main",
@@ -95,11 +103,49 @@
       "eyebrow": "Certifications",
       "title": "Certificates I’ve earned",
       "view": "View certificate: {name}"
+    },
+    "contact": {
+      "eyebrow": "Contact",
+      "title": "Tell me what you’re building",
+      "description": "A few lines are enough: what you need, and roughly when.",
+      "social": "Or reach me directly",
+      "fields": {
+        "name": "Name",
+        "email": "Email",
+        "phone": "Phone (optional)",
+        "phoneHint": "With the country code. I may reply on WhatsApp.",
+        "message": "About your project",
+        "messageHint": "What it is, who it’s for, and when you need it."
+      },
+      "submit": "Send message",
+      "sending": "Sending…",
+      "privacy": "Your details are used only to reply to you.",
+      "errors": {
+        "nameRequired": "Enter your name.",
+        "nameLong": "Keep your name under 100 characters.",
+        "emailRequired": "Enter your email address.",
+        "emailInvalid": "Enter an email like name@domain.com.",
+        "phoneInvalid": "Enter the number with its country code, like +20 100 000 0000, or leave it empty.",
+        "messageRequired": "Tell me a little about your project.",
+        "messageShort": "Add a little more detail: at least 10 characters.",
+        "messageLong": "Keep it under 4,000 characters. We can go into detail on a call.",
+        "form": {
+          "invalid": "Some fields need a fix. Check the messages under them.",
+          "verifying": "Still checking that you’re not a bot. Send again in a moment.",
+          "verification": "The bot check didn’t pass. Complete it below if it shows, then send again.",
+          "unavailable": "Your message wasn’t sent because of a problem on my side. Please try again in a few minutes."
+        }
+      },
+      "sent": {
+        "title": "Message sent",
+        "body": "Thanks, <bdi>{name}</bdi>. I’ll reply to <email>{address}</email>.",
+        "again": "Send another message"
+      }
     }
   },
   "Footer": {
     "tagline": "Full-stack JavaScript engineer in Cairo.",
-    "social": "Find me on",
+    "social": "Get in touch",
     "rights": "© {year} Ram Farid"
   },
   "NotFound": {

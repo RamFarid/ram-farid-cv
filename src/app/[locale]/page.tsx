@@ -1,6 +1,7 @@
 import { getLocale } from 'next-intl/server'
 import { About } from '@/components/Home/About'
 import { Certifications } from '@/components/Home/Certifications'
+import { Contact } from '@/components/Home/Contact'
 import { Intro } from '@/components/Home/Intro'
 import { Services } from '@/components/Home/Services'
 import { Skills } from '@/components/Home/Skills'
@@ -32,6 +33,7 @@ export default async function Home() {
           </Container>
         </div>
         <Certifications />
+        <Contact />
       </main>
       <SiteFooter />
     </>

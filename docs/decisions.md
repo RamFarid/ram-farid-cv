@@ -2,6 +2,30 @@
 
 Newest first. Each entry gives the decision, why it was made, and what it constrains. When a decision is reversed, mark the old entry *Superseded* and link the new one; don't delete it.
 
+## 2026-10-04: Contact channels, and which ones the footer shows
+
+- **Decision:** six channels in `lib/profile` (`contactChannels`): Email (`ram@ramfarid.com`), WhatsApp, Messenger, GitHub, Facebook and Instagram. The contact section lists all of them; the footer lists GitHub, Email and WhatsApp. LinkedIn is dropped.
+- **Why:** Ram asked for these six in the contact section, with a fitting subset in the footer. The footer keeps the professional profile and the two direct lines, and the personal social profiles stay with the form. Ram chose `ram@ramfarid.com` as the public address, which settles the earlier "no email on the site without confirmation" rule.
+- **Constrains:** `profile` channels carry `rel="me"` and feed `Person.sameAs` in the SEO step. Channel names come from `Common.channels`.
+- **Details:** `contact.md#channels`.
+
+## 2026-10-04: Contact form: hand-submitted Server Action, Turnstile without a library, Telegram after the response
+
+- **Decision:**
+  - The contact form calls its Server Action from `onSubmit` (`useTransition`), not through `<form action>`.
+  - Turnstile is rendered explicitly from a small component of our own, with no wrapper package.
+  - The Telegram notification runs in `after()` once the message is saved, and its failures are only logged.
+  - Success is an inline confirmation, not a toast.
+- **Why:**
+  - React resets a `<form action>` form after every submission, failed ones included, so a Turnstile or server error would wipe the visitor's message. Progressive enhancement is moot because Turnstile needs JavaScript.
+  - The Turnstile API we need is three calls, not worth a dependency.
+  - The visitor shouldn't wait on Telegram or see its errors once the message is safely stored.
+  - A lasting confirmation is clearer than a toast, and it avoided adding Sonner for one message.
+- **Constrains:**
+  - Other public forms follow the same pattern: shared `*ZSchema` with error keys, a hand-submitted action, Turnstile through `components/Reusable/forms/Turnstile.tsx`.
+  - Absolute links sent outside the site use `siteUrl` from `lib/seo/site.ts`.
+- **Details:** `contact.md`.
+
 ## 2026-10-04: Home page: the first two projects by order, then /portfolio
 
 - **Decision:** the home page's two project bands show the first two published projects by console `order`, not a hand-picked set. The bands are compact (screenshot at half width on desktop, an `h2` title, `space-8` padding). The Work heading carries **See all projects**, linking to `/portfolio`. The `featured` flag is removed from `Projects`.
@@ -12,7 +36,8 @@ Newest first. Each entry gives the decision, why it was made, and what it constr
 
 - **Decision:** a region on violet gets the `field-violet` utility. It reassigns the colour roles inside it (`--ink`, `--primary`, `--on-primary`, `--line`, `--focus`, …) to the violet pair, so every primitive switches to on-primary ink on its own. There are no `tone="onViolet"` props.
 - **Why:** step 2 asked for an on-violet variant of every primitive. One scope gives all current and future components that variant, and it can't be forgotten on a new one.
-- **Constrains:** inside a field, `primary` means the dark ink. For the real violet and its ink, use `violet-fill` / `violet-ink` (resolved once on `:root`). Status colours aren't remapped, so don't put a StatusBadge on violet.
+- **Constrains:** inside a field, `primary` means the dark ink. For the real violet and its ink, use `violet-fill` / `violet-ink` (resolved once on `:root`). `success` and `warning` aren't remapped, so don't put a StatusBadge on violet.
+- **Amended 2026-10-04:** `danger` and the caret colour are remapped to the dark ink too, for the contact form's errors. Errors there are told apart by text, an icon and a doubled border.
 - **Details:** `design-system.md#violet-fields`.
 
 ## 2026-10-03: `cn()` knows the design-system tokens

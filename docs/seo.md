@@ -35,4 +35,5 @@ We build for all three from the first page. The finished site is audited with th
 
 ## Status
 
-- 2026-10-03: `app/icon.svg` (the brand icon) is in place. Nothing else yet.
+- 2026-10-03: `app/icon.svg` (the brand icon) is in place.
+- 2026-10-04: `lib/seo/site.ts` exports `siteUrl` (`SITE_URL`, default `https://ramfarid.com`), first used for the Telegram console link. Build canonical URLs and JSON-LD on it. For `Person.sameAs`, use the `profile` channels in `lib/profile` (`contactChannels`, `kind: 'profile'`); those links already carry `rel="me"`.

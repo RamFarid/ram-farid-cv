@@ -39,7 +39,7 @@ This is Ram's private dashboard for controlling the site's data:
 
 ## Contact flow
 
-Contact form → Cloudflare Turnstile check → Server Action (Zod) → saved in MongoDB → shown in the console's Messages page → **Telegram notification** to the "Contact Notifications" group (the bot is a member).
+Contact form → Cloudflare Turnstile check → Server Action (Zod) → saved in MongoDB → shown in the console's Messages page → **Telegram notification** to the "Contact Notifications" group (the bot is a member). Built 2026-10-04 except the console page; contract in `contact.md`.
 
 ## Telegram
 
