@@ -1,5 +1,7 @@
-// Inserts the live client projects until the console can create them. See docs/database.md#seeding
+// Inserts the live client projects until the console can create them, and the home page's editable content as it was
+// before the console managed it. See docs/database.md#seeding
 import mongoose from 'mongoose'
+import { HomeContent } from '@/lib/db/models/HomeContent'
 import { Project } from '@/lib/db/models/Project'
 
 const uri = process.env.MONGO_URI
@@ -77,6 +79,135 @@ for (const project of projects) {
       ? `already exists; filled missing ${filled.join(', ')}`
       : 'already exists, left unchanged'
   console.log(`${project.slug}: ${outcome}`)
+}
+
+// The home page's copy as it stood in messages/*.json and lib/profile when the console took it over (2026-10-04).
+// Certificates start empty: the old rows were placeholders, and the real ones are added in the console.
+const l = (en: string, ar: string) => ({ en, ar })
+
+const homeContent = {
+  about: {
+    title: l('One engineer, front to back', 'مهندس واحد، من الواجهة إلى الخادم'),
+    body: l(
+      'Since November 2021 I’ve built web apps for {clients} clients, and I own each one end to end: the interface, the API and the database, through to launch.\n\nI work in English and Arabic, so right-to-left layouts are part of the build from day one, not a fix after launch.',
+      'منذ نوفمبر 2021 بنيت تطبيقات ويب لـ {clients} عميلًا، وأتولى كل مشروع من أوله إلى آخره: الواجهة وواجهة الـ API وقاعدة البيانات، حتى الإطلاق.\n\nأعمل بالعربية والإنجليزية، لذلك يدخل التصميم من اليمين إلى اليسار في البناء من اليوم الأول، لا كإصلاح بعد الإطلاق.',
+    ),
+    clientCount: 16,
+  },
+  services: [
+    {
+      id: 'apps',
+      title: l('New web apps', 'تطبيقات ويب جديدة'),
+      body: l(
+        'A product your customers sign in to and use, built with Next.js and Node.js from the first screen to the database.',
+        'منتج يسجّل فيه عملاؤك الدخول ويستخدمونه، أبنيه بـ Next.js وNode.js من الشاشة الأولى حتى قاعدة البيانات.',
+      ),
+    },
+    {
+      id: 'rebuilds',
+      title: l('Rebuilds of dated sites', 'إعادة بناء المواقع القديمة'),
+      body: l(
+        'Your current site moved to a modern, fast stack, keeping your content and your URLs.',
+        'أنقل موقعك الحالي إلى تقنيات حديثة وسريعة، مع الحفاظ على محتواك وروابطك.',
+      ),
+    },
+    {
+      id: 'localization',
+      title: l('Multilingual, localized products', 'منتجات متعددة اللغات'),
+      body: l(
+        'Sites and apps built for every language they serve: translated content, right-to-left layouts and local date and number formats, from the first release.',
+        'مواقع وتطبيقات مبنية لكل لغة تخدمها: محتوى مترجم، وتخطيط من اليمين إلى اليسار، وصيغ محلية للتواريخ والأرقام، من الإصدار الأول.',
+      ),
+    },
+    {
+      id: 'servers',
+      title: l('Performant server management', 'إدارة خوادم عالية الأداء'),
+      body: l(
+        'Servers that stay fast and up under real traffic: deployment, monitoring, caching and tuning, handled end to end.',
+        'خوادم تبقى سريعة ومتاحة تحت الضغط الحقيقي: النشر والمراقبة والتخزين المؤقت وضبط الأداء، من البداية إلى النهاية.',
+      ),
+    },
+  ],
+  skillGroups: [
+    {
+      id: 'frontend',
+      name: l('Front end', 'الواجهات'),
+      items: ['Next.js', 'React', 'TypeScript', 'JavaScript', 'Tailwind CSS', 'MUI', 'MUI X', 'shadcn/ui', 'Sass', 'styled-components', 'Framer Motion'],
+      practices: [],
+    },
+    {
+      id: 'state',
+      name: l('State and data fetching', 'إدارة الحالة وجلب البيانات'),
+      items: ['Redux Toolkit', 'Zustand', 'Jotai', 'TanStack Query', 'SWR'],
+      practices: [],
+    },
+    {
+      id: 'backend',
+      name: l('Back end', 'البرمجة الخلفية'),
+      items: ['Node.js', 'Express.js', 'REST APIs', 'Socket.IO'],
+      practices: [
+        { id: 'backgroundJobs', label: l('Background jobs', 'المهام في الخلفية') },
+        { id: 'cronJobs', label: l('Cron jobs', 'مهام Cron المجدولة') },
+        { id: 'workers', label: l('Workers', 'Workers') },
+      ],
+    },
+    {
+      id: 'data',
+      name: l('Databases', 'قواعد البيانات'),
+      items: ['MongoDB', 'Mongoose', 'PostgreSQL', 'MySQL', 'Prisma', 'Redis', 'Firebase', 'Supabase'],
+      practices: [
+        { id: 'databaseDesign', label: l('Database design', 'تصميم قواعد البيانات') },
+        { id: 'queryOptimization', label: l('Query optimization', 'تحسين الاستعلامات') },
+        { id: 'transactions', label: l('Transactions', 'المعاملات (Transactions)') },
+      ],
+    },
+    {
+      id: 'auth',
+      name: l('Auth and access control', 'المصادقة والتحكم في الصلاحيات'),
+      items: ['Auth.js', 'JWT', 'OAuth', 'RBAC'],
+      practices: [
+        { id: 'authentication', label: l('Authentication', 'المصادقة') },
+        { id: 'authorization', label: l('Authorization', 'التفويض والصلاحيات') },
+      ],
+    },
+    {
+      id: 'devops',
+      name: l('Servers and DevOps', 'الخوادم وDevOps'),
+      items: ['Linux', 'Nginx', 'Docker', 'PM2', 'Coolify', 'GitHub Actions', 'Cloudflare', 'Vercel', 'AWS'],
+      practices: [],
+    },
+    {
+      id: 'testing',
+      name: l('Testing', 'الاختبارات'),
+      items: ['Jest', 'Vitest', 'React Testing Library', 'Playwright', 'Cypress'],
+      practices: [],
+    },
+    {
+      id: 'integrations',
+      name: l('Integrations', 'التكاملات'),
+      items: ['Stripe', 'Telegram Bot API', 'Nodemailer'],
+      practices: [],
+    },
+    { id: 'tools', name: l('Tools', 'الأدوات'), items: ['Git', 'GitHub'], practices: [] },
+  ],
+  certifications: [],
+}
+
+// One document; each section is filled only while it's missing, so content edited in the console is never overwritten.
+const existingHome = await HomeContent.findOne().select('_id').lean()
+if (!existingHome) {
+  await HomeContent.create(homeContent)
+  console.log('home content: inserted')
+} else {
+  const filled: string[] = []
+  for (const [field, value] of Object.entries(homeContent)) {
+    const { modifiedCount } = await HomeContent.updateOne(
+      { _id: existingHome._id, [field]: { $exists: false } },
+      { $set: { [field]: value } },
+    )
+    if (modifiedCount) filled.push(field)
+  }
+  console.log(`home content: ${filled.length ? `already exists; filled missing ${filled.join(', ')}` : 'already exists, left unchanged'}`)
 }
 
 await mongoose.disconnect()

@@ -12,7 +12,7 @@ type FieldProps = {
   error?: string
 }
 
-const controlClasses = cn(
+export const controlClasses = cn(
   'w-full rounded-md border border-line-strong bg-surface px-space-4 text-body text-ink shadow-sm',
   'transition-colors placeholder:text-ink-muted hover:border-ink-muted focus-visible:border-primary',
   // A doubled border and an icon mark errors without relying on colour, which is the dark ink on violet fields.

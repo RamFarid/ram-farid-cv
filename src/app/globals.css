@@ -532,3 +532,16 @@
   --text-body: --theme(--text-body-ar inline);
   --text-body--line-height: --theme(--text-body-ar--line-height inline);
 }
+
+/*
+ * The language popover of the multi-language input (docs/console.md#localized-field): anchored under its locale button,
+ * aligned to the field's end edge, flipping above when there's no room. Without anchor positioning it stays centred.
+ */
+@supports (position-area: block-end) {
+  .locale-popover {
+    inset: auto;
+    position-area: block-end span-inline-start;
+    position-try-fallbacks: flip-block;
+    margin-block: var(--space-1);
+  }
+}

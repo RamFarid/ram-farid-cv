@@ -2,6 +2,26 @@
 
 Newest first. Each entry gives the decision, why it was made, and what it constrains. When a decision is reversed, mark the old entry *Superseded* and link the new one; don't delete it.
 
+## 2026-10-04: Console: bilingual, section-by-section saves, Telegram sign-in
+
+- **Decision:**
+  - The console lives under the locale like the site (`/en/console`, `/ar/console`) and is fully bilingual.
+  - Sign-in: a six-digit code from the Telegram bot to the "Ram OTPs" group, stored hashed in `Otps` (5 minutes, single use, five tries). Success sets an opaque random session token in an httpOnly cookie, stored hashed in `Sessions` for 14 days. No session secret.
+  - The home page's editable content (About heading and paragraphs, client count, portrait, services, skill groups, certificates) moved from `messages` and `lib/profile` into one `HomeContents` document. Each section saves on its own and revalidates the home page in both locales.
+  - Every text field is edited with `LocalizedField`: the page's locale first, the other languages behind a locale-code popover.
+  - Images go straight from the browser to R2 with presigned PUTs from `@aws-sdk/client-s3`.
+- **Why:**
+  - Ram asked for the multi-language input to default to the site's current locale, and English and Arabic are equal citizens (`PRODUCT.md`).
+  - An opaque token looked up in the database can be revoked by deleting a row, so it needs no signing secret (Ram questioned the secret).
+  - Per-section saves keep a half-finished edit in one section from blocking another, and make the unsaved state visible in the rail.
+  - Ram chose the AWS SDK; presigned PUTs keep files off the app server and clear of the 1 MB Server Action body limit.
+- **Constrains:**
+  - Every console page and Server Action checks the session (`lib/auth/session.ts`).
+  - Content edited in the console never goes back into `messages`; those bundles hold UI copy only.
+  - The R2 bucket needs a CORS rule for browser `PUT`s from every console origin.
+  - Later managers (messages, projects) reuse the rail, `SectionPanel`, `SortableList`, `ImageUpload`, `LocalizedField` and `TagInput`.
+- **Details:** `console.md`, `database.md`.
+
 ## 2026-10-04: Portfolio: the index teases, the case study proves
 
 - **Decision:**

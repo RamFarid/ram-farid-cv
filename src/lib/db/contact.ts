@@ -10,3 +10,9 @@ export async function insertContactMsg(data: NewContactMsg) {
   const doc = await ContactMsg.create(data)
   return doc._id.toString()
 }
+
+/** Messages not opened in the console yet. */
+export async function countNewContactMsgs() {
+  await connectDB()
+  return ContactMsg.countDocuments({ status: 'new' })
+}

@@ -44,60 +44,19 @@
     },
     "about": {
       "eyebrow": "About",
-      "title": "One engineer, front to back",
-      "body1": "Since {since} I’ve built web apps for {clients, number} clients, and I own each one end to end: the interface, the API and the database, through to launch.",
-      "body2": "I work in English and Arabic, so right-to-left layouts are part of the build from day one, not a fix after launch.",
       "years": "Years of client work",
       "since": "Since {since}",
       "clients": "Clients",
-      "projects": "Live client projects"
+      "projects": "Live client projects",
+      "portraitAlt": "Portrait of Ram Farid"
     },
     "services": {
       "eyebrow": "Services",
-      "title": "What I can build for you",
-      "items": {
-        "apps": {
-          "title": "New web apps",
-          "body": "A product your customers sign in to and use, built with Next.js and Node.js from the first screen to the database."
-        },
-        "rebuilds": {
-          "title": "Rebuilds of dated sites",
-          "body": "Your current site moved to a modern, fast stack, keeping your content and your URLs."
-        },
-        "localization": {
-          "title": "Multilingual, localized products",
-          "body": "Sites and apps built for every language they serve: translated content, right-to-left layouts and local date and number formats, from the first release."
-        },
-        "servers": {
-          "title": "Performant server management",
-          "body": "Servers that stay fast and up under real traffic: deployment, monitoring, caching and tuning, handled end to end."
-        }
-      }
+      "title": "What I can build for you"
     },
     "skills": {
       "eyebrow": "Skills",
-      "title": "The stack I work in",
-      "groups": {
-        "frontend": "Front end",
-        "state": "State and data fetching",
-        "backend": "Back end",
-        "data": "Databases",
-        "auth": "Auth and access control",
-        "devops": "Servers and DevOps",
-        "testing": "Testing",
-        "integrations": "Integrations",
-        "tools": "Tools"
-      },
-      "topics": {
-        "backgroundJobs": "Background jobs",
-        "cronJobs": "Cron jobs",
-        "workers": "Workers",
-        "databaseDesign": "Database design",
-        "queryOptimization": "Query optimization",
-        "transactions": "Transactions",
-        "authentication": "Authentication",
-        "authorization": "Authorization"
-      }
+      "title": "The stack I work in"
     },
     "certifications": {
       "eyebrow": "Certifications",
@@ -206,5 +165,174 @@
     "title": "Page not found",
     "description": "This page doesn't exist or has moved.",
     "home": "Back to home"
+  },
+  "LocalizedField": {
+    "names": {
+      "en": "English",
+      "ar": "Arabic"
+    },
+    "languages": "Languages",
+    "switch": "Editing {language}. Change language",
+    "switchShort": "Switch to {language}",
+    "filled": "Filled",
+    "missing": "Missing",
+    "needsFix": "Needs a fix",
+    "otherError": "{language}: {error}",
+    "otherNeedsWork": "Another language is missing or needs a fix."
+  },
+  "TagInput": {
+    "remove": "Remove {name}",
+    "full": "Limit reached"
+  },
+  "Console": {
+    "meta": {
+      "title": "Console"
+    },
+    "rail": {
+      "label": "Console",
+      "name": "Ram",
+      "badge": "Console",
+      "home": "Home page",
+      "messages": "Messages",
+      "projects": "Projects",
+      "newMessages": "{count} new",
+      "projectCounts": "{published} · {draft} draft",
+      "unsaved": "Unsaved changes",
+      "viewSite": "View site",
+      "newTab": "(opens in a new tab)",
+      "switchLocale": "العربية",
+      "signOut": "Sign out",
+      "sections": "Sections"
+    },
+    "home": {
+      "title": "Home page",
+      "lead": "What the home page says. Each section saves on its own and updates the live site in English and Arabic.",
+      "viewLive": "View the home page"
+    },
+    "save": {
+      "save": "Save",
+      "discard": "Discard",
+      "saving": "Saving…",
+      "unsaved": "Unsaved changes",
+      "saved": "Saved. The home page is updated in both languages.",
+      "invalid": "Some fields need a fix before this can be saved.",
+      "unauthorized": "Your session ended. Sign in again, then save.",
+      "unavailable": "Couldn’t save right now. Your edits are still here; try again."
+    },
+    "errors": {
+      "required": "Fill this in.",
+      "tooLong": "Shorten this.",
+      "tooMany": "Remove some items; this list is full.",
+      "invalid": "Check this value.",
+      "emptyGroup": "Add at least one tool or practice."
+    },
+    "list": {
+      "move": "Move {name}",
+      "instructions": "Drag to reorder, or press the up and down arrow keys.",
+      "moved": "{name} moved to position {position} of {total}."
+    },
+    "upload": {
+      "empty": "Drop an image here",
+      "choose": "Upload image",
+      "replace": "Replace",
+      "remove": "Remove",
+      "uploading": "Uploading…",
+      "hint": "PNG, JPEG, WebP or AVIF, up to 8 MB.",
+      "errors": {
+        "type": "Use a PNG, JPEG, WebP or AVIF image.",
+        "size": "This image is over 8 MB. Export a smaller one.",
+        "failed": "The upload didn’t finish. Try again.",
+        "unavailable": "Uploads are off: R2 isn’t configured on the server."
+      }
+    },
+    "about": {
+      "title": "About",
+      "description": "The portrait, heading and paragraphs beside the three figures. Years come from November 2021 and live projects from the published projects; only the client count is typed.",
+      "heading": "Heading",
+      "body": "Paragraphs",
+      "bodyHint": "Leave a blank line between paragraphs. <token></token> becomes the client count.",
+      "insertClients": "Insert '{clients}'",
+      "clients": "Clients",
+      "projects": "Live client projects",
+      "projectsNote": "Counted from published projects",
+      "years": "Years of client work",
+      "yearsNote": "Since {since}",
+      "portrait": "Portrait"
+    },
+    "services": {
+      "title": "Services",
+      "description": "What a client can hire you for, as ruled rows under “What I can build for you”, in this order.",
+      "name": "Service",
+      "body": "Description",
+      "untitled": "Service {number}",
+      "remove": "Remove {name}",
+      "add": "Add a service",
+      "full": "That’s the most this list holds ({max}).",
+      "empty": "No services yet. The section stays hidden on the home page until you add one."
+    },
+    "skills": {
+      "title": "Skills",
+      "description": "Groups of tools and practices under “The stack I work in”. Tools are tech names in Latin script in both languages; practices are translated.",
+      "name": "Group name",
+      "items": "Tools",
+      "itemsPlaceholder": "Type a name, then Enter",
+      "itemsHint": "Write each name as its project does: Next.js, MongoDB.",
+      "practices": "Practices",
+      "practicesEmpty": "No practices in this group.",
+      "practice": "Practice {number}",
+      "addPractice": "Add a practice",
+      "removePractice": "Remove practice {name}",
+      "untitled": "Group {number}",
+      "remove": "Remove {name}",
+      "add": "Add a group",
+      "full": "That’s the most this list holds ({max}).",
+      "empty": "No skill groups yet. The section stays hidden on the home page until you add one."
+    },
+    "certifications": {
+      "title": "Certifications",
+      "description": "The certificates themselves, under “Certificates I’ve earned”. Each image opens full size on the home page.",
+      "image": "Certificate image",
+      "name": "Name",
+      "nameHint": "As issued, not translated.",
+      "issuer": "Issuer",
+      "issuedOn": "Issued",
+      "issuedOnHint": "Month and year. Optional.",
+      "skills": "Skills",
+      "skillsPlaceholder": "Up to four",
+      "descriptionField": "What it covers",
+      "untitled": "Certificate {number}",
+      "remove": "Remove {name}",
+      "add": "Add a certificate",
+      "full": "That’s the most this list holds ({max}).",
+      "empty": "No certificates yet. The section stays hidden on the home page until you add one."
+    },
+    "messages": {
+      "title": "Messages",
+      "soon": "The contact messages inbox comes in the next phase. Until then, new messages still arrive in Telegram."
+    },
+    "projects": {
+      "title": "Projects",
+      "soon": "Creating, editing and ordering projects comes in phase 3."
+    },
+    "signIn": {
+      "title": "Sign in",
+      "badge": "Console",
+      "lead": "I’ll send a one-time code to the OTP chat on Telegram. This device then stays signed in for 14 days.",
+      "send": "Send the code",
+      "sending": "Sending…",
+      "code": "Code from Telegram",
+      "codeHint": "Six digits. It works once and expires in 5 minutes.",
+      "submit": "Sign in",
+      "checking": "Checking…",
+      "resend": "Send a new code",
+      "resendIn": "You can ask for a new code in {seconds, plural, one {# second} other {# seconds}}.",
+      "errors": {
+        "cooldown": "A code was sent less than a minute ago. Use that one, or wait to ask again.",
+        "unavailable": "Couldn’t reach Telegram or the database. Try again in a moment.",
+        "invalid": "Enter the six digits from Telegram.",
+        "expired": "That code has expired or been used. Send a new one.",
+        "wrong": "That code isn’t right. {count, plural, one {# try left} other {# tries left}}."
+      }
+    }
   }
 }

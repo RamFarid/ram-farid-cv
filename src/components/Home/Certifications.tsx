@@ -4,11 +4,12 @@ import { Container } from '@/components/ui/Container'
 import { SectionHeading } from '@/components/ui/SectionHeading'
 import { Tag } from '@/components/ui/Tag'
 import { localeDirection } from '@/i18n/routing'
-import { certifications } from '@/lib/profile'
+import type { HomeCertification } from '@/lib/home/types'
 import { CertificateThumb } from './CertificateViewer'
 
 // The certificates themselves, not a list of names: each one opens full size. Text stays server-rendered for search.
-export function Certifications() {
+// Managed in the console (docs/console.md#certifications).
+export function Certifications({ certifications }: { certifications: HomeCertification[] }) {
   const t = useTranslations('Home.certifications')
   const locale = useLocale()
   const format = useFormatter()
@@ -32,7 +33,7 @@ export function Certifications() {
               const meta = date ? `${cert.issuer} · ${date}` : cert.issuer
 
               return (
-                <li key={cert.slug} className="grid content-start gap-space-4">
+                <li key={cert.id} className="grid content-start gap-space-4">
                   {cert.image ? (
                     <CertificateThumb
                       image={cert.image}
@@ -42,7 +43,7 @@ export function Certifications() {
                       dir={localeDirection[locale]}
                     />
                   ) : (
-                    // TODO(Ram): the certificate image. Until it exists, a mat with the issuer's initials.
+                    // Without an image, a mat with the issuer's initials and no viewer.
                     <div aria-hidden className="rounded-lg border border-line bg-surface-raised p-space-3">
                       <div className="grid aspect-[4/3] place-items-center">
                         <span className="font-mono text-numeral text-line-strong">
@@ -55,7 +56,7 @@ export function Certifications() {
                   <div className="grid gap-space-2">
                     <h3 className="text-h3 text-balance text-ink">{cert.name}</h3>
                     <p className="font-mono text-code text-ink-muted">{meta}</p>
-                    <p className="text-body text-ink-muted">{cert.description[locale]}</p>
+                    <p className="text-body text-ink-muted">{cert.description}</p>
                   </div>
 
                   {cert.skills.length > 0 && (

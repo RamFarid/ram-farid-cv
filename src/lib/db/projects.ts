@@ -45,3 +45,13 @@ export async function countPublishedProjects() {
   await connectDB()
   return Project.countDocuments(published)
 }
+
+/** Published and draft counts, for the console's navigation. */
+export async function countProjectsByStatus() {
+  await connectDB()
+  const [published, draft] = await Promise.all([
+    Project.countDocuments({ status: 'published' }),
+    Project.countDocuments({ status: 'draft' }),
+  ])
+  return { published, draft }
+}

@@ -3,12 +3,13 @@
 import Image from 'next/image'
 import { PhotoView } from 'react-photo-view'
 import { PhotoCaption } from '@/components/Reusable/media/PhotoViewer'
+import type { HomeImage } from '@/lib/home/types'
 import { cn } from '@/utils'
 
 // Certificates open in the shared PhotoViewer, which wraps the whole gallery. See docs/home.md#certifications
 
 type CertificateThumbProps = {
-  image: { src: string; width: number; height: number }
+  image: HomeImage
   /** Accessible name of the button, e.g. "View certificate: <name>". */
   label: string
   name: string
@@ -20,7 +21,7 @@ type CertificateThumbProps = {
 export function CertificateThumb({ image, label, name, meta, dir }: CertificateThumbProps) {
   return (
     <PhotoView
-      src={image.src}
+      src={image.url}
       width={image.width}
       height={image.height}
       overlay={<PhotoCaption title={name} meta={meta} dir={dir} />}
@@ -36,7 +37,7 @@ export function CertificateThumb({ image, label, name, meta, dir }: CertificateT
       >
         <span className="relative block aspect-[4/3]">
           <Image
-            src={image.src}
+            src={image.url}
             alt=""
             fill
             sizes="(min-width: 1200px) 360px, (min-width: 1024px) 30vw, (min-width: 640px) 45vw, 100vw"

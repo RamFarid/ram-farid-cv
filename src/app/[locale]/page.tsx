@@ -9,15 +9,20 @@ import { Work } from '@/components/Home/Work'
 import { SiteFooter } from '@/components/Reusable/site/SiteFooter'
 import { SiteHeader } from '@/components/Reusable/site/SiteHeader'
 import { Container } from '@/components/ui/Container'
+import { getHomeContent } from '@/lib/home'
 import { getHomeProjects, getPublishedProjectCount } from '@/lib/projects'
 
-// Static, regenerated daily so the experience figure stays current; the console will revalidate on project changes.
+// Static, regenerated daily so the experience figure stays current; console saves revalidate it.
 // See docs/home.md#rendering
 export const revalidate = 86400
 
 export default async function Home() {
   const locale = await getLocale()
-  const [projects, projectCount] = await Promise.all([getHomeProjects(locale), getPublishedProjectCount()])
+  const [projects, projectCount, content] = await Promise.all([
+    getHomeProjects(locale),
+    getPublishedProjectCount(),
+    getHomeContent(locale),
+  ])
 
   return (
     <>
@@ -25,14 +30,16 @@ export default async function Home() {
       <main id="main" className="flex-1">
         <Intro />
         <Work projects={projects} />
-        <About projectCount={projectCount} />
-        <div className="border-y border-line bg-surface py-space-8 md:py-space-9">
-          <Container className="grid gap-space-9">
-            <Services />
-            <Skills />
-          </Container>
-        </div>
-        <Certifications />
+        {content.about && <About about={content.about} projectCount={projectCount} />}
+        {(content.services.length > 0 || content.skillGroups.length > 0) && (
+          <div className="border-y border-line bg-surface py-space-8 md:py-space-9">
+            <Container className="grid gap-space-9">
+              <Services services={content.services} />
+              <Skills skillGroups={content.skillGroups} />
+            </Container>
+          </div>
+        )}
+        <Certifications certifications={content.certifications} />
         <Contact />
       </main>
       <SiteFooter />

@@ -98,6 +98,8 @@ These live in `src/components/ui/` and follow their READMEs in `docs/design-syst
 | `TextField`, `TextArea` | The bundle's `multiline` is a separate `TextArea`. `id` defaults to `name`. The message is wired with `aria-describedby`, and `aria-invalid` is set on error. An error also gets a `CircleAlert` icon and a doubled border (`ring-1`), so it never depends on colour alone. Fields in a two-column row align to the top (`content-start`) when one has a longer message. The browser's autofill tint is suppressed so text stays readable on violet. |
 | `NavBar` | Section links are plain hash anchors. Under `md` they collapse into `menu` (the site's `NavMenu`, a native popover). The shadow on scroll is CSS only (`.scroll-shadow`). |
 | `Container` | The 1200px page container with its gutters. |
+| `LocalizedField` | Not in the bundle (added for the console, 2026-10-04). A `TextField`/`TextArea` holding one value per locale, with a mono locale-code button at its end that opens a native popover of the other languages (filled, missing or needs a fix). Contract: `console.md#localized-field`. |
+| `TagInput` | Not in the bundle (console, 2026-10-04). Mono tags in a field-styled box: Enter or a comma adds, Backspace removes the last, LTR in both languages. The box carries the focus ring because the inner input drops its own. |
 
 Icons are lucide-react at stroke 1.75 (the project's icon choice in `CLAUDE.md`). They replace the README's Material Symbols.
 
@@ -107,3 +109,5 @@ Shared compositions and utilities added with `/portfolio` (2026-10-04, `portfoli
 - `Reusable/site/ContactCall`: the closing call on pages other than home.
 - In `globals.css`: `film-rail` (the sideways scroll-snap rail aligned to the container), the `[data-frame] > article` focus rule, and `story-prose` (token styles for the case-study HTML).
 - No new tokens.
+
+Console compositions (2026-10-04, `console.md`): `Console/ConsoleRail`, `SectionPanel` (sticky header; Save is primary only while dirty), `SortableList` (grip handle, pointer drag and arrow keys), `ImageUpload` (presigned R2 upload into a 4:5 or 4:3 frame), `ListParts`. In `globals.css`: `.locale-popover` (anchor positioning for `LocalizedField`). `TextField` now exports `controlClasses`; `Button` gained a neutral `quiet` variant for secondary actions beside a primary. No new tokens.

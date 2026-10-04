@@ -6,7 +6,8 @@ import { Arrow } from './Arrow'
 
 // See docs/design-system/components/Button/README.md. Primary appears at most once per view.
 type ButtonStyle = {
-  variant?: 'primary' | 'secondary' | 'ghost'
+  /** `quiet` is a neutral ghost for secondary actions where violet would compete with the one primary (the console). */
+  variant?: 'primary' | 'secondary' | 'ghost' | 'quiet'
   size?: 'md' | 'sm'
   /** Trailing arrow; mirrors in RTL. */
   arrow?: boolean
@@ -18,6 +19,7 @@ const variants = {
   primary: 'bg-primary text-on-primary hover:bg-primary-hover hover:shadow-glow',
   secondary: 'border-line-strong text-ink hover:border-ink-muted hover:bg-surface-raised',
   ghost: 'px-space-3 text-primary-ink hover:bg-primary-soft',
+  quiet: 'px-space-3 text-ink-muted hover:bg-surface-raised hover:text-ink',
 }
 
 const sizes = {

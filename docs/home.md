@@ -18,7 +18,7 @@ The work leads. The first two published projects by console `order` each get a c
 3. **Project band 2, on `surface`:** the same anatomy, so the two bands alternate.
 4. **About + stats:** the portrait and a first-person paragraph that opens with a plain one-sentence answer (AEO/GEO). Three figures, each in a form that fits it: years (calculated live from 2021-11-13), 16 clients, and the count of published projects.
 5. **Services:** what a client can hire Ram for, in plain outcomes: new web apps, rebuilds, multilingual products, performant server management. Full width, one ruled row each.
-6. **Skills:** nine groups in a three-column grid, below Services on the same `surface` band. Tech names are mono `Tag`s in Latin script; practices (database design, authorization, background jobs) are translated and set in the sans. Data in `lib/profile` (confirmed by Ram 2026-10-04).
+6. **Skills:** groups in a three-column grid, below Services on the same `surface` band. Tech names are mono `Tag`s in Latin script; practices (database design, authorization, background jobs) are translated and set in the sans. Edited in the console (`console.md#skills`).
 7. **Certifications:** a gallery of the certificates themselves (see Certifications below).
 8. **Contact, on a violet field:** the form (name, email, optional phone, message; Turnstile) and every contact channel: Email, WhatsApp, Messenger, GitHub, Facebook, Instagram. This is where the page ends. Contract: `contact.md`.
 9. **Footer:** the full logo lock-up, the footer channels (GitHub, Email, WhatsApp) and copyright.
@@ -38,7 +38,8 @@ The work leads. The first two published projects by console `order` each get a c
 - **Files:** primitives in `src/components/ui/` (see `design-system.md#components-built`); the header, footer, mobile menu, language switch and CV button in `src/components/Reusable/site/`; the sections in `src/components/Home/`.
 - **Data:**
   - Projects: page → `lib/projects` (resolves `{ en, ar }` to the page locale) → `lib/db/projects.ts`.
-  - Profile facts (career start, client count, availability, contact channels, skills, certifications, CV URL): `lib/profile`. The figures are computed there and formatted with next-intl, never typed into copy.
+  - Profile facts (career start, availability, contact channels, CV URL): `lib/profile`. The figures are computed there and formatted with next-intl, never typed into copy.
+  - The About heading, paragraphs, client count and portrait, the services, the skill groups and the certificates: the `HomeContents` document, edited in the console (`console.md#home-content`), read through `lib/home`. A section with no content is hidden.
 - **Violet:** project band 1 uses `field-violet` (`design-system.md#violet-fields`). Bands alternate violet and `surface`, and the screenshot swaps sides.
 - **Motion:** project screenshots rise into their band as it scrolls in, and the nav bar gains its shadow over the first 64px of scroll. Both are CSS scroll-driven animations with no JavaScript. They're off under reduced motion, and content stays visible where scroll timelines aren't supported. Arrows nudge 3px on hover.
 - **Section indexes** follow the brand book's "01 / Work" eyebrows: Work 01, About 02, Services 03, Skills 04, Certifications 05, Contact 06.
@@ -53,12 +54,12 @@ Shaped with Ram on 2026-10-04: show the certificate itself, with its name and a 
 - **Gallery:** 3 columns on desktop, 2 on tablet, 1 on phones; 3–8 certificates expected. Each certificate is a 4:3 mat on `surface-raised` with the whole image inside (`object-contain`, never cropped). Below it: the name (as issued, not translated), issuer · date in mono, a one-line description per locale, and up to four skill `Tag`s.
 - **Viewer:** `react-photo-view` (Ram's choice). One `PhotoProvider` wraps the gallery, so arrow keys step through every certificate and Esc closes it. Each thumbnail is a labelled `<button>` ("View certificate: <name>"). The caption (name, issuer · date) is passed as each `PhotoView`'s `overlay`, which the library only draws through the provider's `overlayRender`. The banner and arrows are themed from the tokens in `globals.css`. The zoom is near-instant under reduced motion.
 - **Server vs client:** only `CertificateViewer.tsx` (provider and thumbnail) is a client component; names, descriptions and tags render on the server.
-- **Data:** in code for now (`lib/profile`, `Certification` type), with images in `public/certificates/<slug>.(png|jpg)`. Without an image, a certificate shows a mat with the issuer's initials and no viewer. It moves to the console later.
+- **Data:** managed in the console since 2026-10-04 (`console.md#certifications`), images in R2. Without an image, a certificate shows a mat with the issuer's initials and no viewer.
 - **Dropped:** the Verify link (not wanted). The section title is "Certificates I’ve earned".
 
 ## Rendering
 
-Static, with both locales prerendered and `revalidate = 86400`, so the years figure updates daily. The build reads MongoDB, so `next build` needs `MONGO_URI` (`decisions.md`, "Home page is static, regenerated daily"). When the console exists, saving a project will revalidate the page.
+Static, with both locales prerendered and `revalidate = 86400`, so the years figure updates daily. The build reads MongoDB, so `next build` needs `MONGO_URI` (`decisions.md`, "Home page is static, regenerated daily"). Every console save of home content revalidates it in both locales; saving a project will too (phase 3).
 
 ## Build steps
 
@@ -79,12 +80,12 @@ Update the status column as each step lands.
 ## Waiting on Ram
 
 - Project content for **HISTORY game** and **Ramlyon**: client, kind, year, one-sentence summary, stack, live URL, screenshot. The seed has `TODO:` placeholders.
-- **Services:** four are drafted in `messages/*.json` (`Home.services.items`): new web apps, rebuilds, multilingual products, and performant server management. Confirm or rewrite them.
-- **Certifications:** `lib/profile` has two `TODO:` rows. Each needs the image (in `public/certificates/`, with its pixel size), name, issuer, YYYY-MM date, a one-line description in English and Arabic, and up to four skills.
+- **Services:** four drafted ones (new web apps, rebuilds, multilingual products, performant server management) are in the console. Confirm or rewrite them there.
+- **Certifications:** add them in the console: image, name, issuer, month, a one-line description in English and Arabic, and up to four skills.
 - **Arabic copy:** drafted by Claude for Ram to review.
 - **Section eyebrows ("01 / Work"):** kept because the brand book pins them for SectionHeading. The design review flagged numbered eyebrows above headings as a template pattern. Keep them, or drop the index (or the whole eyebrow) site-wide in `SectionHeading`?
 - **Portrait, availability and CV:**
-  - the portrait;
+  - the portrait (upload it in the console);
   - whether to show "Available for work" (shown for now);
   - the CV file (`CV_URL`).
 - **LinkedIn:** dropped from the channels on 2026-10-04 (not in Ram's list). Say if it should come back.
@@ -92,4 +93,4 @@ Update the status column as each step lands.
 
 ## Out of scope for now
 
-`/console`. (`/portfolio` and `/portfolio/[project_id]` were built on 2026-10-04; see `portfolio.md`.)
+Nothing. (`/portfolio` and `/portfolio/[project_id]` were built on 2026-10-04, see `portfolio.md`; the console's home-content manager the same day, see `console.md`.)

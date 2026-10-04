@@ -80,9 +80,34 @@ One document per contact-form submission. The full flow is in `project.md#contac
 
 Index: `{ status, createdAt: -1 }` for the console inbox.
 
+### `HomeContents` (model `HomeContent`)
+
+One document: the home page's editable content, edited from the console section by section (`console.md#home-content`). Lengths and counts are enforced by `lib/validations/home.ts`, not the model.
+
+| Field | Type | Notes |
+| --- | --- | --- |
+| `about` | `{ title, body: localized, clientCount: number, portrait?: image }` | `body` is plain text; blank lines split paragraphs and `{clients}` becomes the client count. |
+| `services` | `{ id, title, body: localized }[]` | In display order. |
+| `skillGroups` | `{ id, name: localized, items: string[], practices: { id, label: localized }[] }[]` | `items` are tech names, the same in both languages. |
+| `certifications` | `{ id, name, issuer, issuedOn?, description: localized, skills: string[], image?: image }[]` | `name` and `issuer` as issued; `issuedOn` is `YYYY-MM`. |
+| `createdAt`, `updatedAt` | timestamps | |
+
+- `image` is `{ url, width, height }`: the public R2 URL and pixel size, like project images.
+- List items carry a string `id` made in the console (no Mongo `_id`), so React keys and field-error paths stay stable across saves.
+- Order is array order; there's no `order` field.
+- Saves replace one section with `$set` on `findOneAndUpdate({}, …, { upsert: true })`.
+
+### `Otps` (model `Otp`)
+
+Console sign-in codes (`console.md#sign-in`). `codeHash` (SHA-256 of the code), `attempts`, `expiresAt`, timestamps. At most one row: a new code deletes the others. TTL index on `expiresAt`.
+
+### `Sessions` (model `Session`)
+
+Trusted console devices. `tokenHash` (SHA-256 of the cookie's token, unique), `userAgent`, `expiresAt` (14 days after sign-in), timestamps. TTL index on `expiresAt`. Deleting a row signs that device out.
+
 ## Seeding
 
-`npm run db:seed` runs `scripts/seed.mts` with tsx (`--env-file=.env`). It inserts the two live client projects, **HISTORY game** and **Ramlyon**, as `published`, in order 1 and 2.
+`npm run db:seed` runs `scripts/seed.mts` with tsx (`--env-file=.env`). It inserts the two live client projects, **HISTORY game** and **Ramlyon**, as `published`, in order 1 and 2, and the `HomeContents` document with the home copy as it stood in `messages` and `lib/profile` when the console took it over (certificates start empty: the old rows were placeholders). Each `HomeContents` section is filled only while it's missing.
 
 - Upserts by `slug` with `$setOnInsert`, so re-running never overwrites a project edited since.
 - On a project that already exists, fields added to the schema later are filled one at a time, only where the field is missing (`{ field: { $exists: false } }`). Added 2026-10-04 for the case-study fields.
