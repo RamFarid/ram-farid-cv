@@ -1,6 +1,6 @@
 export type ContactChannel = {
   /** Also the key of its name in messages (`Common.channels.<id>`). */
-  id: 'email' | 'whatsapp' | 'messenger' | 'github' | 'facebook' | 'instagram'
+  id: 'email' | 'whatsapp' | 'linkedin' | 'github' | 'facebook' | 'instagram'
   href: string
   /** What the visitor would type to reach Ram there: the address, number or username. Latin script in both languages. */
   handle: string
@@ -8,4 +8,11 @@ export type ContactChannel = {
   kind: 'direct' | 'profile'
   /** Also listed in the site footer. */
   footer?: boolean
+}
+
+export type SpokenLanguage = {
+  /** Also the key of its name in messages (`Profile.languages.<id>`). */
+  id: 'ar' | 'en'
+  /** The key of its level in messages (`Profile.languages.levels.<level>`). */
+  level: 'native' | 'professional'
 }

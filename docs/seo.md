@@ -15,7 +15,7 @@ We build for all three from the first page. The finished site is audited with th
 - **Rendered on the server:** content that should be indexed is in the server HTML. Don't render it only on the client or put it behind interaction (tabs and accordions keep their text in the DOM).
 - **Semantic HTML:** one `h1` per page, ordered headings, `<main>`, `<nav>`, `<section aria-labelledby>`, `<article>` for projects, and real `<a href>` links.
 - **Structured data (JSON-LD)** from `lib/seo`:
-  - `Person` (Ram: name in both scripts, `jobTitle`, `sameAs` social profiles, `knowsAbout`)
+  - `Person` (Ram: name in both scripts, `jobTitle`, `sameAs` social profiles, `knowsAbout`, `knowsLanguage`; `alumniOf` once graduated, see `home.md#location-education-and-languages`)
   - `WebSite`
   - `ProfilePage` for the home page
   - `CreativeWork` / `SoftwareApplication` per project

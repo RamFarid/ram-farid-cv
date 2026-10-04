@@ -8,7 +8,7 @@
     "channels": {
       "email": "البريد الإلكتروني",
       "whatsapp": "WhatsApp",
-      "messenger": "Messenger",
+      "linkedin": "LinkedIn",
       "github": "GitHub",
       "facebook": "Facebook",
       "instagram": "Instagram"
@@ -587,6 +587,29 @@
         "full": "المعرض ممتلئ ({max} شاشة). أزل واحدة لتضيف أخرى.",
         "add": "اختيار لقطات الشاشة",
         "skipped": "{count, plural, =1 {استُبعد ملف واحد} two {استُبعد ملفان} few {استُبعدت # ملفات} many {استُبعد # ملفًا} other {استُبعد # ملف}}: يتسع المعرض لـ {max} شاشة."
+      }
+    }
+  },
+  "Profile": {
+    "location": {
+      "label": "مقيم في",
+      "place": "القاهرة، مصر"
+    },
+    "education": {
+      "label": "التعليم",
+      "field": "الحاسبات والذكاء الاصطناعي",
+      "university": "جامعة العاصمة",
+      "formerly": "جامعة حلوان سابقًا",
+      "year": "{year, plural, =1 {الفرقة الأولى} =2 {الفرقة الثانية} =3 {الفرقة الثالثة} other {الفرقة الرابعة}}، التخرج في {date}",
+      "graduated": "التخرج في {date}"
+    },
+    "languages": {
+      "label": "اللغات",
+      "ar": "العربية",
+      "en": "الإنجليزية",
+      "levels": {
+        "native": "اللغة الأم",
+        "professional": "كفاءة مهنية في العمل"
       }
     }
   }

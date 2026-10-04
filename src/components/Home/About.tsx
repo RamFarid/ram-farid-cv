@@ -6,6 +6,7 @@ import { StatCard } from '@/components/ui/StatCard'
 import type { HomeAbout } from '@/lib/home/types'
 import { careerStart, getYearsOfExperience } from '@/lib/profile'
 import { CLIENTS_PLACEHOLDER } from '@/lib/validations/home'
+import { AboutFacts } from './AboutFacts'
 
 // Opens with a plain first-person answer (docs/seo.md: answer-ready copy). The copy and the client count are edited in
 // the console; years and live projects are computed, never typed. See docs/console.md#about
@@ -54,6 +55,8 @@ export function About({ about, projectCount }: { about: HomeAbout; projectCount:
             <StatCard className="rounded-none border-0" value={clients} label={t('clients')} />
             <StatCard className="rounded-none border-0" value={format.number(projectCount)} label={t('projects')} />
           </div>
+
+          <AboutFacts />
         </div>
       </Container>
     </section>

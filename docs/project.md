@@ -6,6 +6,9 @@ This is a full rebuild of ramfarid.com with a new identity. Nothing from the old
 
 - **Ram Farid, full-stack JavaScript engineer** (no longer "front-end developer").
 - **Experience started 2021-11-13.** "Years of experience" is **calculated at runtime** from that date with date-fns and shown to one decimal (4.9 on 2026-10-03). Never hard-code it.
+- **Education:** Computers and AI, Capital University (formerly Helwan University). The study year is computed from the date; graduation is 2028-07-21 (`home.md#location-education-and-languages`).
+- **Languages:** Arabic (native), English (professional working proficiency). Fixed.
+- **Based in:** Cairo, Egypt.
 - **Clients: 16.** The **projects** count comes from the projects stored through the console (only real client work; see below). It is never typed in by hand.
 
 ## Public site

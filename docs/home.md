@@ -20,7 +20,7 @@ The work leads. The first two published projects by console `order` each get a c
 5. **Services:** what a client can hire Ram for, in plain outcomes: new web apps, rebuilds, multilingual products, performant server management. Full width, one ruled row each.
 6. **Skills:** groups in a three-column grid, below Services on the same `surface` band. Tech names are mono `Tag`s in Latin script; practices (database design, authorization, background jobs) are translated and set in the sans. Edited in the console (`console.md#skills`).
 7. **Certifications:** a gallery of the certificates themselves (see Certifications below).
-8. **Contact, on a violet field:** the form (name, email, optional phone, message; Turnstile) and every contact channel: Email, WhatsApp, Messenger, GitHub, Facebook, Instagram. This is where the page ends. Contract: `contact.md`.
+8. **Contact, on a violet field:** the form (name, email, optional phone, message; Turnstile) and every contact channel: Email, WhatsApp, LinkedIn, GitHub, Facebook, Instagram. This is where the page ends. Contract: `contact.md`.
 9. **Footer:** the full logo lock-up, the footer channels (GitHub, Email, WhatsApp) and copyright.
 
 ## Constraints
@@ -46,6 +46,18 @@ The work leads. The first two published projects by console `order` each get a c
 - **Header:** fixed, so the intro's dot grid runs under it. The skip link goes to `#main`. Under `md`, the links and the CV button move into the menu.
 - **Download CV** links to the PDF uploaded in the console (`console.md#cv`) and is a disabled button until one is saved.
 - **Placeholders:** a missing screenshot or portrait shows a mono monogram, never a stock image.
+
+## Location, education and languages
+
+Added with Ram on 2026-10-05 as groundwork for building the CV from site data. Three ruled rows under the About figures (`AboutFacts`), as a `<dl>`.
+
+- **Based in:** "Cairo, Egypt" («القاهرة، مصر»), from `Profile.location` in messages.
+
+- **Education:** "Computers and AI · Capital University", then "Formerly Helwan University · Third year, graduating July 2028". Ram asked for the university by name and no "Bachelor of". The names are in messages (`Profile.education`), so the Arabic page reads «الحاسبات والذكاء الاصطناعي · جامعة العاصمة».
+- **The study year is computed, never edited:** `getStudyYear()` in `lib/profile`. There are four years, each starting on 21 July, and graduation is 21 July 2028. So it's year 3 until 2027-07-20, year 4 from 2027-07-21, and from 2028-07-21 the row reads "Graduated July 2028". The flip is at 00:00 UTC; the static home page shows it within a day (`revalidate = 86400`).
+- **Languages are fixed in code:** `spokenLanguages` in `lib/profile`: Arabic (native) and English (professional working proficiency). Names and levels are in `Profile.languages`.
+- None of them is in the console, because none is edited by hand.
+- **SEO step:** the full `Person` node should carry `address` (Cairo, `EG`), `knowsLanguage` (`ar`, `en`) and, after graduation, `alumniOf` the university.
 
 ## Certifications
 
@@ -88,7 +100,6 @@ Update the status column as each step lands.
   - the portrait (upload it in the console);
   - whether to show "Available for work" (shown for now);
   - the CV file (upload it in the console).
-- **LinkedIn:** dropped from the channels on 2026-10-04 (not in Ram's list). Say if it should come back.
 - **Secrets for `.env`:** the Telegram bot token and contact group chat id, and the production Turnstile site and secret keys (`.env.example` has Cloudflare's test keys).
 
 ## Out of scope for now

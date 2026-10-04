@@ -2,6 +2,19 @@
 
 Newest first. Each entry gives the decision, why it was made, and what it constrains. When a decision is reversed, mark the old entry *Superseded* and link the new one; don't delete it.
 
+## 2026-10-05: LinkedIn back, in Messenger's place
+
+- **Decision:** LinkedIn (`linkedin.com/in/ramfarid`, a `profile` channel) replaces Messenger in `contactChannels`. The footer is unchanged (GitHub, Email, WhatsApp).
+- **Why:** the CV links LinkedIn, and the CV is to be generated from site data. Swapping one channel for another keeps the contact grid at six tiles.
+- **Constrains:** as a profile, LinkedIn gets `rel="me"` and becomes part of `Person.sameAs` in the SEO step.
+
+## 2026-10-05: Location, education and languages are site content, computed or fixed in code
+
+- **Decision:** the home page's About section lists where Ram is based (Cairo, Egypt), education and languages. Languages are a constant in `lib/profile`. The study year is computed from the date (a new year each 21 July, graduation 2028-07-21), like the years-of-experience figure. Neither is editable in the console.
+- **Why:** the CV is to be generated from site data, and both facts were missing from it. A computed year can't go stale, and nothing here changes by hand.
+- **Constrains:** copy names the university without a degree title ("Computers and AI · Capital University · Formerly Helwan University"), as Ram asked.
+- **Details:** `home.md#location-education-and-languages`.
+
 ## 2026-10-04: The CV: one PDF in R2, a draft until saved, stored in `Profiles`
 
 - **Decision:** the CV is uploaded from the console's main page as a PDF (up to 10 MB) straight to R2 with a presigned PUT, under a new key each time (`cv/<uuid>.pdf`). Like images, it goes live only on Save, and the replaced file is deleted after the save. Its record lives in a new single-document `Profiles` collection, not in `HomeContents`, because the button is in the nav of every public page. A save revalidates the whole `[locale]` layout. `CV_URL` is gone.
@@ -86,6 +99,8 @@ Newest first. Each entry gives the decision, why it was made, and what it constr
 - **Details:** `portfolio.md`, `database.md#projects-model-project`.
 
 ## 2026-10-04: Contact channels, and which ones the footer shows
+
+*Superseded in part* (2026-10-05): LinkedIn replaced Messenger; see "LinkedIn back, in Messenger's place".
 
 - **Decision:** six channels in `lib/profile` (`contactChannels`): Email (`ram@ramfarid.com`), WhatsApp, Messenger, GitHub, Facebook and Instagram. The contact section lists all of them; the footer lists GitHub, Email and WhatsApp. LinkedIn is dropped.
 - **Why:** Ram asked for these six in the contact section, with a fitting subset in the footer. The footer keeps the professional profile and the two direct lines, and the personal social profiles stay with the form. Ram chose `ram@ramfarid.com` as the public address, which settles the earlier "no email on the site without confirmation" rule.

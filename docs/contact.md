@@ -64,25 +64,26 @@ The contact section, the form behind it, and the Telegram notification each mess
 
 ## Channels
 
-Every way to reach Ram, in `lib/profile` (`contactChannels`). Confirmed by Ram on 2026-10-04.
+Every way to reach Ram, in `lib/profile` (`contactChannels`). Confirmed by Ram on 2026-10-04. On 2026-10-05 LinkedIn took Messenger's place, which keeps the grid at six tiles (the CV links LinkedIn).
 
 | Channel | Link | Kind | Footer |
 | --- | --- | --- | --- |
 | Email | `mailto:ram@ramfarid.com` | direct | yes |
 | WhatsApp | `wa.me/201553706448` | direct | yes |
-| Messenger | `m.me/ramfarid22` | direct | |
+| LinkedIn | `linkedin.com/in/ramfarid` | profile | |
 | GitHub | `github.com/RamFarid` | profile | yes |
 | Facebook | `facebook.com/ramfarid22` | profile | |
 | Instagram | `instagram.com/ramfarid22` | profile | |
 
-- **Contact section:** every channel as a dark tile (`bg-violet-ink`, echoing the dark screenshot slab) in a two-column grid. Each tile has the channel's mark in a lilac chip, the channel's name, and the handle in mono (left-to-right in both languages). Direct channels come first. Chosen by Ram in a live session on 2026-10-04, single-tone lilac over per-channel colours. The icons are the real brand marks (`ChannelIcon`), from Simple Icons 16.33.0 (CC0), inlined as single-tone paths so they take the lilac. Email has no brand, so it gets an envelope drawn in the same filled style. Gmail's mark would be wrong for a custom-domain address.
+- **Contact section:** every channel as a dark tile (`bg-violet-ink`, echoing the dark screenshot slab) in a two-column grid. Each tile has the channel's mark in a lilac chip, the channel's name, and the handle in mono (left-to-right in both languages). Direct channels come first, then LinkedIn and GitHub, then the personal profiles. Chosen by Ram in a live session on 2026-10-04, single-tone lilac over per-channel colours. The icons are the real brand marks (`ChannelIcon`), from Simple Icons 16.33.0 (CC0), inlined as single-tone paths so they take the lilac. Email has no brand, so it gets an envelope drawn in the same filled style. Gmail's mark would be wrong for a custom-domain address.
 - **Footer:** GitHub, Email and WhatsApp, under "Get in touch". These are the professional profile and the two direct lines; the personal social profiles stay in the contact section.
 - **Links:**
   - Profiles open in a new tab with `rel="me"`; they become `Person.sameAs` in the SEO step.
-  - WhatsApp and Messenger open in a new tab without `rel="me"`.
+  - WhatsApp opens in a new tab without `rel="me"`.
   - Email opens the visitor's mail app in the same tab.
 - **Names:** channel names come from `Common.channels`. Only "Email" is translated; brand names stay in Latin script.
-- **LinkedIn** isn't listed (it wasn't in Ram's list).
+- **Messenger** was dropped on 2026-10-05 for LinkedIn.
+- **LinkedIn's mark** isn't in current Simple Icons releases (LinkedIn had it removed), so its path comes from an earlier release.
 
 ## Layout
 

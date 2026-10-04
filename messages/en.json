@@ -8,7 +8,7 @@
     "channels": {
       "email": "Email",
       "whatsapp": "WhatsApp",
-      "messenger": "Messenger",
+      "linkedin": "LinkedIn",
       "github": "GitHub",
       "facebook": "Facebook",
       "instagram": "Instagram"
@@ -587,6 +587,29 @@
         "full": "The gallery is full ({max} screens). Remove one to add another.",
         "add": "Choose screenshots",
         "skipped": "{count, plural, =1 {1 file was} other {# files were}} left out: the gallery holds {max} screens."
+      }
+    }
+  },
+  "Profile": {
+    "location": {
+      "label": "Based in",
+      "place": "Cairo, Egypt"
+    },
+    "education": {
+      "label": "Education",
+      "field": "Computers and AI",
+      "university": "Capital University",
+      "formerly": "Formerly Helwan University",
+      "year": "{year, plural, =1 {First year} =2 {Second year} =3 {Third year} other {Final year}}, graduating {date}",
+      "graduated": "Graduated {date}"
+    },
+    "languages": {
+      "label": "Languages",
+      "ar": "Arabic",
+      "en": "English",
+      "levels": {
+        "native": "Native",
+        "professional": "Professional working proficiency"
       }
     }
   }
