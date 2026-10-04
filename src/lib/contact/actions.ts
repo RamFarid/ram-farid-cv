@@ -4,10 +4,12 @@ import { headers } from 'next/headers'
 import { after } from 'next/server'
 import { hasLocale } from 'next-intl'
 import { routing } from '@/i18n/routing'
+import { revalidatePath } from 'next/cache'
+import { getSession } from '@/lib/auth/session'
 import { verifyTurnstile } from '@/lib/turnstile'
 import { contactFieldErrors, contactZSchema, readContactForm } from '@/lib/validations/contact'
-import { notifyContactMessage, saveContactMessage } from '.'
-import type { ContactResult } from './types'
+import { deleteInboxMessage, notifyContactMessage, saveContactMessage, setInboxStatus } from '.'
+import type { ContactResult, InboxActionResult, InboxStatus } from './types'
 
 /**
  * The contact form's mutation boundary: validate, check Turnstile, save, then notify Telegram after the response is sent.
@@ -39,4 +41,32 @@ export async function sendContactMessage(locale: string, formData: FormData): Pr
     console.error('Saving a contact message failed:', error)
     return { ok: false, error: 'unavailable' }
   }
+}
+
+// The console's inbox actions. Each checks the session; the rail's count and the list re-render through revalidation.
+// See docs/console.md#messages
+
+const inboxStatuses: InboxStatus[] = ['new', 'read', 'archived']
+
+async function inboxAction(run: () => Promise<boolean>): Promise<InboxActionResult> {
+  if (!(await getSession())) return { ok: false, error: 'unauthorized' }
+  try {
+    if (!(await run())) return { ok: false, error: 'notFound' }
+  } catch (error) {
+    console.error('A console message action failed:', error)
+    return { ok: false, error: 'unavailable' }
+  }
+  revalidatePath('/[locale]/console', 'layout')
+  return { ok: true }
+}
+
+export async function setMessageStatus(id: string, status: InboxStatus): Promise<InboxActionResult> {
+  if (typeof id !== 'string' || !inboxStatuses.includes(status)) return { ok: false, error: 'invalid' }
+  return inboxAction(() => setInboxStatus(id, status))
+}
+
+/** Permanent. Only archived messages can be deleted. */
+export async function deleteMessage(id: string): Promise<InboxActionResult> {
+  if (typeof id !== 'string') return { ok: false, error: 'invalid' }
+  return inboxAction(() => deleteInboxMessage(id))
 }

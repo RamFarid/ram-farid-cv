@@ -75,7 +75,7 @@ One document per contact-form submission. The full flow is in `project.md#contac
 | `name`, `email`, `message` | string, required | Email is lowercased. Length and format limits live in the contact Zod schema; the model stores what passed it. |
 | `phone` | string, optional | Optional in the form. When present, the Telegram notification gets a WhatsApp button. |
 | `locale` | `en` \| `ar` | The site language the visitor wrote from. |
-| `status` | `new` \| `read` \| `archived` | Default `new`; changed from the console. |
+| `status` | `new` \| `read` \| `archived` | Default `new`; changed from the console (`console.md#messages`). Only archived messages can be deleted. |
 | `createdAt`, `updatedAt` | timestamps | |
 
 Index: `{ status, createdAt: -1 }` for the console inbox.

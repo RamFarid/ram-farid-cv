@@ -7,8 +7,8 @@ Ram's private dashboard. Shaped with Ram and phase 1 built on 2026-10-04. The de
 | # | Phase | Routes | Status |
 | --- | --- | --- | --- |
 | 1 | Sign-in, and the home page's content | `/console`, `/console/sign-in` | Done 2026-10-04 |
-| 2 | Contact messages | `/console/contact-msgs` | Placeholder page; next |
-| 3 | Projects and the portfolio | `/console/portfolio`, `/console/portfolio/[project_id]` | Placeholder page |
+| 2 | Contact messages | `/console/contact-msgs`, `/console/contact-msgs/[msg_id]` | Done 2026-10-04 |
+| 3 | Projects and the portfolio | `/console/portfolio`, `/console/portfolio/[project_id]` | Placeholder page; next |
 
 The CV upload and the availability toggle are expected to join the main page later (not built).
 
@@ -72,6 +72,20 @@ Ordered, at most 24. Each has an image (R2, `object-contain` on a 4:3 mat), name
 - **The one violet control:** a section's Save is primary only while it has unsaved edits; a clean section's Save is a disabled secondary. Other actions (Discard, Add a practice, an image's Remove) use the neutral `quiet` button variant.
 - **Leaving with unsaved edits:** the browser's `beforeunload` prompt covers reloads and closing the tab. Client-side navigation would skip it, so while any section is dirty the rail's links do a full-document navigation instead, which the prompt then guards.
 
+## Messages
+
+The inbox for contact-form submissions (`ContactMsgs`, `database.md`). Surface brief: `.impeccable/surfaces/src-app-locale-console-app-contact-msgs-page-tsx.md`.
+
+- **Filters:** Inbox (everything not archived; the default), Unread (`new`) and Archived, each with its count. The filter is `?filter=` (left out for Inbox) and the open message is `/console/contact-msgs/[msg_id]`, so Telegram links, reloads and the back button all land on the same view.
+- **Layout:** from `lg`, the list (24rem) on the start side and the open message, or a prompt to pick one, on the end side. Under `lg` the list page shows only the list and a message page only the message, with a back link that keeps the filter.
+- **List:** newest first, at most 200 per filter. Each row: a warning dot and full-ink sender for unread ones, the relative time (the full date on hover), a two-line preview in the message's own direction, the visitor's language code, and a phone icon when a number was left.
+- **Message:** sender, full date and time (Cairo time, `CONSOLE_TIME_ZONE`), the language the visitor wrote in, email and phone as links, then the message at reading measure with its line breaks kept and `dir="auto"`.
+- **Actions:** **Reply by email** (the one primary; a `mailto:` with the subject in the visitor's language, "Your message on ramfarid.com"), **WhatsApp** when there's a phone, then Mark as read / unread, Archive / Move to inbox, and, only in the archive, **Delete** behind an inline second click. Delete is permanent and the query itself refuses a message that isn't archived.
+- **Marking read:** opening a new message marks it read from the client after it renders (`MarkAsRead`), never as a side effect of the GET, so link previews and prefetches don't change data.
+- **Revalidation:** every action calls `revalidatePath('/[locale]/console', 'layout')`, which refreshes the list, the counts and the rail's new-message count.
+- **Telegram:** the notification's "Show in console" button opens `${siteUrl}/console/contact-msgs/<id>`; the proxy adds the locale.
+- Not built: search, bulk actions, replying from inside the console, and Telegram buttons that file a message. Add them when the volume asks for it.
+
 ## Localized field
 
 `components/ui/LocalizedField` is the reusable multi-language input (Ram, 2026-10-04).
@@ -106,5 +120,4 @@ Ordered, at most 24. Each has an image (R2, `object-contain` on a 4:3 mat), name
 
 ## Open
 
-- The Telegram contact notification's "Show in console" button links to `/console/messages/<id>`; phase 2 must serve that URL or change the link to the `/console/contact-msgs` route it builds.
 - Arabic console copy was drafted by Claude for Ram to review.

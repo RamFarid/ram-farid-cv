@@ -308,7 +308,52 @@
     },
     "messages": {
       "title": "Messages",
-      "soon": "The contact messages inbox comes in the next phase. Until then, new messages still arrive in Telegram."
+      "titleFrom": "Message from {name}",
+      "filtersLabel": "Filter messages",
+      "filters": {
+        "inbox": "Inbox",
+        "unread": "Unread",
+        "archived": "Archived"
+      },
+      "empty": {
+        "inbox": "No messages yet. New ones arrive here and in Telegram.",
+        "unread": "Nothing unread. New messages arrive here and in Telegram.",
+        "archived": "Nothing archived. Archive a message once it’s handled."
+      },
+      "pick": "Pick a message to read it.",
+      "new": "New",
+      "hasPhone": "Left a phone number",
+      "back": "All messages",
+      "archivedBadge": "Archived",
+      "languages": {
+        "en": "Wrote in English",
+        "ar": "Wrote in Arabic"
+      },
+      "email": "Email",
+      "phone": "Phone",
+      "reply": "Reply by email",
+      "replySubject": "Your message on ramfarid.com",
+      "whatsapp": "WhatsApp",
+      "markRead": "Mark as read",
+      "markUnread": "Mark as unread",
+      "archive": "Archive",
+      "unarchive": "Move to inbox",
+      "delete": "Delete",
+      "confirmDelete": "Delete for good?",
+      "cancel": "Keep it",
+      "toasts": {
+        "read": "Marked as read.",
+        "unread": "Marked as unread.",
+        "archived": "Archived.",
+        "restored": "Moved back to the inbox.",
+        "deleted": "Message deleted."
+      },
+      "errors": {
+        "unauthorized": "Your session ended. Sign in again.",
+        "invalid": "That didn’t work. Reload the page and try again.",
+        "notFound": "This message no longer exists, or isn’t archived yet.",
+        "unavailable": "Couldn’t reach the database. Try again in a moment."
+      }
     },
     "projects": {
       "title": "Projects",

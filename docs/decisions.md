@@ -2,6 +2,13 @@
 
 Newest first. Each entry gives the decision, why it was made, and what it constrains. When a decision is reversed, mark the old entry *Superseded* and link the new one; don't delete it.
 
+## 2026-10-04: Console messages: three states in the URL, read on view, delete only from the archive
+
+- **Decision:** the inbox files messages as `new`, `read` or `archived` and filters them as Inbox, Unread and Archived. The filter and the open message are in the URL. A message is marked read from the client after it's shown. Delete is permanent and only allowed for archived messages, behind an inline second click. Reply is a `mailto:` with a subject in the visitor's language.
+- **Why:** the Telegram button and the back button have to land on the same view; a GET that changes data would be triggered by link previews and prefetches; archiving first makes a mistaken delete unlikely without a confirm dialog; a few messages a week don't need a help-desk model or an in-console mail client.
+- **Constrains:** status changes go through `setMessageStatus` and revalidate the console layout (the rail's count). The Telegram link is `/console/contact-msgs/<id>`.
+- **Details:** `console.md#messages`.
+
 ## 2026-10-04: Console: bilingual, section-by-section saves, Telegram sign-in
 
 - **Decision:**

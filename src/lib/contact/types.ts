@@ -12,3 +12,21 @@ export type ContactMessage = ContactInput & {
   id: string
   locale: Locale
 }
+
+export type InboxStatus = 'new' | 'read' | 'archived'
+
+/** A stored message as the console shows it. Plain and serializable. */
+export type InboxMessage = {
+  id: string
+  name: string
+  email: string
+  phone?: string
+  message: string
+  locale: Locale
+  status: InboxStatus
+  /** ISO timestamp. */
+  receivedAt: string
+}
+
+/** What a console message action returns. */
+export type InboxActionResult = { ok: true } | { ok: false; error: 'unauthorized' | 'invalid' | 'notFound' | 'unavailable' }

@@ -108,7 +108,12 @@ export function ConsoleRail({ newMessages, projects }: ConsoleRailProps) {
       <nav aria-label={t('label')} className="flex flex-wrap gap-space-1 lg:grid">
         {managers.map(({ href, label, icon: Icon, meta }) => (
           <div key={href} className="grid shrink-0 gap-space-1">
-            <Link href={href} onClick={guard} aria-current={pathname === href ? 'page' : undefined} className={itemClasses}>
+            <Link
+              href={href}
+              onClick={guard}
+              aria-current={pathname === href || (href !== '/console' && pathname.startsWith(`${href}/`)) ? 'page' : undefined}
+              className={itemClasses}
+            >
               <Icon aria-hidden size={18} strokeWidth={1.75} className="shrink-0" />
               <span className="flex-1">{label}</span>
               {meta && (

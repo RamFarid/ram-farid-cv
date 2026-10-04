@@ -50,7 +50,7 @@ The contact section, the form behind it, and the Telegram notification each mess
 - **Result:** `ContactResult` (`lib/contact/types.ts`) is `{ ok: true }` or `{ ok: false, error: 'invalid' | 'verification' | 'unavailable', fieldErrors? }`. It's always plain and serializable, and exceptions never reach the client.
 - **The form doesn't use `<form action>`.** React resets a form after every `<form action>` submission, including failed ones, which would wipe the visitor's message on a Turnstile or server error. `onSubmit` with `useTransition` calls the action directly instead. The cost is no progressive enhancement, but Turnstile needs JavaScript anyway.
 - **Success** replaces the form with a confirmation that names the sender and the address the reply goes to, and moves focus to its heading. **Send another message** remounts an empty form. There's no Sonner toast: a lasting inline confirmation is clearer than a toast that disappears, and it saved adding Sonner for one message.
-- **Not built yet:** rate limiting beyond Turnstile, and the console's Messages page.
+- **Not built yet:** rate limiting beyond Turnstile. The console's Messages page was built on 2026-10-04 (`console.md#messages`).
 
 ## Telegram notification
 
@@ -59,7 +59,7 @@ The contact section, the form behind it, and the Telegram notification each mess
 - **The message (English, for Ram):** a title, then Name, Email, Phone (when given) and Language as plain text, so Telegram makes the email and phone tappable. The message body follows in an expandable blockquote. Every value is HTML-escaped. A body longer than about 3,500 characters is cut, with a note that the full text is in the console (Telegram's limit is 4,096).
 - **Buttons** (`decisions.md`, "Telegram contact notification: text plus two buttons"):
   - **WhatsApp**: `https://wa.me/<digits>`, only when a phone was given. Spaces, dashes and a leading `00` are stripped.
-  - **Show in console**: `${siteUrl}/console/messages/<id>`. `siteUrl` comes from `lib/seo/site.ts`, because Telegram rejects `localhost` button URLs, so even dev notifications link to the production origin. The page 404s until the console exists.
+  - **Show in console**: `${siteUrl}/console/contact-msgs/<id>` (changed from `/console/messages/<id>` when the page was built, 2026-10-04). `siteUrl` comes from `lib/seo/site.ts`, because Telegram rejects `localhost` button URLs, so even dev notifications link to the production origin. Notifications sent before the change point at the old URL, which 404s.
 - **Bot updates** (actions on notifications, console sign-in codes) need a webhook under `app/api/`. They aren't built yet.
 
 ## Channels
