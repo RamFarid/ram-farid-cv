@@ -4,13 +4,14 @@ import { getFormatter, getTranslations } from 'next-intl/server'
 import { notFound } from 'next/navigation'
 import { AboutSection } from '@/components/Console/Home/AboutSection'
 import { CertificationsSection } from '@/components/Console/Home/CertificationsSection'
+import { CvSection } from '@/components/Console/Home/CvSection'
 import { ServicesSection } from '@/components/Console/Home/ServicesSection'
 import { SkillsSection } from '@/components/Console/Home/SkillsSection'
 import { ButtonLink } from '@/components/ui/Button'
 import { routing } from '@/i18n/routing'
 import { requireSession } from '@/lib/auth/session'
 import { getConsoleHomeContent } from '@/lib/home'
-import { careerStart, getYearsOfExperience } from '@/lib/profile'
+import { careerStart, getConsoleCv, getYearsOfExperience } from '@/lib/profile'
 import { getPublishedProjectCount } from '@/lib/projects'
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -18,17 +19,18 @@ export async function generateMetadata(): Promise<Metadata> {
   return { title: t('title') }
 }
 
-// The console's main page: the home page's editable content, one panel per section in home-page order.
+// The console's main page: the CV, then the home page's editable content, one panel per section in home-page order.
 // See docs/console.md#home-content
 export default async function ConsoleHomePage({ params }: PageProps<'/[locale]/console'>) {
   const { locale } = await params
   if (!hasLocale(routing.locales, locale)) notFound()
   await requireSession(locale)
 
-  const [t, format, content, projectCount] = await Promise.all([
+  const [t, format, content, cv, projectCount] = await Promise.all([
     getTranslations('Console.home'),
     getFormatter(),
     getConsoleHomeContent(),
+    getConsoleCv(),
     getPublishedProjectCount(),
   ])
   const since = format.dateTime(careerStart, { month: 'long', year: 'numeric', timeZone: 'UTC' })
@@ -45,6 +47,7 @@ export default async function ConsoleHomePage({ params }: PageProps<'/[locale]/c
         </ButtonLink>
       </header>
 
+      <CvSection initial={cv} />
       <AboutSection initial={content.about} projectCount={projectCount} years={getYearsOfExperience()} since={since} />
       <ServicesSection initial={{ services: content.services }} />
       <SkillsSection initial={{ skillGroups: content.skillGroups }} />

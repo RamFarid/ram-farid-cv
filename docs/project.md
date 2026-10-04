@@ -33,7 +33,7 @@ There is no 3D cube or other face-based navigation. That idea is dropped, even t
 This is Ram's private dashboard for controlling the site's data:
 
 - **Projects:** create, edit, reorder, publish.
-- **CV file:** upload or replace in R2.
+- **CV file:** upload or replace in R2. Built 2026-10-04 (`console.md#cv`).
 - **Site text:** editable copy, where the pages need it. Which strings are editable gets decided page by page and recorded here.
   - **Home page** (decided 2026-10-04): the About heading, paragraphs, client count and portrait; the services; the skill groups; the certificates. Section titles and all other UI copy stay in `messages`. Details: `console.md#home-content`.
 - **Messages:** contact-form submissions.

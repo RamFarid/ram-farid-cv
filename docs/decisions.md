@@ -2,6 +2,13 @@
 
 Newest first. Each entry gives the decision, why it was made, and what it constrains. When a decision is reversed, mark the old entry *Superseded* and link the new one; don't delete it.
 
+## 2026-10-04: The CV: one PDF in R2, a draft until saved, stored in `Profiles`
+
+- **Decision:** the CV is uploaded from the console's main page as a PDF (up to 10 MB) straight to R2 with a presigned PUT, under a new key each time (`cv/<uuid>.pdf`). Like images, it goes live only on Save, and the replaced file is deleted after the save. Its record lives in a new single-document `Profiles` collection, not in `HomeContents`, because the button is in the nav of every public page. A save revalidates the whole `[locale]` layout. `CV_URL` is gone.
+- **Why:** a new key per upload keeps the immutable cache header honest behind Cloudflare; Save/Discard matches every other console section; `Profiles` is the home for later site-wide facts (the availability toggle) without tying them to the home page's content.
+- **Rejected:** overwriting one fixed key (a CDN would keep serving the old CV); uploading through the app server (files never pass through it, `console.md#uploads`).
+- **Constrains:** visitors save the file as `Ram-Farid-CV.pdf` through a signed `Content-Disposition: attachment`, so the browser's PUT must send that exact header. Details: `console.md#cv`.
+
 ## 2026-10-04: Projects console: one draft per project, published projects stay complete
 
 - **Decision:** the console's projects index lists every project with quick actions that save at once (star, publish, reorder, delete a draft); each project is edited on its own page (`/console/portfolio/[project_id]`, the database id) as one local draft. A draft saves with an English title; publishing needs the full case study in both languages, and a published project's saves are held to the same check. Only drafts can be deleted. Every write revalidates the home page, `/portfolio` and every case study.

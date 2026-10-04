@@ -99,6 +99,18 @@ One document: the home page's editable content, edited from the console section 
 - Order is array order; there's no `order` field.
 - Saves replace one section with `$set` on `findOneAndUpdate({}, …, { upsert: true })`.
 
+### `Profiles` (model `Profile`)
+
+One document: site-wide facts about Ram that the console manages. Facts that never change (career start, contact channels) stay in `lib/profile` as code. Added 2026-10-04 with the CV (`console.md#cv`).
+
+| Field | Type | Notes |
+| --- | --- | --- |
+| `cv` | `{ url, name, size, uploadedAt: Date }`, optional | `url` is the public R2 URL; `name` is the uploaded file's own name (console only); `size` in bytes. Unset means no CV: the Download CV buttons are disabled. |
+| `createdAt`, `updatedAt` | timestamps | |
+
+- Saves use `findOneAndUpdate({}, …, { upsert: true })` (`$unset` to remove the CV) and return the previous document, so the replaced file can be deleted from R2.
+- The seed doesn't create it; the first CV save does.
+
 ### `Otps` (model `Otp`)
 
 Console sign-in codes (`console.md#sign-in`). `codeHash` (SHA-256 of the code), `attempts`, `expiresAt`, timestamps. At most one row: a new code deletes the others. TTL index on `expiresAt`.

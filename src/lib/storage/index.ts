@@ -3,6 +3,7 @@ import { randomUUID } from 'node:crypto'
 import { DeleteObjectCommand, PutObjectCommand, S3Client } from '@aws-sdk/client-s3'
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner'
 import { z } from 'zod'
+import { CV_CONTENT_DISPOSITION, CV_CONTENT_TYPE } from '@/lib/validations/profile'
 
 // Cloudflare R2 through its S3 API. The browser uploads straight to R2 with a short-lived presigned PUT, so files never
 // pass through the app server. See docs/console.md#uploads
@@ -50,15 +51,11 @@ export type ImageType = keyof typeof imageTypes
 
 export const MAX_IMAGE_BYTES = 8 * 1024 * 1024
 
-/**
- * A presigned PUT for one new object under `folder`, valid for five minutes. Content type and length are signed, so
- * the browser can only upload exactly the file it described.
- */
-export async function createImageUpload(folder: string, contentType: ImageType, size: number) {
+/** A presigned PUT for one new object, valid for five minutes. Content type, length and headers are signed. */
+async function presignPut(key: string, contentType: string, size: number, contentDisposition?: string) {
   const r2 = getR2()
   if (!r2) return null
 
-  const key = `${folder}/${randomUUID()}.${imageTypes[contentType]}`
   const uploadUrl = await getSignedUrl(
     r2.client,
     new PutObjectCommand({
@@ -66,11 +63,22 @@ export async function createImageUpload(folder: string, contentType: ImageType, 
       Key: key,
       ContentType: contentType,
       ContentLength: size,
+      ContentDisposition: contentDisposition,
       CacheControl: 'public, max-age=31536000, immutable',
     }),
     { expiresIn: 300 },
   )
   return { uploadUrl, url: `${r2.publicUrl}/${key}` }
+}
+
+/** A new image under `folder`. The browser can only upload exactly the file it described. */
+export function createImageUpload(folder: string, contentType: ImageType, size: number) {
+  return presignPut(`${folder}/${randomUUID()}.${imageTypes[contentType]}`, contentType, size)
+}
+
+/** A new CV PDF. Every upload gets a new key, so the immutable cache header never serves a replaced CV. */
+export function createCvUpload(size: number) {
+  return presignPut(`cv/${randomUUID()}.pdf`, CV_CONTENT_TYPE, size, CV_CONTENT_DISPOSITION)
 }
 
 /** The object key behind a public URL, or null when the URL isn't in this bucket. */

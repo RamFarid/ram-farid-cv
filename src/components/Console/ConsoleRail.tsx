@@ -21,7 +21,9 @@ type ConsoleRailProps = {
 
 type Anchor = { id: string; index?: string; label: string }
 
+// The CV comes first: its button sits in the intro and the nav, above the numbered sections.
 const homeSections = [
+  { id: 'cv', index: undefined },
   { id: 'about', index: '02' },
   { id: 'services', index: '03' },
   { id: 'skills', index: '04' },

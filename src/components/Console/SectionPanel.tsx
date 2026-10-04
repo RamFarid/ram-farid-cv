@@ -9,8 +9,8 @@ import { Button } from '@/components/ui/Button'
 // view's one violet control only while the section has unsaved edits. See docs/console.md#saving
 type SectionPanelProps = {
   id: string
-  /** The section's index on the home page ("02"), so each panel maps to what it edits. */
-  index: string
+  /** The section's index on the home page ("02"), so each panel maps to what it edits. None for site-wide settings. */
+  index?: string
   title: string
   description: ReactNode
   dirty: boolean
@@ -27,7 +27,7 @@ export function SectionPanel({ id, index, title, description, dirty, pending, on
     <section id={id} aria-labelledby={`${id}-title`} className="console-section border-t border-line first:border-t-0">
       <header className="sticky top-0 z-20 flex flex-wrap items-center gap-x-space-4 gap-y-space-2 border-b border-line bg-bg py-space-4">
         <h2 id={`${id}-title`} className="flex items-baseline gap-space-3 text-h3 text-ink">
-          <span className="font-mono text-code text-ink-muted">{index}</span>
+          {index && <span className="font-mono text-code text-ink-muted">{index}</span>}
           {title}
         </h2>
 

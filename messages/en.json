@@ -249,6 +249,27 @@
         "unavailable": "Uploads are off: R2 isn’t configured on the server."
       }
     },
+    "cv": {
+      "title": "CV",
+      "description": "The file behind every Download CV button: the intro and the nav on every page. One PDF serves both languages.",
+      "file": "CV file",
+      "empty": "Drop a PDF here. Until one is saved, the Download CV buttons stay disabled.",
+      "choose": "Upload PDF",
+      "replace": "Replace",
+      "download": "Download",
+      "remove": "Remove",
+      "uploading": "Uploading…",
+      "meta": "PDF · {size} · uploaded {date}",
+      "hint": "Visitors download it as Ram-Farid-CV.pdf. Replacing it deletes the old file once you save.",
+      "hintEmpty": "PDF, up to 10 MB.",
+      "saved": "Saved. Every Download CV button now gets this file.",
+      "errors": {
+        "type": "Use a PDF.",
+        "size": "This PDF is over 10 MB. Export a smaller one.",
+        "failed": "The upload didn’t finish. Try again.",
+        "unavailable": "Uploads are off: R2 isn’t configured on the server."
+      }
+    },
     "about": {
       "title": "About",
       "description": "The portrait, heading and paragraphs beside the three figures. Years come from November 2021 and live projects from the published projects; only the client count is typed.",

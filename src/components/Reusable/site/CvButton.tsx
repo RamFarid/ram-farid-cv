@@ -1,5 +1,5 @@
 import { Download } from 'lucide-react'
-import { useTranslations } from 'next-intl'
+import { getTranslations } from 'next-intl/server'
 import { Button, ButtonLink } from '@/components/ui/Button'
 import { getCvUrl } from '@/lib/profile'
 
@@ -8,10 +8,9 @@ type CvButtonProps = {
   className?: string
 }
 
-// Download CV, always the secondary action. Disabled until CV_URL is set (the R2 file, later managed from the console).
-export function CvButton({ size, className }: CvButtonProps) {
-  const t = useTranslations('Nav')
-  const url = getCvUrl()
+// Download CV, always the secondary action. Disabled until a CV is uploaded in the console (docs/console.md#cv).
+export async function CvButton({ size, className }: CvButtonProps) {
+  const [t, url] = await Promise.all([getTranslations('Nav'), getCvUrl()])
   const icon = <Download aria-hidden size={18} strokeWidth={1.75} />
 
   if (!url) {

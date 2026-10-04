@@ -44,7 +44,7 @@ The work leads. The first two published projects by console `order` each get a c
 - **Motion:** project screenshots rise into their band as it scrolls in, and the nav bar gains its shadow over the first 64px of scroll. Both are CSS scroll-driven animations with no JavaScript. They're off under reduced motion, and content stays visible where scroll timelines aren't supported. Arrows nudge 3px on hover.
 - **Section indexes** follow the brand book's "01 / Work" eyebrows: Work 01, About 02, Services 03, Skills 04, Certifications 05, Contact 06.
 - **Header:** fixed, so the intro's dot grid runs under it. The skip link goes to `#main`. Under `md`, the links and the CV button move into the menu.
-- **Download CV** is a disabled button until `CV_URL` is set in `.env`.
+- **Download CV** links to the PDF uploaded in the console (`console.md#cv`) and is a disabled button until one is saved.
 - **Placeholders:** a missing screenshot or portrait shows a mono monogram, never a stock image.
 
 ## Certifications
@@ -87,7 +87,7 @@ Update the status column as each step lands.
 - **Portrait, availability and CV:**
   - the portrait (upload it in the console);
   - whether to show "Available for work" (shown for now);
-  - the CV file (`CV_URL`).
+  - the CV file (upload it in the console).
 - **LinkedIn:** dropped from the channels on 2026-10-04 (not in Ram's list). Say if it should come back.
 - **Secrets for `.env`:** the Telegram bot token and contact group chat id, and the production Turnstile site and secret keys (`.env.example` has Cloudflare's test keys).
 
