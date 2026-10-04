@@ -8,6 +8,7 @@ This folder is the long-term memory for ramfarid.com. Every session and every AI
 | --- | --- |
 | [project.md](project.md) | What we're building: identity, site sections, `/console`, contact + Telegram flow, infrastructure |
 | [home.md](home.md) | Home page plan: audience, section structure, constraints, build steps and their status |
+| [portfolio.md](portfolio.md) | `/portfolio` and the case-study pages: structure, content fields, story HTML rules, images, rendering, SEO |
 | [contact.md](contact.md) | Contact form, validation, Turnstile, the Server Action, Telegram notification, contact channels |
 | [i18n.md](i18n.md) | next-intl routing, messages, RTL, digits, not-found behaviour |
 | [seo.md](seo.md) | SEO / AEO / GEO rules every public page follows, and site-wide files |

@@ -288,6 +288,174 @@
   }
 }
 
+/*
+ * The portfolio's film strip (docs/portfolio.md#index): a sideways scroll-snap rail whose first frame lines up with the
+ * page container (--rail-inset matches Container's gutter and centring) and whose frames peek past the end edge.
+ */
+@utility film-rail {
+  --rail-gutter: var(--space-4);
+  --rail-inset: calc(var(--rail-gutter) + max(0px, (100% - var(--container)) / 2));
+  /* Capped by the viewport height too, so a frame and its title fit in the first view of a laptop screen. */
+  --frame-width: min(84vw, 840px, max(520px, (100svh - 480px) * 1.77));
+
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: var(--rail-inset);
+  /* The counter and the prev/next buttons stand in for the scrollbar. */
+  scrollbar-width: none;
+
+  @media (width >= 48rem) {
+    --rail-gutter: var(--space-6);
+  }
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/*
+ * A case study's story: sanitized HTML from the console (docs/portfolio.md#story-html), styled from the tokens.
+ * The row above it is an h2, so the story's own headings start at h3; an h2 inside it is styled the same.
+ */
+@utility story-prose {
+  display: grid;
+  gap: var(--space-4);
+  color: var(--ink);
+  font-size: var(--text-body);
+  line-height: var(--text-body--line-height);
+
+  & :where(h2, h3) {
+    margin-top: var(--space-5);
+    font-size: var(--text-h3);
+    line-height: var(--text-h3--line-height);
+    font-weight: var(--text-h3--font-weight);
+    letter-spacing: var(--text-h3--letter-spacing);
+    text-wrap: balance;
+  }
+
+  & :where(h4) {
+    margin-top: var(--space-3);
+    font-size: var(--text-label);
+    line-height: var(--text-label--line-height);
+    font-weight: var(--text-label--font-weight);
+  }
+
+  & > :first-child {
+    margin-top: 0;
+  }
+
+  & :where(ul, ol) {
+    display: grid;
+    gap: var(--space-2);
+    padding-inline-start: var(--space-5);
+  }
+
+  & :where(ul) {
+    list-style: disc;
+  }
+
+  & :where(ol) {
+    list-style: decimal;
+  }
+
+  & :where(li)::marker {
+    color: var(--ink-muted);
+  }
+
+  & :where(a) {
+    color: var(--link);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    text-decoration-thickness: 1px;
+  }
+
+  & :where(strong, b) {
+    font-weight: 600;
+  }
+
+  & :where(code) {
+    font-family: var(--font-mono);
+    font-size: var(--text-code);
+    padding: 1px var(--space-1);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    background: var(--surface);
+  }
+
+  & :where(pre) {
+    overflow-x: auto;
+    padding: var(--space-4);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    background: var(--surface);
+    font-family: var(--font-mono);
+    font-size: var(--text-code);
+    line-height: var(--text-code--line-height);
+  }
+
+  & :where(pre code) {
+    padding: 0;
+    border: 0;
+    background: none;
+  }
+
+  & :where(blockquote) {
+    padding-inline-start: var(--space-4);
+    border-inline-start: 1px solid var(--line-strong);
+    color: var(--ink-muted);
+  }
+
+  & :where(img) {
+    max-width: 100%;
+    height: auto;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+  }
+
+  & :where(hr) {
+    border: 0;
+    border-top: 1px solid var(--line);
+  }
+
+  /* A table scrolls inside its own box on phones instead of widening the page. */
+  & :where(table) {
+    display: block;
+    max-width: 100%;
+    overflow-x: auto;
+    border-collapse: collapse;
+    font-size: var(--text-small);
+    line-height: var(--text-small--line-height);
+  }
+
+  & :where(th, td) {
+    padding: var(--space-2) var(--space-3);
+    border-bottom: 1px solid var(--line);
+    text-align: start;
+    vertical-align: top;
+  }
+
+  & :where(th) {
+    color: var(--ink-muted);
+    font-weight: var(--text-label--font-weight);
+  }
+}
+
+/*
+ * Frames away from the active position dim and shrink, tracking the scroll. FilmStrip sets --frame-focus on each
+ * frame (1 fully in view, 0 out of it). Without JavaScript or with reduced motion every frame stays at full strength.
+ * Not a CSS view timeline: Chromium's inline view timelines don't work in RTL scrollers. See docs/portfolio.md#index
+ */
+@media (prefers-reduced-motion: no-preference) {
+  [data-frame] > article {
+    /* Squared, so a frame half in view already reads as clearly set back. */
+    --frame-strength: calc(var(--frame-focus, 1) * var(--frame-focus, 1));
+
+    opacity: calc(0.35 + 0.65 * var(--frame-strength));
+    scale: calc(0.9 + 0.1 * var(--frame-strength));
+  }
+}
+
 @keyframes scroll-rise {
   from {
     translate: 0 var(--space-8);

@@ -31,7 +31,7 @@ The work leads. The first two published projects by console `order` each get a c
 - **SEO:** one `h1`, `<section aria-labelledby>` per section, `<article>` per project. JSON-LD (`Person`, `WebSite`, `ProfilePage`) comes from `lib/seo`. See `seo.md`.
 - **Motion:** one section-reveal style, arrow nudges on links, all off under `prefers-reduced-motion`.
 - **Data:** projects come from `Projects` (`status: published`, sorted by `order`, first two). The read path is page → `lib/projects` → `lib/db/projects.ts`. See `database.md`.
-- **See all projects** links to `/portfolio`, which is built right after the home page (Ram, 2026-10-04). Until then it 404s.
+- **See all projects** links to `/portfolio`, built 2026-10-04 (`portfolio.md`).
 
 ## As built (steps 2–4)
 
@@ -92,4 +92,4 @@ Update the status column as each step lands.
 
 ## Out of scope for now
 
-`/console`. `/portfolio` and `/portfolio/[project_id]` come next, right after the home page.
+`/console`. (`/portfolio` and `/portfolio/[project_id]` were built on 2026-10-04; see `portfolio.md`.)

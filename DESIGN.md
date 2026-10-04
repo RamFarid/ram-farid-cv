@@ -173,11 +173,14 @@ components:
   project-media:
     backgroundColor: "{colors.surface-raised}"
     rounded: "{rounded.lg}"
+  screen-thumb:
+    backgroundColor: "{colors.surface-raised}"
+    rounded: "{rounded.md}"
 ---
 
 # Design System: Ram Farid
 
-Recorded from the shipped home page on 2026-10-03. The source of truth is Ram's own system: the brand book `docs/design-system/README.md`, the values in `docs/design-system/tokens.json`, the component guidelines in `docs/design-system/components/*/README.md`, and the code mapping in `docs/design-system.md`. This file describes how that system landed in code. Where they disagree, those docs win and this file is stale.
+Recorded from the shipped home page on 2026-10-03, and extended on 2026-10-04 with the portfolio index and case study. The source of truth is Ram's own system: the brand book `docs/design-system/README.md`, the values in `docs/design-system/tokens.json`, the component guidelines in `docs/design-system/components/*/README.md`, and the code mapping in `docs/design-system.md`. This file describes how that system landed in code. Where they disagree, those docs win and this file is stale.
 
 ## Overview
 
@@ -195,7 +198,8 @@ English and Arabic are built together. Layout uses logical sides only, so the wh
 - 1px borders before shadows; shadows only for floating or hovered things.
 - Radii of 4, 8 and 12px, nothing rounder except status dots.
 - Mono for data, Readex Pro for words.
-- One motion grammar: a scroll-linked rise for media and the nav shadow, plus 3px arrow nudges. All off under reduced motion.
+- Two signature layouts for shipped work: the project band, and the film strip of dark slabs on a violet field.
+- One motion grammar, tied to scroll: the media rise, the nav shadow and the film strip's frame focus, plus 3px arrow nudges and 2px hover lifts. All off under reduced motion.
 
 ## Colors
 
@@ -261,18 +265,22 @@ Each `text-*` utility sets size, leading, weight and tracking together. Headings
 - **Vertical rhythm:** sections pad 64px on mobile and 96px from `md`. Inside a section, heading to content is 48px, and stacked blocks are 24 to 32px apart.
 - **Bands:** sections alternate between `bg` and `surface`, separated by 1px top and bottom hairlines. The first project band is a violet field.
 - **Lists:** services are rows split by hairlines, not cards. Certifications are a gallery of the certificate images on 4:3 `surface-raised` mats (3/2/1 columns), each opening full size in a themed viewer.
-- **Dot grid:** 1px `line` dots at a 64px pitch, behind the intro only, never behind long text.
+- **Dot grid:** 1px `line` dots at a 64px pitch, behind the intro and a standalone contact close only, never behind long text.
+- **Page heads off home:** compact, so the work starts in the first view. The top pad clears the nav plus 16px, then 48px (index) or 32px rising to 64px from `md` (case study). From `lg` the h1 and lead take the start columns and the facts or controls sit on the end side (columns 9 to 12).
+- **Film rail:** a full-bleed violet band holding a sideways scroll-snap rail. The first frame lines up with the container edge and the next frame peeks past the end edge. Frames are `min(84vw, 840px)`, also capped by the viewport height so a frame and its caption fit the first view. The scrollbar is hidden; a mono `01 / 08` counter and 44px square secondary prev/next buttons stand in for it.
+- **Justified rows:** screenshots of mixed ratios share rows at one height (220px from `sm`, 300px from `lg`), each growing in proportion to its ratio, capped at 1.5x, with a trailing filler so a short last row doesn't stretch. Under `sm` desktop shots go full width and phones pair up. CSS only, never cropped.
+- **Ruled rows:** long-form content sits in rows split by 1px hairlines, the heading on the start 4 columns and the text on the end 8 at the 68ch measure. Fact lists and contents lists are ruled the same way, label then value.
 - **Nav:** fixed, floating 16px below the top, inside the container. Anchor targets clear it with `scroll-margin-top` of nav height plus 16px.
 - **Logical sides only:** `ps`, `me`, `start`, `text-start`, so the page mirrors in RTL.
 
 ## Elevation & Depth
 
-Flat by default. Depth reads through the step from `bg` to `surface` to `surface-raised` and through 1px hairlines. Shadows appear on things that float (the nav bar once the page scrolls, the mobile menu) or answer a hover (the primary button, linked media).
+Flat by default. Depth reads through the step from `bg` to `surface` to `surface-raised` and through 1px hairlines. Shadows appear on things that float (the nav bar once the page scrolls, the mobile menu) or answer a hover (the primary button, linked media, teaser slabs, screenshot thumbnails).
 
 ### Shadow Vocabulary
 - **Hairline lift** (`0 1px 2px rgba(0, 0, 0, 0.5)`): text fields at rest.
 - **Float** (`0 8px 24px rgba(0, 0, 0, 0.45)`): the nav bar after 64px of scroll, and the mobile menu popover.
-- **Violet glow** (`0 0 0 1px rgba(162, 91, 255, 0.45), 0 12px 40px rgba(162, 91, 255, 0.18)`): hover on the primary button and on linked project media. Inside a violet field it becomes a soft ink shadow.
+- **Violet glow** (`0 0 0 1px rgba(162, 91, 255, 0.45), 0 12px 40px rgba(162, 91, 255, 0.18)`): hover on the primary button, linked project media, teaser slabs and screenshot thumbnails. Inside a violet field it becomes a soft ink shadow.
 
 ### Named Rules
 **The Borders First Rule.** Separate with 1px borders first and shadows second.
@@ -281,7 +289,7 @@ Flat by default. Depth reads through the step from `bg` to `surface` to `surface
 
 ## Shapes
 
-Small, even corners. Tags, status badges and the skip link take 4px. Buttons, nav links and fields take 8px. Cards, the nav bar, the menu and media frames take 12px. Only status dots are fully round. Grouped stat cards drop their own corners and borders and sit in one 12px frame split by 1px hairlines. Media is 16:9 and clipped to its frame; the portrait frame is 4:5.
+Small, even corners. Tags, status badges and the skip link take 4px. Buttons, nav links and fields take 8px. Cards, the nav bar, the menu and media frames take 12px. Only status dots are fully round. Grouped stat cards drop their own corners and borders and sit in one 12px frame split by 1px hairlines. Project media and teaser slabs are 16:9 and clipped to their frame; the portrait frame is 4:5. Screenshot thumbnails take 8px corners and keep the image's own ratio, so nothing is cropped.
 
 ## Components
 
@@ -312,6 +320,7 @@ Built in `src/components/ui/` from the component READMEs in `docs/design-system/
 ### Navigation
 - **Nav bar:** a floating 64px bar on `surface` with a 1px hairline and 12px corners. The R icon and "Ram" in `logo-word`, up to five section links, then the language switch and a small secondary Download CV.
 - **Links:** label type in `ink-muted`; hover fills `surface-raised` and turns ink; the current link sits on `primary-soft` in `primary-ink`.
+- **Off home:** the section links point back to the home page, and Work opens /portfolio as the current link.
 - **Mobile:** under `md` the links collapse into a native popover menu: a 12px `surface` panel with the float shadow, 44px rows, and Download CV below a hairline.
 - **Scroll:** the bar gains the float shadow over the first 64px of scroll, in CSS only.
 
@@ -321,6 +330,28 @@ The signature component. One of the first two published projects by console orde
 - **Text:** mono meta line (kind and year), the project title, a body-large summary, a hairline, the client and the stack as tags, then a secondary "Visit" button that opens the live site.
 - **Rise:** the media rises 64px into place as the band scrolls in (`animation-timeline: view()`, entry 0% to cover 40%). No JavaScript. Off under reduced motion, and static where scroll timelines are unsupported.
 
+### Film strip
+The second signature, for the full list of work: every project as a frame on the film rail (see Layout), in console order.
+- **Frame:** a project teaser (below) at rail width, captioned with the title in title-large type, the mono meta `01 · kind · year` with tabular figures, and a body-large summary.
+- **Frame focus:** frames dim (to 35% opacity) and shrink (to 90%) as they leave the rail's view, scaled by the square of the visible fraction, so a half-visible frame already reads as set back. A small client island writes each frame's visible fraction on scroll and CSS applies it. Under reduced motion or without JavaScript every frame stays at full strength.
+- **Contents:** below the rail, every project as a ruled row (mono number, title, mono year, arrow) for visitors who won't scroll sideways. Rows fill `surface-raised` on hover.
+
+### Project teaser
+A project's 16:9 cover on a dark `violet-ink` slab with a violet-ink hairline and 12px corners, for violet fields: the film strip frames and the next-project band. It keeps the real violet pair inside the field. Without a cover it shows the mono monogram in `violet-fill`.
+- **Caption:** title, mono meta, body-large summary, then a label-type "Read the case study" with the trailing arrow.
+- **Link:** the title's link stretches over the whole teaser; focus draws the focus ring around the whole teaser at 4px offset.
+- **Hover:** the slab lifts 2px and takes the glow, and the arrow nudges.
+
+### Screen gallery
+Screenshots in justified rows (see Layout), under a title with a mono count. Each thumbnail is a button on `surface-raised` with a 1px hairline and 8px corners; hover turns the border violet, lifts 2px and adds the glow. Each opens full size in the image viewer.
+- **Image viewer:** shared by certificates and screenshots. Arrow keys step through the set and Esc closes. The caption bar is a `surface` strip with a hairline above it: label-type title, mono device and position.
+
+### Story
+The case study's words, in ruled rows (see Layout): an overview in body large, deliverables as a ruled list, then the console's story HTML. That HTML takes token styles only: h2 and h3 at title size, h4 at label size, 16px gaps, `ink-muted` list markers, underlined `link` links, mono inline code and blocks on `surface` with a hairline, blockquotes with a strong-hairline start rule, images with 8px corners, and tables in small type with hairline rows that scroll inside their own box on phones.
+
+### Contact call
+The close of every page except home: an h2, a body-large line, and the primary Start a project button with its arrow, linking to the home contact form. On the index it sits on the end side beside the contents list; after a case study it stands alone on the dot grid, worded for one project.
+
 ## Do's and Don'ts
 
 ### Do:
@@ -328,7 +359,7 @@ The signature component. One of the first two published projects by console orde
 - **Do** turn a whole region violet with `field-violet` and let the primitives inside remap themselves.
 - **Do** set data (tech names, figures, years, issuers, dates) in JetBrains Mono, figures with tabular numerals.
 - **Do** separate with 1px hairlines and step between `bg`, `surface` and `surface-raised` before reaching for a shadow.
-- **Do** keep motion to the scroll-linked rise, the nav shadow and 3px arrow nudges, all behind `prefers-reduced-motion: no-preference`, with content visible when it doesn't run.
+- **Do** keep motion to the scroll-linked rise, the nav shadow, the film strip's frame focus, 3px arrow nudges and 2px hover lifts, all behind `prefers-reduced-motion: no-preference`, with content visible and at full strength when it doesn't run.
 - **Do** use logical sides and build English and Arabic in the same change.
 - **Do** use lucide icons at stroke 1.75.
 - **Do** show a mono monogram where a screenshot or portrait is missing.
@@ -337,7 +368,7 @@ The signature component. One of the first two published projects by console orde
 - **Don't** use raw hex values or ad-hoc spacing in components.
 - **Don't** give components an on-violet variant, or put a status badge on violet.
 - **Don't** use gradients between hues or blue-to-purple washes; the only glow is the violet glow, one element at a time.
-- **Don't** put the dot grid behind long text or anywhere but the intro (and the contact section when it ships).
+- **Don't** put the dot grid behind long text or anywhere but the intro and a standalone contact close.
 - **Don't** use radii above 12px on anything but status dots.
 - **Don't** add letter-spacing or uppercase to Arabic text.
 - **Don't** use stock imagery for projects or the portrait.

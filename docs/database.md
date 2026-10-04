@@ -41,21 +41,30 @@ User-facing text is stored once per locale as `{ en, ar }`, both required (`loca
 
 ### `Projects` (model `Project`)
 
-Real client and production work only (`project.md`). Created, ordered and published from the console; seeded until the console exists. The schema may change once `/portfolio` is designed.
+Real client and production work only (`project.md`). Created, ordered and published from the console; seeded until the console exists. Case-study fields added 2026-10-04 with `/portfolio` (`portfolio.md#case-study-content`).
 
 | Field | Type | Notes |
 | --- | --- | --- |
 | `slug` | string, unique, lowercase | Becomes the `/portfolio/[project_id]` segment. |
 | `title`, `client`, `kind`, `summary` | localized, required | `summary` is one sentence: what it is and who it's for. `kind` is e.g. "Web app". |
-| `year` | number, optional | |
 | `stack` | string[] | Tech names exactly as their projects write them ("Next.js", "MongoDB"). |
 | `liveUrl` | string, optional | |
-| `cover` | `{ url, width, height, alt: localized }`, optional | 16:9 screenshot. Width and height are stored for `next/image`. |
+| `repoUrl` | string, optional | Only for public repos; most client repos are private. |
+| `cover` | `{ url, width, height, alt: localized }`, optional | 16:9 screenshot in R2. Width and height are stored for `next/image`. |
+| `startedAt`, `endedAt` | Date, optional | The timeline and duration on the case study. The year shown everywhere is `endedAt`'s, or `startedAt`'s while `endedAt` is unset (ongoing). Replaced the `year` field on 2026-10-04. |
+| `role`, `overview` | localized, optional | `role` is short ("Sole full-stack engineer"). `overview` is plain text; blank lines split paragraphs. |
+| `deliverables` | `{ en: string[], ar: string[] }`, optional | |
+| `story` | localized HTML, optional | Stored sanitized, rendered as-is. Rules: `portfolio.md#story-html`. |
+| `screenshots` | `{ url, width, height, device, alt: localized, caption?: localized }[]`, `device` is `desktop` or `mobile` | At most 15 in total (`MAX_PROJECT_SCREENSHOTS`, a schema validator). In R2; any aspect ratio. |
 | `status` | `draft` \| `published` | Default `draft`. Only `published` is ever public. |
 | `order` | number | Ascending; set by console reorder. |
 | `createdAt`, `updatedAt` | timestamps | |
 
-Index: `{ status, order }` for the home page read (the first two published by `order`). There is no `featured` flag: removed 2026-10-04, because the home page shows the first two by order, not a hand-picked set. The site's "projects" figure is the count of `published` projects; it is never typed by hand.
+**Reads use `.lean()`, which skips schema defaults.** A document saved before a field existed comes back without it, even when the schema has `default: []`. Domain mappers in `lib/projects` fall back explicitly (`record.screenshots ?? []`). Do the same for every field added later. (The real-data build caught this on 2026-10-04.)
+
+The case-study fields are optional in the schema so a draft can be saved incomplete; publishing will require them in the console's Zod schema, and the public pages hide a row whose field is empty.
+
+Index: `{ status, order }` for the published reads (the home page's first two, the portfolio, the next project after a given `order`). There is no `featured` flag: removed 2026-10-04, because the home page shows the first two by order, not a hand-picked set. The site's "projects" figure is the count of `published` projects; it is never typed by hand.
 
 ### `ContactMsgs` (model `ContactMsg`)
 
@@ -76,5 +85,6 @@ Index: `{ status, createdAt: -1 }` for the console inbox.
 `npm run db:seed` runs `scripts/seed.mts` with tsx (`--env-file=.env`). It inserts the two live client projects, **HISTORY game** and **Ramlyon**, as `published`, in order 1 and 2.
 
 - Upserts by `slug` with `$setOnInsert`, so re-running never overwrites a project edited since.
-- The copy is placeholder: fields prefixed `TODO:` need Ram's real content (client, kind, summary, stack, live URL, cover).
+- On a project that already exists, fields added to the schema later are filled one at a time, only where the field is missing (`{ field: { $exists: false } }`). Added 2026-10-04 for the case-study fields.
+- The copy is placeholder: fields prefixed `TODO:` need Ram's real content (client, kind, summary, role, overview, deliverables, story). Stack, live URL, dates, cover and screenshots are left unset until the real ones exist.
 - tsx was chosen over Node's own type stripping because it resolves the `@/*` alias and extensionless imports the app code uses.

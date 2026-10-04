@@ -4,6 +4,7 @@ import { hasLocale, NextIntlClientProvider } from 'next-intl'
 import { getTranslations } from 'next-intl/server'
 import { fontVariables } from '@/fonts'
 import { localeDirection, routing } from '@/i18n/routing'
+import { siteUrl } from '@/lib/seo/site'
 import '../globals.css'
 
 // The root layout lives under [locale] so <html lang dir> come from the URL (next-intl with i18n routing).
@@ -28,6 +29,8 @@ export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations('Metadata')
 
   return {
+    // Resolves relative Open Graph image URLs into absolute ones.
+    metadataBase: new URL(siteUrl),
     title: t('title'),
     description: t('description'),
   }

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-03T19:49:35.665Z",
+  "generatedAt": "2026-10-04T01:33:57.708Z",
   "title": "Design System: Ram Farid",
   "extensions": {
     "sourceOfTruth": [
@@ -419,7 +419,7 @@
       {
         "name": "elevation-glow",
         "value": "0 0 0 1px rgba(162, 91, 255, 0.45), 0 12px 40px rgba(162, 91, 255, 0.18)",
-        "purpose": "Hover on the primary button and on linked project media, one element at a time. Inside a violet field it becomes 0 12px 32px of 30% ink."
+        "purpose": "Hover on the primary button, linked project media, teaser slabs and screenshot thumbnails, one element at a time. Inside a violet field it becomes 0 12px 32px of 30% ink."
       }
     ],
     "motion": [
@@ -441,7 +441,7 @@
       {
         "name": "duration-base",
         "value": "200ms",
-        "purpose": "The 3px arrow nudge and the 2px media hover lift."
+        "purpose": "The 3px arrow nudge and the 2px hover lift on media, teaser slabs and screenshot thumbnails."
       },
       {
         "name": "duration-slow",
@@ -457,6 +457,11 @@
         "name": "scroll-shadow",
         "value": "box-shadow to elevation-md; animation-timeline: scroll(root); range 0 to 64px",
         "purpose": "The nav bar gains its float shadow as the page scrolls."
+      },
+      {
+        "name": "frame-focus",
+        "value": "opacity 0.35 + 0.65 * f^2; scale 0.9 + 0.1 * f^2; f = visible fraction of the frame in the rail (--frame-focus)",
+        "purpose": "Film strip frames dim and shrink as they leave the rail. A client island writes --frame-focus per frame on scroll (rAF); CSS applies it. Off under reduced motion; full strength without JavaScript."
       },
       {
         "name": "status-pulse",
@@ -551,6 +556,22 @@
       "description": "Signature: one live project at screenshot scale on a violet field. Every role inside remaps to the on-violet ink.",
       "html": "<div class=\"ds-band\"><div class=\"ds-band-media\"><span>HI</span></div><div class=\"ds-band-text\"><p class=\"ds-band-meta\">Web app · 2025</p><h3 class=\"ds-band-title\">HISTORY game</h3><p class=\"ds-band-summary\">What the project is and who it serves, in one or two plain sentences.</p><p class=\"ds-band-tags\"><span class=\"ds-band-tag\">Next.js</span><span class=\"ds-band-tag\">MongoDB</span></p><p><a class=\"ds-band-btn\" href=\"#\">Visit the site<svg aria-hidden=\"true\" width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M7 7h10v10\"/><path d=\"M7 17 17 7\"/></svg></a></p></div></div>",
       "css": ".ds-band { display: grid; grid-template-columns: 7fr 5fr; gap: var(--space-7); align-items: center; padding: var(--space-9) var(--space-6); background: var(--violet-fill, var(--primary)); color: var(--violet-ink, var(--on-primary)); } .ds-band-media { display: grid; place-items: center; aspect-ratio: 16 / 9; border: 1px solid currentColor; border-radius: 12px; background: var(--violet-ink, var(--on-primary)); color: var(--violet-fill, var(--primary)); font: 600 64px/68px var(--font-mono, \"JetBrains Mono\", ui-monospace, monospace); } .ds-band-text { display: grid; gap: var(--space-4); align-content: start; } .ds-band-text p, .ds-band-title { margin: 0; } .ds-band-meta { font: 500 12px/16px var(--font-mono, \"JetBrains Mono\", ui-monospace, monospace); } .ds-band-title { font: 600 44px/52px var(--font-sans, \"Readex Pro\", system-ui, sans-serif); letter-spacing: -0.02em; } .ds-band-summary { font: 300 18px/30px var(--font-sans, \"Readex Pro\", system-ui, sans-serif); } .ds-band-tags { display: flex; flex-wrap: wrap; gap: var(--space-2); } .ds-band-tag { display: inline-flex; align-items: center; height: 28px; padding: 0 10px; border: 1px solid color-mix(in srgb, currentColor 24%, transparent); border-radius: 4px; font: 400 14px/1 var(--font-mono, \"JetBrains Mono\", ui-monospace, monospace); } .ds-band-btn { display: inline-flex; align-items: center; gap: var(--space-2); height: 44px; padding: 0 var(--space-5); border: 1px solid currentColor; border-radius: 8px; color: inherit; font: 500 14px/20px var(--font-sans, \"Readex Pro\", system-ui, sans-serif); text-decoration: none; transition: background-color 120ms cubic-bezier(0.2, 0.8, 0.2, 1); } .ds-band-btn:hover { background: color-mix(in srgb, currentColor 10%, transparent); } .ds-band-btn:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }"
+    },
+    {
+      "name": "Film Strip Frame",
+      "kind": "custom",
+      "refersTo": "project-media-on-violet",
+      "description": "Second signature: a project teaser on the violet film rail. Dark 16:9 slab, title, mono meta, one-line summary; the whole frame links to the case study.",
+      "html": "<div class=\"ds-rail\"><article class=\"ds-frame\"><div class=\"ds-slab\"><span>OM</span></div><h2 class=\"ds-frame-title\"><a href=\"#\">Omana akfa Conference</a></h2><p class=\"ds-frame-meta\">01 · Web app · 2023</p><p class=\"ds-frame-summary\">An event platform for a three-day annual conference, with live quizzes and a shared photo gallery.</p><span class=\"ds-frame-read\">Read the case study<svg aria-hidden=\"true\" width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M5 12h14\"/><path d=\"m12 5 7 7-7 7\"/></svg></span></article></div>",
+      "css": ".ds-rail { padding: var(--space-7) var(--space-6); background: var(--violet-fill, var(--primary)); color: var(--violet-ink, var(--on-primary)); } .ds-frame { position: relative; display: grid; gap: var(--space-2); max-width: 640px; border-radius: 12px; } .ds-frame p, .ds-frame h2 { margin: 0; } .ds-slab { display: grid; place-items: center; aspect-ratio: 16 / 9; margin-bottom: var(--space-3); border: 1px solid var(--violet-ink, var(--on-primary)); border-radius: 12px; background: var(--violet-ink, var(--on-primary)); color: var(--violet-fill, var(--primary)); font: 600 64px/68px var(--font-mono, \"JetBrains Mono\", ui-monospace, monospace); transition: translate 200ms cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 200ms cubic-bezier(0.2, 0.8, 0.2, 1); } .ds-frame:hover .ds-slab { translate: 0 -2px; box-shadow: 0 12px 32px color-mix(in srgb, currentColor 30%, transparent); } .ds-frame-title { font: 600 32px/40px var(--font-sans, \"Readex Pro\", system-ui, sans-serif); letter-spacing: -0.015em; } .ds-frame-title a { color: inherit; text-decoration: none; outline: none; } .ds-frame-title a::after { content: \"\"; position: absolute; inset: 0; border-radius: 12px; } .ds-frame:has(a:focus-visible) { outline: 2px solid currentColor; outline-offset: 4px; } .ds-frame-meta { font: 400 14px/22px var(--font-mono, \"JetBrains Mono\", ui-monospace, monospace); font-variant-numeric: tabular-nums; } .ds-frame-summary { margin-top: var(--space-1) !important; font: 300 18px/30px var(--font-sans, \"Readex Pro\", system-ui, sans-serif); } .ds-frame-read { display: inline-flex; align-items: center; gap: var(--space-2); margin-top: var(--space-2); font: 500 14px/20px var(--font-sans, \"Readex Pro\", system-ui, sans-serif); } .ds-frame-read svg { transition: translate 200ms cubic-bezier(0.2, 0.8, 0.2, 1); } .ds-frame:hover .ds-frame-read svg { translate: 3px 0; } @media (prefers-reduced-motion: reduce) { .ds-slab, .ds-frame-read svg { transition: none; } .ds-frame:hover .ds-slab { translate: none; } .ds-frame:hover .ds-frame-read svg { translate: none; } }"
+    },
+    {
+      "name": "Screen Thumbnail",
+      "kind": "custom",
+      "refersTo": "screen-thumb",
+      "description": "One screenshot in the case study gallery, at its own ratio. Hover turns the border violet, lifts 2px and adds the glow; it opens full size in the viewer.",
+      "html": "<button class=\"ds-thumb\" type=\"button\" aria-label=\"View screen 1 of 12\"></button>",
+      "css": ".ds-thumb { display: block; width: 320px; aspect-ratio: 16 / 10; padding: 0; overflow: hidden; border: 1px solid var(--line); border-radius: 8px; background: var(--surface-raised); cursor: zoom-in; transition: border-color 200ms cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 200ms cubic-bezier(0.2, 0.8, 0.2, 1), translate 200ms cubic-bezier(0.2, 0.8, 0.2, 1); } .ds-thumb:hover { translate: 0 -2px; border-color: var(--primary); box-shadow: var(--elevation-glow); } .ds-thumb:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; } @media (prefers-reduced-motion: reduce) { .ds-thumb:hover { translate: none; } }"
     }
   ],
   "narrative": {
@@ -562,7 +583,8 @@
       "1px borders before shadows; shadows only for floating or hovered things.",
       "Radii of 4, 8 and 12px, nothing rounder except status dots.",
       "Mono for data, Readex Pro for words.",
-      "One motion grammar: a scroll-linked rise for media and the nav shadow, plus 3px arrow nudges. All off under reduced motion."
+      "Two signature layouts for shipped work: the project band, and the film strip of dark slabs on a violet field.",
+      "One motion grammar, tied to scroll: the media rise, the nav shadow and the film strip's frame focus, plus 3px arrow nudges and 2px hover lifts. All off under reduced motion."
     ],
     "rules": [
       {
@@ -606,7 +628,7 @@
       "Do turn a whole region violet with `field-violet` and let the primitives inside remap themselves.",
       "Do set data (tech names, figures, years, issuers, dates) in JetBrains Mono, figures with tabular numerals.",
       "Do separate with 1px hairlines and step between `bg`, `surface` and `surface-raised` before reaching for a shadow.",
-      "Do keep motion to the scroll-linked rise, the nav shadow and 3px arrow nudges, all behind `prefers-reduced-motion: no-preference`, with content visible when it doesn't run.",
+      "Do keep motion to the scroll-linked rise, the nav shadow, the film strip's frame focus, 3px arrow nudges and 2px hover lifts, all behind `prefers-reduced-motion: no-preference`, with content visible and at full strength when it doesn't run.",
       "Do use logical sides and build English and Arabic in the same change.",
       "Do use lucide icons at stroke 1.75.",
       "Do show a mono monogram where a screenshot or portrait is missing."
@@ -615,7 +637,7 @@
       "Don't use raw hex values or ad-hoc spacing in components.",
       "Don't give components an on-violet variant, or put a status badge on violet.",
       "Don't use gradients between hues or blue-to-purple washes; the only glow is the violet glow, one element at a time.",
-      "Don't put the dot grid behind long text or anywhere but the intro (and the contact section when it ships).",
+      "Don't put the dot grid behind long text or anywhere but the intro and a standalone contact close.",
       "Don't use radii above 12px on anything but status dots.",
       "Don't add letter-spacing or uppercase to Arabic text.",
       "Don't use stock imagery for projects or the portrait."

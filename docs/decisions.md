@@ -2,6 +2,26 @@
 
 Newest first. Each entry gives the decision, why it was made, and what it constrains. When a decision is reversed, mark the old entry *Superseded* and link the new one; don't delete it.
 
+## 2026-10-04: Portfolio: the index teases, the case study proves
+
+- **Decision:**
+  - `/portfolio` is a sideways film strip of every published project in console order, with no filters. Each frame shows only the cover, title, kind · year and the one-sentence summary, and a contents list sits below the rail.
+  - `/portfolio/[project_id]` (the `slug`) is a full case study for every project, gallery first. A compact head (facts, live link, repo link only for public repos) leads into up to 15 desktop and phone screenshots in justified rows, then overview, deliverables and the story.
+  - The story is HTML per locale, stored sanitized and rendered with `dangerouslySetInnerHTML`.
+  - Covers and screenshots are in R2.
+  - `startedAt`/`endedAt` replace `year`.
+- **Why:**
+  - Ram rejected an index carrying every fact, because it left the case study with no reason to exist.
+  - Ram chose the film strip and gallery-first structures from rolled options.
+  - HTML over Markdown is Ram's choice, so nothing is parsed at render time.
+  - 6–15 projects don't need filters.
+- **Constrains:**
+  - Nothing beyond the teaser fields goes on the index.
+  - The console's save action must sanitize story HTML against the allow-list in `portfolio.md#story-html` before it reaches the database. It also has to revalidate the pages listed in `portfolio.md#rendering`.
+  - `R2_PUBLIC_URL` must be set wherever project images are built or served.
+  - The frame focus effect is driven by the `FilmStrip` island, because Chromium's inline view timelines fail in RTL scrollers.
+- **Details:** `portfolio.md`, `database.md#projects-model-project`.
+
 ## 2026-10-04: Contact channels, and which ones the footer shows
 
 - **Decision:** six channels in `lib/profile` (`contactChannels`): Email (`ram@ramfarid.com`), WhatsApp, Messenger, GitHub, Facebook and Instagram. The contact section lists all of them; the footer lists GitHub, Email and WhatsApp. LinkedIn is dropped.

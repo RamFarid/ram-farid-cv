@@ -143,6 +143,60 @@
       }
     }
   },
+  "Portfolio": {
+    "metadata": {
+      "title": "Client work — Ram Farid",
+      "description": "Client projects Ram Farid has built and shipped with Next.js, React and Node.js, each live in production, with a case study for every one."
+    },
+    "title": "Work I’ve shipped",
+    "lead": "Client projects, live in production. Open one for the whole story.",
+    "count": "{count, plural, one {<n>#</n> project} other {<n>#</n> projects}}",
+    "rail": "Projects",
+    "previous": "Previous project",
+    "next": "Next project",
+    "position": "Project {current} of {total}",
+    "read": "Read the case study",
+    "contents": "All projects",
+    "empty": "Projects are on their way. Check back soon, or tell me about yours."
+  },
+  "Project": {
+    "metadata": {
+      "title": "{title}: case study — Ram Farid"
+    },
+    "breadcrumb": "Breadcrumb",
+    "work": "Work",
+    "facts": {
+      "client": "Client",
+      "role": "My role",
+      "kind": "Type",
+      "timeline": "Timeline",
+      "stack": "Built with"
+    },
+    "ongoing": "{start} – present",
+    "days": "{count, plural, one {# day} other {# days}}",
+    "months": "{count, plural, one {# month} other {# months}}",
+    "visit": "Visit live site",
+    "source": "Source code",
+    "screens": {
+      "title": "Screens",
+      "hint": "Select a screen to see it full size.",
+      "count": "{count, plural, one {# screen} other {# screens}}",
+      "view": "View screen {n} of {total}: {alt}",
+      "desktop": "Desktop",
+      "mobile": "Phone"
+    },
+    "overview": "Overview",
+    "deliverables": "What I delivered",
+    "story": "How I built it",
+    "next": "Next project",
+    "read": "Read the case study"
+  },
+  "ContactCall": {
+    "title": "Have a project like these?",
+    "titleOne": "Have a project like this one?",
+    "description": "A few lines are enough: what you need, and roughly when.",
+    "start": "Start a project"
+  },
   "Footer": {
     "tagline": "Full-stack JavaScript engineer in Cairo.",
     "social": "Get in touch",

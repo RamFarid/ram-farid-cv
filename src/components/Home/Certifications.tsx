@@ -1,10 +1,11 @@
 import { useFormatter, useLocale, useTranslations } from 'next-intl'
+import { PhotoViewer } from '@/components/Reusable/media/PhotoViewer'
 import { Container } from '@/components/ui/Container'
 import { SectionHeading } from '@/components/ui/SectionHeading'
 import { Tag } from '@/components/ui/Tag'
 import { localeDirection } from '@/i18n/routing'
 import { certifications } from '@/lib/profile'
-import { CertificateThumb, CertificateViewer } from './CertificateViewer'
+import { CertificateThumb } from './CertificateViewer'
 
 // The certificates themselves, not a list of names: each one opens full size. Text stays server-rendered for search.
 export function Certifications() {
@@ -18,7 +19,7 @@ export function Certifications() {
       <Container className="grid gap-space-7">
         <SectionHeading id="certifications-title" index="05" eyebrow={t('eyebrow')} title={t('title')} />
 
-        <CertificateViewer>
+        <PhotoViewer>
           <ul className="grid gap-x-space-5 gap-y-space-7 sm:grid-cols-2 lg:grid-cols-3">
             {certifications.map((cert) => {
               const date = cert.issuedOn
@@ -70,7 +71,7 @@ export function Certifications() {
               )
             })}
           </ul>
-        </CertificateViewer>
+        </PhotoViewer>
       </Container>
     </section>
   )

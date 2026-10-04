@@ -143,6 +143,60 @@
       }
     }
   },
+  "Portfolio": {
+    "metadata": {
+      "title": "أعمال للعملاء — رام فريد",
+      "description": "مشاريع بناها رام فريد لعملائه وأطلقها بـ Next.js وReact وNode.js، وكلها تعمل الآن، مع دراسة حالة لكل مشروع."
+    },
+    "title": "أعمال أطلقتها",
+    "lead": "مشاريع لعملاء، تعمل الآن. افتح أيًّا منها لتقرأ القصة كاملة.",
+    "count": "{count, plural, zero {لا مشاريع} one {مشروع واحد} two {مشروعان} few {<n>#</n> مشاريع} many {<n>#</n> مشروعًا} other {<n>#</n> مشروع}}",
+    "rail": "المشاريع",
+    "previous": "المشروع السابق",
+    "next": "المشروع التالي",
+    "position": "المشروع {current} من {total}",
+    "read": "اقرأ دراسة الحالة",
+    "contents": "كل المشاريع",
+    "empty": "المشاريع في الطريق. عُد قريبًا، أو أخبرني عن مشروعك."
+  },
+  "Project": {
+    "metadata": {
+      "title": "{title}: دراسة حالة — رام فريد"
+    },
+    "breadcrumb": "مسار التنقل",
+    "work": "الأعمال",
+    "facts": {
+      "client": "العميل",
+      "role": "دوري",
+      "kind": "النوع",
+      "timeline": "الفترة",
+      "stack": "التقنيات"
+    },
+    "ongoing": "{start} – حتى الآن",
+    "days": "{count, plural, one {يوم واحد} two {يومان} few {# أيام} many {# يومًا} other {# يوم}}",
+    "months": "{count, plural, one {شهر واحد} two {شهران} few {# أشهر} many {# شهرًا} other {# شهر}}",
+    "visit": "زيارة الموقع",
+    "source": "الكود المصدري",
+    "screens": {
+      "title": "الشاشات",
+      "hint": "اختر شاشة لعرضها بالحجم الكامل.",
+      "count": "{count, plural, one {شاشة واحدة} two {شاشتان} few {# شاشات} many {# شاشة} other {# شاشة}}",
+      "view": "عرض الشاشة {n} من {total}: {alt}",
+      "desktop": "حاسوب",
+      "mobile": "هاتف"
+    },
+    "overview": "نظرة عامة",
+    "deliverables": "ما سلّمته",
+    "story": "كيف بنيته",
+    "next": "المشروع التالي",
+    "read": "اقرأ دراسة الحالة"
+  },
+  "ContactCall": {
+    "title": "لديك مشروع مثل هذه؟",
+    "titleOne": "لديك مشروع مثل هذا؟",
+    "description": "تكفي بضعة أسطر: ما تحتاجه، وموعده التقريبي.",
+    "start": "ابدأ مشروعًا"
+  },
   "Footer": {
     "tagline": "مهندس برمجيات Full-stack JavaScript في القاهرة.",
     "social": "تواصل معي",

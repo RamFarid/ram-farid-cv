@@ -100,3 +100,10 @@ These live in `src/components/ui/` and follow their READMEs in `docs/design-syst
 | `Container` | The 1200px page container with its gutters. |
 
 Icons are lucide-react at stroke 1.75 (the project's icon choice in `CLAUDE.md`). They replace the README's Material Symbols.
+
+Shared compositions and utilities added with `/portfolio` (2026-10-04, `portfolio.md`):
+- `Reusable/projects/ProjectSlab`: a 16:9 cover on a dark `violet-ink` slab for violet fields, with the monogram fallback.
+- `Reusable/media/PhotoViewer`: the one react-photo-view provider and caption bar, used by certificates and screenshots.
+- `Reusable/site/ContactCall`: the closing call on pages other than home.
+- In `globals.css`: `film-rail` (the sideways scroll-snap rail aligned to the container), the `[data-frame] > article` focus rule, and `story-prose` (token styles for the case-study HTML).
+- No new tokens.

@@ -1,30 +1,11 @@
 'use client'
 
-import 'react-photo-view/dist/react-photo-view.css'
-import type { ReactNode } from 'react'
 import Image from 'next/image'
-import { PhotoProvider, PhotoView } from 'react-photo-view'
+import { PhotoView } from 'react-photo-view'
+import { PhotoCaption } from '@/components/Reusable/media/PhotoViewer'
 import { cn } from '@/utils'
 
-// The full-size certificate viewer (react-photo-view). One provider around the whole gallery, so arrow keys step
-// through every certificate; Esc closes. Its chrome is themed in globals.css. See docs/home.md#certifications
-
-const reducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches
-
-export function CertificateViewer({ children }: { children: ReactNode }) {
-  return (
-    <PhotoProvider
-      maskOpacity={0.92}
-      // The library animates the zoom from the thumbnail; near-instant when motion is reduced.
-      speed={() => (reducedMotion() ? 1 : 360)}
-      easing={() => 'cubic-bezier(0.2, 0.8, 0.2, 1)'}
-      // Each PhotoView's `overlay` (the caption) is only drawn through this.
-      overlayRender={({ overlay }) => overlay}
-    >
-      {children}
-    </PhotoProvider>
-  )
-}
+// Certificates open in the shared PhotoViewer, which wraps the whole gallery. See docs/home.md#certifications
 
 type CertificateThumbProps = {
   image: { src: string; width: number; height: number }
@@ -42,15 +23,7 @@ export function CertificateThumb({ image, label, name, meta, dir }: CertificateT
       src={image.src}
       width={image.width}
       height={image.height}
-      overlay={
-        <div
-          dir={dir}
-          className="absolute inset-x-0 bottom-0 z-20 grid gap-space-1 border-t border-line bg-surface px-space-5 py-space-4 text-start"
-        >
-          <p className="text-label text-ink">{name}</p>
-          <p className="font-mono text-code text-ink-muted">{meta}</p>
-        </div>
-      }
+      overlay={<PhotoCaption title={name} meta={meta} dir={dir} />}
     >
       <button
         type="button"

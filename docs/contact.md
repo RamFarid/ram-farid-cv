@@ -41,6 +41,7 @@ The contact section, the form behind it, and the Telegram notification each mess
   - `NEXT_PUBLIC_TURNSTILE_SITE_KEY` is public and inlined at build time, so a static build needs it.
   - `TURNSTILE_SECRET_KEY` stays on the server.
   - `.env.example` ships Cloudflare's always-pass test keys for local dev. `3x00000000000000000000FF` forces a visible challenge, which is useful for checking the layout.
+  - **Real keys fail on localhost** with error 110200 ("domain not allowed"): a site key works only on the hostnames listed for its widget. Keep the real keys in `.env` and the test keys in `.env.development.local`, which only `next dev` loads and which overrides `.env`. Don't add `localhost` to the production widget's hostnames. (Found 2026-10-04.)
 
 ## Server Action
 
