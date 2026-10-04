@@ -11,7 +11,7 @@ import { TextField } from '@/components/ui/TextField'
 import { useSectionDraft } from '@/hooks/useSectionDraft'
 import { saveCertifications } from '@/lib/home/actions'
 import { certificationsZSchema, homeLimits, type CertificationsInput } from '@/lib/validations/home'
-import { useFieldErrors } from './fieldErrors'
+import { useFieldErrors } from '@/components/Console/fieldErrors'
 
 type Certification = CertificationsInput['certifications'][number]
 
@@ -40,7 +40,7 @@ export function CertificationsSection({ initial }: { initial: CertificationsInpu
       description={t('description')}
       dirty={dirty}
       pending={pending}
-      onSave={save}
+      onSave={() => save()}
       onDiscard={discard}
     >
       {certs.length === 0 ? (

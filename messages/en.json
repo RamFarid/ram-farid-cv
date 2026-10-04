@@ -116,7 +116,8 @@
     "position": "Project {current} of {total}",
     "read": "Read the case study",
     "contents": "All projects",
-    "empty": "Projects are on their way. Check back soon, or tell me about yours."
+    "empty": "Projects are on their way. Check back soon, or tell me about yours.",
+    "recommended": "Recommended"
   },
   "Project": {
     "metadata": {
@@ -148,7 +149,8 @@
     "deliverables": "What I delivered",
     "story": "How I built it",
     "next": "Next project",
-    "read": "Read the case study"
+    "read": "Read the case study",
+    "recommended": "Recommended"
   },
   "ContactCall": {
     "title": "Have a project like these?",
@@ -196,7 +198,7 @@
       "messages": "Messages",
       "projects": "Projects",
       "newMessages": "{count} new",
-      "projectCounts": "{published} · {draft} draft",
+      "projectCounts": "{draft, plural, =0 {{published}} =1 {{published} · 1 draft} other {{published} · # drafts}}",
       "unsaved": "Unsaved changes",
       "viewSite": "View site",
       "newTab": "(opens in a new tab)",
@@ -224,7 +226,9 @@
       "tooLong": "Shorten this.",
       "tooMany": "Remove some items; this list is full.",
       "invalid": "Check this value.",
-      "emptyGroup": "Add at least one tool or practice."
+      "emptyGroup": "Add at least one tool or practice.",
+      "taken": "Another project uses this. Choose a different one.",
+      "beforeStart": "The end date has to be on or after the start date."
     },
     "list": {
       "move": "Move {name}",
@@ -357,7 +361,57 @@
     },
     "projects": {
       "title": "Projects",
-      "soon": "Creating, editing and ordering projects comes in phase 3."
+      "lead": "{published, plural, =0 {Nothing published yet} =1 {1 published} other {# published}} · {draft, plural, =0 {no drafts} =1 {1 draft} other {# drafts}}. Drag to set the order the site shows them in.",
+      "empty": "No projects yet. Create one with its English title; you fill in the rest on its own page.",
+      "recommended": "Recommended",
+      "star": "Recommend {title}",
+      "starHint": "Mark as recommended",
+      "unstarHint": "Stop recommending",
+      "publish": "Publish",
+      "unpublish": "Unpublish",
+      "view": "View {title} on the site",
+      "viewHint": "View on the site",
+      "edit": "Edit",
+      "delete": "Delete",
+      "deleteLabel": "Delete {title}",
+      "deleteHint": "Delete this draft",
+      "confirmDelete": "Delete for good?",
+      "cancel": "Cancel",
+      "inLanguage": "{field} ({language})",
+      "languages": {
+        "en": "English",
+        "ar": "Arabic"
+      },
+      "more": "{count} more",
+      "toasts": {
+        "incomplete": "{title} isn’t ready to publish",
+        "openToFix": "Open",
+        "starred": "Marked as recommended.",
+        "unstarred": "No longer recommended.",
+        "published": "Published. It’s on the site in both languages.",
+        "unpublished": "Unpublished. It’s off the site and kept as a draft.",
+        "deleted": "{title} deleted.",
+        "reordered": "Order saved."
+      },
+      "errors": {
+        "unauthorized": "Your session ended. Sign in again, then retry.",
+        "invalid": "That didn’t work. Reload the page and try again.",
+        "unavailable": "Couldn’t save right now. Try again.",
+        "notFound": "That project no longer exists, or it’s published. Reload the page."
+      },
+      "create": {
+        "open": "New project",
+        "title": "Title in English",
+        "hint": "It also makes the address; you can change both later.",
+        "submit": "Create draft",
+        "cancel": "Cancel",
+        "required": "Give the project a title.",
+        "errors": {
+          "unauthorized": "Your session ended. Sign in again, then retry.",
+          "invalid": "Check the title and try again.",
+          "unavailable": "Couldn’t create it right now. Try again."
+        }
+      }
     },
     "signIn": {
       "title": "Sign in",
@@ -377,6 +431,141 @@
         "invalid": "Enter the six digits from Telegram.",
         "expired": "That code has expired or been used. Send a new one.",
         "wrong": "That code isn’t right. {count, plural, one {# try left} other {# tries left}}."
+      }
+    },
+    "markdown": {
+      "placeholder": "Write how you built it. Markdown works: # heading, **bold**, - list, ```code```.",
+      "toolbar": "Formatting",
+      "imageAlt": "Describe the image",
+      "tools": {
+        "heading": "Heading",
+        "subheading": "Subheading",
+        "bold": "Bold",
+        "italic": "Italic",
+        "strike": "Strikethrough",
+        "code": "Inline code",
+        "link": "Link",
+        "bullets": "Bulleted list",
+        "numbers": "Numbered list",
+        "tasks": "Checklist",
+        "quote": "Quote",
+        "codeBlock": "Code block",
+        "table": "Table",
+        "rule": "Divider",
+        "image": "Upload an image"
+      }
+    },
+    "project": {
+      "titleFrom": "Edit {title}",
+      "untitled": "Untitled project",
+      "back": "Back to projects",
+      "view": "View on site",
+      "newTab": "(opens in a new tab)",
+      "publish": "Publish",
+      "unpublish": "Unpublish",
+      "saveDraft": "Save draft",
+      "saveAndPublish": "Save and publish",
+      "status": {
+        "draft": "Draft",
+        "published": "Published"
+      },
+      "toasts": {
+        "savedDraft": "Draft saved. It stays off the site until you publish it.",
+        "savedLive": "Saved. The site is updated in both languages.",
+        "published": "Published. It’s on the site in both languages.",
+        "unpublished": "Unpublished. It’s off the site; your edits are still here.",
+        "publishInvalid": "Fill the marked fields in both languages to publish."
+      },
+      "sections": {
+        "details": "Details",
+        "timeline": "Dates and stack",
+        "media": "Cover and gallery",
+        "story": "Case study"
+      },
+      "descriptions": {
+        "details": "What the project is called and where it lives. The title, kind and summary show on the portfolio and the home page.",
+        "timeline": "When the work ran and what it was built with. The case study shows the timeline and the tools with their logos.",
+        "media": "The cover leads the portfolio frame and the home band. The gallery is the case study’s screens, in this order.",
+        "story": "The case study’s three parts: the overview, what you delivered, and how you built it. Publishing needs all of them in both languages."
+      },
+      "fields": {
+        "title": "Title",
+        "kind": "Kind",
+        "client": "Client",
+        "slug": "Address",
+        "summary": "Summary",
+        "liveUrl": "Live site",
+        "repoUrl": "Source code",
+        "starred": "Recommended",
+        "startedAt": "Start date",
+        "endedAt": "End date",
+        "stack": "Stack",
+        "cover": "Cover image",
+        "coverAlt": "Cover description",
+        "screenshots": "Gallery",
+        "role": "My role",
+        "overview": "Overview",
+        "deliverables": "What I delivered",
+        "story": "How I built it"
+      },
+      "hints": {
+        "kind": "A short label, like Web app or Online store.",
+        "slug": "The case study lives at <code>{path}</code>.",
+        "slugChanged": "Saving moves the case study from <path>/portfolio/{slug}</path>; the old address stops working.",
+        "summary": "One sentence: what it is and who it’s for.",
+        "repoUrl": "Only for public repositories.",
+        "starred": "Shows a Recommended badge on the portfolio and the case study. It doesn’t change the order.",
+        "ongoing": "Leave empty while the work is ongoing.",
+        "coverAlt": "What the cover shows, for people who can’t see it.",
+        "coverAltEmpty": "Add a cover first.",
+        "role": "Like Sole full-stack engineer.",
+        "overview": "Two or three sentences: the client, the problem and what the product does now. Blank lines start a new paragraph.",
+        "story": "Write in Markdown; it’s styled as you type, the way the case study shows it. Raw HTML is removed on save."
+      },
+      "deliverables": {
+        "empty": "Nothing listed yet.",
+        "item": "Deliverable {number}",
+        "remove": "Remove deliverable {number}",
+        "add": "Add a deliverable",
+        "full": "A case study lists at most {max}."
+      },
+      "stack": {
+        "chosen": "Chosen tools",
+        "remove": "Remove {name}",
+        "none": "No tools chosen yet.",
+        "search": "Search tools",
+        "groups": {
+          "language": "Languages",
+          "frontend": "Front end",
+          "styling": "Styling",
+          "backend": "Back end",
+          "data": "Data",
+          "platform": "Hosting and infrastructure",
+          "service": "Services",
+          "tooling": "Tooling"
+        },
+        "noMatch": "No tool matches “{query}”. New tools are added in lib/projects/stack.ts.",
+        "full": "A project lists at most {max} tools.",
+        "hint": "They show in the order you pick them."
+      },
+      "gallery": {
+        "title": "Gallery",
+        "screen": "Screen {number}",
+        "remove": "Remove {name}",
+        "device": "Device",
+        "devices": {
+          "desktop": "Desktop",
+          "mobile": "Phone"
+        },
+        "alt": "Description",
+        "altHint": "What the screen shows, for people who can’t see it.",
+        "caption": "Caption",
+        "captionHint": "Optional, shown under the screen in the viewer.",
+        "uploading": "Uploading {count, plural, =1 {1 image} other {# images}}…",
+        "drop": "Drop screenshots here, or choose several at once. PNG, JPEG, WebP or AVIF, up to 8 MB each.",
+        "full": "The gallery is full ({max} screens). Remove one to add another.",
+        "add": "Choose screenshots",
+        "skipped": "{count, plural, =1 {1 file was} other {# files were}} left out: the gallery holds {max} screens."
       }
     }
   }

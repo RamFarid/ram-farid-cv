@@ -4,11 +4,11 @@ import { revalidatePath } from 'next/cache'
 import { after } from 'next/server'
 import type { z } from 'zod'
 import { getSession } from '@/lib/auth/session'
+import { toFieldErrors } from '@/lib/validations/errors'
 import { isBucketUrl } from '@/lib/storage'
 import {
   aboutZSchema,
   certificationsZSchema,
-  homeFieldErrors,
   servicesZSchema,
   skillsZSchema,
   type AboutInput,
@@ -30,7 +30,7 @@ async function save<T>(schema: z.ZodType<T>, input: unknown, saver: Saver<T>, im
 
   const parsed = schema.safeParse(input)
   if (!parsed.success) {
-    return { ok: false, error: 'invalid', fieldErrors: homeFieldErrors(parsed.error) } satisfies HomeSaveResult
+    return { ok: false, error: 'invalid', fieldErrors: toFieldErrors(parsed.error) } satisfies HomeSaveResult
   }
 
   // Images must come from our own bucket: the URL is rendered on the public page.

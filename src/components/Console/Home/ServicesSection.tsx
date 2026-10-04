@@ -8,7 +8,7 @@ import { LocalizedField } from '@/components/ui/LocalizedField'
 import { useSectionDraft } from '@/hooks/useSectionDraft'
 import { saveServices } from '@/lib/home/actions'
 import { homeLimits, servicesZSchema, type ServicesInput } from '@/lib/validations/home'
-import { useFieldErrors } from './fieldErrors'
+import { useFieldErrors } from '@/components/Console/fieldErrors'
 
 type Service = ServicesInput['services'][number]
 
@@ -38,7 +38,7 @@ export function ServicesSection({ initial }: { initial: ServicesInput }) {
       description={t('description')}
       dirty={dirty}
       pending={pending}
-      onSave={save}
+      onSave={() => save()}
       onDiscard={discard}
     >
       {services.length === 0 ? (

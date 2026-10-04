@@ -1,6 +1,6 @@
 import { useTranslations } from 'next-intl'
 import { ButtonLink } from '@/components/ui/Button'
-import { Tag } from '@/components/ui/Tag'
+import { StackTag } from '@/components/Reusable/projects/StackTag'
 import type { PublicProject } from '@/lib/projects/types'
 import { cn } from '@/utils'
 import { ProjectMedia } from './ProjectMedia'
@@ -49,7 +49,7 @@ export function ProjectBand({ project, tone, reverse = false, priority }: Projec
                 <ul className="flex flex-wrap gap-space-2">
                   {project.stack.map((tech) => (
                     <li key={tech}>
-                      <Tag>{tech}</Tag>
+                      <StackTag id={tech} />
                     </li>
                   ))}
                 </ul>

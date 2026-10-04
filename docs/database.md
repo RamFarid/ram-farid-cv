@@ -41,30 +41,32 @@ User-facing text is stored once per locale as `{ en, ar }`, both required (`loca
 
 ### `Projects` (model `Project`)
 
-Real client and production work only (`project.md`). Created, ordered and published from the console; seeded until the console exists. Case-study fields added 2026-10-04 with `/portfolio` (`portfolio.md#case-study-content`).
+Real client and production work only (`project.md`). Created, edited, ordered and published from the console (`portfolio.md#console`); the two live projects were seeded first. Case-study fields added 2026-10-04 with `/portfolio` (`portfolio.md#case-study-content`).
 
 | Field | Type | Notes |
 | --- | --- | --- |
 | `slug` | string, unique, lowercase | Becomes the `/portfolio/[project_id]` segment. |
-| `title`, `client`, `kind`, `summary` | localized, required | `summary` is one sentence: what it is and who it's for. `kind` is e.g. "Web app". |
-| `stack` | string[] | Tech names exactly as their projects write them ("Next.js", "MongoDB"). |
+| `title`, `client`, `kind`, `summary` | localized; a draft may leave values blank (`''`) | `summary` is one sentence: what it is and who it's for. `kind` is e.g. "Web app". |
+| `stack` | string[] | Tool ids from `lib/projects/stack.ts` (`nextjs`, `mongodb`), in display order. An id that isn't in the config renders as plain text on the site and drops out in the console. |
+| `starred` | boolean, default `false` | Shows a "Recommended" badge on the public pages; it doesn't change the order (`portfolio.md#starred`). |
 | `liveUrl` | string, optional | |
 | `repoUrl` | string, optional | Only for public repos; most client repos are private. |
 | `cover` | `{ url, width, height, alt: localized }`, optional | 16:9 screenshot in R2. Width and height are stored for `next/image`. |
 | `startedAt`, `endedAt` | Date, optional | The timeline and duration on the case study. The year shown everywhere is `endedAt`'s, or `startedAt`'s while `endedAt` is unset (ongoing). Replaced the `year` field on 2026-10-04. |
-| `role`, `overview` | localized, optional | `role` is short ("Sole full-stack engineer"). `overview` is plain text; blank lines split paragraphs. |
+| `role`, `overview` | localized, blank in drafts | `role` is short ("Sole full-stack engineer"). `overview` is plain text; blank lines split paragraphs. |
 | `deliverables` | `{ en: string[], ar: string[] }`, optional | |
-| `story` | localized HTML, optional | Stored sanitized, rendered as-is. Rules: `portfolio.md#story-html`. |
-| `screenshots` | `{ url, width, height, device, alt: localized, caption?: localized }[]`, `device` is `desktop` or `mobile` | At most 15 in total (`MAX_PROJECT_SCREENSHOTS`, a schema validator). In R2; any aspect ratio. |
+| `storyMarkdown` | localized Markdown | What Ram writes in the console's story editor, kept so it can be edited again. |
+| `story` | localized HTML | Made from `storyMarkdown` on every save, stored sanitized, rendered as-is. Rules: `portfolio.md#story-html`. |
+| `screenshots` | `{ url, width, height, device, alt: localized, caption?: localized }[]`, `device` is `desktop` or `mobile` | At most 15 in total (`projectLimits.screenshots` in `lib/validations/project.ts`, also a schema validator). In R2; any aspect ratio. |
 | `status` | `draft` \| `published` | Default `draft`. Only `published` is ever public. |
 | `order` | number | Ascending; set by console reorder. |
 | `createdAt`, `updatedAt` | timestamps | |
 
 **Reads use `.lean()`, which skips schema defaults.** A document saved before a field existed comes back without it, even when the schema has `default: []`. Domain mappers in `lib/projects` fall back explicitly (`record.screenshots ?? []`). Do the same for every field added later. (The real-data build caught this on 2026-10-04.)
 
-The case-study fields are optional in the schema so a draft can be saved incomplete; publishing will require them in the console's Zod schema, and the public pages hide a row whose field is empty.
+Localized fields use a draft sub-schema (both locales default to `''`), so a draft saves incomplete. Completeness is the console's job: `projectPublishZSchema` requires every case-study field in both languages before a project is published, and keeps requiring it while it stays published (`portfolio.md#console`). The public pages still hide a row whose field is empty.
 
-Index: `{ status, order }` for the published reads (the home page's first two, the portfolio, the next project after a given `order`). There is no `featured` flag: removed 2026-10-04, because the home page shows the first two by order, not a hand-picked set. The site's "projects" figure is the count of `published` projects; it is never typed by hand.
+Index: `{ status, order }` for the published reads (the home page's first two, the portfolio, the next project after a given `order`). There is no `featured` flag that picks the home page's projects (removed 2026-10-04: the home page shows the first two by order). `starred` came back the same day as a badge only, by Ram's request; it selects nothing. The site's "projects" figure is the count of `published` projects; it is never typed by hand.
 
 ### `ContactMsgs` (model `ContactMsg`)
 

@@ -8,7 +8,7 @@ import { TextField } from '@/components/ui/TextField'
 import { useSectionDraft } from '@/hooks/useSectionDraft'
 import { saveAbout } from '@/lib/home/actions'
 import { aboutZSchema, CLIENTS_PLACEHOLDER, homeLimits, type AboutInput } from '@/lib/validations/home'
-import { useFieldErrors } from './fieldErrors'
+import { useFieldErrors } from '@/components/Console/fieldErrors'
 
 type AboutSectionProps = {
   initial: AboutInput
@@ -32,7 +32,7 @@ export function AboutSection({ initial, projectCount, years, since }: AboutSecti
       description={t('description')}
       dirty={dirty}
       pending={pending}
-      onSave={save}
+      onSave={() => save()}
       onDiscard={discard}
     >
       <div className="grid gap-space-6 lg:grid-cols-[minmax(0,1fr)_14rem]">

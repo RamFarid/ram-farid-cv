@@ -8,7 +8,7 @@ Ram's private dashboard. Shaped with Ram and phase 1 built on 2026-10-04. The de
 | --- | --- | --- | --- |
 | 1 | Sign-in, and the home page's content | `/console`, `/console/sign-in` | Done 2026-10-04 |
 | 2 | Contact messages | `/console/contact-msgs`, `/console/contact-msgs/[msg_id]` | Done 2026-10-04 |
-| 3 | Projects and the portfolio | `/console/portfolio`, `/console/portfolio/[project_id]` | Placeholder page; next |
+| 3 | Projects and the portfolio | `/console/portfolio`, `/console/portfolio/[project_id]` | Done 2026-10-04 (`portfolio.md#console`) |
 
 The CV upload and the availability toggle are expected to join the main page later (not built).
 
@@ -34,7 +34,7 @@ The CV upload and the availability toggle are expected to join the main page lat
 
 ## Layout
 
-- **Rail** (start side, sticky, full height from `lg`): the brand with a "Console" badge; Home page, Messages (with the count of `new` messages) and Projects (published · drafts); on the home page, the four section anchors in home-page order (02 About to 05 Certifications), the current one in ink and a warning dot on each section with unsaved edits; then View site, the language switch and Sign out.
+- **Rail** (start side, sticky, full height from `lg`): the brand with a "Console" badge; Home page, Messages (with the count of `new` messages) and Projects (published · drafts, plus a warning dot while a project has unsaved edits); under the current manager its page's section anchors: on the home page the four sections in home-page order (02 About to 05 Certifications, a warning dot on each section with unsaved edits), on a project's edit page its four sections (Details, Dates and stack, Cover and gallery, Case study); the current one in ink; then View site, the language switch and Sign out.
 - **Under `lg`** the rail is a top block that wraps: the brand, the three managers, a scrolling row of the section anchors (with the unsaved dots), then View site, language and Sign out.
 - **Order:** Home page is a peer of Messages and Projects, with its anchors nested under it, so the rail reads the same on every console page.
 - **Main column:** up to 1200px. The h1 and a one-line lead, then one panel per section.
@@ -102,16 +102,16 @@ The inbox for contact-form submissions (`ContactMsgs`, `database.md`). Surface b
 
 ## Lists
 
-`components/Console/SortableList` orders services, skill groups and certificates. Each row has a grip handle: drag it with a pointer (the row follows the pointer and swaps with a neighbour when it crosses half of it), or focus it and press ArrowUp / ArrowDown (focus stays on the handle; a live region announces "moved to position 3 of 9"). No library. Practices inside a group aren't reorderable.
+`components/Console/SortableList` orders services, skill groups, certificates, a project's screens and deliverables, and the projects index. Each row has a grip handle: drag it with a pointer (the row follows the pointer and swaps with a neighbour when it crosses half of it), or focus it and press ArrowUp / ArrowDown (focus stays on the handle; a live region announces "moved to position 3 of 9"). No library. Practices inside a group aren't reorderable. Inside a section a move only changes the draft; a list that saves at once (the projects index) listens to `onCommit`, which fires once per drag or key press.
 
 ## Uploads
 
 - `@aws-sdk/client-s3` with `@aws-sdk/s3-request-presigner` (Ram's choice over `aws4fetch` and over uploading through the server).
-- `getImageUploadUrl({ folder, contentType, size })` checks the session and returns a **presigned PUT** valid for 5 minutes, with the content type and length signed, for a new key `<folder>/<uuid>.<ext>`. Folders: `home/portrait`, `home/certificates`. PNG, JPEG, WebP or AVIF, up to 8 MB.
-- The browser reads the image's pixel size (`createImageBitmap`), PUTs the file straight to R2, then puts `{ url, width, height }` in the draft. Nothing is live until the section is saved.
+- `getImageUploadUrl({ folder, contentType, size })` checks the session and returns a **presigned PUT** valid for 5 minutes, with the content type and length signed, for a new key `<folder>/<uuid>.<ext>`. Folders: `home/portrait`, `home/certificates`, `projects/covers`, `projects/screens`, `projects/story`. PNG, JPEG, WebP or AVIF, up to 8 MB.
+- The browser side is `uploadImage()` in `lib/storage/upload.ts`, shared by `ImageUpload`, the project gallery and the story editor: it reads the image's pixel size (`createImageBitmap`), PUTs the file straight to R2, then puts `{ url, width, height }` in the draft. Nothing is live until the section is saved.
 - On save, images the section no longer uses are deleted from R2 after the response (`after()`). An upload that is never saved stays in R2; clean such orphans up by hand if they pile up.
 - The client turns off the SDK's default CRC32 checksums (`WHEN_REQUIRED`), which would otherwise be signed into the URL and break browser PUTs (Cloudflare's R2 + SDK v3 guidance).
-- **The bucket needs a CORS rule** allowing `PUT` with `Content-Type` from each origin that runs the console (`http://localhost:3000`, `https://ramfarid.com`), or browser uploads fail.
+- **The bucket needs a CORS rule** allowing `PUT` with `Content-Type` from each origin that runs the console, or browser uploads fail. Set 2026-10-04 for `http://localhost:3000` only (`GET`, `PUT`, any header); add `https://ramfarid.com` before the console runs in production. Upload round trips were verified that day (presign, PUT, save, delete with the draft).
 - Console previews use `next/image` with `unoptimized`, so a fresh upload shows even before `R2_PUBLIC_URL` is in the running server's `images.remotePatterns`. The public page uses the optimizer.
 
 ## Environment

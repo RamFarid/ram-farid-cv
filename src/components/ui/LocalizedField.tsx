@@ -1,10 +1,11 @@
 'use client'
 
-import { useId, useRef, useState, type CSSProperties, type ReactNode, type RefObject } from 'react'
+import { useRef, useState, type ReactNode, type RefObject } from 'react'
 import { CircleAlert } from 'lucide-react'
 import { useLocale, useTranslations, type Locale } from 'next-intl'
 import { localeDirection, routing } from '@/i18n/routing'
 import { cn } from '@/utils'
+import { LocaleSwitch } from './LocaleSwitch'
 import { controlClasses } from './TextField'
 
 // One text value per locale behind a single field. It edits the page's locale first; the mono locale code at its end
@@ -48,15 +49,11 @@ export function LocalizedField({
   const pageLocale = useLocale()
   const [active, setActive] = useState<Locale>(pageLocale)
   const control = useRef<Control>(null)
-  const popover = useRef<HTMLDivElement>(null)
-  const popoverId = useId()
-  const anchorName = `--locale-${popoverId.replace(/[^a-zA-Z0-9-]/g, '')}`
 
   const others = routing.locales.filter((locale) => locale !== active)
   const isMissing = (locale: Locale) => !value[locale].trim()
   const activeError = errors[active]
   const otherError = others.find((locale) => errors[locale])
-  const flagged = others.some((locale) => errors[locale] || isMissing(locale))
   const messageId = `${id}-message`
   const message = activeError ?? (otherError ? t('otherError', { language: t(`names.${otherError}`), error: errors[otherError]! }) : hint)
 
@@ -64,7 +61,6 @@ export function LocalizedField({
 
   const switchTo = (locale: Locale) => {
     setActive(locale)
-    popover.current?.hidePopover()
     requestAnimationFrame(() => control.current?.focus())
   }
 
@@ -131,68 +127,13 @@ export function LocalizedField({
           />
         )}
 
-        <button
-          type="button"
-          popoverTarget={popoverId}
-          style={{ anchorName } as CSSProperties}
-          className={cn(
-            'absolute end-1.5 top-1.5 inline-flex h-8 items-center gap-1.5 rounded-sm border border-line px-2 font-mono text-code text-ink-muted',
-            'transition-colors hover:border-line-strong hover:bg-surface-raised hover:text-ink',
-          )}
-        >
-          {active.toUpperCase()}
-          <span className="sr-only">
-            {t('switch', { language: t(`names.${active}`) })}
-            {flagged && ` ${t('otherNeedsWork')}`}
-          </span>
-          {flagged && (
-            <span
-              aria-hidden
-              className={cn('size-1.5 rounded-full', others.some((locale) => errors[locale]) ? 'bg-danger' : 'bg-warning')}
-            />
-          )}
-        </button>
-
-        <div
-          ref={popover}
-          id={popoverId}
-          popover="auto"
-          style={{ positionAnchor: anchorName } as CSSProperties}
-          className="locale-popover m-0 min-w-56 rounded-lg border border-line bg-surface p-space-2 text-ink shadow-md"
-        >
-          <ul aria-label={t('languages')} className="grid gap-space-1">
-            {others.map((locale) => {
-              const missing = isMissing(locale)
-              const error = errors[locale]
-              return (
-                <li key={locale}>
-                  <button
-                    type="button"
-                    onClick={() => switchTo(locale)}
-                    className="flex h-11 w-full items-center gap-space-3 rounded-md px-space-3 text-start transition-colors hover:bg-surface-raised"
-                  >
-                    <span lang={locale} className="text-label text-ink">
-                      {t(`names.${locale}`)}
-                    </span>
-                    <span className="font-mono text-code text-ink-muted">{locale.toUpperCase()}</span>
-                    <span
-                      className={cn(
-                        'ms-auto inline-flex items-center gap-1.5 text-small',
-                        error ? 'text-danger' : missing ? 'text-warning' : 'text-ink-muted',
-                      )}
-                    >
-                      <span
-                        aria-hidden
-                        className={cn('size-1.5 rounded-full', error ? 'bg-danger' : missing ? 'bg-warning' : 'bg-success')}
-                      />
-                      {error ? t('needsFix') : missing ? t('missing') : t('filled')}
-                    </span>
-                  </button>
-                </li>
-              )
-            })}
-          </ul>
-        </div>
+        <LocaleSwitch
+          active={active}
+          onSwitch={switchTo}
+          isMissing={isMissing}
+          errors={errors}
+          className="absolute end-1.5 top-1.5"
+        />
       </div>
 
       {message && (

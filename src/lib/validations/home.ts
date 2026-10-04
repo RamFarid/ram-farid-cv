@@ -1,14 +1,10 @@
 import { z } from 'zod'
+import type { FieldErrors } from './errors'
 
 // The home page's editable content, one schema per console section. Shared by the console forms (instant feedback)
 // and the Server Actions (the check that counts). See docs/console.md#home-content
 
-// Each issue's message is a key of `Console.errors`, translated where it is shown.
-export const homeErrorKeys = ['required', 'tooLong', 'tooMany', 'invalid', 'emptyGroup'] as const
-export type HomeErrorKey = (typeof homeErrorKeys)[number]
-
-/** Field errors keyed by their dotted path, e.g. `services.2.title.ar`. */
-export type HomeFieldErrors = Record<string, HomeErrorKey>
+export type HomeFieldErrors = FieldErrors
 
 export const homeLimits = {
   aboutTitle: 80,
@@ -110,15 +106,3 @@ export type HomeContentInput = {
 }
 
 export type HomeSection = 'about' | 'services' | 'skills' | 'certifications'
-
-const isErrorKey = (message: string): message is HomeErrorKey => (homeErrorKeys as readonly string[]).includes(message)
-
-/** The first issue per path, as an error key. */
-export function homeFieldErrors(error: z.ZodError): HomeFieldErrors {
-  const errors: HomeFieldErrors = {}
-  for (const issue of error.issues) {
-    const path = issue.path.join('.')
-    errors[path] ??= isErrorKey(issue.message) ? issue.message : 'invalid'
-  }
-  return errors
-}

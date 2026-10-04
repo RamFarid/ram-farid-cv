@@ -1,3 +1,4 @@
+import { Star } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { Arrow } from '@/components/ui/Arrow'
 import { Link } from '@/i18n/navigation'
@@ -21,7 +22,15 @@ export function ProjectContents({ projects, className }: { projects: ProjectTeas
               className="group grid grid-cols-[3ch_1fr_auto_auto] items-center gap-x-space-4 rounded-sm px-space-2 py-space-4 transition-colors hover:bg-surface-raised"
             >
               <span className="font-mono text-code text-ink-muted tabular-nums">{String(index + 1).padStart(2, '0')}</span>
-              <span className="text-body-lg font-normal text-ink">{project.title}</span>
+              <span className="flex flex-wrap items-center gap-x-space-3 text-body-lg font-normal text-ink">
+                {project.title}
+                {project.starred && (
+                  <span className="inline-flex items-center gap-1 text-small text-ink-muted">
+                    <Star aria-hidden size={14} strokeWidth={1.75} className="fill-current" />
+                    {t('recommended')}
+                  </span>
+                )}
+              </span>
               <span className="font-mono text-code text-ink-muted tabular-nums">{project.year}</span>
               <Arrow className="text-ink-muted group-hover:text-ink" />
             </Link>

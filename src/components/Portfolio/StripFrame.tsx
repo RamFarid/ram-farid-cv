@@ -1,5 +1,6 @@
 import { useTranslations } from 'next-intl'
 import { ProjectSlab } from '@/components/Reusable/projects/ProjectSlab'
+import { RecommendedBadge } from '@/components/Reusable/projects/RecommendedBadge'
 import { Arrow } from '@/components/ui/Arrow'
 import { Link } from '@/i18n/navigation'
 import type { ProjectTeaser } from '@/lib/projects/types'
@@ -39,10 +40,13 @@ export function StripFrame({ project, position, eager }: StripFrameProps) {
               {project.title}
             </Link>
           </h2>
-          <p className="font-mono text-code text-ink tabular-nums">
-            {String(position).padStart(2, '0')} · {project.kind}
-            {project.year && <> · {project.year}</>}
-          </p>
+          <div className="flex flex-wrap items-center gap-x-space-3 gap-y-space-2">
+            <p className="font-mono text-code text-ink tabular-nums">
+              {String(position).padStart(2, '0')} · {project.kind}
+              {project.year && <> · {project.year}</>}
+            </p>
+            {project.starred && <RecommendedBadge label={t('recommended')} />}
+          </div>
           <p className="mt-space-1 max-w-measure text-body-lg text-ink-muted">{project.summary}</p>
           <span aria-hidden className="mt-space-2 inline-flex items-center gap-space-2 text-label text-ink">
             {t('read')}

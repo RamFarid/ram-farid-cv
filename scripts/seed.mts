@@ -22,9 +22,14 @@ const caseStudy = () => ({
     en: ['TODO: a deliverable, e.g. Admin dashboard'],
     ar: ['TODO: أحد المخرجات، مثل لوحة تحكم'],
   },
+  // The console edits the Markdown and saves the HTML made from it; the seed writes both to match.
+  storyMarkdown: {
+    en: '# TODO: a section heading\n\nTODO: how it was built, in Markdown.',
+    ar: '# TODO: عنوان قسم\n\nTODO: كيف بُني المشروع، بصيغة Markdown.',
+  },
   story: {
-    en: '<h3>TODO: a section heading</h3><p>TODO: how it was built, as sanitized HTML.</p>',
-    ar: '<h3>TODO: عنوان قسم</h3><p>TODO: كيف بُني المشروع، بصيغة HTML.</p>',
+    en: '<h3>TODO: a section heading</h3>\n<p>TODO: how it was built, in Markdown.</p>',
+    ar: '<h3>TODO: عنوان قسم</h3>\n<p>TODO: كيف بُني المشروع، بصيغة Markdown.</p>',
   },
 })
 

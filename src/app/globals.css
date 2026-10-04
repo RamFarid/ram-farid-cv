@@ -374,6 +374,49 @@
     font-weight: 600;
   }
 
+  & :where(del) {
+    color: var(--ink-muted);
+  }
+
+  /* GFM task lists: a disabled checkbox drawn from tokens. */
+  & :where(li:has(> input[type='checkbox'])) {
+    list-style: none;
+    margin-inline-start: calc(var(--space-5) * -1);
+  }
+
+  & :where(input[type='checkbox']) {
+    appearance: none;
+    width: 14px;
+    height: 14px;
+    margin-inline-end: var(--space-2);
+    vertical-align: -2px;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius-xs);
+  }
+
+  & :where(input[type='checkbox']:checked) {
+    border-color: var(--primary);
+    background: var(--primary);
+    /* A filled square inside a ring of the ground: checked, from tokens only. */
+    box-shadow: inset 0 0 0 2px var(--bg);
+  }
+
+  & :where(sup) {
+    font-family: var(--font-mono);
+    font-size: 0.7em;
+    line-height: 0;
+  }
+
+  /* GFM footnotes, below a hairline. */
+  & :where(section[data-footnotes]) {
+    margin-top: var(--space-5);
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--line);
+    color: var(--ink-muted);
+    font-size: var(--text-small);
+    line-height: var(--text-small--line-height);
+  }
+
   & :where(code) {
     font-family: var(--font-mono);
     font-size: var(--text-code);
@@ -543,5 +586,232 @@
     position-area: block-end span-inline-start;
     position-try-fallbacks: flip-block;
     margin-block: var(--space-1);
+  }
+}
+
+/*
+ * The story editor's live preview (docs/portfolio.md#story-editor): CodeMirror's lines styled with the same sizes,
+ * marks and boxes as `story-prose`, so what Ram types reads the way the case study will set it.
+ */
+.md-editor {
+  min-height: 22rem;
+
+  & .cm-editor {
+    max-height: 72svh;
+    background: transparent;
+    color: var(--ink);
+    font-size: var(--text-body);
+    line-height: var(--text-body--line-height);
+
+    &.cm-focused {
+      outline: none;
+    }
+  }
+
+  & .cm-scroller {
+    min-height: 22rem;
+    font-family: var(--font-sans);
+    line-height: inherit;
+  }
+
+  & .cm-content {
+    padding: var(--space-4) 0;
+    caret-color: var(--primary);
+  }
+
+  & .cm-line {
+    padding: 0 var(--space-4);
+  }
+
+  & .cm-cursor {
+    border-inline-start: 2px solid var(--primary);
+  }
+
+  & .cm-placeholder {
+    color: var(--ink-muted);
+  }
+
+  & .cm-selectionBackground,
+  & .cm-content ::selection {
+    background: var(--primary-soft) !important;
+  }
+
+  & .cm-md-h3 {
+    padding-top: var(--space-3);
+    font-size: var(--text-h3);
+    line-height: var(--text-h3--line-height);
+    font-weight: var(--text-h3--font-weight);
+    letter-spacing: var(--text-h3--letter-spacing);
+  }
+
+  & .cm-md-h4 {
+    padding-top: var(--space-2);
+    font-size: var(--text-label);
+    line-height: var(--text-label--line-height);
+    font-weight: var(--text-label--font-weight);
+  }
+
+  & .cm-md-strong {
+    font-weight: 600;
+  }
+
+  & .cm-md-em {
+    font-style: italic;
+  }
+
+  & .cm-md-del {
+    text-decoration: line-through;
+    color: var(--ink-muted);
+  }
+
+  & .cm-md-code {
+    padding: 1px var(--space-1);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    background: var(--bg);
+    font-family: var(--font-mono);
+    font-size: var(--text-code);
+  }
+
+  & .cm-md-link {
+    color: var(--link);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    text-decoration-thickness: 1px;
+  }
+
+  & .cm-md-listmark,
+  & .cm-md-bullet {
+    color: var(--ink-muted);
+  }
+
+  & .cm-md-listmark {
+    font-family: var(--font-mono);
+    font-size: var(--text-code);
+  }
+
+  & .cm-md-checkbox {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    margin-inline-end: var(--space-2);
+    vertical-align: -2px;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius-xs);
+    cursor: text;
+
+    &[data-checked='true'] {
+      border-color: var(--primary);
+      background: var(--primary);
+    /* A filled square inside a ring of the ground: checked, from tokens only. */
+    box-shadow: inset 0 0 0 2px var(--bg);
+    }
+  }
+
+  & .cm-md-quote {
+    border-inline-start: 1px solid var(--line-strong);
+    margin-inline-start: var(--space-4);
+    padding-inline-start: var(--space-4);
+    color: var(--ink-muted);
+  }
+
+  & .cm-md-code-line {
+    margin: 0 var(--space-4);
+    padding: 0 var(--space-4);
+    border-inline: 1px solid var(--line);
+    background: var(--bg);
+    font-family: var(--font-mono);
+    font-size: var(--text-code);
+    line-height: var(--text-code--line-height);
+  }
+
+  & .cm-md-code-first {
+    border-top: 1px solid var(--line);
+    border-start-start-radius: var(--radius-md);
+    border-start-end-radius: var(--radius-md);
+    padding-top: var(--space-2);
+  }
+
+  & .cm-md-code-last {
+    border-bottom: 1px solid var(--line);
+    border-end-start-radius: var(--radius-md);
+    border-end-end-radius: var(--radius-md);
+    padding-bottom: var(--space-2);
+  }
+
+  & .cm-md-fence {
+    color: var(--ink-muted);
+  }
+
+  & .cm-md-lang {
+    color: var(--ink-muted);
+    font-size: var(--text-small);
+  }
+
+  & .cm-md-table-line {
+    font-family: var(--font-mono);
+    font-size: var(--text-code);
+  }
+
+  & .cm-md-html {
+    color: var(--ink-muted);
+    text-decoration: line-through;
+  }
+
+  & .cm-md-rule {
+    display: inline-block;
+    width: 100%;
+    vertical-align: middle;
+    border-top: 1px solid var(--line-strong);
+    cursor: text;
+  }
+
+  & .cm-md-image {
+    display: inline-block;
+    max-width: 100%;
+    padding: var(--space-2) 0;
+    cursor: text;
+
+    & img {
+      display: block;
+      max-width: min(100%, 36rem);
+      max-height: 20rem;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+    }
+
+    &[data-broken] img {
+      display: none;
+    }
+
+    &[data-broken]::after {
+      content: attr(data-broken);
+      color: var(--danger);
+      font-size: var(--text-small);
+    }
+  }
+
+  & .cm-md-table {
+    margin: var(--space-2) var(--space-4);
+    overflow-x: auto;
+    cursor: text;
+
+    & table {
+      border-collapse: collapse;
+      font-size: var(--text-small);
+      line-height: var(--text-small--line-height);
+    }
+
+    & th,
+    & td {
+      padding: var(--space-2) var(--space-3);
+      border-bottom: 1px solid var(--line);
+      vertical-align: top;
+    }
+
+    & th {
+      color: var(--ink-muted);
+      font-weight: var(--text-label--font-weight);
+    }
   }
 }

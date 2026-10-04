@@ -11,7 +11,7 @@ import { TagInput } from '@/components/ui/TagInput'
 import { useSectionDraft } from '@/hooks/useSectionDraft'
 import { saveSkills } from '@/lib/home/actions'
 import { homeLimits, skillsZSchema, type SkillsInput } from '@/lib/validations/home'
-import { useFieldErrors } from './fieldErrors'
+import { useFieldErrors } from '@/components/Console/fieldErrors'
 
 type Group = SkillsInput['skillGroups'][number]
 
@@ -36,7 +36,7 @@ export function SkillsSection({ initial }: { initial: SkillsInput }) {
       description={t('description')}
       dirty={dirty}
       pending={pending}
-      onSave={save}
+      onSave={() => save()}
       onDiscard={discard}
     >
       {groups.length === 0 ? (

@@ -15,7 +15,7 @@ import type { ProjectCaseStudy, ProjectImage, ProjectTeaser, PublicProject } fro
 // The home page shows the first two published projects in console order; the rest live in /portfolio. See docs/home.md#structure-work-first-in-project-bands
 const HOME_PROJECT_COUNT = 2
 
-type TeaserRecord = Pick<ProjectRecord, 'slug' | 'title' | 'kind' | 'summary' | 'cover' | 'startedAt' | 'endedAt'>
+type TeaserRecord = Pick<ProjectRecord, 'slug' | 'title' | 'kind' | 'summary' | 'cover' | 'startedAt' | 'endedAt' | 'starred'>
 type LocalizedImage = Omit<ProjectImage, 'alt'> & { alt: Record<Locale, string> }
 
 function toImage(image: LocalizedImage, locale: Locale): ProjectImage {
@@ -35,6 +35,7 @@ function toTeaser(record: TeaserRecord, locale: Locale): ProjectTeaser {
     summary: record.summary[locale],
     year: projectYear(record),
     cover: record.cover ? toImage(record.cover, locale) : undefined,
+    starred: record.starred ?? false,
   }
 }
 
@@ -43,7 +44,7 @@ function toPublicProject(record: ProjectRecord, locale: Locale): PublicProject {
     ...toTeaser(record, locale),
     client: record.client[locale],
     stack: record.stack ?? [],
-    liveUrl: record.liveUrl ?? undefined,
+    liveUrl: record.liveUrl || undefined,
   }
 }
 
@@ -78,7 +79,7 @@ export async function getCaseStudy(
 
   const project: ProjectCaseStudy = {
     ...toPublicProject(record, locale),
-    repoUrl: record.repoUrl ?? undefined,
+    repoUrl: record.repoUrl || undefined,
     startedAt: record.startedAt?.toISOString(),
     endedAt: record.endedAt?.toISOString(),
     role: record.role?.[locale] || undefined,

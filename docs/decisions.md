@@ -2,6 +2,35 @@
 
 Newest first. Each entry gives the decision, why it was made, and what it constrains. When a decision is reversed, mark the old entry *Superseded* and link the new one; don't delete it.
 
+## 2026-10-04: Projects console: one draft per project, published projects stay complete
+
+- **Decision:** the console's projects index lists every project with quick actions that save at once (star, publish, reorder, delete a draft); each project is edited on its own page (`/console/portfolio/[project_id]`, the database id) as one local draft. A draft saves with an English title; publishing needs the full case study in both languages, and a published project's saves are held to the same check. Only drafts can be deleted. Every write revalidates the home page, `/portfolio` and every case study.
+- **Why:** quick actions shouldn't need a page load; a project is one document, so one Save is honest; a live case study with half its Arabic missing is worse than an unpublished one; revalidating the whole case-study route covers neighbours and slug changes without bookkeeping.
+- **Constrains:** to save work in progress on a live project, unpublish it first. The two seeded projects are live with `TODO:` copy and must be completed (or unpublished) before their first console save.
+- **Details:** `portfolio.md#console`.
+
+## 2026-10-04: Starred projects get a Recommended badge, not a selection
+
+- **Decision:** `starred` (Ram's word from the old dashboard) is back on `Projects`, as a "Recommended" badge on the portfolio index, its All projects list and the case study. It doesn't change the order or the home page.
+- **Why:** Ram wants to point visitors at the projects he recommends; the home page's selection by order (decided earlier the same day) stays.
+- **Constrains:** amends "Home page: the first two projects by order, then /portfolio": a flag exists again, but it selects nothing.
+- **Details:** `portfolio.md#starred`.
+
+## 2026-10-04: Project stories: Markdown with in-place preview, HTML made on save
+
+- **Decision:** stories are written in a CodeMirror 6 editor with an Obsidian-style live preview styled like `story-prose`. The Markdown is kept in `storyMarkdown`; on save, unified (`remark-parse`, `remark-gfm`, `remark-rehype`, `rehype-sanitize`, `rehype-stringify`) makes the sanitized HTML in `story`, which the site renders as-is. Approved by Ram along with the packages.
+- **Why:** Ram asked for the preview inside the input and for HTML stored in MongoDB for rendering speed. The editor and the saver speak the same dialect (CommonMark + GFM), the parser never ships to visitors, and the editor loads only on the edit page.
+- **Rejected:** split or tabbed previews (Ram chose in-place); `codemirror-markdown-hybrid`, Milkdown Crepe, TipTap and `@uiw/react-codemirror` (reasons in `portfolio.md#story-editor`); `marked` + `sanitize-html` and `markdown-it` + DOMPurify (a second parser or jsdom on the server).
+- **Constrains:** story images must be in our R2 bucket; raw HTML is dropped. A change to the dialect must change the editor (`editor.ts`) and the saver (`markdown.ts`) together.
+- **Details:** `portfolio.md#story-html`, `portfolio.md#story-editor`.
+
+## 2026-10-04: Tool logos in brand colours, from a static config
+
+- **Decision:** a project's stack is picked from `lib/projects/stack.ts` (89 tools with Simple Icons logos, CC0, copied in) and shown as tags with each logo in its brand colour. Near-black brand colours draw in the text colour; inside a violet field the tag becomes a dark chip. Tools are added by editing the file. This replaces free-text stack tags and the old dashboard's Framework and Styles radios.
+- **Why:** Ram asked for logos as static content he chooses from, in brand colours ("always", over single-colour or colour-on-hover).
+- **Constrains:** the only place the site shows colours beyond the one violet. Check light brand colours when the light theme ships.
+- **Details:** `portfolio.md#stack`.
+
 ## 2026-10-04: Console messages: three states in the URL, read on view, delete only from the archive
 
 - **Decision:** the inbox files messages as `new`, `read` or `archived` and filters them as Inbox, Unread and Archived. The filter and the open message are in the URL. A message is marked read from the client after it's shown. Delete is permanent and only allowed for archived messages, behind an inline second click. Reply is a `mailto:` with a subject in the visitor's language.

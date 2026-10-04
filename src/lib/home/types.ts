@@ -1,4 +1,4 @@
-import type { HomeFieldErrors } from '@/lib/validations/home'
+import type { SaveResult } from '@/lib/validations/errors'
 
 /** An image in R2 with its pixel size, for next/image. */
 export type HomeImage = { url: string; width: number; height: number }
@@ -42,6 +42,4 @@ export type HomeContent = {
 }
 
 /** What a console section's Server Action returns. Plain and serializable. */
-export type HomeSaveResult =
-  | { ok: true }
-  | { ok: false; error: 'unauthorized' | 'invalid' | 'unavailable'; fieldErrors?: HomeFieldErrors }
+export type HomeSaveResult = SaveResult

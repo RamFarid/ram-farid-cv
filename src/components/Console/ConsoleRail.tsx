@@ -8,39 +8,45 @@ import { useLocale, useTranslations } from 'next-intl'
 import { Link, usePathname } from '@/i18n/navigation'
 import { signOut } from '@/lib/auth/actions'
 import { dirtySectionsAtom } from '@/lib/state/console'
-import type { HomeSection } from '@/lib/validations/home'
 import { cn } from '@/utils'
 
-// The console's navigation: the three managers, and on the home page its sections in home-page order with a dot on
-// each one holding unsaved edits. A sticky side rail from lg, a top bar under it. See docs/console.md#layout
+// The console's navigation: the three managers, and under the current one its page's sections: the home page's in
+// home-page order (a dot on each one holding unsaved edits), or a project's on its edit page. A sticky side rail from
+// lg, a top bar under it. See docs/console.md#layout
 
 type ConsoleRailProps = {
   newMessages: number
   projects: { published: number; draft: number }
 }
 
-const sections: { id: HomeSection; index: string }[] = [
+type Anchor = { id: string; index?: string; label: string }
+
+const homeSections = [
   { id: 'about', index: '02' },
   { id: 'services', index: '03' },
   { id: 'skills', index: '04' },
   { id: 'certifications', index: '05' },
-]
+] as const
+
+const projectSections = ['details', 'timeline', 'media', 'story'] as const
 
 const itemClasses =
   'flex h-10 items-center gap-space-3 rounded-md px-space-3 text-label text-ink-muted transition-colors hover:bg-surface-raised hover:text-ink aria-[current=page]:bg-primary-soft aria-[current=page]:text-primary-ink'
 
 /** The last section whose top has passed the upper third of the screen, for the rail's current marker. */
-function useSectionInView(enabled: boolean) {
-  const [inView, setInView] = useState<HomeSection>('about')
+function useSectionInView(ids: readonly string[]) {
+  const [inView, setInView] = useState<string | null>(null)
+  const key = ids.join(' ')
 
   useEffect(() => {
-    if (!enabled) return
+    if (!key) return
+    const list = key.split(' ')
     let frame = 0
     const measure = () => {
       frame = 0
       const line = window.innerHeight / 3
-      let current: HomeSection = 'about'
-      for (const { id } of sections) {
+      let current = list[0]
+      for (const id of list) {
         const top = document.getElementById(id)?.getBoundingClientRect().top
         if (top !== undefined && top <= line) current = id
       }
@@ -57,7 +63,7 @@ function useSectionInView(enabled: boolean) {
       window.removeEventListener('scroll', onScroll)
       window.removeEventListener('resize', onScroll)
     }
-  }, [enabled])
+  }, [key])
 
   return inView
 }
@@ -69,7 +75,14 @@ export function ConsoleRail({ newMessages, projects }: ConsoleRailProps) {
   const pathname = usePathname()
   const dirty = useAtomValue(dirtySectionsAtom)
   const onHome = pathname === '/console'
-  const inView = useSectionInView(onHome)
+  const onProject = /^\/console\/portfolio\/[^/]+$/.test(pathname)
+  const anchors: Anchor[] = onHome
+    ? homeSections.map(({ id, index }) => ({ id, index, label: tSections(`${id}.title`) }))
+    : onProject
+      ? projectSections.map((id) => ({ id, label: tSections(`project.sections.${id}`) }))
+      : []
+  const anchorsUnder = onHome ? '/console' : onProject ? '/console/portfolio' : null
+  const inView = useSectionInView(anchors.map((anchor) => anchor.id))
   const other = locale === 'en' ? 'ar' : 'en'
   // Drafts live in component state, and a client-side navigation would drop them without the browser's leave-page
   // prompt. While anything is unsaved, links navigate the whole document so that prompt can step in.
@@ -117,23 +130,28 @@ export function ConsoleRail({ newMessages, projects }: ConsoleRailProps) {
               <Icon aria-hidden size={18} strokeWidth={1.75} className="shrink-0" />
               <span className="flex-1">{label}</span>
               {meta && (
-                <span className={cn('font-mono text-code tabular-nums', href === '/console/contact-msgs' ? 'text-ink' : 'text-ink-muted')}>
+                <span className={cn('font-mono text-code whitespace-nowrap tabular-nums', href === '/console/contact-msgs' ? 'text-ink' : 'text-ink-muted')}>
                   {meta}
+                </span>
+              )}
+              {href === '/console/portfolio' && dirty.has('project') && (
+                <span className="size-1.5 shrink-0 rounded-full bg-warning">
+                  <span className="sr-only">{t('unsaved')}</span>
                 </span>
               )}
             </Link>
 
-            {href === '/console' && onHome && (
+            {href === anchorsUnder && (
               <ul className="grid gap-px border-s border-line ms-space-5 ps-space-2 max-lg:hidden">
-                {sections.map(({ id, index }) => (
+                {anchors.map(({ id, index, label }) => (
                   <li key={id}>
                     <a
                       href={`#${id}`}
                       aria-current={inView === id ? 'location' : undefined}
                       className="flex h-9 items-center gap-space-3 rounded-md px-space-3 text-small text-ink-muted transition-colors hover:bg-surface-raised hover:text-ink aria-[current=location]:text-ink"
                     >
-                      <span className="font-mono text-code tabular-nums">{index}</span>
-                      <span className="flex-1">{tSections(`${id}.title`)}</span>
+                      {index && <span className="font-mono text-code tabular-nums">{index}</span>}
+                      <span className="flex-1">{label}</span>
                       {dirty.has(id) && (
                         <span className="size-1.5 rounded-full bg-warning">
                           <span className="sr-only">{t('unsaved')}</span>
@@ -148,16 +166,16 @@ export function ConsoleRail({ newMessages, projects }: ConsoleRailProps) {
         ))}
       </nav>
 
-      {onHome && (
+      {anchors.length > 0 && (
         <ul aria-label={t('sections')} className="-mx-space-1 flex gap-space-1 overflow-x-auto px-space-1 lg:hidden">
-          {sections.map(({ id, index }) => (
+          {anchors.map(({ id, index, label }) => (
             <li key={id} className="shrink-0">
               <a
                 href={`#${id}`}
                 className="flex h-9 items-center gap-space-2 rounded-md border border-line px-space-3 text-small text-ink-muted transition-colors hover:bg-surface-raised hover:text-ink"
               >
-                <span className="font-mono text-code tabular-nums">{index}</span>
-                {tSections(`${id}.title`)}
+                {index && <span className="font-mono text-code tabular-nums">{index}</span>}
+                {label}
                 {dirty.has(id) && (
                   <span className="size-1.5 rounded-full bg-warning">
                     <span className="sr-only">{t('unsaved')}</span>

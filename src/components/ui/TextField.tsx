@@ -7,7 +7,7 @@ type FieldProps = {
   label: string
   /** Also the control's id unless `id` is given. */
   name: string
-  hint?: string
+  hint?: ReactNode
   /** Says what to do: "Enter an email like name@domain.com". */
   error?: string
 }
@@ -43,14 +43,15 @@ function FieldShell({
           className={cn('flex items-start gap-space-2 text-small', error ? 'text-danger' : 'text-ink-muted')}
         >
           {error && <CircleAlert aria-hidden size={16} strokeWidth={2} className="mt-0.75 shrink-0" />}
-          {message}
+          {/* One flex item, so rich hints (an isolated path) flow as text. */}
+          <span>{message}</span>
         </p>
       )}
     </div>
   )
 }
 
-function describedBy(id: string, hint?: string, error?: string) {
+function describedBy(id: string, hint?: ReactNode, error?: string) {
   return {
     'aria-invalid': error ? true : undefined,
     'aria-describedby': error || hint ? `${id}-message` : undefined,
@@ -64,11 +65,12 @@ export function TextField({
   error,
   id = name,
   className,
+  controlClassName,
   ...props
-}: FieldProps & Omit<ComponentProps<'input'>, 'name'>) {
+}: FieldProps & Omit<ComponentProps<'input'>, 'name'> & { controlClassName?: string }) {
   return (
     <FieldShell id={id} label={label} hint={hint} error={error} className={className}>
-      <input id={id} name={name} className={cn(controlClasses, 'h-11')} {...describedBy(id, hint, error)} {...props} />
+      <input id={id} name={name} className={cn(controlClasses, 'h-11', controlClassName)} {...describedBy(id, hint, error)} {...props} />
     </FieldShell>
   )
 }

@@ -58,6 +58,7 @@ Next.js 16 (App Router, React Compiler enabled in `next.config.ts`), React 19, T
 | Class names | `cn()` = clsx + tailwind-merge, in `src/utils/index.ts` (Ram provides the implementation; use it, don't rewrite it). Its tailwind-merge knows the design-system token names: add new text, spacing or shadow tokens there too |
 | Toasts | Sonner |
 | Email | nodemailer |
+| Markdown | Project stories: CodeMirror 6 editor in the console; unified (remark + rehype-sanitize) to HTML on save |
 
 Use these and don't add an overlapping library without asking. Install each one when the first feature needs it.
 

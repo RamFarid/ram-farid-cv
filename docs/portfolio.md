@@ -45,6 +45,7 @@ Every published project carries a full case study (Ram, 2026-10-04). The fields 
 | Field | Shown |
 | --- | --- |
 | `title`, `kind`, `summary`, `cover` | Index frame, case-study head, next-project band, home bands |
+| `starred` | A "Recommended" badge on the index frame, the All projects row and the case-study head |
 | `client`, `stack`, `liveUrl` | Case-study head, home bands |
 | `role`, `startedAt`, `endedAt`, `repoUrl` | Case-study head (the year everywhere comes from `endedAt`, or `startedAt` while ongoing) |
 | `overview`, `deliverables`, `story` | Case-study story rows |
@@ -52,10 +53,12 @@ Every published project carries a full case study (Ram, 2026-10-04). The fields 
 
 ### Story HTML
 
-- `story` is HTML per locale, stored **already sanitized** and rendered as-is with `dangerouslySetInnerHTML` (Ram's choice: no Markdown parsing at render time).
-- **Sanitize on write, not on read.** The console's save action must allow only `h3`, `h4`, `p`, `ul`, `ol`, `li`, `a[href]`, `strong`, `em`, `code`, `pre`, `blockquote`, `table` (`thead`, `tbody`, `tr`, `th`, `td`), `img[src,alt]` and `hr`, and strip `<script>`, `style`, event attributes and `javascript:` URLs. That needs a sanitizer library, to be agreed when the console is built. Until then only `scripts/seed.mts` writes stories.
-- Headings start at `h3` because the row heading above is an `h2`; an `h2` inside the story is styled like an `h3`.
-- Styling is the `story-prose` utility in `globals.css`, from tokens only. Tables scroll inside their own box on phones.
+- `story` is HTML per locale, stored **already sanitized** and rendered as-is with `dangerouslySetInnerHTML` (Ram's choice: no Markdown parsing at render time). Ram writes Markdown (`storyMarkdown`); the console's save action turns it into this HTML.
+- **Sanitize on write, not on read.** `storyHtml()` in `lib/projects/markdown.ts` (server only) runs one unified pipeline: `remark-parse` → `remark-gfm` (tables, strikethrough with `~~` only, task lists, autolinks, footnotes) → `remark-rehype` → `rehype-sanitize` → heading shift and image check → `rehype-stringify`.
+- **Allow-list:** GitHub's sanitize schema narrowed to `h3`, `h4`, `p`, `br`, `hr`, `blockquote`, `pre`, `code`, `ul`, `ol`, `li`, `input` (disabled task-list checkboxes), `a[href]`, `strong`, `em`, `del`, `sup` and `section` (footnotes), `img[src,alt]`, and `table` (`thead`, `tbody`, `tr`, `th`, `td`). Links may be `http`, `https`, `mailto` or in-page; images must be `https` **and in our R2 bucket** (others are dropped). Raw HTML in the Markdown never reaches the sanitizer: `remark-rehype` drops it. Scripts, styles and event attributes can't survive.
+- **Headings:** the story sits under an `h2` row heading, so `#` becomes `h3` and `##` and deeper become `h4`. The editor shows the same two sizes.
+- Footnote labels are per locale ("Footnotes" / "الحواشي").
+- Styling is the `story-prose` utility in `globals.css`, from tokens only (task-list checkboxes, `del`, `sup` and the footnotes block included). Tables scroll inside their own box on phones.
 
 ## Images
 
@@ -68,7 +71,7 @@ Every published project carries a full case study (Ram, 2026-10-04). The fields 
 - Both pages are static with `revalidate = 86400`, like the home page. The case study prerenders every published slug (`generateStaticParams`); a project published after the build renders on its first visit (`dynamicParams` stays `true`), and unknown or draft slugs 404.
 - `generateMetadata` and the page share one database read through React `cache`.
 - The index reads teaser fields only (`findPublishedProjectTeasers`), not the stories and screenshots.
-- When the console exists, saving a project must revalidate `/portfolio`, that project's page, the page of the project before it (its next-project band), and the home page.
+- Every console write that changes a project revalidates the home page, `/portfolio` and **every** case study (`revalidatePath('/[locale]/portfolio/[project_id]', 'page')`), in both locales, plus the console layout. Revalidating the whole route covers the previous project's next-project band and a slug change without tracking neighbours; with up to 15 projects that's cheap.
 
 ## SEO
 
@@ -76,8 +79,64 @@ Every published project carries a full case study (Ram, 2026-10-04). The fields 
 - JSON-LD from `lib/seo/structured-data.ts`, rendered by `components/Reusable/seo/JsonLd`: `CollectionPage` with an `ItemList` on the index; `CreativeWork` and `BreadcrumbList` on each case study. The `creator`/`author` is a `Person` reference by `@id`; the full `Person` node belongs to the SEO step.
 - All copy, the contents list and every link are in the server HTML; only the counter and buttons need JavaScript.
 
+## Starred
+
+`starred` marks a project Ram recommends seeing. It shows a "Recommended" badge (a star and the word, neutral ink and a hairline, so it reads on the violet field too) on the index frame, the All projects row and the case-study head. It **doesn't** change the order or what the home page shows: the home page's bands stay the first two published projects by order (`decisions.md`, 2026-10-04). Starred from the console index (one click, saved at once) or the edit page.
+
+## Stack
+
+- `lib/projects/stack.ts` is the static list of tools a project can name: 89 entries, each with an id, display name, group (language, front end, styling, back end, data, hosting and infrastructure, services, tooling), brand colour and logo path. Projects store ids.
+- **Logos** are the single-path 24×24 marks from [Simple Icons](https://simpleicons.org) (CC0), copied into the file; no icon package is installed. Regenerate or extend by copying the `path` and `hex` from Simple Icons' `icons/<slug>.svg` and `data/simple-icons.json`.
+- **Colours:** each logo draws in its brand colour (Ram's call; the one exception to the one-violet rule). A brand colour under 2.5:1 against `surface` (black or near-black marks: Next.js, Vercel, GitHub, Express, Prisma and others) is stored as `color: null` and draws in the tag's text colour. A tool Simple Icons doesn't carry (Jotai, Zustand, next-intl, Nodemailer, AWS) gets a two-letter mono monogram.
+- `StackTag` (`components/Reusable/projects/StackTag.tsx`) renders a tool as a `Tag` with its logo. Inside a violet field it becomes a dark chip (`violet-ink` ground, `violet-fill` text), so brand colours stay readable on violet. An id that isn't in the config renders as plain text.
+- **Adding a tool is a code change on purpose**: the list is static content. The console's picker says so when a search finds nothing.
+- The light theme isn't shipped; when it is, check the brand colours that are light (JavaScript yellow) against its ground.
+
+## Console
+
+`/[locale]/console/portfolio` and `/[locale]/console/portfolio/[project_id]`, built 2026-10-04 (phase 3 of `console.md#phases`). Surface brief: `.impeccable/surfaces/src-app-locale-console-app-portfolio-page-tsx.md`.
+
+### Index
+
+- Every project, drafts too, in console `order`, as ruled rows: grip handle, 16:9 cover thumbnail (or the title's initial), the title (page locale, falling back to English) with its status badge and Recommended mark, the slug and kind · year in mono.
+- **Quick actions save at once** with a toast: star, Publish / Unpublish, View on the site (published), Delete (drafts only, behind an inline second click; deletes the project's R2 images too), and Edit.
+- **Reorder** by the grip (drag, or ArrowUp / ArrowDown on the focused handle). `SortableList`'s `onCommit` fires when a drag ends or a key moves a row; the index waits 600ms for the list to settle and saves the whole order in one write (`reorderProjectList`).
+- **Publishing an incomplete project** is refused: the toast names what's missing ("Title (Arabic), Cover, … and 4 more") with an Open action to the edit page.
+- **New project** asks only for the English title. The slug is made from it (`slugify`, numbered when taken), the draft goes to the end of the list and its edit page opens.
+
+### Edit page
+
+- `project_id` is the database id, not the slug, so the console address survives a slug change. Unknown or malformed ids 404.
+- **One draft for the whole project** (`useSectionDraft` under the key `project`): edits stay local, Discard returns to what is saved, the rail shows the unsaved dot on Projects and the browser's leave-page prompt guards reloads and rail links.
+- **Sticky bar:** back to Projects, the title, the status badge, the unsaved state, Discard, then:
+  - **Draft:** Save draft (primary while dirty) and Publish (primary when clean; "Save and publish" while dirty, which saves and publishes in one write).
+  - **Published:** Unpublish (keeps local edits), View on site (when clean) and Save.
+- **Sections** (anchored in the rail under Projects): Details (title, kind, client, address, summary, live and source links, Recommended), Dates and stack (start, end or empty for ongoing, the stack picker), Cover and gallery (16:9 cover with its description, up to 15 screens), Case study (role, overview, deliverables, the story editor).
+- **Gallery:** several uploads at once (drop or choose). A portrait image is guessed to be a phone screen. Each screen has its device, description (alt) and optional caption, and moves by its grip.
+- **Stack picker:** the chosen tools first (click to remove), then the catalogue by group with a search; at most 16, shown in the order picked.
+- **Slug:** editing a published project's slug warns that the old address stops working.
+
+### Validation and saving
+
+- Schemas: `lib/validations/project.ts`. `projectDraftZSchema` needs only a valid slug and the English title (plus limits and URL/date formats). `projectPublishZSchema` needs every case-study field in both languages, the start date, at least one tool and one deliverable, and the cover with its description; captions stay optional. Both check that the end date isn't before the start.
+- **A published project stays complete:** its saves are checked with the publish schema, on the page and in the action. To save work in progress on a live project, unpublish it first.
+- The action (`lib/projects/actions.ts`) checks the session, parses, then `saveProject()` (`lib/projects/console.ts`) checks what the schema can't (the slug is free, every image is in our bucket), turns both stories into HTML, writes everything with one `$set`, and returns the images the project no longer uses; those are deleted from R2 in `after()`. Story images count: an image removed from the Markdown is deleted too.
+- Errors come back keyed by dotted path (`screenshots.2.alt.ar`) with `Console.errors` keys, including `taken` (slug) and `beforeStart` (end date).
+- Uploads go to the R2 folders `projects/covers`, `projects/screens` and `projects/story` (`lib/storage/actions.ts`), through the shared browser helper `uploadImage()` (`lib/storage/upload.ts`).
+
+## Story editor
+
+`components/Console/Markdown/`: a multi-language Markdown field with Obsidian-style live preview, built on CodeMirror 6.
+
+- **Live preview** (`livePreview.ts`, a state field because table widgets replace whole lines): headings at the case study's `h3`/`h4` sizes, bold, italic, strikethrough, inline code, links, quotes, bullets, numbered lists, task checkboxes, fenced code (mono box, left to right in both languages), images (rendered from their URL), rules and tables (rendered as a table). Markers hide unless the caret is on that line (block marks) or inside that element (inline marks); clicking a rendered image, rule, checkbox or table puts the caret in its Markdown. Raw HTML is struck through, because saving drops it. Styles: `.md-editor` in `globals.css`, from the `story-prose` tokens.
+- **Dialect:** CommonMark + GFM (`@lezer/markdown`'s `GFM`), the same one `remark-gfm` saves; no sub/superscript or emoji shortcodes, so what's styled is what's saved. Footnotes aren't styled in the editor but are saved.
+- **Toolbar:** heading, subheading, bold (Ctrl+B), italic (Ctrl+I), strikethrough, inline code, link (Ctrl+K), bullets, numbers, checklist, quote, code block, table, divider, and image upload (to R2, inserted as `![Describe the image](url)` with the alt text selected). Enter continues lists and quotes.
+- **Languages:** the same locale-code switch as `LocalizedField` (`components/ui/LocaleSwitch.tsx`, shared). Each language keeps its own editor state, so undo never crosses languages; Arabic is right to left.
+- CodeMirror loads with the field (`import('./editor')`), so only the edit page pays for it.
+- **Rejected:** a split source/preview pane and Write/Preview tabs (Ram chose in-place preview); `codemirror-markdown-hybrid` (pulls in mermaid, KaTeX and marked, one maintainer); Milkdown Crepe (a ProseMirror word processor that pulls in Vue and rewrites the Markdown on save); TipTap (Markdown is a lossy export); `@uiw/react-codemirror` (a wrapper we don't need).
+
 ## Waiting on Ram
 
-- Real content for **HISTORY game** and **Ramlyon**: role, overview, deliverables, story (EN + AR), start and end dates, cover and up to 15 screenshots in R2. The seed fills `TODO:` placeholders.
-- `R2_PUBLIC_URL` for `.env` and the hosting environment.
-- Arabic copy for both pages (drafted by Claude).
+- Real content for **HISTORY game** and **Ramlyon**, now enterable from the console: role, overview, deliverables, story (EN + AR), dates, stack, cover and screenshots. They're published with `TODO:` placeholders, and a published project only saves once it's complete, so either fill everything in one sitting or unpublish them while working.
+- `R2_PUBLIC_URL` for the hosting environment, and `https://ramfarid.com` in the bucket's CORS rule before the console runs in production (only `http://localhost:3000` is allowed today).
+- Arabic copy for both pages and the console (drafted by Claude).

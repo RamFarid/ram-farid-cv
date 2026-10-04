@@ -5,7 +5,7 @@ import { getSession } from '@/lib/auth/session'
 import { createImageUpload, imageTypes, MAX_IMAGE_BYTES, type ImageType } from '.'
 
 // Folders the console may upload into, one per place an image is used. See docs/console.md#uploads
-const uploadFolders = ['home/portrait', 'home/certificates'] as const
+const uploadFolders = ['home/portrait', 'home/certificates', 'projects/covers', 'projects/screens', 'projects/story'] as const
 export type UploadFolder = (typeof uploadFolders)[number]
 
 const uploadZSchema = z.object({

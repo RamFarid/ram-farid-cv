@@ -82,6 +82,14 @@ The home page fills whole regions with violet (project band 1 and the contact se
   - the caret becomes the dark ink. `body` sets `caret-color` to the violet, which inherits as a resolved colour and would vanish in a field.
 - `--violet-fill` and `--violet-ink` (utilities `bg-violet-fill`, `bg-violet-ink`, `text-violet-*`) hold the real pair. They're resolved once on `:root`, and custom properties inherit their computed value, so the remapping can't change them. Use them for anything that must stay the real violet or the real ink inside a field, such as the dark screenshot slab in a project band.
 - `success` and `warning` aren't remapped: don't put a `StatusBadge` on violet.
+- Stack logo tags (`StackTag`) turn into dark chips inside a field (`violet-ink` ground, `violet-fill` text), so brand-coloured logos stay readable. The `RecommendedBadge` needs nothing: it's neutral ink and a hairline.
+
+## Brand-coloured tool logos (the one-violet exception)
+
+Since 2026-10-04 (phase 3), project stacks show each tool's logo in its **brand colour**. Ram chose this explicitly ("always", over single-colour and colour-on-hover), so it's the one place the site shows colours beyond the violet and the status colours. Contain it:
+- Brand colour belongs to the 14px logo mark only; the tag itself stays the standard mono `Tag` (text, border and ground from tokens).
+- A brand colour under 2.5:1 against `surface` is stored as `null` and draws in the tag's text colour; tools without a logo get a two-letter mono monogram. Each logo sits beside its name, so colour never carries meaning.
+- Don't reuse brand colours anywhere else (headings, borders, charts). Details: `portfolio.md#stack`.
 
 ## Components (built)
 
@@ -108,6 +116,15 @@ Shared compositions and utilities added with `/portfolio` (2026-10-04, `portfoli
 - `Reusable/media/PhotoViewer`: the one react-photo-view provider and caption bar, used by certificates and screenshots.
 - `Reusable/site/ContactCall`: the closing call on pages other than home.
 - In `globals.css`: `film-rail` (the sideways scroll-snap rail aligned to the container), the `[data-frame] > article` focus rule, and `story-prose` (token styles for the case-study HTML).
+- No new tokens.
+
+Projects console and public additions (2026-10-04, phase 3, `portfolio.md#console`):
+- `ui/LocaleSwitch`: the locale-code button and its popover, shared by `LocalizedField` and the story editor.
+- `TextField` gained `controlClassName` (the slug input is mono), and its message is one flex item so rich hints (an isolated `<bdi>` path) flow as text.
+- `Reusable/projects/StackTag` and `StackLogo` (logo tags, see above) and `RecommendedBadge` (a filled lucide star and "Recommended", neutral ink, 4px corners, 28px tall; one per project, beside the meta line or under the summary, never above a heading).
+- `Console/Projects/ProjectStatusBadge`: Published is a teal dot and teal text on a hairline in `success`, Draft a hairline badge in `ink-muted`.
+- `Console/Markdown/MarkdownField`: the story editor. Its live preview is `.md-editor` in `globals.css`, built from the same tokens as `story-prose`: headings at `h3`/`h4`, `strong` 600, inline code and code blocks in mono on `bg` with a hairline and 4/8px corners, quotes with a 1px `line-strong` rule, links in `link` with a 4px underline offset, task boxes 14px with 2px corners (checked: a `primary` square inside a ring of the ground, from tokens only), images in a hairline 8px frame, tables with hairline rows and `ink-muted` headers. Code fences hide outside the caret and leave the language as a small `ink-muted` label.
+- `story-prose` gained task-list checkboxes, `del`, `sup` and the footnotes block.
 - No new tokens.
 
 Console compositions (2026-10-04, `console.md`): `Console/ConsoleRail`, `SectionPanel` (sticky header; Save is primary only while dirty), `SortableList` (grip handle, pointer drag and arrow keys), `ImageUpload` (presigned R2 upload into a 4:5 or 4:3 frame), `ListParts`. In `globals.css`: `.locale-popover` (anchor positioning for `LocalizedField`). `TextField` now exports `controlClasses`; `Button` gained a neutral `quiet` variant for secondary actions beside a primary. No new tokens.

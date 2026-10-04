@@ -1,3 +1,5 @@
+import type { ProjectInput, ProjectStatus } from '@/lib/validations/project'
+
 // Projects as the public site shows them: localized fields already resolved to one locale.
 
 export type ProjectImage = {
@@ -15,6 +17,8 @@ export type ProjectTeaser = {
   summary: string
   year?: number
   cover?: ProjectImage
+  /** Shown as "Recommended"; it doesn't change the order. */
+  starred: boolean
 }
 
 /** A home-page band. */
@@ -42,3 +46,30 @@ export type ProjectCaseStudy = PublicProject & {
   storyHtml?: string
   screenshots: ProjectScreenshot[]
 }
+
+// The console's view: both locales, drafts included. See docs/portfolio.md#console
+
+/** One row of /console/portfolio. */
+export type ConsoleProjectRow = {
+  id: string
+  slug: string
+  title: { en: string; ar: string }
+  kind: { en: string; ar: string }
+  status: ProjectStatus
+  starred: boolean
+  year?: number
+  cover?: Omit<ProjectImage, 'alt'>
+}
+
+/** /console/portfolio/[project_id]: the stored project as the edit page's draft. */
+export type ConsoleProject = {
+  id: string
+  status: ProjectStatus
+  input: ProjectInput
+}
+
+/** What the index's quick actions return. `missing` lists the dotted paths a project needs before it can go live. */
+export type ProjectActionResult =
+  | { ok: true }
+  | { ok: false; error: 'unauthorized' | 'invalid' | 'unavailable' | 'notFound' }
+  | { ok: false; error: 'incomplete'; missing: string[] }

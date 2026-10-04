@@ -2,7 +2,8 @@ import type { ReactNode } from 'react'
 import { useFormatter, useTranslations } from 'next-intl'
 import { ButtonLink } from '@/components/ui/Button'
 import { Container } from '@/components/ui/Container'
-import { Tag } from '@/components/ui/Tag'
+import { RecommendedBadge } from '@/components/Reusable/projects/RecommendedBadge'
+import { StackTag } from '@/components/Reusable/projects/StackTag'
 import { Link } from '@/i18n/navigation'
 import { getProjectDuration } from '@/lib/projects'
 import type { ProjectCaseStudy } from '@/lib/projects/types'
@@ -59,6 +60,7 @@ export function CaseStudyHead({ project }: { project: ProjectCaseStudy }) {
             {project.title}
           </h1>
           <p className="max-w-measure text-body-lg text-ink-muted">{project.summary}</p>
+          {project.starred && <RecommendedBadge label={t('recommended')} />}
         </div>
 
         <div className="grid content-start gap-space-5 lg:col-span-4 lg:col-start-9 lg:pt-space-8">
@@ -79,7 +81,7 @@ export function CaseStudyHead({ project }: { project: ProjectCaseStudy }) {
                   <ul className="flex flex-wrap gap-space-2">
                     {project.stack.map((tech) => (
                       <li key={tech}>
-                        <Tag>{tech}</Tag>
+                        <StackTag id={tech} />
                       </li>
                     ))}
                   </ul>

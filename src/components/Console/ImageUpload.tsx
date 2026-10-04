@@ -5,36 +5,24 @@ import Image from 'next/image'
 import { CircleAlert, ImageUp, LoaderCircle } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/Button'
-import { getImageUploadUrl, type UploadFolder } from '@/lib/storage/actions'
-import type { ImageInput } from '@/lib/validations/home'
+import type { UploadFolder } from '@/lib/storage/actions'
+import { acceptedImageTypes, uploadImage, type UploadError, type UploadedImage } from '@/lib/storage/upload'
 import { cn } from '@/utils'
 
 // Uploads one image straight to R2 through a presigned PUT, then hands back its public URL and pixel size. The image
 // only goes live when the section is saved; until then the draft just points at it. See docs/console.md#uploads
 
-const accepted = ['image/png', 'image/jpeg', 'image/webp', 'image/avif'] as const
-const MAX_BYTES = 8 * 1024 * 1024
-
 type ImageUploadProps = {
   label: string
-  value: ImageInput | null
-  onChange: (value: ImageInput | null) => void
+  value: UploadedImage | null
+  onChange: (value: UploadedImage | null) => void
   folder: UploadFolder
-  /** The frame's aspect ratio, as the public page shows it. */
-  aspect: 'portrait' | 'landscape'
+  /** The frame's aspect ratio, as the public page shows it: 4:5, 4:3 or 16:9. */
+  aspect: 'portrait' | 'landscape' | 'video'
   /** `cover` crops to the frame (the portrait); `contain` shows the whole image (certificates). */
   fit?: 'cover' | 'contain'
   error?: string
   className?: string
-}
-
-type UploadError = 'type' | 'size' | 'failed' | 'unavailable'
-
-async function readSize(file: File) {
-  const bitmap = await createImageBitmap(file)
-  const size = { width: bitmap.width, height: bitmap.height }
-  bitmap.close()
-  return size
 }
 
 export function ImageUpload({ label, value, onChange, folder, aspect, fit = 'cover', error, className }: ImageUploadProps) {
@@ -48,30 +36,12 @@ export function ImageUpload({ label, value, onChange, folder, aspect, fit = 'cov
 
   const upload = async (file: File) => {
     setUploadError(null)
-    if (!(accepted as readonly string[]).includes(file.type)) return setUploadError('type')
-    if (file.size > MAX_BYTES) return setUploadError('size')
-
     setUploading(true)
-    try {
-      const [size, presigned] = await Promise.all([
-        readSize(file),
-        getImageUploadUrl({ folder, contentType: file.type as (typeof accepted)[number], size: file.size }),
-      ])
-      if (!presigned.ok) return setUploadError(presigned.error === 'unavailable' ? 'unavailable' : 'failed')
-
-      const response = await fetch(presigned.uploadUrl, {
-        method: 'PUT',
-        headers: { 'Content-Type': file.type },
-        body: file,
-      })
-      if (!response.ok) return setUploadError('failed')
-      onChange({ url: presigned.url, ...size })
-    } catch {
-      setUploadError('failed')
-    } finally {
-      setUploading(false)
-      if (input.current) input.current.value = ''
-    }
+    const result = await uploadImage(file, folder)
+    setUploading(false)
+    if (input.current) input.current.value = ''
+    if (result.ok) onChange(result.image)
+    else setUploadError(result.error)
   }
 
   const onDrop = (event: DragEvent<HTMLDivElement>) => {
@@ -96,7 +66,7 @@ export function ImageUpload({ label, value, onChange, folder, aspect, fit = 'cov
         onDrop={onDrop}
         className={cn(
           'relative grid place-items-center overflow-hidden rounded-lg border bg-surface-raised',
-          aspect === 'portrait' ? 'aspect-[4/5]' : 'aspect-[4/3]',
+          { portrait: 'aspect-[4/5]', landscape: 'aspect-[4/3]', video: 'aspect-video' }[aspect],
           value ? 'border-line' : 'border-dashed border-line-strong',
           dragOver && 'border-solid border-primary bg-primary-soft',
           (error || uploadError) && 'border-danger',
@@ -132,7 +102,7 @@ export function ImageUpload({ label, value, onChange, folder, aspect, fit = 'cov
           ref={input}
           id={inputId}
           type="file"
-          accept={accepted.join(',')}
+          accept={acceptedImageTypes.join(',')}
           className="sr-only"
           tabIndex={-1}
           aria-labelledby={`${inputId}-label`}

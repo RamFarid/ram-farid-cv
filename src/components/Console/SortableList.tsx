@@ -6,7 +6,8 @@ import { useTranslations } from 'next-intl'
 import { cn } from '@/utils'
 
 // An ordered list whose rows move by a grip handle: drag it with a pointer, or focus it and press ArrowUp / ArrowDown.
-// Order changes only the draft; the section's Save makes it live. See docs/console.md#lists
+// In a section, order changes only the draft and Save makes it live; a list that saves at once (the projects index)
+// listens to `onCommit`, which fires when a drag ends or a key moves a row. See docs/console.md#lists
 
 type SortableListProps<T> = {
   items: T[]
@@ -14,6 +15,8 @@ type SortableListProps<T> = {
   /** What the handle and the announcement call the row ("Move New web apps"). */
   getLabel: (item: T, index: number) => string
   onReorder: (items: T[]) => void
+  /** The settled order, once per drag or key press. */
+  onCommit?: (items: T[]) => void
   renderItem: (item: T, index: number, handle: ReactNode) => ReactNode
   className?: string
 }
@@ -25,12 +28,12 @@ function move<T>(items: T[], from: number, to: number) {
   return next
 }
 
-export function SortableList<T>({ items, getId, getLabel, onReorder, renderItem, className }: SortableListProps<T>) {
+export function SortableList<T>({ items, getId, getLabel, onReorder, onCommit, renderItem, className }: SortableListProps<T>) {
   const t = useTranslations('Console.list')
   const instructionsId = useId()
   const rows = useRef(new Map<string, HTMLLIElement>())
   const handles = useRef(new Map<string, HTMLButtonElement>())
-  const drag = useRef<{ id: string; startY: number } | null>(null)
+  const drag = useRef<{ id: string; startY: number; moved: boolean } | null>(null)
   const [dragging, setDragging] = useState<string | null>(null)
   const [announcement, setAnnouncement] = useState('')
   const refocus = useRef<string | null>(null)
@@ -50,7 +53,9 @@ export function SortableList<T>({ items, getId, getLabel, onReorder, renderItem,
     if (to < 0 || to >= items.length) return
     event.preventDefault()
     const item = items[index]
-    onReorder(move(items, index, to))
+    const next = move(items, index, to)
+    onReorder(next)
+    onCommit?.(next)
     announce(item, to)
     refocus.current = getId(item)
   }
@@ -58,7 +63,7 @@ export function SortableList<T>({ items, getId, getLabel, onReorder, renderItem,
   const onPointerDown = (event: PointerEvent<HTMLButtonElement>, id: string) => {
     if (event.button !== 0) return
     event.currentTarget.setPointerCapture(event.pointerId)
-    drag.current = { id, startY: event.clientY }
+    drag.current = { id, startY: event.clientY, moved: false }
     setDragging(id)
   }
 
@@ -75,6 +80,7 @@ export function SortableList<T>({ items, getId, getLabel, onReorder, renderItem,
       const to = offset > 0 ? index + 1 : index - 1
       const shift = offset > 0 ? neighbourRow.offsetHeight : -neighbourRow.offsetHeight
       state.startY += shift
+      state.moved = true
       offset -= shift
       onReorder(move(items, index, to))
       announce(items[index], to)
@@ -91,6 +97,7 @@ export function SortableList<T>({ items, getId, getLabel, onReorder, renderItem,
     if (row) row.style.translate = ''
     drag.current = null
     setDragging(null)
+    if (state.moved) onCommit?.(items)
   }
 
   return (
