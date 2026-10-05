@@ -98,11 +98,18 @@ export function useSectionDraft<T>(
     })
   }
 
+  /** Checks the draft without saving (for an action built from it); a failing draft shows its field errors. */
+  const validate = () => {
+    const parsed = schema.safeParse(draft)
+    if (!parsed.success) setCheckWith(() => schema)
+    return parsed.success
+  }
+
   const discard = () => {
     setDraft(baseline)
     setCheckWith(null)
     setServerErrors({})
   }
 
-  return { draft, update, errors, dirty, pending, save, discard }
+  return { draft, update, errors, dirty, pending, save, discard, validate }
 }

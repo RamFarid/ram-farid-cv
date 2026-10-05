@@ -5,7 +5,7 @@ The plan for `/[locale]` (the home page), agreed with Ram on 2026-10-03. Who the
 ## Job
 
 - **Audience:** freelance clients first, hiring teams second.
-- **Primary action:** **Start a project**, which scrolls to the contact form. **Secondary:** **Download CV**, from R2. Both appear in the intro; the CV is also in the nav.
+- **Primary action:** **Start a project**, which scrolls to the contact form. **Secondary:** **Download CV**, generated from the site's content (`cv.md`). Both appear in the intro; the CV is also in the nav.
 - **Proof:** the two live client projects, figures computed live, and the certificates themselves, viewable full size. No testimonials, invented metrics or client logos.
 
 ## Structure: work first, in project bands
@@ -39,13 +39,13 @@ The work leads. The first two published projects by console `order` each get a c
 - **Files:** primitives in `src/components/ui/` (see `design-system.md#components-built`); the header, footer, mobile menu, language switch and CV button in `src/components/Reusable/site/`; the sections in `src/components/Home/`.
 - **Data:**
   - Projects: page → `lib/projects` (resolves `{ en, ar }` to the page locale) → `lib/db/projects.ts`.
-  - Profile facts (career start, availability, contact channels, CV URL): `lib/profile`. The figures are computed there and formatted with next-intl, never typed into copy.
+  - Profile facts (career start, availability, contact channels): `lib/profile`. The figures are computed there and formatted with next-intl, never typed into copy.
   - The About heading, paragraphs, client count and portrait, the services, the skill groups and the certificates: the `HomeContents` document, edited in the console (`console.md#home-content`), read through `lib/home`. A section with no content is hidden.
 - **Violet:** project band 1 uses `field-violet` (`design-system.md#violet-fields`). Bands alternate violet and `surface`, and the screenshot swaps sides.
 - **Motion:** project screenshots rise into their band as it scrolls in, and the nav bar gains its shadow over the first 64px of scroll. Both are CSS scroll-driven animations with no JavaScript. They're off under reduced motion, and content stays visible where scroll timelines aren't supported. Arrows nudge 3px on hover.
 - **Section indexes** follow the brand book's "01 / Work" eyebrows: Work 01, About 02, Experience 03, Services 04, Skills 05, Certifications 06, Contact 07 (renumbered 2026-10-05).
 - **Header:** fixed, so the intro's dot grid runs under it. The skip link goes to `#main`. Under `lg` the links move into the menu; under `md` the CV button does too.
-- **Download CV** links to the PDF uploaded in the console (`console.md#cv`) and is a disabled button until one is saved.
+- **Download CV** is a plain link to `/api/cv`, the CV generated from the site's content and the console's CV setup (`cv.md`). It's always available.
 - **Placeholders:** a missing screenshot or portrait shows a mono monogram, never a stock image.
 
 ## Experience
@@ -116,7 +116,7 @@ Update the status column as each step lands.
 - **Portrait, availability and CV:**
   - the portrait (upload it in the console);
   - whether to show "Available for work" (shown for now);
-  - the CV file (upload it in the console).
+  - the CV's summary and setup (`/console/cv`; seeded from the last hand-made CV).
 - **Secrets for `.env`:** the Telegram bot token and contact group chat id, and the production Turnstile site and secret keys (`.env.example` has Cloudflare's test keys).
 
 ## Out of scope for now

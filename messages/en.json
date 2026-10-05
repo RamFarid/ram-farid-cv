@@ -209,6 +209,7 @@
       "name": "Ram",
       "badge": "Console",
       "home": "Home page",
+      "cv": "CV",
       "messages": "Messages",
       "projects": "Projects",
       "newMessages": "{count} new",
@@ -265,24 +266,119 @@
     },
     "cv": {
       "title": "CV",
-      "description": "The file behind every Download CV button: the intro and the nav on every page. One PDF serves both languages.",
-      "file": "CV file",
-      "empty": "Drop a PDF here. Until one is saved, the Download CV buttons stay disabled.",
-      "choose": "Upload PDF",
-      "replace": "Replace",
-      "download": "Download",
-      "remove": "Remove",
-      "uploading": "Uploading…",
-      "meta": "PDF · {size} · uploaded {date}",
-      "hint": "Visitors download it as Ram-Farid-CV.pdf. Replacing it deletes the old file once you save.",
-      "hintEmpty": "PDF, up to 10 MB.",
-      "saved": "Saved. Every Download CV button now gets this file.",
-      "errors": {
-        "type": "Use a PDF.",
-        "size": "This PDF is over 10 MB. Export a smaller one.",
-        "failed": "The upload didn’t finish. Try again.",
-        "unavailable": "Uploads are off: R2 isn’t configured on the server."
-      }
+      "lead": "The CV behind every Download CV button, built from the site’s content and this setup. It’s in English, laid out for applicant tracking systems: one column, real text, standard headings.",
+      "publicCv": "Download the public CV",
+      "oneTime": "Download one-time",
+      "building": "Building the PDF…",
+      "saved": "Saved. Every Download CV button now gets this CV.",
+      "oneTimeReady": "Downloading {file} · {pages, plural, =1 {1 page} other {# pages}}",
+      "oneTimeInvalid": "Some fields need a fix before the CV can be built.",
+      "groups": {
+        "header": {
+          "title": "Header",
+          "description": "Under your name: your title, a short line of tools, and how to reach you."
+        },
+        "summary": {
+          "title": "Summary",
+          "description": "The paragraph that opens the CV. Write it for the CV; the home page’s About stays as it is."
+        },
+        "experience": {
+          "title": "Experience",
+          "description": "The roles on the home page’s timeline, newest first. Professional ones go under Professional Experience, additional ones under Additional Experience."
+        },
+        "projects": {
+          "title": "Projects",
+          "description": "Selected Projects, in the order you set. Drafts can be picked too: the CV links the live product, not the case study."
+        },
+        "skills": {
+          "title": "Skills",
+          "description": "Groups from the home page’s skills, one line each. A tool added to a group later shows here by default."
+        },
+        "layout": {
+          "title": "Sections and file",
+          "description": "Which sections the CV shows and in what order, the certificates on it, and the paper size."
+        }
+      },
+      "headline": "Title",
+      "headlineHint": "The line under your name, such as Full Stack Engineer.",
+      "tools": "Tools line",
+      "toolsHint": "Up to 6, joined with | under the title.",
+      "toolsPlaceholder": "Add a tool",
+      "contacts": "Contact line",
+      "contactsHint": "Click one to leave it out. Each is written out in full, so a parser can read it.",
+      "contactNames": {
+        "location": "Location",
+        "phone": "Phone",
+        "email": "Email",
+        "website": "Website",
+        "linkedin": "LinkedIn",
+        "github": "GitHub"
+      },
+      "summary": "Summary",
+      "summaryHint": "Write <code>{placeholder}</code> for your whole years of experience: it reads <code>{years}</code> today and stays current. A blank line starts a new paragraph. Leave it empty to drop the section.",
+      "experienceEmpty": "No roles yet. Add them in the home page’s Experience section.",
+      "editRoles": "Roles, dates and highlights are edited in the <link>home page’s Experience section</link>.",
+      "tier": "Where {role} goes on the CV",
+      "tiers": {
+        "main": "Professional",
+        "additional": "Additional",
+        "hidden": "Hidden"
+      },
+      "present": "Present",
+      "highlights": "Highlights on the CV, after the summary",
+      "noHighlights": "This role has no highlights.",
+      "addProject": "Add a project",
+      "projectSearch": "Search projects",
+      "noProjectMatch": "No project matches.",
+      "projectsFull": "The CV holds up to {max} projects.",
+      "allProjectsPicked": "Every project is on the CV.",
+      "projectsEmpty": "No projects on the CV yet. Selected Projects is left out until you add one.",
+      "draft": "Draft",
+      "projectTitle": "Name on the CV",
+      "projectTitleHint": "Leave empty to use “{title}”.",
+      "links": "Links",
+      "linksHint": "Up to 3 addresses, written out under the name.",
+      "linksPlaceholder": "https://…",
+      "bullets": "Bullets",
+      "bullet": "Bullet {number}",
+      "addBullet": "Add a bullet",
+      "removeBullet": "Remove bullet {number}",
+      "bulletsEmpty": "No bullets yet: say what you built and what it changed.",
+      "removeProject": "Take {name} off the CV",
+      "addGroup": "Add a skill group",
+      "groupSearch": "Search groups",
+      "noGroupMatch": "No group matches.",
+      "allGroupsPicked": "Every group is on the CV.",
+      "skillsEmpty": "No skill groups on the CV yet. Technical Skills is left out until you add one.",
+      "groupLabel": "Label on the CV",
+      "groupLabelHint": "Leave empty to use “{name}”.",
+      "groupItems": "On the CV",
+      "groupItemsHint": "Click one to leave it out; tools come first, then practices.",
+      "removeGroup": "Take {name} off the CV",
+      "sections": "Sections",
+      "sectionsHint": "Drag to reorder. The header always comes first, and a section with nothing in it is left out.",
+      "sectionNames": {
+        "summary": "Professional Summary",
+        "skills": "Technical Skills",
+        "experience": "Professional Experience",
+        "additionalExperience": "Additional Experience",
+        "projects": "Selected Projects",
+        "certifications": "Certifications",
+        "education": "Education",
+        "languages": "Languages"
+      },
+      "show": "Show",
+      "certifications": "Certificates on the CV",
+      "certificationsEmpty": "No certificates yet. Add them in the home page’s Certifications section.",
+      "pageSize": "Paper size",
+      "pageSizes": {
+        "A4": "A4",
+        "LETTER": "US Letter"
+      },
+      "pageSizeHint": "A4 for most of the world; Letter for the US and Canada.",
+      "company": "Company, for a one-time CV",
+      "companyHint": "Only names the one-time file, like <code>{file}</code>. Never saved.",
+      "companyPlaceholder": "Acme Corp"
     },
     "about": {
       "title": "About",
@@ -654,6 +750,23 @@
         "native": "Native",
         "professional": "Professional working proficiency"
       }
+    }
+  },
+  "Cv": {
+    "name": "Ram Farid",
+    "documentTitle": "{name} CV",
+    "present": "Present",
+    "expected": "Expected {date}",
+    "language": "{name} – {level}",
+    "sections": {
+      "summary": "Professional Summary",
+      "skills": "Technical Skills",
+      "experience": "Professional Experience",
+      "additionalExperience": "Additional Experience",
+      "projects": "Selected Projects",
+      "certifications": "Certifications",
+      "education": "Education",
+      "languages": "Languages"
     }
   }
 }

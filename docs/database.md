@@ -102,15 +102,16 @@ One document: the home page's editable content, edited from the console section 
 
 ### `Profiles` (model `Profile`)
 
-One document: site-wide facts about Ram that the console manages. Facts that never change (career start, contact channels) stay in `lib/profile` as code. Added 2026-10-04 with the CV (`console.md#cv`).
+One document: site-wide settings about Ram that the console manages. Facts that never change (career start, contact channels, education, languages) stay in `lib/profile` as code. Added 2026-10-04 for the CV upload; since 2026-10-05 it holds the CV builder's setup (`cv.md`).
 
 | Field | Type | Notes |
 | --- | --- | --- |
-| `cv` | `{ url, name, size, uploadedAt: Date }`, optional | `url` is the public R2 URL; `name` is the uploaded file's own name (console only); `size` in bytes. Unset means no CV: the Download CV buttons are disabled. |
+| `cv` | object, optional | The CV setup, as `cvConfigZSchema` (`cv.md#setup`): `headline`, `tools[]`, `summary`, `contacts[]`, `sections[] { id, visible }`, `experience[] { id, tier, hiddenHighlights[] }`, `projects[] { projectId, title, links[], bullets[] { id, text } }`, `skills[] { groupId, label, hiddenItems[], hiddenPractices[] }`, `certifications[]` (ids), `pageSize` (`A4` or `LETTER`). Unset means nothing is picked yet: the CV shows the facts from `lib/profile` only. |
 | `createdAt`, `updatedAt` | timestamps | |
 
-- Saves use `findOneAndUpdate({}, …, { upsert: true })` (`$unset` to remove the CV) and return the previous document, so the replaced file can be deleted from R2.
-- The seed doesn't create it; the first CV save does.
+- `experience[].id`, `skills[].groupId` and `certifications[]` point into `HomeContents`; `projects[].projectId` is a `Projects` id. They aren't enforced: references whose target is gone are dropped on read (`normalizeCvConfig`).
+- Saves replace `cv` with `$set` on `updateOne({}, …, { upsert: true })`.
+- The old `cv: { url, name, size, uploadedAt }` file record (2026-10-04) was removed on 2026-10-05 with the upload.
 
 ### `Otps` (model `Otp`)
 
@@ -122,7 +123,7 @@ Trusted console devices. `tokenHash` (SHA-256 of the cookie's token, unique), `u
 
 ## Seeding
 
-`npm run db:seed` runs `scripts/seed.mts` with tsx (`--env-file=.env`). It inserts the two live client projects, **HISTORY game** and **Ramlyon**, as `published`, in order 1 and 2, and the `HomeContents` document with the home copy as it stood in `messages` and `lib/profile` when the console took it over (certificates start empty: the old rows were placeholders). Each `HomeContents` section is filled only while it's missing.
+`npm run db:seed` runs `scripts/seed.mts` with tsx (`--env-file=.env`). It inserts the two live client projects, **HISTORY game** and **Ramlyon**, as `published`, in order 1 and 2, and the `HomeContents` document with the home copy as it stood in `messages` and `lib/profile` when the console took it over (certificates start empty: the old rows were placeholders). Each `HomeContents` section is filled only while it's missing. The `Profiles` document gets the CV setup from Ram's last hand-made CV, only while `cv` is missing (`cv.md#setup`). The Architecture skill group (2026-10-05) is in the seed for new databases and was added once by hand to the existing one, because the seed never touches a section that exists.
 
 - Upserts by `slug` with `$setOnInsert`, so re-running never overwrites a project edited since.
 - On a project that already exists, fields added to the schema later are filled one at a time, only where the field is missing (`{ field: { $exists: false } }`). Added 2026-10-04 for the case-study fields.

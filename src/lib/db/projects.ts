@@ -81,6 +81,12 @@ export async function findProjectById(id: string) {
   return Project.findById(id).lean()
 }
 
+/** Every project, drafts too, with what the CV setup shows when picking one. See docs/cv.md#setup */
+export async function findCvProjects() {
+  await connectDB()
+  return Project.find().select('title status liveUrl repoUrl').sort({ order: 1, createdAt: 1 }).lean()
+}
+
 /** The id of the project using `slug`, if any. */
 export async function findProjectIdBySlug(slug: string) {
   await connectDB()

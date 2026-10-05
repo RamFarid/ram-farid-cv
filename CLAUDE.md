@@ -59,6 +59,7 @@ Next.js 16 (App Router, React Compiler enabled in `next.config.ts`), React 19, T
 | Toasts | Sonner |
 | Email | nodemailer |
 | Markdown | Project stories: CodeMirror 6 editor in the console; unified (remark + rehype-sanitize) to HTML on save |
+| PDF | The CV: `@react-pdf/renderer` on the server (`docs/cv.md`) |
 
 Use these and don't add an overlapping library without asking. Install each one when the first feature needs it.
 

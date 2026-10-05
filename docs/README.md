@@ -9,6 +9,7 @@ This folder is the long-term memory for ramfarid.com. Every session and every AI
 | [project.md](project.md) | What we're building: identity, site sections, `/console`, contact + Telegram flow, infrastructure |
 | [home.md](home.md) | Home page plan: audience, section structure, constraints, build steps and their status |
 | [portfolio.md](portfolio.md) | `/portfolio` and the case-study pages: structure, content fields, story HTML rules, images, rendering, SEO |
+| [cv.md](cv.md) | The generated CV: sources, the console setup, ATS rules, the PDF route, one-time CVs, caching plan |
 | [console.md](console.md) | `/console`: phases, sign-in, layout, home content, messages inbox, saving, the multi-language input, sortable lists, R2 uploads (the projects console is in `portfolio.md#console`) |
 | [contact.md](contact.md) | Contact form, validation, Turnstile, the Server Action, Telegram notification, contact channels |
 | [i18n.md](i18n.md) | next-intl routing, messages, RTL, digits, not-found behaviour |

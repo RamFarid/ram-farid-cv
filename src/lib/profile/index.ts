@@ -1,8 +1,5 @@
 import 'server-only'
-import { cache } from 'react'
 import { differenceInCalendarDays, subYears } from 'date-fns'
-import { findProfile, setProfileCv } from '@/lib/db/profile'
-import type { CvFile, CvInput } from '@/lib/validations/profile'
 import type { ContactChannel, SpokenLanguage } from './types'
 
 // Facts about Ram shown across the site. Figures are never typed into copy; see docs/project.md#identity
@@ -38,23 +35,6 @@ export const spokenLanguages: SpokenLanguage[] = [
   { id: 'ar', level: 'native' },
   { id: 'en', level: 'professional' },
 ]
-
-/** The CV's public R2 URL, uploaded from the console; null until there is one. See docs/console.md#cv */
-export const getCvUrl = cache(async () => (await findProfile())?.cv?.url ?? null)
-
-export async function getConsoleCv(): Promise<CvInput> {
-  const cv = (await findProfile())?.cv
-  return {
-    cv: cv ? { url: cv.url, name: cv.name, size: cv.size, uploadedAt: cv.uploadedAt.toISOString() } : null,
-  }
-}
-
-/** Sets or removes the CV and returns the R2 file it replaced, for the caller to delete after responding. */
-export async function setCv(cv: CvFile | null) {
-  const previous = await setProfileCv(cv ? { ...cv, uploadedAt: new Date(cv.uploadedAt) } : undefined)
-  const old = previous?.cv?.url
-  return old && old !== cv?.url ? [old] : []
-}
 
 // Confirmed by Ram on 2026-10-04; LinkedIn replaced Messenger on 2026-10-05 (the CV links it). Direct channels first; the
 // footer keeps GitHub, Email and WhatsApp. See docs/contact.md#channels

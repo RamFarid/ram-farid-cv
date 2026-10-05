@@ -19,7 +19,7 @@ The folder tree and the short rules are in `CLAUDE.md`. This doc covers what eac
 - **Read path (Server Component → domain → query):** pages stay thin, and the same domain function serves pages, actions and `generateMetadata`. Data never makes a client round-trip that it doesn't need.
 - **Write path (Server Action → validate → domain → query):** one mutation boundary per domain is where authorization and validation happen, so they can't be skipped. The client form reuses the same `*ZSchema` for instant feedback, but **the server re-validates every time**.
 - **Action results are plain serializable objects** (e.g. `{ ok: true, data } | { ok: false, error }`). The client turns them into UI feedback (Sonner toasts, field errors). Invalidation (`revalidatePath` / `revalidateTag`) happens inside the action after a successful write.
-- **`app/api/`** is for callers outside the app (webhooks, third parties). Internal UI never calls its own API routes.
+- **`app/api/`** is for callers outside the app (webhooks, third parties) and for files the browser fetches directly, such as the CV PDF at `/api/cv` (`cv.md`). Internal UI never calls its own API routes for data.
 
 ## Code style
 

@@ -3,16 +3,16 @@
 import { useEffect, useState, type MouseEvent } from 'react'
 import Image from 'next/image'
 import { useAtomValue } from 'jotai'
-import { ExternalLink, FolderKanban, House, LogOut, Mail } from 'lucide-react'
+import { ExternalLink, FileText, FolderKanban, House, LogOut, Mail } from 'lucide-react'
 import { useLocale, useTranslations } from 'next-intl'
 import { Link, usePathname } from '@/i18n/navigation'
 import { signOut } from '@/lib/auth/actions'
 import { dirtySectionsAtom } from '@/lib/state/console'
 import { cn } from '@/utils'
 
-// The console's navigation: the three managers, and under the current one its page's sections: the home page's in
-// home-page order (a dot on each one holding unsaved edits), or a project's on its edit page. A sticky side rail from
-// lg, a top bar under it. See docs/console.md#layout
+// The console's navigation: the four managers, and under the current one its page's sections: the home page's in
+// home-page order (a dot on each one holding unsaved edits), the CV page's groups, or a project's on its edit page. A
+// sticky side rail from lg, a top bar under it. See docs/console.md#layout
 
 type ConsoleRailProps = {
   newMessages: number
@@ -21,9 +21,7 @@ type ConsoleRailProps = {
 
 type Anchor = { id: string; index?: string; label: string }
 
-// The CV comes first: its button sits in the intro and the nav, above the numbered sections.
 const homeSections = [
-  { id: 'cv', index: undefined },
   { id: 'about', index: '02' },
   { id: 'experience', index: '03' },
   { id: 'services', index: '04' },
@@ -31,7 +29,11 @@ const homeSections = [
   { id: 'certifications', index: '06' },
 ] as const
 
+const cvGroups = ['header', 'summary', 'experience', 'projects', 'skills', 'layout'] as const
 const projectSections = ['details', 'timeline', 'media', 'story'] as const
+
+// Managers whose page is one draft: a dot on the link while it holds unsaved edits.
+const draftKeys: Record<string, string> = { '/console/cv': 'cv', '/console/portfolio': 'project' }
 
 const itemClasses =
   'flex h-10 items-center gap-space-3 rounded-md px-space-3 text-label text-ink-muted transition-colors hover:bg-surface-raised hover:text-ink aria-[current=page]:bg-primary-soft aria-[current=page]:text-primary-ink'
@@ -78,13 +80,16 @@ export function ConsoleRail({ newMessages, projects }: ConsoleRailProps) {
   const pathname = usePathname()
   const dirty = useAtomValue(dirtySectionsAtom)
   const onHome = pathname === '/console'
+  const onCv = pathname === '/console/cv'
   const onProject = /^\/console\/portfolio\/[^/]+$/.test(pathname)
   const anchors: Anchor[] = onHome
     ? homeSections.map(({ id, index }) => ({ id, index, label: tSections(`${id}.title`) }))
-    : onProject
-      ? projectSections.map((id) => ({ id, label: tSections(`project.sections.${id}`) }))
-      : []
-  const anchorsUnder = onHome ? '/console' : onProject ? '/console/portfolio' : null
+    : onCv
+      ? cvGroups.map((id) => ({ id, label: tSections(`cv.groups.${id}.title`) }))
+      : onProject
+        ? projectSections.map((id) => ({ id, label: tSections(`project.sections.${id}`) }))
+        : []
+  const anchorsUnder = onHome ? '/console' : onCv ? '/console/cv' : onProject ? '/console/portfolio' : null
   const inView = useSectionInView(anchors.map((anchor) => anchor.id))
   const other = locale === 'en' ? 'ar' : 'en'
   // Drafts live in component state, and a client-side navigation would drop them without the browser's leave-page
@@ -97,6 +102,7 @@ export function ConsoleRail({ newMessages, projects }: ConsoleRailProps) {
 
   const managers = [
     { href: '/console', label: t('home'), icon: House, meta: null },
+    { href: '/console/cv', label: t('cv'), icon: FileText, meta: null },
     {
       href: '/console/contact-msgs',
       label: t('messages'),
@@ -137,7 +143,7 @@ export function ConsoleRail({ newMessages, projects }: ConsoleRailProps) {
                   {meta}
                 </span>
               )}
-              {href === '/console/portfolio' && dirty.has('project') && (
+              {draftKeys[href] && dirty.has(draftKeys[href]) && (
                 <span className="size-1.5 shrink-0 rounded-full bg-warning">
                   <span className="sr-only">{t('unsaved')}</span>
                 </span>

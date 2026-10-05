@@ -1,6 +1,7 @@
 import 'server-only'
+import type { CvConfigInput } from '@/lib/validations/cv'
 import { connectDB } from './connect'
-import { Profile, type ProfileRecord } from './models/Profile'
+import { Profile } from './models/Profile'
 
 /** The profile document, or null before anything has been saved. */
 export async function findProfile() {
@@ -8,9 +9,8 @@ export async function findProfile() {
   return Profile.findOne().lean()
 }
 
-/** Sets the CV (creating the document if needed) and returns the document as it was before. */
-export async function setProfileCv(cv: ProfileRecord['cv']) {
+/** Replaces the CV setup, creating the document if needed. */
+export async function setProfileCv(cv: CvConfigInput) {
   await connectDB()
-  const update = cv ? { $set: { cv } } : { $unset: { cv: 1 } }
-  return Profile.findOneAndUpdate({}, update, { runValidators: true, upsert: true }).lean()
+  await Profile.updateOne({}, { $set: { cv } }, { runValidators: true, upsert: true })
 }

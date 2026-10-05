@@ -9,8 +9,9 @@ Ram's private dashboard. Shaped with Ram and phase 1 built on 2026-10-04. The de
 | 1 | Sign-in, and the home page's content | `/console`, `/console/sign-in` | Done 2026-10-04 |
 | 2 | Contact messages | `/console/contact-msgs`, `/console/contact-msgs/[msg_id]` | Done 2026-10-04 |
 | 3 | Projects and the portfolio | `/console/portfolio`, `/console/portfolio/[project_id]` | Done 2026-10-04 (`portfolio.md#console`) |
+| 4 | The CV builder | `/console/cv` | Done 2026-10-05 (`cv.md#console`) |
 
-The CV upload joined the main page on 2026-10-04 (`#cv`). The availability toggle is expected to join it later (not built).
+A CV upload joined the main page on 2026-10-04; on 2026-10-05 the generated CV replaced it, on its own page (`#cv`). The availability toggle is expected to join the main page later (not built).
 
 ## Routing and locales
 
@@ -34,9 +35,9 @@ The CV upload joined the main page on 2026-10-04 (`#cv`). The availability toggl
 
 ## Layout
 
-- **Rail** (start side, sticky, full height from `lg`): the brand with a "Console" badge; Home page, Messages (with the count of `new` messages) and Projects (published · drafts, plus a warning dot while a project has unsaved edits); under the current manager its page's section anchors: on the home page the CV, then the five sections in home-page order (02 About to 06 Certifications), with a warning dot on each section with unsaved edits, on a project's edit page its four sections (Details, Dates and stack, Cover and gallery, Case study); the current one in ink; then View site, the language switch and Sign out.
-- **Under `lg`** the rail is a top block that wraps: the brand, the three managers, a scrolling row of the section anchors (with the unsaved dots), then View site, language and Sign out.
-- **Order:** Home page is a peer of Messages and Projects, with its anchors nested under it, so the rail reads the same on every console page.
+- **Rail** (start side, sticky, full height from `lg`): the brand with a "Console" badge; Home page, CV (a warning dot while the CV setup has unsaved edits), Messages (with the count of `new` messages) and Projects (published · drafts, plus a warning dot while a project has unsaved edits); under the current manager its page's section anchors: on the home page the five sections in home-page order (02 About to 06 Certifications), with a warning dot on each section with unsaved edits, on the CV page its six groups, on a project's edit page its four sections (Details, Dates and stack, Cover and gallery, Case study); the current one in ink; then View site, the language switch and Sign out.
+- **Under `lg`** the rail is a top block that wraps: the brand, the four managers, a scrolling row of the section anchors (with the unsaved dots), then View site, language and Sign out.
+- **Order:** Home page is a peer of CV, Messages and Projects, with its anchors nested under it, so the rail reads the same on every console page.
 - **Main column:** up to 1200px. The h1 and a one-line lead, then one panel per section.
 
 ## Home content
@@ -59,7 +60,7 @@ The roles on the home page's timeline (`home.md#experience`), at most 12. Each h
 - The university isn't a role here; the timeline builds it from `lib/profile`.
 - The end month can't be before the start (`beforeStart`).
 - Every home section's save now returns the parsed draft (trimmed, and for Experience sorted), which becomes the new baseline.
-- The CV builder will reuse the English role, summary and highlights.
+- The CV uses each role's English role, summary and highlights, newest first, and decides per role whether it's Professional, Additional or left off (`cv.md#setup`).
 
 ### Services
 
@@ -75,13 +76,10 @@ Ordered, at most 24. Each has an image (R2, `object-contain` on a 4:3 mat), name
 
 ## CV
 
-The file behind every **Download CV** button (the intro, and the nav on every public page). One PDF for both languages (`project.md`). It's the first panel on the console's main page, with no home-page index, because the button sits above the numbered sections.
+The CV setup has its own page, `/console/cv`, and its own doc: `cv.md`. The CV is generated from the site's content, so there's no file to upload.
 
-- **Record:** `cv: { url, name, size, uploadedAt }` on the single `Profiles` document (`database.md#profiles`). `getCvUrl()` in `lib/profile` (React `cache`) is what the buttons read; without a CV they render disabled.
-- **Upload:** `uploadCv()` in `lib/storage/upload.ts` checks the type (`application/pdf`) and size (10 MB, `cvLimits`), asks `getCvUploadUrl()` for a presigned PUT under `cv/<uuid>.pdf`, and PUTs the file with `Content-Type` and `Content-Disposition: attachment; filename="Ram-Farid-CV.pdf"`. Both headers are signed into the URL, so the browser has to send them exactly; the bucket's CORS rule already allows any header.
-- **Saving:** a draft like any section: Replace and Remove change only the draft, and Discard returns to what is live. `saveCv` (`lib/profile/actions.ts`) checks the session, parses `cvZSchema`, rejects a URL outside the bucket, saves, deletes the replaced file after the response, then calls `revalidatePath('/[locale]', 'layout')`, which covers every public page and the console.
-- **Why a new key per upload:** objects are served with `immutable` caching (and Cloudflare sits in front), so overwriting one key would keep the old CV in caches.
-- Not built: a stable short link (such as `/cv`) that redirects to the current file. Add a route handler if the CV link needs to be shared outside the site.
+- Built 2026-10-05. It replaced the PDF upload of 2026-10-04, which was removed with its R2 folder (`cv/`) and its record (`decisions.md`).
+- The page is one draft with **Save** (the public CV at `/api/cv`) and **Download one-time** (a PDF of the draft for one application; nothing is stored).
 
 ## Saving
 
@@ -127,7 +125,7 @@ The inbox for contact-form submissions (`ContactMsgs`, `database.md`). Surface b
 ## Uploads
 
 - `@aws-sdk/client-s3` with `@aws-sdk/s3-request-presigner` (Ram's choice over `aws4fetch` and over uploading through the server).
-- `getImageUploadUrl({ folder, contentType, size })` checks the session and returns a **presigned PUT** valid for 5 minutes, with the content type and length signed, for a new key `<folder>/<uuid>.<ext>`. Folders: `home/portrait`, `home/certificates`, `projects/covers`, `projects/screens`, `projects/story`. PNG, JPEG, WebP or AVIF, up to 8 MB. The CV has its own action and folder (`#cv`).
+- `getImageUploadUrl({ folder, contentType, size })` checks the session and returns a **presigned PUT** valid for 5 minutes, with the content type and length signed, for a new key `<folder>/<uuid>.<ext>`. Folders: `home/portrait`, `home/certificates`, `projects/covers`, `projects/screens`, `projects/story`. PNG, JPEG, WebP or AVIF, up to 8 MB.
 - The browser side is `uploadImage()` in `lib/storage/upload.ts`, shared by `ImageUpload`, the project gallery and the story editor: it reads the image's pixel size (`createImageBitmap`), PUTs the file straight to R2, then puts `{ url, width, height }` in the draft. Nothing is live until the section is saved.
 - On save, images the section no longer uses are deleted from R2 after the response (`after()`). An upload that is never saved stays in R2; clean such orphans up by hand if they pile up.
 - The client turns off the SDK's default CRC32 checksums (`WHEN_REQUIRED`), which would otherwise be signed into the URL and break browser PUTs (Cloudflare's R2 + SDK v3 guidance).

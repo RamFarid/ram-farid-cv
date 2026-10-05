@@ -29,14 +29,14 @@ There is no 3D cube or other face-based navigation. That idea is dropped, even t
 
 **Languages:** English and Arabic (RTL) are built together, never one after the other. next-intl negotiates the language (cookie, then `Accept-Language`), and **English is the default**.
 
-**CV:** one universal file (not one per language), stored in **Cloudflare R2** and replaceable from the console.
+**CV:** one universal file (not one per language), in English, generated from the site's content and a setup in the console (`cv.md`).
 
 ## Console (`/console`)
 
 This is Ram's private dashboard for controlling the site's data:
 
 - **Projects:** create, edit, reorder, publish.
-- **CV file:** upload or replace in R2. Built 2026-10-04 (`console.md#cv`).
+- **CV:** the generated CV's setup, plus one-time CVs for a single application. Built 2026-10-05 (`cv.md`); it replaced the PDF upload of 2026-10-04.
 - **Site text:** editable copy, where the pages need it. Which strings are editable gets decided page by page and recorded here.
   - **Home page** (decided 2026-10-04): the About heading, paragraphs, client count and portrait; the services; the skill groups; the certificates. Section titles and all other UI copy stay in `messages`. Details: `console.md#home-content`.
 - **Messages:** contact-form submissions.

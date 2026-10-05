@@ -2,6 +2,13 @@
 
 Newest first. Each entry gives the decision, why it was made, and what it constrains. When a decision is reversed, mark the old entry *Superseded* and link the new one; don't delete it.
 
+## 2026-10-05: The CV is generated from the site, not uploaded
+
+- **Decision:** `/api/cv` renders the CV as a PDF from the site's content (experience roles, skill groups, certificates, projects, the facts in `lib/profile`) and a CV setup edited at `/console/cv` and stored in `Profiles.cv`. The console page has Save (the public CV) and Download one-time (a PDF of the unsaved draft for one application, never stored). The PDF upload of 2026-10-04 is removed entirely: code, R2 folder and record. The CV is English only, laid out for applicant tracking systems, with `@react-pdf/renderer` and the PDF standard font Helvetica. The CV summary and project bullets are written for the CV alone. An "Architecture" skill group joins the site's skills.
+- **Why:** Ram's idea: one source of truth, so the CV can't drift from the site, and a tailored CV per application without touching the public one. ATS compatibility was Ram's hard rule: a standard font extracts exactly, one column reads in order, and hyphenation is off so keywords stay whole.
+- **Rejected:** keeping the upload as a fallback (Ram: "fully purge it"); a headless browser printing HTML (heavy, and hosting is undecided); embedding the brand fonts (the site has only variable WOFF2, which react-pdf can't read, and an embedded subset extracts less reliably); reusing the case studies' deliverables as CV bullets; caching in this step (moved to the SEO/AEO/GEO turn).
+- **Constrains:** the CV's text must stay in Latin-1 (English); the 7-day cache, when it comes, must be purged by every save the CV reads from (CV, experience, skills, certificates, projects), never by a one-time download. Roles are ordered by date on the CV (newest first), with no manual order. Details: `cv.md`.
+
 ## 2026-10-05: Experience as a vertical timeline, roles in the console
 
 - **Decision:** the home page gets an Experience section after About: a vertical timeline, oldest first and ending at today, with cards alternating around a centre line from `lg` and the dates opposite them (pinned while the card scrolls past). Work roles are a `HomeContents.experience` list edited in the console and ordered by date; the university is built from `lib/profile`. The nav gets a sixth link, and the language switch shrinks to the other language's mark («ع» / "EN").
@@ -24,6 +31,8 @@ Newest first. Each entry gives the decision, why it was made, and what it constr
 - **Details:** `home.md#location-education-and-languages`.
 
 ## 2026-10-04: The CV: one PDF in R2, a draft until saved, stored in `Profiles`
+
+*Superseded on 2026-10-05 by "The CV is generated from the site, not uploaded". `Profiles` stays, holding the CV setup.*
 
 - **Decision:** the CV is uploaded from the console's main page as a PDF (up to 10 MB) straight to R2 with a presigned PUT, under a new key each time (`cv/<uuid>.pdf`). Like images, it goes live only on Save, and the replaced file is deleted after the save. Its record lives in a new single-document `Profiles` collection, not in `HomeContents`, because the button is in the nav of every public page. A save revalidates the whole `[locale]` layout. `CV_URL` is gone.
 - **Why:** a new key per upload keeps the immutable cache header honest behind Cloudflare; Save/Discard matches every other console section; `Profiles` is the home for later site-wide facts (the availability toggle) without tying them to the home page's content.

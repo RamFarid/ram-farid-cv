@@ -2,6 +2,7 @@
 // before the console managed it. See docs/database.md#seeding
 import mongoose from 'mongoose'
 import { HomeContent } from '@/lib/db/models/HomeContent'
+import { Profile } from '@/lib/db/models/Profile'
 import { Project } from '@/lib/db/models/Project'
 
 const uri = process.env.MONGO_URI
@@ -264,6 +265,17 @@ const homeContent = {
         { id: 'authorization', label: l('Authorization', 'التفويض والصلاحيات') },
       ],
     },
+    // Added on 2026-10-05 from Ram's CV, for the CV builder (docs/cv.md#setup).
+    {
+      id: 'architecture',
+      name: l('Architecture', 'معمارية الأنظمة'),
+      items: ['Multi-tenant SaaS', 'ERP', 'SSE', 'WebSockets', 'PWA'],
+      practices: [
+        { id: 'offlineSync', label: l('Offline synchronization', 'المزامنة دون اتصال') },
+        { id: 'i18nRtl', label: l('Internationalization and RTL', 'تعدد اللغات ودعم RTL') },
+        { id: 'technicalSeo', label: l('Technical SEO', 'تحسين محركات البحث التقني (SEO)') },
+      ],
+    },
     {
       id: 'devops',
       name: l('Servers and DevOps', 'الخوادم وDevOps'),
@@ -303,5 +315,61 @@ if (!existingHome) {
   }
   console.log(`home content: ${filled.length ? `already exists; filled missing ${filled.join(', ')}` : 'already exists, left unchanged'}`)
 }
+
+// The CV setup as Ram's last hand-made CV read (2026-10-05): the summary keeps "{years}" so the figure stays current.
+// St Mary Maadi joins Selected Projects once it's a project in the console. See docs/cv.md#setup
+const history = await Project.findOne({ slug: 'history-game' }).select('_id').lean()
+const cv = {
+  headline: 'Full Stack Engineer',
+  tools: ['Next.js', 'TypeScript', 'Node.js', 'PostgreSQL'],
+  summary:
+    'Full-stack engineer with {years}+ years of experience designing, building, and operating production web platforms and business systems using Next.js, TypeScript, Node.js, PostgreSQL, and MongoDB. Experience spans end-to-end product development, multi-tenant SaaS and ERP architecture, real-time and offline-first applications, data modeling, third-party integrations, cloud deployment, and performance optimization. Built and launched Ramlyon, a multi-tenant business management platform. Also built and currently maintain the HISTORY Metin2 website and wiki, serving 400+ registered users with about 100 active daily.',
+  contacts: ['location', 'phone', 'email', 'website', 'linkedin', 'github'],
+  sections: ['summary', 'skills', 'experience', 'additionalExperience', 'projects', 'certifications', 'education', 'languages'].map(
+    (id) => ({ id, visible: true }),
+  ),
+  experience: [
+    { id: 'ramlyon', tier: 'main', hiddenHighlights: [] },
+    { id: 'freelance', tier: 'main', hiddenHighlights: [] },
+    { id: 'we-make-solution', tier: 'additional', hiddenHighlights: [] },
+  ],
+  projects: history
+    ? [
+        {
+          projectId: history._id.toString(),
+          title: 'HISTORY Metin2 Platform',
+          links: ['https://m2history.com', 'https://wiki.m2history.com'],
+          bullets: [
+            {
+              id: 'website-wiki',
+              text: 'Built and currently maintain the public website and CMS-backed wiki for a 13-language MMORPG community, including authentication and account recovery, rankings, an item shop, live chat, news, changelogs, and administrative publishing.',
+            },
+            {
+              id: 'integration',
+              text: 'Integrated application data with MongoDB and MySQL game data and deployed the platform on Hetzner through Coolify and Cloudflare.',
+            },
+            {
+              id: 'performance',
+              text: 'Improved wiki load times by caching database queries and rendered components, reducing image payloads, and removing repeated data fetching.',
+            },
+          ],
+        },
+      ]
+    : [],
+  skills: ['frontend', 'state', 'backend', 'data', 'auth', 'architecture', 'devops'].map((groupId) => ({
+    groupId,
+    label: '',
+    hiddenItems: [],
+    hiddenPractices: [],
+  })),
+  certifications: [],
+  pageSize: 'A4',
+}
+const { upsertedCount: profileInserted, modifiedCount: cvFilled } = await Profile.updateOne(
+  { cv: { $exists: false } },
+  { $set: { cv } },
+  { upsert: !(await Profile.exists({})) },
+)
+console.log(`cv setup: ${profileInserted ? 'inserted' : cvFilled ? 'filled' : 'already exists, left unchanged'}`)
 
 await mongoose.disconnect()
