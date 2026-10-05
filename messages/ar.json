@@ -20,12 +20,14 @@
     "skip": "انتقل إلى المحتوى",
     "work": "الأعمال",
     "about": "نبذة",
+    "experience": "الخبرة",
     "services": "الخدمات",
     "skills": "المهارات",
     "contact": "تواصل",
     "cv": "تحميل السيرة الذاتية",
     "menu": "القائمة",
-    "switchLocale": "English"
+    "switchLocale": "English",
+    "switchLocaleShort": "EN"
   },
   "Home": {
     "intro": {
@@ -49,6 +51,18 @@
       "clients": "عميلًا",
       "projects": "مشاريع عملاء منشورة",
       "portraitAlt": "صورة رام فريد"
+    },
+    "experience": {
+      "eyebrow": "الخبرة",
+      "title": "مسيرتي حتى الآن",
+      "description": "من أول عميل في نوفمبر 2021 إلى ما أبنيه اليوم.",
+      "today": "اليوم",
+      "work": "عمل",
+      "study": "دراسة",
+      "present": "حتى الآن",
+      "years": "{count, plural, zero {} one {سنة} two {سنتان} few {# سنوات} many {# سنة} other {# سنة}}",
+      "months": "{count, plural, zero {} one {شهر} two {شهران} few {# أشهر} many {# شهرًا} other {# شهر}}",
+      "caseStudy": "اقرأ دراسة الحالة"
     },
     "services": {
       "eyebrow": "الخدمات",
@@ -283,6 +297,34 @@
       "years": "سنوات من العمل مع العملاء",
       "yearsNote": "منذ {since}",
       "portrait": "الصورة الشخصية"
+    },
+    "experience": {
+      "title": "الخبرة",
+      "description": "الأدوار التي يعرضها الخط الزمني في الصفحة الرئيسية. تُضاف الجامعة تلقائيًا من بيانات دراستك، وكل حفظ يرتّب القائمة حسب التاريخ.",
+      "role": "الدور",
+      "organization": "الجهة",
+      "organizationHint": "كما تكتبها الجهة، وهي نفسها في اللغتين. اكتب «Freelance» للعمل الحر.",
+      "startedOn": "البداية",
+      "endedOn": "النهاية",
+      "endedOnOngoing": "مستمر: يمتد الشريط حتى اليوم.",
+      "ongoing": "ما زلت أعمل هنا",
+      "ongoingHint": "يظهر في الخط الزمني ممتدًا حتى اليوم.",
+      "summary": "الملخص",
+      "highlights": "أبرز الإنجازات",
+      "highlightsEmpty": "لا توجد إنجازات بعد. من اثنين إلى أربعة، قصيرة ومحددة، هو الأفضل.",
+      "highlight": "الإنجاز {number}",
+      "removeHighlight": "إزالة الإنجاز {number}",
+      "addHighlight": "إضافة إنجاز",
+      "url": "الموقع الإلكتروني",
+      "urlHint": "اختياري. يظهر رابطًا تحت الدور.",
+      "project": "دراسة الحالة",
+      "noProject": "لا شيء",
+      "projectHint": "اختياري. يربط الدور بدراسة حالة مشروع ما دام منشورًا.",
+      "untitled": "الدور {number}",
+      "remove": "إزالة {name}",
+      "add": "إضافة دور",
+      "full": "هذا أقصى ما تتسع له القائمة ({max}).",
+      "empty": "لا توجد أدوار بعد. يعرض الخط الزمني الجامعة فقط حتى تضيف دورًا."
     },
     "services": {
       "title": "الخدمات",
@@ -601,6 +643,7 @@
       "university": "جامعة العاصمة",
       "formerly": "جامعة حلوان سابقًا",
       "year": "{year, plural, =1 {الفرقة الأولى} =2 {الفرقة الثانية} =3 {الفرقة الثالثة} other {الفرقة الرابعة}}، التخرج في {date}",
+      "studyYear": "{year, plural, =1 {الفرقة الأولى} =2 {الفرقة الثانية} =3 {الفرقة الثالثة} other {الفرقة الرابعة}}",
       "graduated": "التخرج في {date}"
     },
     "languages": {

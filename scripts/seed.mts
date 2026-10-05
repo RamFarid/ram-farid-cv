@@ -90,6 +90,94 @@ for (const project of projects) {
 // Certificates start empty: the old rows were placeholders, and the real ones are added in the console.
 const l = (en: string, ar: string) => ({ en, ar })
 
+// The experience timeline's roles, from Ram's CV (2026-10-05). The university isn't seeded: the timeline builds it from
+// lib/profile. Ramlyon links to its case study by project id.
+const ramlyon = await Project.findOne({ slug: 'ramlyon' }).select('_id').lean()
+const highlight = (id: string, en: string, ar: string) => ({ id, text: l(en, ar) })
+
+const experience = [
+  {
+    id: 'freelance',
+    role: l('Full-stack engineer', 'مهندس Full-stack'),
+    organization: 'Freelance',
+    startedOn: '2021-11',
+    summary: l(
+      'Production web apps for clients in hospitality, e-commerce, institutional services and gaming, from requirements to deployment and upkeep.',
+      'تطبيقات ويب تعمل في الإنتاج لعملاء في الضيافة والتجارة الإلكترونية والخدمات المؤسسية والألعاب، من المتطلبات إلى النشر والصيانة.',
+    ),
+    highlights: [
+      highlight(
+        'systems',
+        'Built booking and reservation systems, CMS platforms, real-time features, checkout flows and admin dashboards.',
+        'بنيت أنظمة حجوزات، ومنصات لإدارة المحتوى، وميزات فورية، ومسارات دفع، ولوحات تحكم.',
+      ),
+      highlight('codebases', 'Worked on new builds and inherited codebases alike.', 'عملت على مشاريع جديدة وعلى أكواد موروثة على حد سواء.'),
+      highlight(
+        'clients',
+        'Worked directly with clients and their existing teams to turn operational needs into maintainable features.',
+        'عملت مباشرة مع العملاء وفرقهم لتحويل احتياجات التشغيل إلى ميزات سهلة الصيانة.',
+      ),
+    ],
+  },
+  {
+    id: 'we-make-solution',
+    role: l('Front-end developer', 'مطوّر واجهات أمامية'),
+    organization: 'WE MAKE SOLUTION LIMITED',
+    startedOn: '2022-01',
+    endedOn: '2024-06',
+    summary: l(
+      'New features and careful refactors for client apps built with React and Next.js, at a software company in the UAE.',
+      'ميزات جديدة وإعادة هيكلة مدروسة لتطبيقات عملاء مبنية بـ React وNext.js، في شركة برمجيات بالإمارات.',
+    ),
+    highlights: [
+      highlight(
+        'guest-checkout',
+        'Enabled guest checkout on an e-commerce platform that required sign-in before ordering.',
+        'أتحت الشراء دون تسجيل دخول في منصة تجارة إلكترونية كانت تشترطه قبل الطلب.',
+      ),
+      highlight(
+        'contact-workflow',
+        'Built a contact-request workflow: a public form, an internal review page and email alerts.',
+        'بنيت مسارًا لطلبات التواصل: نموذج عام، وصفحة مراجعة داخلية، وتنبيهات بالبريد الإلكتروني.',
+      ),
+      highlight(
+        'realtime',
+        'Shipped multilingual interfaces and real-time features with next-intl, Node.js, Socket.IO and MongoDB.',
+        'أطلقت واجهات متعددة اللغات وميزات فورية باستخدام next-intl وNode.js وSocket.IO وMongoDB.',
+      ),
+    ],
+  },
+  {
+    id: 'ramlyon',
+    role: l('Founder and full-stack engineer', 'مؤسس ومهندس Full-stack'),
+    organization: 'Ramlyon',
+    url: 'https://ramlyon.com',
+    startedOn: '2026-05',
+    summary: l(
+      'A multi-tenant ERP and SaaS platform I built and launched in under four months, and run in production.',
+      'منصة ERP وSaaS متعددة المستأجرين بنيتها وأطلقتها في أقل من أربعة أشهر، وأديرها في الإنتاج.',
+    ),
+    highlights: [
+      highlight(
+        'modules',
+        'Commerce, orders, operations, CRM, subscription billing and analytics, with 45 staff permissions across 13 areas.',
+        'التجارة والطلبات والعمليات وإدارة العملاء والاشتراكات والتحليلات، مع 45 صلاحية للموظفين في 13 قسمًا.',
+      ),
+      highlight(
+        'architecture',
+        'Tenant-isolated PostgreSQL with Prisma, server-validated pricing, Argon2 sign-in, live order updates over SSE and offline sync with safe replay.',
+        'قاعدة PostgreSQL معزولة لكل مستأجر مع Prisma، وأسعار يتحقق منها الخادم، وتسجيل دخول بـ Argon2، وتحديثات فورية للطلبات عبر SSE، ومزامنة دون اتصال مع إعادة تشغيل آمنة.',
+      ),
+      highlight(
+        'caching',
+        'Edge caching took most public-menu visits from five database reads to zero.',
+        'خفّض التخزين المؤقت على الحافة قراءات قاعدة البيانات في أغلب زيارات القائمة العامة من خمس إلى صفر.',
+      ),
+    ],
+    ...(ramlyon && { projectId: ramlyon._id.toString() }),
+  },
+]
+
 const homeContent = {
   about: {
     title: l('One engineer, front to back', 'مهندس واحد، من الواجهة إلى الخادم'),
@@ -99,6 +187,7 @@ const homeContent = {
     ),
     clientCount: 16,
   },
+  experience,
   services: [
     {
       id: 'apps',

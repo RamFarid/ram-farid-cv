@@ -2,6 +2,7 @@ import { getLocale } from 'next-intl/server'
 import { About } from '@/components/Home/About'
 import { Certifications } from '@/components/Home/Certifications'
 import { Contact } from '@/components/Home/Contact'
+import { Experience } from '@/components/Home/Experience'
 import { Intro } from '@/components/Home/Intro'
 import { Services } from '@/components/Home/Services'
 import { Skills } from '@/components/Home/Skills'
@@ -31,6 +32,7 @@ export default async function Home() {
         <Intro />
         <Work projects={projects} />
         {content.about && <About about={content.about} projectCount={projectCount} />}
+        <Experience experience={content.experience} />
         {(content.services.length > 0 || content.skillGroups.length > 0) && (
           <div className="border-y border-line bg-surface py-space-8 md:py-space-9">
             <Container className="grid gap-space-9">

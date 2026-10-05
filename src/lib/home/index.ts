@@ -2,6 +2,7 @@ import 'server-only'
 import { cache } from 'react'
 import type { Locale } from 'next-intl'
 import { findHomeContent, updateHomeContent } from '@/lib/db/home'
+import { findPublishedSlugsByIds } from '@/lib/db/projects'
 import type { HomeContentRecord } from '@/lib/db/models/HomeContent'
 import { deleteObjects } from '@/lib/storage'
 import type { HomeContentInput, HomeSection } from '@/lib/validations/home'
@@ -27,7 +28,9 @@ function toParagraphs(body: string) {
 /** The home page's content in one locale. Empty before the seed has run, so the page hides those sections. */
 export const getHomeContent = cache(async (locale: Locale): Promise<HomeContent> => {
   const record = await findHomeContent()
-  if (!record) return { about: null, services: [], skillGroups: [], certifications: [] }
+  if (!record) return { about: null, experience: [], services: [], skillGroups: [], certifications: [] }
+  const experience = record.experience ?? []
+  const slugs = await findPublishedSlugsByIds(experience.flatMap((entry) => (entry.projectId ? [entry.projectId] : [])))
 
   // Lean reads skip schema defaults, so arrays added later may be missing. See docs/database.md
   return {
@@ -39,6 +42,19 @@ export const getHomeContent = cache(async (locale: Locale): Promise<HomeContent>
           portrait: toImage(record.about.portrait),
         }
       : null,
+    experience: experience
+      .map((entry) => ({
+        id: entry.id,
+        role: entry.role[locale],
+        organization: entry.organization,
+        url: entry.url || undefined,
+        startedOn: entry.startedOn,
+        endedOn: entry.endedOn || undefined,
+        summary: entry.summary[locale],
+        highlights: (entry.highlights ?? []).map((highlight) => highlight.text[locale]),
+        projectSlug: entry.projectId ? slugs.get(entry.projectId) : undefined,
+      }))
+      .sort((a, b) => a.startedOn.localeCompare(b.startedOn)),
     services: (record.services ?? []).map((service) => ({
       id: service.id,
       title: service.title[locale],
@@ -76,6 +92,17 @@ export async function getConsoleHomeContent(): Promise<HomeContentInput> {
       clientCount: record?.about?.clientCount ?? 0,
       portrait: imageOrNull(record?.about?.portrait),
     },
+    experience: (record?.experience ?? []).map((entry) => ({
+      id: entry.id,
+      role: localizedPair(entry.role),
+      organization: entry.organization,
+      url: entry.url ?? '',
+      startedOn: entry.startedOn,
+      endedOn: entry.endedOn ?? '',
+      summary: localizedPair(entry.summary),
+      highlights: (entry.highlights ?? []).map((highlight) => ({ id: highlight.id, text: localizedPair(highlight.text) })),
+      projectId: entry.projectId ?? '',
+    })),
     services: (record?.services ?? []).map((service) => ({
       id: service.id,
       title: localizedPair(service.title),
@@ -101,6 +128,7 @@ export async function getConsoleHomeContent(): Promise<HomeContentInput> {
 
 type SectionPatch =
   | { section: 'about'; value: HomeContentInput['about'] }
+  | { section: 'experience'; value: HomeContentInput['experience'] }
   | { section: 'services'; value: HomeContentInput['services'] }
   | { section: 'skills'; value: HomeContentInput['skillGroups'] }
   | { section: 'certifications'; value: HomeContentInput['certifications'] }
@@ -122,17 +150,26 @@ export async function saveHomeSection(patch: SectionPatch) {
   const update =
     patch.section === 'about'
       ? { about: { ...patch.value, portrait: patch.value.portrait ?? undefined } }
-      : patch.section === 'services'
-        ? { services: patch.value }
-        : patch.section === 'skills'
-          ? { skillGroups: patch.value }
-          : {
-              certifications: patch.value.map((cert) => ({
-                ...cert,
-                issuedOn: cert.issuedOn || undefined,
-                image: cert.image ?? undefined,
-              })),
-            }
+      : patch.section === 'experience'
+        ? {
+            experience: patch.value.map((entry) => ({
+              ...entry,
+              url: entry.url || undefined,
+              endedOn: entry.endedOn || undefined,
+              projectId: entry.projectId || undefined,
+            })),
+          }
+        : patch.section === 'services'
+          ? { services: patch.value }
+          : patch.section === 'skills'
+            ? { skillGroups: patch.value }
+            : {
+                certifications: patch.value.map((cert) => ({
+                  ...cert,
+                  issuedOn: cert.issuedOn || undefined,
+                  image: cert.image ?? undefined,
+                })),
+              }
 
   const previous = await updateHomeContent(update as Partial<HomeContentRecord>)
   const kept = new Set(sectionImageUrls(patch.section, update as Partial<HomeContentRecord>))

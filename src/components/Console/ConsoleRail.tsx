@@ -25,9 +25,10 @@ type Anchor = { id: string; index?: string; label: string }
 const homeSections = [
   { id: 'cv', index: undefined },
   { id: 'about', index: '02' },
-  { id: 'services', index: '03' },
-  { id: 'skills', index: '04' },
-  { id: 'certifications', index: '05' },
+  { id: 'experience', index: '03' },
+  { id: 'services', index: '04' },
+  { id: 'skills', index: '05' },
+  { id: 'certifications', index: '06' },
 ] as const
 
 const projectSections = ['details', 'timeline', 'media', 'story'] as const

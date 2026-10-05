@@ -2,6 +2,14 @@
 
 Newest first. Each entry gives the decision, why it was made, and what it constrains. When a decision is reversed, mark the old entry *Superseded* and link the new one; don't delete it.
 
+## 2026-10-05: Experience as a vertical timeline, roles in the console
+
+- **Decision:** the home page gets an Experience section after About: a vertical timeline, oldest first and ending at today, with cards alternating around a centre line from `lg` and the dates opposite them (pinned while the card scrolls past). Work roles are a `HomeContents.experience` list edited in the console and ordered by date; the university is built from `lib/profile`. The nav gets a sixth link, and the language switch shrinks to the other language's mark («ع» / "EN").
+- **Why:** a visitor wants the facts of each role at a glance: when, what, where. The CV builder needs the same roles, so one source (the console) feeds both. Six links were Ram's call.
+- **Rejected:** a Gantt-style time axis with one lane per role (built first the same day; precise about overlaps but slow to read, Ram said); sticky cards like Ram's St Mary timeline (too heavy with this much content, so the dates stick instead); manual ordering (the dates already decide it); a university entry in the console (it would drift from the computed study year); drawing graduation ahead of time (Ram: the end of college isn't experience).
+- **Constrains:** section indexes moved (Experience 03 to Contact 07). Nav links now show from `lg`, not `md`.
+- **Details:** `home.md#experience`, `console.md#experience`.
+
 ## 2026-10-05: LinkedIn back, in Messenger's place
 
 - **Decision:** LinkedIn (`linkedin.com/in/ramfarid`, a `profile` channel) replaces Messenger in `contactChannels`. The footer is unchanged (GitHub, Email, WhatsApp).

@@ -5,6 +5,7 @@ import { notFound } from 'next/navigation'
 import { AboutSection } from '@/components/Console/Home/AboutSection'
 import { CertificationsSection } from '@/components/Console/Home/CertificationsSection'
 import { CvSection } from '@/components/Console/Home/CvSection'
+import { ExperienceSection } from '@/components/Console/Home/ExperienceSection'
 import { ServicesSection } from '@/components/Console/Home/ServicesSection'
 import { SkillsSection } from '@/components/Console/Home/SkillsSection'
 import { ButtonLink } from '@/components/ui/Button'
@@ -13,6 +14,7 @@ import { requireSession } from '@/lib/auth/session'
 import { getConsoleHomeContent } from '@/lib/home'
 import { careerStart, getConsoleCv, getYearsOfExperience } from '@/lib/profile'
 import { getPublishedProjectCount } from '@/lib/projects'
+import { getConsoleProjects } from '@/lib/projects/console'
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations('Console.home')
@@ -26,12 +28,13 @@ export default async function ConsoleHomePage({ params }: PageProps<'/[locale]/c
   if (!hasLocale(routing.locales, locale)) notFound()
   await requireSession(locale)
 
-  const [t, format, content, cv, projectCount] = await Promise.all([
+  const [t, format, content, cv, projectCount, projects] = await Promise.all([
     getTranslations('Console.home'),
     getFormatter(),
     getConsoleHomeContent(),
     getConsoleCv(),
     getPublishedProjectCount(),
+    getConsoleProjects(),
   ])
   const since = format.dateTime(careerStart, { month: 'long', year: 'numeric', timeZone: 'UTC' })
 
@@ -49,6 +52,10 @@ export default async function ConsoleHomePage({ params }: PageProps<'/[locale]/c
 
       <CvSection initial={cv} />
       <AboutSection initial={content.about} projectCount={projectCount} years={getYearsOfExperience()} since={since} />
+      <ExperienceSection
+        initial={{ experience: content.experience }}
+        projects={projects.map((project) => ({ id: project.id, title: project.title[locale] || project.title.en || project.slug }))}
+      />
       <ServicesSection initial={{ services: content.services }} />
       <SkillsSection initial={{ skillGroups: content.skillGroups }} />
       <CertificationsSection initial={{ certifications: content.certifications }} />

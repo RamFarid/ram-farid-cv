@@ -10,7 +10,7 @@ export function Services({ services, className }: { services: HomeService[]; cla
 
   return (
     <section id="services" aria-labelledby="services-title" className={cn('grid content-start gap-space-7', className)}>
-      <SectionHeading id="services-title" index="03" eyebrow={t('eyebrow')} title={t('title')} />
+      <SectionHeading id="services-title" index="04" eyebrow={t('eyebrow')} title={t('title')} />
 
       <ul className="divide-y divide-line border-y border-line">
         {services.map((service) => (

@@ -28,6 +28,23 @@ const aboutSchema = new mongoose.Schema(
   { _id: false },
 )
 
+// One role on the timeline. Dates are `YYYY-MM`; no `endedOn` means ongoing. See docs/home.md#experience
+const experienceSchema = new mongoose.Schema(
+  {
+    id: itemId,
+    role: localizedString(),
+    organization: { type: String, required: true, trim: true },
+    url: String,
+    startedOn: { type: String, required: true },
+    endedOn: String,
+    summary: localizedString(),
+    highlights: { type: [new mongoose.Schema({ id: itemId, text: localizedString() }, { _id: false })], default: [] },
+    // A project's database id, so a slug change doesn't break the link.
+    projectId: String,
+  },
+  { _id: false },
+)
+
 const serviceSchema = new mongoose.Schema({ id: itemId, title: localizedString(), body: localizedString() }, { _id: false })
 
 const skillGroupSchema = new mongoose.Schema(
@@ -60,6 +77,7 @@ const certificationSchema = new mongoose.Schema(
 const homeContentSchema = new mongoose.Schema(
   {
     about: { type: aboutSchema, required: true },
+    experience: { type: [experienceSchema], default: [] },
     services: { type: [serviceSchema], default: [] },
     skillGroups: { type: [skillGroupSchema], default: [] },
     certifications: { type: [certificationSchema], default: [] },

@@ -89,6 +89,7 @@ One document: the home page's editable content, edited from the console section 
 | Field | Type | Notes |
 | --- | --- | --- |
 | `about` | `{ title, body: localized, clientCount: number, portrait?: image }` | `body` is plain text; blank lines split paragraphs and `{clients}` becomes the client count. |
+| `experience` | `{ id, role: localized, organization, url?, startedOn, endedOn?, summary: localized, highlights: { id, text: localized }[], projectId? }[]` | Timeline roles, saved oldest first. Dates are `YYYY-MM`; no `endedOn` means ongoing. `projectId` is a `Projects` `_id` as a string. Seeded 2026-10-05 from Ram's CV. |
 | `services` | `{ id, title, body: localized }[]` | In display order. |
 | `skillGroups` | `{ id, name: localized, items: string[], practices: { id, label: localized }[] }[]` | `items` are tech names, the same in both languages. |
 | `certifications` | `{ id, name, issuer, issuedOn?, description: localized, skills: string[], image?: image }[]` | `name` and `issuer` as issued; `issuedOn` is `YYYY-MM`. |

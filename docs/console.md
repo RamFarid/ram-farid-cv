@@ -34,7 +34,7 @@ The CV upload joined the main page on 2026-10-04 (`#cv`). The availability toggl
 
 ## Layout
 
-- **Rail** (start side, sticky, full height from `lg`): the brand with a "Console" badge; Home page, Messages (with the count of `new` messages) and Projects (published · drafts, plus a warning dot while a project has unsaved edits); under the current manager its page's section anchors: on the home page the CV, then the four sections in home-page order (02 About to 05 Certifications), with a warning dot on each section with unsaved edits, on a project's edit page its four sections (Details, Dates and stack, Cover and gallery, Case study); the current one in ink; then View site, the language switch and Sign out.
+- **Rail** (start side, sticky, full height from `lg`): the brand with a "Console" badge; Home page, Messages (with the count of `new` messages) and Projects (published · drafts, plus a warning dot while a project has unsaved edits); under the current manager its page's section anchors: on the home page the CV, then the five sections in home-page order (02 About to 06 Certifications), with a warning dot on each section with unsaved edits, on a project's edit page its four sections (Details, Dates and stack, Cover and gallery, Case study); the current one in ink; then View site, the language switch and Sign out.
 - **Under `lg`** the rail is a top block that wraps: the brand, the three managers, a scrolling row of the section anchors (with the unsaved dots), then View site, language and Sign out.
 - **Order:** Home page is a peer of Messages and Projects, with its anchors nested under it, so the rail reads the same on every console page.
 - **Main column:** up to 1200px. The h1 and a one-line lead, then one panel per section.
@@ -50,6 +50,16 @@ One `HomeContents` document (model `HomeContent`), edited section by section. Th
 - **Client count:** a typed number (0 to 9999).
 - **Live client projects** and **years of client work** are shown read-only: published projects counted from `Projects`, years computed from `careerStart` in `lib/profile`.
 - **Portrait:** an R2 image, `object-cover` in the 4:5 frame. Without one, the public page keeps the monogram.
+
+### Experience
+
+The roles on the home page's timeline (`home.md#experience`), at most 12. Each has a multi-language **role**, an **organization** (as written, the same in both languages; "Freelance" for client work), **started** and **ended** months (`YYYY-MM`; "I still work here" clears the end and runs the bar to today), a multi-language **summary**, up to four multi-language **highlights**, an optional **website** and an optional **case study** (a project, linked by its database id so a slug change doesn't break it).
+
+- There's no drag handle: the dates decide the order. Saving sorts the list oldest first and returns it, so the console shows that order after the save.
+- The university isn't a role here; the timeline builds it from `lib/profile`.
+- The end month can't be before the start (`beforeStart`).
+- Every home section's save now returns the parsed draft (trimmed, and for Experience sorted), which becomes the new baseline.
+- The CV builder will reuse the English role, summary and highlights.
 
 ### Services
 

@@ -12,7 +12,7 @@ export function Skills({ skillGroups, className }: { skillGroups: HomeSkillGroup
 
   return (
     <section id="skills" aria-labelledby="skills-title" className={cn('grid content-start gap-space-7', className)}>
-      <SectionHeading id="skills-title" index="04" eyebrow={t('eyebrow')} title={t('title')} />
+      <SectionHeading id="skills-title" index="05" eyebrow={t('eyebrow')} title={t('title')} />
 
       <div className="grid gap-x-space-6 gap-y-space-7 border-t border-line pt-space-6 sm:grid-cols-2 lg:grid-cols-3">
         {skillGroups.map((group) => (

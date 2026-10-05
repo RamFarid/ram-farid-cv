@@ -279,6 +279,17 @@
       animation-range: entry 0% cover 40%;
     }
 
+    /*
+     * The experience timeline's line draws itself down to the middle of the screen as the page scrolls: the view
+     * timeline is inset to a line at mid-height, so it runs from the line's top reaching the middle to its bottom doing so.
+     */
+    .scroll-draw {
+      transform-origin: 50% 0;
+      animation: scroll-draw linear both;
+      animation-timeline: view(50% 50%);
+      animation-range: cover 0% cover 100%;
+    }
+
     /* The floating nav bar gains its shadow over the first 64px of scroll (NavBar README: "once the page scrolls it gains shadow-md"). */
     .scroll-shadow {
       animation: scroll-shadow linear both;
@@ -502,6 +513,12 @@
 @keyframes scroll-rise {
   from {
     translate: 0 var(--space-8);
+  }
+}
+
+@keyframes scroll-draw {
+  from {
+    scale: 1 0;
   }
 }
 

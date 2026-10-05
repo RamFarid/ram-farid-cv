@@ -31,7 +31,7 @@ export function SkillsSection({ initial }: { initial: SkillsInput }) {
   return (
     <SectionPanel
       id="skills"
-      index="04"
+      index="05"
       title={t('title')}
       description={t('description')}
       dirty={dirty}

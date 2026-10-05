@@ -2,7 +2,7 @@ import 'server-only'
 import { connectDB } from './connect'
 import { HomeContent, type HomeContentRecord } from './models/HomeContent'
 
-type HomeContentPatch = Partial<Pick<HomeContentRecord, 'about' | 'services' | 'skillGroups' | 'certifications'>>
+type HomeContentPatch = Partial<Pick<HomeContentRecord, 'about' | 'experience' | 'services' | 'skillGroups' | 'certifications'>>
 
 /** The home page's content document, or null before the seed has run. */
 export async function findHomeContent() {

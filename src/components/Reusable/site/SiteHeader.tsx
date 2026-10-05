@@ -7,7 +7,7 @@ import { LocaleSwitch } from './LocaleSwitch'
 import { NavMenu } from './NavMenu'
 
 // The home page's sections, in page order. See docs/home.md#structure-work-first-in-project-bands
-const sections = ['work', 'about', 'services', 'skills', 'contact'] as const
+const sections = ['work', 'about', 'experience', 'services', 'skills', 'contact'] as const
 
 type SiteHeaderProps = {
   /** Off the home page the section links go back to the home page, and Work opens /portfolio as the current link. */

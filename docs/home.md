@@ -12,11 +12,12 @@ The plan for `/[locale]` (the home page), agreed with Ram on 2026-10-03. Who the
 
 The work leads. The first two published projects by console `order` each get a compact full-width band; nothing is hand-picked, and the rest live in `/portfolio` (linked from the Work heading). Violet (`primary`) fills whole regions (project 1's band and the contact section), the way the design system's Cover blocks do, not just accents.
 
-0. **Nav:** the design system's floating `NavBar`: the R icon with "Ram", up to five section links (Work, About, Services, Skills, Contact), the language switch labelled in the other language, and **Download CV** as a small secondary button. There's no primary button in the nav, because the intro already has one.
+0. **Nav:** the design system's floating `NavBar`: the R icon with "Ram", six section links (Work, About, Experience, Services, Skills, Contact), a square language switch showing the other language's mark («ع» on English pages, "EN" on Arabic ones, named in full for screen readers), and **Download CV** as a small secondary button. Six links were Ram's call on 2026-10-05, over the brand book's cap of five; they show from `lg` and fold into the menu below it. There's no primary button in the nav, because the intro already has one.
 1. **Intro strip:** on the dot grid, about 40% of the viewport height so project 1's band starts above the fold. The page's only `h1` ("I build fast, clear web apps.", with "web apps" in `primary-ink`), a first-person lead naming Ram, an availability `StatusBadge`, then **Start a project** (primary) and **Download CV** (secondary).
 2. **Project band 1, on a violet field, full width:** the Work heading with **See all projects** (to `/portfolio`) at its end, then a 16:9 screenshot (half the width on desktop), `kind · year`, the title, a one-sentence summary, the client, stack tags and **Visit live site**.
 3. **Project band 2, on `surface`:** the same anatomy, so the two bands alternate.
 4. **About + stats:** the portrait and a first-person paragraph that opens with a plain one-sentence answer (AEO/GEO). Three figures, each in a form that fits it: years (calculated live from 2021-11-13), 16 clients, and the count of published projects.
+4b. **Experience:** the career timeline (see Experience below).
 5. **Services:** what a client can hire Ram for, in plain outcomes: new web apps, rebuilds, multilingual products, performant server management. Full width, one ruled row each.
 6. **Skills:** groups in a three-column grid, below Services on the same `surface` band. Tech names are mono `Tag`s in Latin script; practices (database design, authorization, background jobs) are translated and set in the sans. Edited in the console (`console.md#skills`).
 7. **Certifications:** a gallery of the certificates themselves (see Certifications below).
@@ -42,10 +43,26 @@ The work leads. The first two published projects by console `order` each get a c
   - The About heading, paragraphs, client count and portrait, the services, the skill groups and the certificates: the `HomeContents` document, edited in the console (`console.md#home-content`), read through `lib/home`. A section with no content is hidden.
 - **Violet:** project band 1 uses `field-violet` (`design-system.md#violet-fields`). Bands alternate violet and `surface`, and the screenshot swaps sides.
 - **Motion:** project screenshots rise into their band as it scrolls in, and the nav bar gains its shadow over the first 64px of scroll. Both are CSS scroll-driven animations with no JavaScript. They're off under reduced motion, and content stays visible where scroll timelines aren't supported. Arrows nudge 3px on hover.
-- **Section indexes** follow the brand book's "01 / Work" eyebrows: Work 01, About 02, Services 03, Skills 04, Certifications 05, Contact 06.
-- **Header:** fixed, so the intro's dot grid runs under it. The skip link goes to `#main`. Under `md`, the links and the CV button move into the menu.
+- **Section indexes** follow the brand book's "01 / Work" eyebrows: Work 01, About 02, Experience 03, Services 04, Skills 05, Certifications 06, Contact 07 (renumbered 2026-10-05).
+- **Header:** fixed, so the intro's dot grid runs under it. The skip link goes to `#main`. Under `lg` the links move into the menu; under `md` the CV button does too.
 - **Download CV** links to the PDF uploaded in the console (`console.md#cv`) and is a disabled button until one is saved.
 - **Placeholders:** a missing screenshot or portrait shows a mono monogram, never a stock image.
+
+## Experience
+
+Shaped with Ram on 2026-10-05 (`/impeccable shape`) as groundwork for the CV builder, then rebuilt the same day after Ram's review. One career story in time order, from the first role to today, after About. `components/Home/Experience.tsx`.
+
+- **Form:** a vertical timeline, after Ram's St Mary Maadi site ("A Sacred Journey Through Time") and a reference with cards alternating around a centre line. One node per entry on a line that ends at a "Today · Oct 2026" cap. From `lg` the cards alternate sides of a centre line and each entry's dates sit opposite its card; under `lg` the line moves to the start side and the dates sit above the card.
+- **Quick to read:** the dates are the biggest data on the row (mono, h3 size), with "Work · 5 yrs" under them. Each card leads with the role (h3) and the organization in `primary-ink`, then a one-line summary, then the highlights under a hairline, then the links.
+- **Nodes:** 36px circles with a lucide icon: a briefcase for work, a graduation cap for study. Ongoing entries are lit like the current nav link (`primary-soft` ground, `primary-ink` icon and ring); past ones are `line-strong` on `bg`.
+- **Sticky dates:** from `lg` an entry's dates stay pinned below the nav while its card scrolls past, so a tall card never loses its date. Ram's St Mary timeline uses sticky cards; with this much content per entry, pinning the dates instead keeps the cards readable.
+- **Motion:** the line draws itself down to the middle of the screen as the page scrolls (`scroll-draw`: a CSS view timeline inset to a line at mid-height). Off under reduced motion and where scroll timelines aren't supported, where the line is simply drawn.
+- **Ground:** `bg` with a top hairline. The first version was a violet field; the timeline's cards and lit nodes read better on the dark ground.
+- **Today:** computed when the static page renders, so it's at most a day old (`revalidate = 86400`).
+- **Data:** work roles come from the console (`console.md#experience`). The university entry is built from `lib/profile`: it starts on `educationStart` (21 July 2024), shows the study year while studying, and ends at graduation once that has passed. Graduation is never drawn ahead of time (Ram: the end of college isn't experience).
+- **Case-study link:** a role linked to a project shows "Read the case study" only while that project is published.
+- **Empty:** with no roles the timeline still shows the university; before 21 July 2024 with no roles, the section is hidden.
+- **Rejected (2026-10-05):** a Gantt-style time axis with one lane per role. It showed the overlaps precisely, but Ram found it hard to pull the facts out of quickly: it suits a calendar, not someone scanning a career.
 
 ## Location, education and languages
 

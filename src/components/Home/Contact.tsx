@@ -14,7 +14,7 @@ export function Contact() {
       <Container className="grid gap-x-space-8 gap-y-space-7 lg:grid-cols-12 lg:grid-rows-[auto_1fr]">
         <SectionHeading
           id="contact-title"
-          index="06"
+          index="07"
           eyebrow={t('eyebrow')}
           title={t('title')}
           description={t('description')}

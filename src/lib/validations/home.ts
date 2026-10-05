@@ -24,6 +24,12 @@ export const homeLimits = {
   certIssuer: 80,
   certDescription: 240,
   certSkills: 4,
+  experience: 12,
+  experienceRole: 80,
+  experienceOrganization: 80,
+  experienceSummary: 240,
+  experienceHighlights: 4,
+  experienceHighlight: 200,
 } as const
 
 /** Stands in for the client count inside the About body. See docs/console.md#about */
@@ -91,7 +97,35 @@ export const certificationsZSchema = z.object({
   certifications: z.array(certificationZSchema).max(homeLimits.certifications, 'tooMany'),
 })
 
+/** `YYYY-MM`. */
+const monthZSchema = z.string().min(1, 'required').regex(/^\d{4}-(0[1-9]|1[0-2])$/, 'invalid')
+
+// One role on the home page's timeline. The university isn't an entry: it comes from lib/profile. See docs/home.md#experience
+export const experienceEntryZSchema = z
+  .object({
+    id: idZSchema,
+    role: localized(homeLimits.experienceRole),
+    // As the organization writes it, the same in both languages ("Freelance" for client work).
+    organization: text(homeLimits.experienceOrganization),
+    url: z.union([z.literal(''), z.url({ protocol: /^https?$/, error: 'invalid' })]),
+    startedOn: monthZSchema,
+    /** Empty while the role is ongoing. */
+    endedOn: z.union([z.literal(''), monthZSchema]),
+    summary: localized(homeLimits.experienceSummary),
+    highlights: z
+      .array(z.object({ id: idZSchema, text: localized(homeLimits.experienceHighlight) }))
+      .max(homeLimits.experienceHighlights, 'tooMany'),
+    /** A project whose case study the role links to, or empty. */
+    projectId: z.string().max(64),
+  })
+  .refine((entry) => !entry.endedOn || entry.endedOn >= entry.startedOn, { message: 'beforeStart', path: ['endedOn'] })
+
+export const experienceZSchema = z.object({
+  experience: z.array(experienceEntryZSchema).max(homeLimits.experience, 'tooMany'),
+})
+
 export type AboutInput = z.infer<typeof aboutZSchema>
+export type ExperienceInput = z.infer<typeof experienceZSchema>
 export type ServicesInput = z.infer<typeof servicesZSchema>
 export type SkillsInput = z.infer<typeof skillsZSchema>
 export type CertificationsInput = z.infer<typeof certificationsZSchema>
@@ -100,9 +134,10 @@ export type ImageInput = z.infer<typeof imageZSchema>
 /** Everything the console's home page edits, one key per section. */
 export type HomeContentInput = {
   about: AboutInput
+  experience: ExperienceInput['experience']
   services: ServicesInput['services']
   skillGroups: SkillsInput['skillGroups']
   certifications: CertificationsInput['certifications']
 }
 
-export type HomeSection = 'about' | 'services' | 'skills' | 'certifications'
+export type HomeSection = 'about' | 'experience' | 'services' | 'skills' | 'certifications'

@@ -1,4 +1,5 @@
 import 'server-only'
+import { isValidObjectId } from 'mongoose'
 import { connectDB } from './connect'
 import { Project } from './models/Project'
 
@@ -39,6 +40,15 @@ export async function findPublishedSlugs() {
   await connectDB()
   const records = await Project.find(published).select('slug').lean()
   return records.map((record) => record.slug)
+}
+
+/** Slugs of the published projects among `ids`, by id. Ids that aren't valid or published are left out. */
+export async function findPublishedSlugsByIds(ids: string[]) {
+  const valid = ids.filter((id) => isValidObjectId(id))
+  if (valid.length === 0) return new Map<string, string>()
+  await connectDB()
+  const records = await Project.find({ ...published, _id: { $in: valid } }).select('slug').lean()
+  return new Map(records.map((record) => [record._id.toString(), record.slug]))
 }
 
 export async function countPublishedProjects() {

@@ -35,7 +35,7 @@ export function CertificationsSection({ initial }: { initial: CertificationsInpu
   return (
     <SectionPanel
       id="certifications"
-      index="05"
+      index="06"
       title={t('title')}
       description={t('description')}
       dirty={dirty}

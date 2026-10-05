@@ -22,6 +22,9 @@ export function getYearsOfExperience(now = new Date()) {
 // 21 July 2028. The names are in messages (`Profile.education`). See docs/home.md#location-education-and-languages
 export const education = { years: 4, graduation: new Date(Date.UTC(2028, 6, 21)) }
 
+/** The first study year began on 21 July 2024. The experience timeline starts the university there. */
+export const educationStart = subYears(education.graduation, education.years)
+
 /** The current study year (1 to 4), or null once graduated. Computed on render, like the years figure. */
 export function getStudyYear(now = new Date()) {
   if (now >= education.graduation) return null

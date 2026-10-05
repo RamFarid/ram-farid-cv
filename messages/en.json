@@ -20,12 +20,14 @@
     "skip": "Skip to content",
     "work": "Work",
     "about": "About",
+    "experience": "Experience",
     "services": "Services",
     "skills": "Skills",
     "contact": "Contact",
     "cv": "Download CV",
     "menu": "Menu",
-    "switchLocale": "العربية"
+    "switchLocale": "العربية",
+    "switchLocaleShort": "ع"
   },
   "Home": {
     "intro": {
@@ -49,6 +51,18 @@
       "clients": "Clients",
       "projects": "Live client projects",
       "portraitAlt": "Portrait of Ram Farid"
+    },
+    "experience": {
+      "eyebrow": "Experience",
+      "title": "My path so far",
+      "description": "From my first client in November 2021 to what I’m building today.",
+      "today": "Today",
+      "work": "Work",
+      "study": "Study",
+      "present": "Present",
+      "years": "{count, plural, one {# yr} other {# yrs}}",
+      "months": "{count, plural, one {# mo} other {# mos}}",
+      "caseStudy": "Read the case study"
     },
     "services": {
       "eyebrow": "Services",
@@ -283,6 +297,34 @@
       "years": "Years of client work",
       "yearsNote": "Since {since}",
       "portrait": "Portrait"
+    },
+    "experience": {
+      "title": "Experience",
+      "description": "The roles on the home page’s timeline. The university is added for you from your education details, and each save puts the list in date order.",
+      "role": "Role",
+      "organization": "Organization",
+      "organizationHint": "As the organization writes it, the same in both languages. “Freelance” for client work.",
+      "startedOn": "Started",
+      "endedOn": "Ended",
+      "endedOnOngoing": "Ongoing: the bar runs to today.",
+      "ongoing": "I still work here",
+      "ongoingHint": "The timeline shows it running to today.",
+      "summary": "Summary",
+      "highlights": "Highlights",
+      "highlightsEmpty": "No highlights yet. Two to four short, concrete ones read best.",
+      "highlight": "Highlight {number}",
+      "removeHighlight": "Remove highlight {number}",
+      "addHighlight": "Add a highlight",
+      "url": "Website",
+      "urlHint": "Optional. Shown as a link under the role.",
+      "project": "Case study",
+      "noProject": "None",
+      "projectHint": "Optional. Links the role to a project’s case study while it’s published.",
+      "untitled": "Role {number}",
+      "remove": "Remove {name}",
+      "add": "Add a role",
+      "full": "That’s the most this list holds ({max}).",
+      "empty": "No roles yet. The timeline shows only the university until you add one."
     },
     "services": {
       "title": "Services",
@@ -601,6 +643,7 @@
       "university": "Capital University",
       "formerly": "Formerly Helwan University",
       "year": "{year, plural, =1 {First year} =2 {Second year} =3 {Third year} other {Final year}}, graduating {date}",
+      "studyYear": "{year, plural, =1 {First year} =2 {Second year} =3 {Third year} other {Final year}}",
       "graduated": "Graduated {date}"
     },
     "languages": {

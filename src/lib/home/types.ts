@@ -1,5 +1,3 @@
-import type { SaveResult } from '@/lib/validations/errors'
-
 /** An image in R2 with its pixel size, for next/image. */
 export type HomeImage = { url: string; width: number; height: number }
 
@@ -9,6 +7,20 @@ export type HomeAbout = {
   paragraphs: string[]
   clientCount: number
   portrait?: HomeImage
+}
+
+/** A role on the experience timeline, in one locale. Dates are `YYYY-MM`; no `endedOn` means ongoing. */
+export type HomeExperience = {
+  id: string
+  role: string
+  organization: string
+  url?: string
+  startedOn: string
+  endedOn?: string
+  summary: string
+  highlights: string[]
+  /** The linked case study, when its project is published. */
+  projectSlug?: string
 }
 
 export type HomeService = { id: string; title: string; body: string }
@@ -36,10 +48,9 @@ export type HomeCertification = {
 /** The home page's editable content, resolved to one locale. */
 export type HomeContent = {
   about: HomeAbout | null
+  /** In date order, oldest first. */
+  experience: HomeExperience[]
   services: HomeService[]
   skillGroups: HomeSkillGroup[]
   certifications: HomeCertification[]
 }
-
-/** What a console section's Server Action returns. Plain and serializable. */
-export type HomeSaveResult = SaveResult

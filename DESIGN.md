@@ -318,10 +318,10 @@ Built in `src/components/ui/` from the component READMEs in `docs/design-system/
 - **Error:** danger border and a danger message that says what to do, wired with `aria-describedby`.
 
 ### Navigation
-- **Nav bar:** a floating 64px bar on `surface` with a 1px hairline and 12px corners. The R icon and "Ram" in `logo-word`, up to five section links, then the language switch and a small secondary Download CV.
+- **Nav bar:** a floating 64px bar on `surface` with a 1px hairline and 12px corners. The R icon and "Ram" in `logo-word`, six section links (from `lg`), then the language switch (a square 36px secondary button showing the other language's mark, «ع» or a mono "EN") and a small secondary Download CV.
 - **Links:** label type in `ink-muted`; hover fills `surface-raised` and turns ink; the current link sits on `primary-soft` in `primary-ink`.
 - **Off home:** the section links point back to the home page, and Work opens /portfolio as the current link.
-- **Mobile:** under `md` the links collapse into a native popover menu: a 12px `surface` panel with the float shadow, 44px rows, and Download CV below a hairline.
+- **Mobile:** under `lg` the links collapse into a native popover menu: a 12px `surface` panel with the float shadow, 44px rows, and Download CV below a hairline.
 - **Scroll:** the bar gains the float shadow over the first 64px of scroll, in CSS only.
 
 ### Project band
@@ -329,6 +329,14 @@ The signature component. One of the first two published projects by console orde
 - **Media:** 12px frame on `surface-raised` with a hairline, or a dark `violet-ink` slab inside the violet field. Without a screenshot it shows a mono monogram, never a stock image. Linked media lifts 2px and takes the glow on hover.
 - **Text:** mono meta line (kind and year), the project title, a body-large summary, a hairline, the client and the stack as tags, then a secondary "Visit" button that opens the live site.
 - **Rise:** the media rises 64px into place as the band scrolls in (`animation-timeline: view()`, entry 0% to cover 40%). No JavaScript. Off under reduced motion, and static where scroll timelines are unsupported.
+
+### Experience timeline
+The home page's career story: a vertical line with one node per entry, oldest first, ending at a "Today" cap.
+- **Line:** 2px `line`, with a 2px `ink-muted` copy on top that draws down to the middle of the screen as the page scrolls. Centred from `lg`; on the start side under it.
+- **Nodes:** 36px circles with an 18px lucide icon (briefcase for work, graduation cap for study). Ongoing entries take the current-item look: `primary-soft` ground, `primary-ink` ring and icon. Past ones: `line-strong` ring on `bg`, `ink-muted` icon. The cap is a 12px ring in `ink`.
+- **Cards:** `surface`, 1px hairline, 12px corners, 24 to 32px padding. The role as an h3, the organization in label type and `primary-ink`, a body summary in `ink-muted`, highlights in small type under a hairline with 4px round markers, then links (case study in `primary-ink` with the arrow; the website in mono).
+- **Dates:** mono at h3 size with tabular figures, "Work · 5 yrs" below in small type. From `lg` they sit opposite the card, toward the line, and stick below the nav while the card scrolls past.
+- **Rhythm:** cards alternate sides from `lg` (the first on the end side); 48px between entries.
 
 ### Film strip
 The second signature, for the full list of work: every project as a frame on the film rail (see Layout), in console order.

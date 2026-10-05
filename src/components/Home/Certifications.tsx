@@ -18,7 +18,7 @@ export function Certifications({ certifications }: { certifications: HomeCertifi
   return (
     <section id="certifications" aria-labelledby="certifications-title" className="py-space-8 md:py-space-9">
       <Container className="grid gap-space-7">
-        <SectionHeading id="certifications-title" index="05" eyebrow={t('eyebrow')} title={t('title')} />
+        <SectionHeading id="certifications-title" index="06" eyebrow={t('eyebrow')} title={t('title')} />
 
         <PhotoViewer>
           <ul className="grid gap-x-space-5 gap-y-space-7 sm:grid-cols-2 lg:grid-cols-3">

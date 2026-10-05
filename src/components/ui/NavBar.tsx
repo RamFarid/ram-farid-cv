@@ -11,13 +11,13 @@ type NavBarProps = {
   /** Accessible name of the home link, e.g. "Ram Farid, home". */
   homeLabel: string
   homeHref?: string
-  /** The page's sections, max five. Hidden under md; pass a menu in `menu`. */
+  /** The page's sections, at most six. Hidden under lg; pass a menu in `menu`. */
   links: NavLink[]
   /** The current link's href. */
   active?: string
   /** Controls at the end of the bar (language switch, CV). */
   action?: ReactNode
-  /** Shown only under md, where the links collapse. */
+  /** Shown only under lg, where the links collapse. */
   menu?: ReactNode
   ariaLabel: string
   className?: string
@@ -55,7 +55,7 @@ export function NavBar({
         {name}
       </Link>
 
-      <ul className="ms-auto hidden items-center gap-space-1 md:flex">
+      <ul className="ms-auto hidden items-center gap-space-1 lg:flex">
         {links.map((link) => (
           <li key={link.href}>
             <a
@@ -69,9 +69,9 @@ export function NavBar({
         ))}
       </ul>
 
-      <div className="ms-auto flex items-center gap-space-2 md:ms-0">
+      <div className="ms-auto flex items-center gap-space-2 lg:ms-0">
         {action}
-        {menu && <div className="md:hidden">{menu}</div>}
+        {menu && <div className="lg:hidden">{menu}</div>}
       </div>
     </nav>
   )

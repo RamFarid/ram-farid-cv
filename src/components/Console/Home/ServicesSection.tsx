@@ -33,7 +33,7 @@ export function ServicesSection({ initial }: { initial: ServicesInput }) {
   return (
     <SectionPanel
       id="services"
-      index="03"
+      index="04"
       title={t('title')}
       description={t('description')}
       dirty={dirty}
