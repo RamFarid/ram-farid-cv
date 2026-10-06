@@ -3,6 +3,7 @@ import { hasLocale } from 'next-intl'
 import { getFormatter, getTranslations } from 'next-intl/server'
 import { notFound } from 'next/navigation'
 import { AboutSection } from '@/components/Console/Home/AboutSection'
+import { AvailabilitySection } from '@/components/Console/Home/AvailabilitySection'
 import { CertificationsSection } from '@/components/Console/Home/CertificationsSection'
 import { ExperienceSection } from '@/components/Console/Home/ExperienceSection'
 import { ServicesSection } from '@/components/Console/Home/ServicesSection'
@@ -11,7 +12,7 @@ import { ButtonLink } from '@/components/ui/Button'
 import { routing } from '@/i18n/routing'
 import { requireSession } from '@/lib/auth/session'
 import { getConsoleHomeContent } from '@/lib/home'
-import { careerStart, getYearsOfExperience } from '@/lib/profile'
+import { careerStart, getConsoleAvailability, getYearsOfExperience } from '@/lib/profile'
 import { getPublishedProjectCount } from '@/lib/projects'
 import { getConsoleProjects } from '@/lib/projects/console'
 
@@ -27,12 +28,13 @@ export default async function ConsoleHomePage({ params }: PageProps<'/[locale]/c
   if (!hasLocale(routing.locales, locale)) notFound()
   await requireSession(locale)
 
-  const [t, format, content, projectCount, projects] = await Promise.all([
+  const [t, format, content, projectCount, projects, availability] = await Promise.all([
     getTranslations('Console.home'),
     getFormatter(),
     getConsoleHomeContent(),
     getPublishedProjectCount(),
     getConsoleProjects(),
+    getConsoleAvailability(),
   ])
   const since = format.dateTime(careerStart, { month: 'long', year: 'numeric', timeZone: 'UTC' })
 
@@ -48,6 +50,7 @@ export default async function ConsoleHomePage({ params }: PageProps<'/[locale]/c
         </ButtonLink>
       </header>
 
+      <AvailabilitySection initial={availability.initial} saved={availability.saved} />
       <AboutSection initial={content.about} projectCount={projectCount} years={getYearsOfExperience()} since={since} />
       <ExperienceSection
         initial={{ experience: content.experience }}

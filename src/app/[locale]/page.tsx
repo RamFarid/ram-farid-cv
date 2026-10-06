@@ -13,6 +13,7 @@ import { SiteFooter } from '@/components/Reusable/site/SiteFooter'
 import { SiteHeader } from '@/components/Reusable/site/SiteHeader'
 import { Container } from '@/components/ui/Container'
 import { getHomeContent, getHomeContentUpdatedAt } from '@/lib/home'
+import { getAvailability } from '@/lib/profile'
 import { getHomeProjects, getPublishedProjectCount } from '@/lib/projects'
 import { pageMetadata } from '@/lib/seo/metadata'
 import { profilePageJsonLd } from '@/lib/seo/structured-data'
@@ -30,11 +31,12 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function Home() {
   const locale = await getLocale()
-  const [projects, projectCount, content, updatedAt, t, tAr, tEn] = await Promise.all([
+  const [projects, projectCount, content, updatedAt, availability, t, tAr, tEn] = await Promise.all([
     getHomeProjects(locale),
     getPublishedProjectCount(),
     getHomeContent(locale),
     getHomeContentUpdatedAt(),
+    getAvailability(),
     getTranslations('Metadata'),
     getTranslations({ locale: 'ar', namespace: 'Metadata' }),
     getTranslations({ locale: 'en', namespace: 'Metadata' }),
@@ -44,7 +46,7 @@ export default async function Home() {
     <>
       <SiteHeader />
       <main id="main" className="flex-1">
-        <Intro />
+        <Intro availability={availability} />
         <Work projects={projects} />
         {content.about && <About about={content.about} projectCount={projectCount} />}
         <Experience experience={content.experience} />

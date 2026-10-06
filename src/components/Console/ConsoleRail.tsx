@@ -22,6 +22,7 @@ type ConsoleRailProps = {
 type Anchor = { id: string; index?: string; label: string }
 
 const homeSections = [
+  { id: 'availability', index: '01' },
   { id: 'about', index: '02' },
   { id: 'experience', index: '03' },
   { id: 'services', index: '04' },

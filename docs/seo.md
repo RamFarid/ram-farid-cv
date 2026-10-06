@@ -61,7 +61,7 @@ The `Person` node is built from the same content the page shows, so it can't dri
 - `app/sitemap.ts`: home, `/portfolio` and every published case study, one entry per locale, each with all its alternates. `lastModified` is the last content write the page shows (projects' `updatedAt`; home is the later of the home content and the projects). Static with `revalidate = 86400`; project and home-content saves revalidate `/sitemap.xml`.
 - `app/robots.ts`: everyone, AI crawlers included, may crawl the site. Disallowed: `/console`, `/<locale>/console`, `/api/`. `/api/cv` is allowed: the CV is a public, factual document about Ram. Points to the sitemap.
 - `/console/**` also sends `noindex`.
-- **`/llms.txt`** (decided 2026-10-06: yes): `app/llms.txt/route.ts` serves Markdown per [llmstxt.org](https://llmstxt.org) built by `lib/seo/llms.ts`: the description, the intro, the pages, every published project with its summary, the CV and the contact channels. English only, pointing at `/ar`. Every fact comes from messages, the projects and `lib/profile`; only the few headings are in code (machine-facing). Static, `revalidate = 86400`, revalidated by project saves.
+- **`/llms.txt`** (decided 2026-10-06: yes): `app/llms.txt/route.ts` serves Markdown per [llmstxt.org](https://llmstxt.org) built by `lib/seo/llms.ts`: the description, the intro with the current availability (`console.md#availability`), the pages, every published project with its summary, the CV and the contact channels. English only, pointing at `/ar`. Every fact comes from messages, the projects and `lib/profile`; only the few headings are in code (machine-facing). Static, `revalidate = 86400`, revalidated by project and availability saves.
 - **Icons** through the App Router file conventions: `app/icon.svg` (the brand icon), `app/favicon.ico` (16/32/48 PNG entries) and `app/apple-icon.png` (180 px, square: iOS rounds it). The PNG and ICO were rendered from `icon.svg` with sharp; regenerate them if the icon changes.
 
 ## Caching
@@ -73,11 +73,17 @@ Next.js side only; the Cloudflare layer is its own round.
 | Home, `/portfolio`, case studies | ISR, `revalidate = 86400` | Console saves (`home.md#rendering`, `portfolio.md#rendering`) |
 | `/api/cv` | Static, `revalidate = 604800` (7 days) | CV, home-content and project saves, draft deletes (`cv.md#caching`) |
 | `/sitemap.xml` | Static, 1 day | Project and home-content saves |
-| `/llms.txt` | Static, 1 day | Project saves |
+| `/llms.txt` | Static, 1 day | Project and availability saves |
 | `/<locale>/opengraph-image/card` | Generated on first request, then cached until the next deploy | Deploys (its copy is in messages) |
 | `/_next/static/*`, `/_next/image` | Immutable, 1 year (R2 objects are never overwritten: new key per upload) | n/a |
 
 ## Audits
+
+### 2026-10-06: re-run after deploying `9cf16fa`
+
+SEO 8/10, GEO 8/10, AEO 5/10 (21/30, up from 15/30). Every fix below is live: robots, sitemap (10 URLs with alternates), canonical, hreflang and a social card on all 10 pages, the home JSON-LD graph, `llms.txt`, icons, alt text, and `/api/cv` served from cache. All 18 JSON-LD blocks parse.
+
+New findings: `Person.worksFor` lists "Freelance" as an organization (the ongoing freelance role); leave roles that aren't employers out. Still open: the FAQ, case-study outcomes and length, the "Screens" heading, the home `h1`, Cloudflare email obfuscation. Report: `seo-audits/seo-audit-ramfarid-com-2026-10-06-after-deploy.docx`.
 
 ### 2026-10-06: full audit of the live site (before this round's fixes)
 

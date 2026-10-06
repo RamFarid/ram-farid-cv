@@ -35,10 +35,21 @@ A CV upload joined the main page on 2026-10-04; on 2026-10-05 the generated CV r
 
 ## Layout
 
-- **Rail** (start side, sticky, full height from `lg`): the brand with a "Console" badge; Home page, CV (a warning dot while the CV setup has unsaved edits), Messages (with the count of `new` messages) and Projects (published · drafts, plus a warning dot while a project has unsaved edits); under the current manager its page's section anchors: on the home page the five sections in home-page order (02 About to 06 Certifications), with a warning dot on each section with unsaved edits, on the CV page its six groups, on a project's edit page its four sections (Details, Dates and stack, Cover and gallery, Case study); the current one in ink; then View site, the language switch and Sign out.
+- **Rail** (start side, sticky, full height from `lg`): the brand with a "Console" badge; Home page, CV (a warning dot while the CV setup has unsaved edits), Messages (with the count of `new` messages) and Projects (published · drafts, plus a warning dot while a project has unsaved edits); under the current manager its page's section anchors: on the home page the six sections in home-page order (01 Availability to 06 Certifications), with a warning dot on each section with unsaved edits, on the CV page its six groups, on a project's edit page its four sections (Details, Dates and stack, Cover and gallery, Case study); the current one in ink; then View site, the language switch and Sign out.
 - **Under `lg`** the rail is a top block that wraps: the brand, the four managers, a scrolling row of the section anchors (with the unsaved dots), then View site, language and Sign out.
 - **Order:** Home page is a peer of CV, Messages and Projects, with its anchors nested under it, so the rail reads the same on every console page.
 - **Main column:** up to 1200px. The h1 and a one-line lead, then one panel per section.
+
+## Availability
+
+The first panel on the console's home page, "01 Availability" (it edits the home page's 01 intro strip). Added 2026-10-06.
+
+- **What it holds:** the kinds of work Ram is open to, any of `freelance`, `fullTime`, `partTime`, `contract` (`workTypes` in `lib/validations/profile.ts`, which is also the order the site lists them in). Ticking none means not taking new work.
+- **Stored** in `Profiles.availability.workTypes` (`database.md#profiles`), not in `HomeContents`: it's a fact about Ram, not home-page copy. Saved by `saveAvailability` (`lib/profile/actions.ts`): session, `availabilityZSchema` (which de-duplicates and reorders), `$set` with upsert, then revalidates the home page in both locales, the console page and `/llms.txt`.
+- **Read** through `getAvailability()` in `lib/profile` (React `cache`). Until the first save it returns the default, freelance and full-time (what the site said before the setting existed), and the panel says so under its preview.
+- **What follows it:** the intro strip's badge ("Available for freelance and full-time work", `Profile.availability`; hidden when none is ticked), the `llms.txt` line ("Not taking new work right now" when none), and the home page's FAQ answers (see `prompts/FAQs.md` until the FAQ ships). Anything new that states Ram's availability must read `getAvailability()`, never hard-code it.
+- **The list** is joined with `format.list` (conjunction) in the page's locale: English uses the serial comma with three or more ("part-time, and contract").
+- **Adding a kind** is a code change: add it to `workTypes` and to `Profile.availability.types` and `Console.availability.types` in both message bundles.
 
 ## Home content
 

@@ -107,10 +107,11 @@ One document: site-wide settings about Ram that the console manages. Facts that 
 | Field | Type | Notes |
 | --- | --- | --- |
 | `cv` | object, optional | The CV setup, as `cvConfigZSchema` (`cv.md#setup`): `headline`, `tools[]`, `summary`, `contacts[]`, `sections[] { id, visible }`, `experience[] { id, tier, hiddenHighlights[] }`, `projects[] { projectId, title, links[], bullets[] { id, text } }`, `skills[] { groupId, label, hiddenItems[], hiddenPractices[] }`, `certifications[]` (ids), `pageSize` (`A4` or `LETTER`). Unset means nothing is picked yet: the CV shows the facts from `lib/profile` only. |
+| `availability` | object, optional | `{ workTypes[] }`, any of `freelance`, `fullTime`, `partTime`, `contract` (`availabilityZSchema`), stored in that order. Unset until the first console save; `getAvailability()` then returns freelance and full-time. An empty list means not taking new work (`console.md#availability`). |
 | `createdAt`, `updatedAt` | timestamps | |
 
 - `experience[].id`, `skills[].groupId` and `certifications[]` point into `HomeContents`; `projects[].projectId` is a `Projects` id. They aren't enforced: references whose target is gone are dropped on read (`normalizeCvConfig`).
-- Saves replace `cv` with `$set` on `updateOne({}, …, { upsert: true })`.
+- Saves replace `cv` or `availability` with `$set` on `updateOne({}, …, { upsert: true })`.
 - The old `cv: { url, name, size, uploadedAt }` file record (2026-10-04) was removed on 2026-10-05 with the upload.
 
 ### `Otps` (model `Otp`)

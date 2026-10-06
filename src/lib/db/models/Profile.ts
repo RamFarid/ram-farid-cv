@@ -1,5 +1,6 @@
 import mongoose, { type InferSchemaType, type Model } from 'mongoose'
 import { cvContactIds, cvExperienceTiers, cvPageSizes, cvSectionIds } from '@/lib/validations/cv'
+import { workTypes } from '@/lib/validations/profile'
 
 // Site-wide settings about Ram that the console manages: one document. Facts that never change (career start, contact
 // channels, education) stay in lib/profile as code. See docs/database.md#profiles
@@ -71,7 +72,13 @@ const cvSchema = new mongoose.Schema(
   { _id: false },
 )
 
-const profileSchema = new mongoose.Schema({ cv: cvSchema }, { timestamps: true })
+// Unset until the first console save; lib/profile supplies the default until then.
+const availabilitySchema = new mongoose.Schema(
+  { workTypes: { type: [{ type: String, enum: workTypes }], default: [] } },
+  { _id: false },
+)
+
+const profileSchema = new mongoose.Schema({ cv: cvSchema, availability: availabilitySchema }, { timestamps: true })
 
 export type ProfileRecord = InferSchemaType<typeof profileSchema>
 

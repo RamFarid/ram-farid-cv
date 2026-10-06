@@ -42,7 +42,6 @@
     "intro": {
       "title": "I build fast, clear <hl>web apps</hl>.",
       "lead": "I’m Ram Farid, a full-stack JavaScript engineer in Cairo. I work with Next.js, React and Node.js, from the screens people use to the server and database behind them.",
-      "available": "Available for work",
       "start": "Start a project"
     },
     "work": {
@@ -431,6 +430,20 @@
       "full": "That’s the most this list holds ({max}).",
       "empty": "No roles yet. The timeline shows only the university until you add one."
     },
+    "availability": {
+      "title": "Availability",
+      "description": "The kinds of work you’re open to. The home page’s badge follows it, and so do its FAQ answers and llms.txt. Untick everything when you’re not taking work: the badge disappears.",
+      "legend": "Open to",
+      "types": {
+        "freelance": "Freelance projects",
+        "fullTime": "Full-time roles",
+        "partTime": "Part-time roles",
+        "contract": "Contract roles"
+      },
+      "preview": "The home page says: “{badge}”",
+      "previewNone": "The home page shows no availability badge.",
+      "unsaved": "Not saved yet: the site uses freelance and full-time until you save."
+    },
     "services": {
       "title": "Services",
       "description": "What a client can hire you for, as ruled rows under “What I can build for you”, in this order.",
@@ -738,6 +751,16 @@
     }
   },
   "Profile": {
+    "availability": {
+      "badge": "Available for {types} work",
+      "none": "Not taking new work right now",
+      "types": {
+        "freelance": "freelance",
+        "fullTime": "full-time",
+        "partTime": "part-time",
+        "contract": "contract"
+      }
+    },
     "location": {
       "label": "Based in",
       "place": "Cairo, Egypt"

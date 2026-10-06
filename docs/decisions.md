@@ -2,6 +2,13 @@
 
 Newest first. Each entry gives the decision, why it was made, and what it constrains. When a decision is reversed, mark the old entry *Superseded* and link the new one; don't delete it.
 
+## 2026-10-06: Availability is a console setting, and everything that states it reads it
+
+- **Decision:** the hard-coded `isAvailableForWork` becomes `Profiles.availability.workTypes`, edited in a new "01 Availability" panel on the console's home page: any of freelance, full-time, part-time and contract (none = not taking work). The intro badge, `llms.txt` and the coming FAQ answers are built from it. Until the first save the site uses freelance and full-time.
+- **Why:** Ram asked for FAQ answers that stay true when his availability changes, which means one stored value that every statement reads, not copy to remember to edit.
+- **Rejected:** a single on/off toggle (it can't say which kind of work); one exclusive choice (Ram can be open to freelance and a full-time role at once); storing it in `HomeContents` (it's a fact about Ram that `llms.txt` and later pages use, the case `Profiles` was created for).
+- **Constrains:** any copy that states availability reads `getAvailability()`. A new kind of work is a code change in `workTypes` plus both message bundles. Details: `console.md#availability`.
+
 ## 2026-10-06: SEO/AEO/GEO round: site-wide files, entity graph, social cards and Next.js caching
 
 - **Decision:** after a full audit of the live site, add `robots.ts`, `sitemap.ts`, `/llms.txt`, `favicon.ico` and `apple-icon.png`; move the home page to `pageMetadata()` with a `ProfilePage` / `WebSite` / `Person` JSON-LD graph built from the home content; generate a per-locale social card with `next/og`; turn off next-intl's hreflang `Link` header; cache `/api/cv` for 7 days with a purge on every save it reads from. `x-default` stays the English page.

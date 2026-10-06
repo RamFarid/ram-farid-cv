@@ -1,5 +1,8 @@
 import 'server-only'
+import { cache } from 'react'
 import { differenceInCalendarDays, subYears } from 'date-fns'
+import { findProfile } from '@/lib/db/profile'
+import { workTypes, type WorkType } from '@/lib/validations/profile'
 import type { ContactChannel, SpokenLanguage } from './types'
 
 // Facts about Ram shown across the site. Figures are never typed into copy; see docs/project.md#identity
@@ -7,8 +10,23 @@ import type { ContactChannel, SpokenLanguage } from './types'
 
 export const careerStart = new Date(Date.UTC(2021, 10, 13))
 
-// Confirmed by Ram on 2026-10-06.
-export const isAvailableForWork = true
+// Until the console's availability is first saved: what the site said when the setting was added (Ram takes client
+// projects and applies for roles). See docs/console.md#availability
+const defaultWorkTypes: WorkType[] = ['freelance', 'fullTime']
+
+/** The kinds of work Ram is open to, in the site's order. Empty means not taking new work. */
+export const getAvailability = cache(async (): Promise<WorkType[]> => {
+  const profile = await findProfile()
+  if (!profile?.availability) return defaultWorkTypes
+  const picked = profile.availability.workTypes ?? []
+  return workTypes.filter((type) => picked.includes(type))
+})
+
+/** The console's availability: what the site uses now, and whether it was ever saved (or is still the default). */
+export async function getConsoleAvailability() {
+  const [profile, current] = await Promise.all([findProfile(), getAvailability()])
+  return { initial: { workTypes: current }, saved: Boolean(profile?.availability) }
+}
 
 /** Years since `careerStart`, to one decimal (4.9 on 2026-10-03). */
 export function getYearsOfExperience(now = new Date()) {

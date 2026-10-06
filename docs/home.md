@@ -113,7 +113,7 @@ Update the status column as each step lands.
 - **Certifications:** the six Sololearn certificates are seeded (2026-10-06). Ram to review their one-line descriptions.
 - **Arabic copy:** drafted by Claude for Ram to review.
 - **Section eyebrows ("01 / Work"):** kept because the brand book pins them for SectionHeading. The design review flagged numbered eyebrows above headings as a template pattern. Keep them, or drop the index (or the whole eyebrow) site-wide in `SectionHeading`?
-- **CV:** the summary and setup (`/console/cv`; seeded from the last hand-made CV). The portrait is uploaded and "Available for work" is confirmed (Ram, 2026-10-06).
+- **CV:** the summary and setup (`/console/cv`; seeded from the last hand-made CV). The portrait is uploaded. Availability is set in the console (01 Availability, `console.md#availability`); until it's saved the badge reads freelance and full-time.
 - **Secrets for `.env`:** the Telegram bot token and contact group chat id, and the production Turnstile site and secret keys (`.env.example` has Cloudflare's test keys).
 
 ## Out of scope for now

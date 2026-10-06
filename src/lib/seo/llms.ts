@@ -1,6 +1,6 @@
 import 'server-only'
-import { getTranslations } from 'next-intl/server'
-import { contactChannels, isAvailableForWork } from '@/lib/profile'
+import { getFormatter, getTranslations } from 'next-intl/server'
+import { contactChannels, getAvailability } from '@/lib/profile'
 import { getPortfolioProjects } from '@/lib/projects'
 import { absoluteUrl } from './metadata'
 import { siteUrl } from './site'
@@ -13,20 +13,31 @@ import { siteUrl } from './site'
  */
 export async function buildLlmsTxt() {
   const locale = 'en'
-  const [t, tIntro, tPortfolio, tChannels, projects] = await Promise.all([
+  const [t, tIntro, tAvailability, tPortfolio, tChannels, format, projects, availability] = await Promise.all([
     getTranslations({ locale, namespace: 'Metadata' }),
     getTranslations({ locale, namespace: 'Home.intro' }),
+    getTranslations({ locale, namespace: 'Profile.availability' }),
     getTranslations({ locale, namespace: 'Portfolio.metadata' }),
     getTranslations({ locale, namespace: 'Common.channels' }),
+    getFormatter({ locale }),
     getPortfolioProjects(locale),
+    getAvailability(),
   ])
+  const availabilityLine = availability.length
+    ? tAvailability('badge', {
+        types: format.list(
+          availability.map((type) => tAvailability(`types.${type}`)),
+          { type: 'conjunction' },
+        ),
+      })
+    : tAvailability('none')
 
   return [
     `# ${t('name')}`,
     '',
     `> ${t('description')}`,
     '',
-    [tIntro('lead'), isAvailableForWork && `${tIntro('available')}.`].filter(Boolean).join(' '),
+    `${tIntro('lead')} ${availabilityLine}.`,
     '',
     `Every page is in English and Arabic: the Arabic version of a page is under ${siteUrl}/ar instead of ${siteUrl}/en.`,
     '',
