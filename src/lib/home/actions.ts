@@ -55,10 +55,11 @@ async function save<T>(
 
   revalidatePath('/[locale]', 'page')
   revalidatePath('/[locale]/console', 'page')
-  // The CV reads the experience, skills and certificates, and the sitemap dates the home page.
-  // See docs/cv.md#caching, docs/seo.md#site-wide-files
+  // The CV reads the experience, skills and certificates, the sitemap dates the home page, and llms.txt carries the
+  // FAQ (the client count). See docs/cv.md#caching, docs/seo.md#site-wide-files
   revalidatePath('/api/cv')
   revalidatePath('/sitemap.xml')
+  revalidatePath('/llms.txt')
   return { ok: true, value: parsed.data }
 }
 

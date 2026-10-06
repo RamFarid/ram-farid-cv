@@ -85,6 +85,56 @@
       "title": "Certificates I’ve earned",
       "view": "View certificate: {name}"
     },
+    "faq": {
+      "eyebrow": "FAQ",
+      "title": "What people ask me",
+      "items": {
+        "who": {
+          "q": "Who is Ram Farid?",
+          "a": "I’m Ram Farid, a full-stack JavaScript engineer based in Cairo, Egypt. Since November 2021 I’ve built web apps for {clients} clients, and I own each one end to end: the interface, the API and the database, through to launch and hosting. I work mainly with Next.js, React and Node.js."
+        },
+        "available": {
+          "q": "Are you available for work right now?",
+          "a": "{state, select, open {Yes. I’m available for {availability} work right now. Send me a few lines about what you need through the form below, by email or on WhatsApp, and I’ll reply within 12 hours with next steps.} other {I’m not taking on new work at the moment, but send me a few lines anyway: I reply to every message within 12 hours, and if the timing works, we’ll find a way.}}"
+        },
+        "projects": {
+          "q": "What kind of projects do you build?",
+          "a": "Everything, from A to Z: from the first idea to a product running in production. That includes web apps people use every day, such as booking and reservation systems, ordering and point-of-sale platforms, CMS-driven sites and admin dashboards, for hospitality, e-commerce, institutional services and gaming. I also rebuild dated sites on a modern stack while keeping their content and URLs, and set up and run the servers they live on."
+        },
+        "languages": {
+          "q": "Can you build a website in Arabic and other languages?",
+          "a": "Yes. I’ve shipped sites in up to 13 languages: the HISTORY game website and wiki serves its players in 13. Arabic and other right-to-left languages are part of the build from day one: mirrored layouts, local date and number formats, translated content, and a separate, indexable page per language so each version can rank in search."
+        },
+        "stack": {
+          "q": "Which technologies do you work with?",
+          "a": "I can work with whatever stack a project needs or already runs on, but I prefer Next.js, React and TypeScript on the front end, and Node.js with MongoDB or PostgreSQL on the back end. I’m just as at home with Express, Prisma, MySQL, Redis and Tailwind CSS. The full list is in the Skills section above."
+        },
+        "experience": {
+          "q": "How much experience do you have?",
+          "a": "{years} years of client work since November 2021, for {clients} clients so far: freelance full-stack work throughout, and Ramlyon, a multi-tenant restaurant platform I founded, built and run in production. The full timeline is in the Experience section above and in my CV."
+        },
+        "abroad": {
+          "q": "Do you work with clients outside Egypt?",
+          "a": "Yes. I work remotely, in English or Arabic, and I’ve worked with clients and teams from Saudi Arabia, the UAE, Romania and elsewhere in Europe, as well as international communities. I’m on Cairo time (UTC+2, UTC+3 in summer), which overlaps comfortably with Europe and the Gulf."
+        },
+        "start": {
+          "q": "How does a project with you start?",
+          "a": "You send a few lines: what you need, who it’s for and roughly when. We talk it through, on a call or in a meeting if you like, and I send a written plan with the scope, the timeline and the cost. I take a deposit before starting, sized to the project. Then I build in stages you can see and try as they’re ready, and I’ll ask you questions along the way so the result fits how you actually work."
+        },
+        "hosting": {
+          "q": "Do you host and maintain the site after launch?",
+          "a": "Yes, if you want me to. I can run your app on a server I set up and manage for you, or on the platform you already use, and keep it fast and up under real traffic with monitoring, caching and tuning. Ramlyon, for example, runs in production on a server I manage, and edge caching took most of its public-menu visits from five database reads to zero."
+        },
+        "roles": {
+          "q": "Are you open to full-time or part-time roles?",
+          "a": "{state, select, roles {Yes, I’m open to {roles} roles right now.} freelance {Right now I’m focused on freelance projects, but a good role is always worth a conversation.} other {I’m not actively looking right now, but a good role is always worth a conversation.}} I work remotely by default, and on-site works too when the company arranges the move and we agree a schedule that lets me travel back to Cairo for my university exams. Send me the details, and download my CV from the top of any page: it’s generated from this site, so it’s always current."
+        },
+        "cost": {
+          "q": "How long does a project take, and what does it cost?",
+          "a": "Both depend on the scope, so I don’t quote either before we’ve talked. For a sense of scale, Ramlyon, a full multi-tenant restaurant platform, went from the first line of code to launch in under four months. Time and price come down to what the product has to do, how many languages it serves, its integrations and your deadline; once we’ve talked it through, I send you a written estimate of both."
+        }
+      }
+    },
     "contact": {
       "eyebrow": "Contact",
       "title": "Tell me what you’re building",

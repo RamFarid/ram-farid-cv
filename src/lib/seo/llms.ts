@@ -1,36 +1,36 @@
 import 'server-only'
-import { getFormatter, getTranslations } from 'next-intl/server'
-import { contactChannels, getAvailability } from '@/lib/profile'
+import { getTranslations } from 'next-intl/server'
+import { getHomeContent } from '@/lib/home'
+import { getFaq } from '@/lib/home/faq'
+import { contactChannels, formatWorkTypes, getAvailability } from '@/lib/profile'
 import { getPortfolioProjects } from '@/lib/projects'
 import { absoluteUrl } from './metadata'
 import { siteUrl } from './site'
 
 /**
  * /llms.txt (https://llmstxt.org): who Ram is and where the facts live, as Markdown for AI assistants and answer
- * engines. English only; it points to the Arabic pages. Every fact comes from messages, the projects and lib/profile,
- * so it can't drift from the site. The few headings are for machines, so they stay here rather than in messages.
+ * engines. English only; it points to the Arabic pages. Every fact comes from messages, the home content, the projects
+ * and lib/profile, so it can't drift from the site. The few headings are for machines, so they stay here rather than in
+ * messages.
  * See docs/seo.md#llmstxt
  */
 export async function buildLlmsTxt() {
   const locale = 'en'
-  const [t, tIntro, tAvailability, tPortfolio, tChannels, format, projects, availability] = await Promise.all([
+  const [t, tIntro, tAvailability, tPortfolio, tChannels, projects, availability, home] = await Promise.all([
     getTranslations({ locale, namespace: 'Metadata' }),
     getTranslations({ locale, namespace: 'Home.intro' }),
     getTranslations({ locale, namespace: 'Profile.availability' }),
     getTranslations({ locale, namespace: 'Portfolio.metadata' }),
     getTranslations({ locale, namespace: 'Common.channels' }),
-    getFormatter({ locale }),
     getPortfolioProjects(locale),
     getAvailability(),
+    getHomeContent(locale),
   ])
-  const availabilityLine = availability.length
-    ? tAvailability('badge', {
-        types: format.list(
-          availability.map((type) => tAvailability(`types.${type}`)),
-          { type: 'conjunction' },
-        ),
-      })
-    : tAvailability('none')
+  const [types, faq] = await Promise.all([
+    formatWorkTypes(availability, locale),
+    getFaq({ locale, clients: home.about?.clientCount ?? 0, availability }),
+  ])
+  const availabilityLine = availability.length ? tAvailability('badge', { types }) : tAvailability('none')
 
   return [
     `# ${t('name')}`,
@@ -51,6 +51,9 @@ export async function buildLlmsTxt() {
     '',
     ...projects.map((project) => `- [${project.title}](${absoluteUrl(`/portfolio/${project.slug}`, locale)}): ${project.summary}`),
     '',
+    '## FAQ',
+    '',
+    ...faq.flatMap((item) => [`### ${item.question}`, '', item.answer, '']),
     '## Contact',
     '',
     ...contactChannels.map((channel) => `- ${tChannels(channel.id)}: ${channel.kind === 'direct' ? channel.handle : channel.href}`),

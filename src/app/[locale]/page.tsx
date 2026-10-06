@@ -4,6 +4,7 @@ import { About } from '@/components/Home/About'
 import { Certifications } from '@/components/Home/Certifications'
 import { Contact } from '@/components/Home/Contact'
 import { Experience } from '@/components/Home/Experience'
+import { Faq } from '@/components/Home/Faq'
 import { Intro } from '@/components/Home/Intro'
 import { Services } from '@/components/Home/Services'
 import { Skills } from '@/components/Home/Skills'
@@ -13,10 +14,11 @@ import { SiteFooter } from '@/components/Reusable/site/SiteFooter'
 import { SiteHeader } from '@/components/Reusable/site/SiteHeader'
 import { Container } from '@/components/ui/Container'
 import { getHomeContent, getHomeContentUpdatedAt } from '@/lib/home'
+import { getFaq } from '@/lib/home/faq'
 import { getAvailability } from '@/lib/profile'
 import { getHomeProjects, getPublishedProjectCount } from '@/lib/projects'
 import { pageMetadata } from '@/lib/seo/metadata'
-import { profilePageJsonLd } from '@/lib/seo/structured-data'
+import { faqJsonLd, profilePageJsonLd } from '@/lib/seo/structured-data'
 
 // Static, regenerated daily so the experience figure stays current; console saves revalidate it.
 // See docs/home.md#rendering
@@ -41,6 +43,7 @@ export default async function Home() {
     getTranslations({ locale: 'ar', namespace: 'Metadata' }),
     getTranslations({ locale: 'en', namespace: 'Metadata' }),
   ])
+  const faq = await getFaq({ locale, clients: content.about?.clientCount ?? 0, availability })
 
   return (
     <>
@@ -59,6 +62,7 @@ export default async function Home() {
           </div>
         )}
         <Certifications certifications={content.certifications} />
+        <Faq items={faq} />
         <Contact />
 
         <JsonLd
@@ -72,6 +76,7 @@ export default async function Home() {
             updatedAt,
           })}
         />
+        <JsonLd data={faqJsonLd(faq, locale)} />
       </main>
       <SiteFooter />
     </>

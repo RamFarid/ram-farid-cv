@@ -1,6 +1,8 @@
 import 'server-only'
 import { cache } from 'react'
 import { differenceInCalendarDays, subYears } from 'date-fns'
+import type { Locale } from 'next-intl'
+import { getFormatter, getTranslations } from 'next-intl/server'
 import { findProfile } from '@/lib/db/profile'
 import { workTypes, type WorkType } from '@/lib/validations/profile'
 import type { ContactChannel, SpokenLanguage } from './types'
@@ -21,6 +23,18 @@ export const getAvailability = cache(async (): Promise<WorkType[]> => {
   const picked = profile.availability.workTypes ?? []
   return workTypes.filter((type) => picked.includes(type))
 })
+
+/** Kinds of work as a list in one locale's words: "freelance and full-time" / "للعمل الحر ولوظيفة بدوام كامل". */
+export async function formatWorkTypes(types: WorkType[], locale: Locale) {
+  const [t, format] = await Promise.all([
+    getTranslations({ locale, namespace: 'Profile.availability' }),
+    getFormatter({ locale }),
+  ])
+  return format.list(
+    types.map((type) => t(`types.${type}`)),
+    { type: 'conjunction' },
+  )
+}
 
 /** The console's availability: what the site uses now, and whether it was ever saved (or is still the default). */
 export async function getConsoleAvailability() {

@@ -1,5 +1,6 @@
 import type { Locale } from 'next-intl'
 import { routing } from '@/i18n/routing'
+import type { FaqItem } from '@/lib/home/faq'
 import type { HomeContent } from '@/lib/home/types'
 import { contactChannels, homeLocation, spokenLanguages } from '@/lib/profile'
 import { findStackTool } from '@/lib/projects/stack'
@@ -104,6 +105,23 @@ export function profilePageJsonLd({
         sameAs: contactChannels.filter((channel) => channel.kind === 'profile').map((channel) => channel.href),
       },
     ],
+  }
+}
+
+/** The home page's FAQ, exactly as shown on the page (Google ignores FAQ markup for questions it can't see). */
+export function faqJsonLd(items: FaqItem[], locale: Locale) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    '@id': `${absoluteUrl('/', locale)}#faq`,
+    inLanguage: locale,
+    isPartOf: website,
+    about: { '@id': personId },
+    mainEntity: items.map((item) => ({
+      '@type': 'Question',
+      name: item.question,
+      acceptedAnswer: { '@type': 'Answer', text: item.answer },
+    })),
   }
 }
 

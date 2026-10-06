@@ -2,6 +2,13 @@
 
 Newest first. Each entry gives the decision, why it was made, and what it constrains. When a decision is reversed, mark the old entry *Superseded* and link the new one; don't delete it.
 
+## 2026-10-06: A home-page FAQ, its copy in messages with live facts
+
+- **Decision:** eleven questions between Certifications (06) and Contact (now 08), as native `<details>` rows with `FAQPage` JSON-LD and a copy in `llms.txt`. The copy lives in `messages` (`Home.faq`), with ICU arguments for live facts (years, clients, availability) and ICU `select` for the two answers that change with availability.
+- **Why:** the audit's biggest remaining AEO gap. Ram reviewed every answer in `prompts/FAQs.md` and asked that they stay true when his availability changes, which the arguments and variants guarantee.
+- **Rejected:** a console-editable FAQ (each answer would need per-state variants and token handling in the editor, for copy that changes rarely; it can come later); answers always open (eleven open answers make a long section; `<details>` keeps every word in the HTML for search anyway); prices or durations in the copy (Ram: open, no direct answer).
+- **Constrains:** FAQ copy states no figure by hand; new facts go through `getFaq()`. Details: `home.md#faq`.
+
 ## 2026-10-06: Availability is a console setting, and everything that states it reads it
 
 - **Decision:** the hard-coded `isAvailableForWork` becomes `Profiles.availability.workTypes`, edited in a new "01 Availability" panel on the console's home page: any of freelance, full-time, part-time and contract (none = not taking work). The intro badge, `llms.txt` and the coming FAQ answers are built from it. Until the first save the site uses freelance and full-time.

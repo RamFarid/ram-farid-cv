@@ -32,7 +32,7 @@ Rendered with `components/Reusable/seo/JsonLd`. Pages refer to Ram and the site 
 
 | Page | Types |
 | --- | --- |
-| Home | `@graph`: `ProfilePage` (`mainEntity` → Person, `dateModified` = home content's last save), `WebSite`, `Person` |
+| Home | `@graph`: `ProfilePage` (`mainEntity` → Person, `dateModified` = home content's last save), `WebSite`, `Person`; and `FAQPage` |
 | `/portfolio` | `CollectionPage` + `ItemList`, `BreadcrumbList` (Home → Work) |
 | Case study | `CreativeWork`, `BreadcrumbList` (Home → Work → project) |
 
@@ -46,7 +46,7 @@ The `Person` node is built from the same content the page shows, so it can't dri
 
 `CreativeWork` uses display names for `keywords` (`findStackTool`), `dateCreated` as a date, and the live product as `about` (a `WebSite`), not `sameAs`: the case study isn't the product.
 
-- `FAQPage` only for real questions shown on the page. There are none yet.
+- `FAQPage` only for real questions shown on the page: the home page's FAQ (`home.md#faq`), as a separate JSON-LD block (`faqJsonLd`) whose strings match the page exactly.
 
 ## Social cards
 
@@ -61,7 +61,7 @@ The `Person` node is built from the same content the page shows, so it can't dri
 - `app/sitemap.ts`: home, `/portfolio` and every published case study, one entry per locale, each with all its alternates. `lastModified` is the last content write the page shows (projects' `updatedAt`; home is the later of the home content and the projects). Static with `revalidate = 86400`; project and home-content saves revalidate `/sitemap.xml`.
 - `app/robots.ts`: everyone, AI crawlers included, may crawl the site. Disallowed: `/console`, `/<locale>/console`, `/api/`. `/api/cv` is allowed: the CV is a public, factual document about Ram. Points to the sitemap.
 - `/console/**` also sends `noindex`.
-- **`/llms.txt`** (decided 2026-10-06: yes): `app/llms.txt/route.ts` serves Markdown per [llmstxt.org](https://llmstxt.org) built by `lib/seo/llms.ts`: the description, the intro with the current availability (`console.md#availability`), the pages, every published project with its summary, the CV and the contact channels. English only, pointing at `/ar`. Every fact comes from messages, the projects and `lib/profile`; only the few headings are in code (machine-facing). Static, `revalidate = 86400`, revalidated by project and availability saves.
+- **`/llms.txt`** (decided 2026-10-06: yes): `app/llms.txt/route.ts` serves Markdown per [llmstxt.org](https://llmstxt.org) built by `lib/seo/llms.ts`: the description, the intro with the current availability (`console.md#availability`), the pages, every published project with its summary, the CV, the FAQ and the contact channels. English only, pointing at `/ar`. Every fact comes from messages, the projects and `lib/profile`; only the few headings are in code (machine-facing). Static, `revalidate = 86400`, revalidated by project, availability and home-content saves.
 - **Icons** through the App Router file conventions: `app/icon.svg` (the brand icon), `app/favicon.ico` (16/32/48 PNG entries) and `app/apple-icon.png` (180 px, square: iOS rounds it). The PNG and ICO were rendered from `icon.svg` with sharp; regenerate them if the icon changes.
 
 ## Caching
@@ -73,7 +73,7 @@ Next.js side only; the Cloudflare layer is its own round.
 | Home, `/portfolio`, case studies | ISR, `revalidate = 86400` | Console saves (`home.md#rendering`, `portfolio.md#rendering`) |
 | `/api/cv` | Static, `revalidate = 604800` (7 days) | CV, home-content and project saves, draft deletes (`cv.md#caching`) |
 | `/sitemap.xml` | Static, 1 day | Project and home-content saves |
-| `/llms.txt` | Static, 1 day | Project and availability saves |
+| `/llms.txt` | Static, 1 day | Project, availability and home-content saves |
 | `/<locale>/opengraph-image/card` | Generated on first request, then cached until the next deploy | Deploys (its copy is in messages) |
 | `/_next/static/*`, `/_next/image` | Immutable, 1 year (R2 objects are never overwritten: new key per upload) | n/a |
 
@@ -103,7 +103,7 @@ Fixed in this round (needs a deploy to take effect):
 
 Open (content or design, Ram's call):
 
-- **AEO:** no question-phrased headings and no FAQ. A short FAQ on the home page (availability, stack, location, how a project starts, Arabic support), shown on the page and marked up as `FAQPage`, is the biggest remaining AEO gain.
+- **AEO:** ~~no FAQ~~ done 2026-10-06: eleven questions on the home page with `FAQPage` (`home.md#faq`).
 - **The home `h1`** ("I build fast, clear web apps.") doesn't name Ram. The lead sentence right below it does, which covers answer engines; adding the name to the `h1` would help classic search.
 - **Case-study copy** is short (about 480 words on Ramlyon). Outcomes with numbers (orders handled, load times, users) are what AI engines quote.
 - **Case-study `h2`** "Screens" reads as "Screens1 screen" to crawlers because the count sits inside the heading.

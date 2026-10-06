@@ -21,6 +21,7 @@ The work leads. The first two published projects by console `order` each get a c
 5. **Services:** what a client can hire Ram for, in plain outcomes: new web apps, rebuilds, multilingual products, performant server management. Full width, one ruled row each.
 6. **Skills:** groups in a three-column grid, below Services on the same `surface` band. Tech names are mono `Tag`s in Latin script; practices (database design, authorization, background jobs) are translated and set in the sans. Edited in the console (`console.md#skills`).
 7. **Certifications:** a gallery of the certificates themselves (see Certifications below).
+7b. **FAQ (07):** questions clients and recruiters ask, on the `surface` band (see FAQ below). Added 2026-10-06; Contact became 08.
 8. **Contact, on a violet field:** the form (name, email, optional phone, message; Turnstile) and every contact channel: Email, WhatsApp, LinkedIn, GitHub, Facebook, Instagram. This is where the page ends. Contract: `contact.md`.
 9. **Footer:** the full logo lock-up, the footer channels (GitHub, Email, WhatsApp) and copyright.
 
@@ -85,6 +86,17 @@ Shaped with Ram on 2026-10-04: show the certificate itself, with its name and a 
 - **Server vs client:** only `CertificateViewer.tsx` (provider and thumbnail) is a client component; names, descriptions and tags render on the server.
 - **Data:** managed in the console since 2026-10-04 (`console.md#certifications`), images in R2. Without an image, a certificate shows a mat with the issuer's initials and no viewer.
 - **Dropped:** the Verify link (not wanted). The section title is "Certificates I’ve earned".
+
+## FAQ
+
+Added 2026-10-06. The copy was drafted by Claude from the live site, then decided by Ram in `prompts/FAQs.md` (a local, git-ignored review file).
+
+- **Eleven questions**, in this order: who Ram is, availability, kinds of project, languages (up to 13, RTL included), technologies, experience, clients abroad, how a project starts, hosting and upkeep, job roles, time and cost. The ids are `faqIds` in `lib/home/faq.ts`; the copy is `Home.faq.items.<id>.q|a` in both bundles.
+- **Facts are filled in at render** by `getFaq()`: `{years}` (`getYearsOfExperience`), `{clients}` (the About client count), `{availability}` and `{roles}` (`getAvailability()` as a list, `formatWorkTypes`). Two answers pick a variant with an ICU `select`: **available** (`open` or not) and **roles** (`roles` when a job kind is ticked, `freelance` when only freelance is, otherwise neither). Every variant leaves the door open (Ram, 2026-10-06).
+- **Ram's rules for the copy:** reply within 12 hours; no named past employer; hosting answers name no provider or stack ("a server I set up and manage", Ram won't be tied to one); the technologies answer opens with "whatever stack a project needs", then the preference; time and cost are never quoted (a written estimate after a talk, with Ramlyon's under-four-months as the one sense of scale); on-site roles only when the company arranges the move and exam trips to Cairo are agreed.
+- **Layout:** the heading pinned at the start (from `lg`, 4 of 12 columns), the questions as native `<details>` rows (8 columns), each summary an `h3` with a chevron that turns when open. Closed by default. No JavaScript.
+- **SEO:** every answer is in the server HTML whether open or not. `FAQPage` JSON-LD (`faqJsonLd`) carries the same strings as the page. `llms.txt` lists them all under "## FAQ".
+- **Changing a question:** edit both bundles in the same change; adding one also means adding its id to `faqIds`. A new fact goes through `getFaq()`, never typed into the copy.
 
 ## Rendering
 
