@@ -14,6 +14,7 @@ This folder is the long-term memory for ramfarid.com. Every session and every AI
 | [contact.md](contact.md) | Contact form, validation, Turnstile, the Server Action, Telegram notification, contact channels |
 | [i18n.md](i18n.md) | next-intl routing, messages, RTL, digits, not-found behaviour |
 | [seo.md](seo.md) | SEO / AEO / GEO rules every public page follows, and site-wide files |
+| [cloudflare.md](cloudflare.md) | The Cloudflare zone's settings (bots, caching, R2, HSTS, rate limiting) and why HTML isn't cached at the edge |
 | [architecture.md](architecture.md) | Layer contracts, data flow, server/client boundaries, naming |
 | [database.md](database.md) | MongoDB connection, model/collection naming, localized fields, collection contracts, seeding |
 | [decisions.md](decisions.md) | Dated log of choices that steer future work |

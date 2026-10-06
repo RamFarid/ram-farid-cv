@@ -3,6 +3,7 @@ import { randomUUID } from 'node:crypto'
 import { DeleteObjectCommand, HeadObjectCommand, PutObjectCommand, S3Client } from '@aws-sdk/client-s3'
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner'
 import { z } from 'zod'
+import { immutableCacheControl } from './cache'
 
 // Cloudflare R2 through its S3 API. The browser uploads straight to R2 with a short-lived presigned PUT, so files never
 // pass through the app server. See docs/console.md#uploads
@@ -62,7 +63,7 @@ async function presignPut(key: string, contentType: string, size: number) {
       Key: key,
       ContentType: contentType,
       ContentLength: size,
-      CacheControl: 'public, max-age=31536000, immutable',
+      CacheControl: immutableCacheControl,
     }),
     { expiresIn: 300 },
   )
@@ -96,7 +97,7 @@ export async function putImageOnce(key: string, body: Uint8Array, contentType: I
         Key: key,
         Body: body,
         ContentType: contentType,
-        CacheControl: 'public, max-age=31536000, immutable',
+        CacheControl: immutableCacheControl,
       }),
     )
   }

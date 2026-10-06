@@ -66,7 +66,7 @@ The `Person` node is built from the same content the page shows, so it can't dri
 
 ## Caching
 
-Next.js side only; the Cloudflare layer is its own round.
+The Next.js side. Cloudflare passes HTML through uncached and caches static files and R2; see `cloudflare.md`.
 
 | Route | Cache | Purged by |
 | --- | --- | --- |
@@ -108,4 +108,4 @@ Open (content or design, Ram's call):
 - **Case-study copy** is short (about 480 words on Ramlyon). Outcomes with numbers (orders handled, load times, users) are what AI engines quote.
 - **Case-study `h2`** "Screens" reads as "Screens1 screen" to crawlers because the count sits inside the heading.
 - **Function region:** Vercel serves from `iad1` (US East). If the MongoDB cluster is elsewhere, every ISR regeneration pays the round trip; set the region next to the database.
-- **Cloudflare round:** HTML is `cf-cache-status: DYNAMIC`; Cloudflare's email obfuscation rewrites `mailto:` links into `/cdn-cgi/l/email-protection` (crawlers and answer engines see no email); a `NEXT_LOCALE` cookie is set when `Accept-Language` disagrees with the URL's locale, which blocks edge caching of that response.
+- **Cloudflare round (2026-10-06):** the zone blocked GPTBot, ClaudeBot and CCBot with a 403 and obfuscated the email address. The settings to change are in `cloudflare.md`, along with why HTML stays uncached at the edge.

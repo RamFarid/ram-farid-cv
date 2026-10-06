@@ -1,4 +1,5 @@
 import { getImageUploadUrl, type UploadFolder } from './actions'
+import { immutableCacheControl } from './cache'
 
 // The browser side of an image upload: checks the file, asks for a presigned R2 PUT, uploads, and reads the pixel size
 // for next/image. The image only goes live when the form that holds it is saved. See docs/console.md#uploads
@@ -30,7 +31,13 @@ export async function uploadImage(
     ])
     if (!presigned.ok) return { ok: false, error: presigned.error === 'unavailable' ? 'unavailable' : 'failed' }
 
-    const response = await fetch(presigned.uploadUrl, { method: 'PUT', headers: { 'Content-Type': file.type }, body: file })
+    // The presigner never signs Cache-Control, so the object only gets the immutable header if the browser sends it.
+    // The bucket's CORS rule allows it. See docs/console.md#uploads
+    const response = await fetch(presigned.uploadUrl, {
+      method: 'PUT',
+      headers: { 'Content-Type': file.type, 'Cache-Control': immutableCacheControl },
+      body: file,
+    })
     if (!response.ok) return { ok: false, error: 'failed' }
     return { ok: true, image: { url: presigned.url, ...size } }
   } catch {

@@ -50,7 +50,7 @@ The contact section, the form behind it, and the Telegram notification each mess
 - **Result:** `ContactResult` (`lib/contact/types.ts`) is `{ ok: true }` or `{ ok: false, error: 'invalid' | 'verification' | 'unavailable', fieldErrors? }`. It's always plain and serializable, and exceptions never reach the client.
 - **The form doesn't use `<form action>`.** React resets a form after every `<form action>` submission, including failed ones, which would wipe the visitor's message on a Turnstile or server error. `onSubmit` with `useTransition` calls the action directly instead. The cost is no progressive enhancement, but Turnstile needs JavaScript anyway.
 - **Success** replaces the form with a confirmation that names the sender and the address the reply goes to, and moves focus to its heading. **Send another message** remounts an empty form. There's no Sonner toast: a lasting inline confirmation is clearer than a toast that disappears, and it saved adding Sonner for one message.
-- **Not built yet:** rate limiting beyond Turnstile. The console's Messages page was built on 2026-10-04 (`console.md#messages`).
+- **No rate limiting beyond Turnstile**, by decision: each message needs a fresh single-use token (`cloudflare.md`). The console's Messages page was built on 2026-10-04 (`console.md#messages`).
 
 ## Telegram notification
 

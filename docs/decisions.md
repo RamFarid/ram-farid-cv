@@ -2,6 +2,24 @@
 
 Newest first. Each entry gives the decision, why it was made, and what it constrains. When a decision is reversed, mark the old entry *Superseded* and link the new one; don't delete it.
 
+## 2026-10-06: Cloudflare lets AI search and agent bots in and doesn't cache HTML while the site is on Vercel
+
+- **Decision:**
+  - AI search and agent bots are allowed at Cloudflare. Training crawlers are disallowed for now (Ram's call, `cloudflare.md#ai-training-crawlers`).
+  - Email obfuscation is off.
+  - HTML passes through Cloudflare uncached. Static files and R2 are cached for a year.
+  - The full setting list is `cloudflare.md`.
+- **Why:**
+  - A probe showed Cloudflare answering GPTBot, ClaudeBot and CCBot with a 403 under its default AI bot policy, which `robots.ts` doesn't know about.
+  - Obfuscation hid the email and changed the HTML React hydrates.
+  - Vercel already caches the pages, and `revalidatePath` can't purge a second cache.
+- **Rejected:**
+  - Caching HTML at the edge with a purge call on every save: real work, for little gain while Vercel's cache is in front.
+  - A short HTML edge TTL: console edits would lag, and Cloudflare ignores `Vary: rsc`.
+- **Constrains:**
+  - A move to a VPS must add HTML edge caching with purges, and drop the locale cookie from cached responses (`cloudflare.md#html-stays-uncached-at-the-edge-on-vercel`).
+  - Dashboard changes are recorded in `cloudflare.md`.
+
 ## 2026-10-06: A home-page FAQ, its copy in messages with live facts
 
 - **Decision:** eleven questions between Certifications (06) and Contact (now 08), as native `<details>` rows with `FAQPage` JSON-LD and a copy in `llms.txt`. The copy lives in `messages` (`Home.faq`), with ICU arguments for live facts (years, clients, availability) and ICU `select` for the two answers that change with availability.

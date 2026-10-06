@@ -138,5 +138,5 @@ Every published project carries a full case study (Ram, 2026-10-04). The fields 
 ## Waiting on Ram
 
 - The case studies for **Ramlyon**, **HISTORY game** and **St Mary Maadi** are seeded complete (2026-10-06: text from Ram's CV and the live sites, dates from Ram, logo covers, all three starred; `database.md#seeding`). Still missing: the **screenshots**, paused until Ram decides what to show. Ram to review the Arabic.
-- `R2_PUBLIC_URL` for the hosting environment, and `https://ramfarid.com` in the bucket's CORS rule before the console runs in production (only `http://localhost:3000` is allowed today).
+- `R2_PUBLIC_URL` for the hosting environment. The bucket's CORS rule allows `https://ramfarid.com` (confirmed 2026-10-06).
 - Arabic copy for both pages and the console (drafted by Claude).
