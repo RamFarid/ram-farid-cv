@@ -33,7 +33,7 @@ The Zod contract is `cvConfigZSchema` (`lib/validations/cv.ts`). Limits are in `
 - **Defaults favour new content.** A role missing from the setup counts as main with every highlight shown. A highlight, tool or practice added later shows by default, because the setup stores what's *left off*, not what's kept.
 - **Stale references are dropped on read** (`normalizeCvConfig`): deleted roles, projects, groups, highlights and certificates disappear from the setup without a migration. The sections list always holds all eight.
 - **Drafts can be picked** for Selected Projects: the CV links the live product, not the case study.
-- **Seed:** `npm run db:seed` fills the setup once, from Ram's last hand-made CV (2026-10-05), while `cv` is missing.
+- **Seed:** `npm run db:seed` fills the setup once, from Ram's last hand-made CV (2026-10-05), while `cv` is missing. Selected Projects holds HISTORY and St Mary Maadi (Ramlyon stays a Professional Experience role only, Ram's call on 2026-10-06), and Certifications all six Sololearn certificates. Both were pushed once into setups made before them (2026-10-06, `database.md#seeding`).
 
 ## ATS
 

@@ -137,6 +137,6 @@ Every published project carries a full case study (Ram, 2026-10-04). The fields 
 
 ## Waiting on Ram
 
-- Real content for **HISTORY game** and **Ramlyon**, now enterable from the console: role, overview, deliverables, story (EN + AR), dates, stack, cover and screenshots. They're published with `TODO:` placeholders, and a published project only saves once it's complete, so either fill everything in one sitting or unpublish them while working.
+- The case studies for **Ramlyon**, **HISTORY game** and **St Mary Maadi** are seeded complete (2026-10-06: text from Ram's CV and the live sites, dates from Ram, logo covers, all three starred; `database.md#seeding`). Still missing: the **screenshots**, paused until Ram decides what to show. Ram to review the Arabic.
 - `R2_PUBLIC_URL` for the hosting environment, and `https://ramfarid.com` in the bucket's CORS rule before the console runs in production (only `http://localhost:3000` is allowed today).
 - Arabic copy for both pages and the console (drafted by Claude).

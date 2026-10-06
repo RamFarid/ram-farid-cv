@@ -108,15 +108,12 @@ Update the status column as each step lands.
 
 ## Waiting on Ram
 
-- Project content for **HISTORY game** and **Ramlyon**: client, kind, year, one-sentence summary, stack, live URL, screenshot. The seed has `TODO:` placeholders.
+- Project screenshots for **Ramlyon**, **HISTORY game** and **St Mary Maadi** (paused by Ram). Everything else on them is seeded (2026-10-06).
 - **Services:** four drafted ones (new web apps, rebuilds, multilingual products, performant server management) are in the console. Confirm or rewrite them there.
-- **Certifications:** add them in the console: image, name, issuer, month, a one-line description in English and Arabic, and up to four skills.
+- **Certifications:** the six Sololearn certificates are seeded (2026-10-06). Ram to review their one-line descriptions.
 - **Arabic copy:** drafted by Claude for Ram to review.
 - **Section eyebrows ("01 / Work"):** kept because the brand book pins them for SectionHeading. The design review flagged numbered eyebrows above headings as a template pattern. Keep them, or drop the index (or the whole eyebrow) site-wide in `SectionHeading`?
-- **Portrait, availability and CV:**
-  - the portrait (upload it in the console);
-  - whether to show "Available for work" (shown for now);
-  - the CV's summary and setup (`/console/cv`; seeded from the last hand-made CV).
+- **CV:** the summary and setup (`/console/cv`; seeded from the last hand-made CV). The portrait is uploaded and "Available for work" is confirmed (Ram, 2026-10-06).
 - **Secrets for `.env`:** the Telegram bot token and contact group chat id, and the production Turnstile site and secret keys (`.env.example` has Cloudflare's test keys).
 
 ## Out of scope for now

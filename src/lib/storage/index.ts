@@ -1,6 +1,6 @@
 import 'server-only'
 import { randomUUID } from 'node:crypto'
-import { DeleteObjectCommand, PutObjectCommand, S3Client } from '@aws-sdk/client-s3'
+import { DeleteObjectCommand, HeadObjectCommand, PutObjectCommand, S3Client } from '@aws-sdk/client-s3'
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner'
 import { z } from 'zod'
 
@@ -72,6 +72,35 @@ async function presignPut(key: string, contentType: string, size: number) {
 /** A new image under `folder`. The browser can only upload exactly the file it described. */
 export function createImageUpload(folder: string, contentType: ImageType, size: number) {
   return presignPut(`${folder}/${randomUUID()}.${imageTypes[contentType]}`, contentType, size)
+}
+
+/**
+ * Uploads an image to a fixed `key` unless an object is already there, and returns its public URL; null while R2 isn't
+ * configured. For the seed's images (docs/database.md#seeding), which must survive re-runs without duplicating.
+ */
+export async function putImageOnce(key: string, body: Uint8Array, contentType: ImageType) {
+  const r2 = getR2()
+  if (!r2) return null
+
+  const exists = await r2.client.send(new HeadObjectCommand({ Bucket: r2.bucket, Key: key })).then(
+    () => true,
+    (error: { $metadata?: { httpStatusCode?: number } }) => {
+      if (error.$metadata?.httpStatusCode === 404) return false
+      throw error
+    },
+  )
+  if (!exists) {
+    await r2.client.send(
+      new PutObjectCommand({
+        Bucket: r2.bucket,
+        Key: key,
+        Body: body,
+        ContentType: contentType,
+        CacheControl: 'public, max-age=31536000, immutable',
+      }),
+    )
+  }
+  return { url: `${r2.publicUrl}/${key}`, uploaded: !exists }
 }
 
 /** The object key behind a public URL, or null when the URL isn't in this bucket. */

@@ -41,7 +41,7 @@ User-facing text is stored once per locale as `{ en, ar }`, both required (`loca
 
 ### `Projects` (model `Project`)
 
-Real client and production work only (`project.md`). Created, edited, ordered and published from the console (`portfolio.md#console`); the two live projects were seeded first. Case-study fields added 2026-10-04 with `/portfolio` (`portfolio.md#case-study-content`).
+Real client and production work only (`project.md`). Created, edited, ordered and published from the console (`portfolio.md#console`); the live projects were seeded first (`#seeding`). Case-study fields added 2026-10-04 with `/portfolio` (`portfolio.md#case-study-content`).
 
 | Field | Type | Notes |
 | --- | --- | --- |
@@ -123,9 +123,27 @@ Trusted console devices. `tokenHash` (SHA-256 of the cookie's token, unique), `u
 
 ## Seeding
 
-`npm run db:seed` runs `scripts/seed.mts` with tsx (`--env-file=.env`). It inserts the two live client projects, **HISTORY game** and **Ramlyon**, as `published`, in order 1 and 2, and the `HomeContents` document with the home copy as it stood in `messages` and `lib/profile` when the console took it over (certificates start empty: the old rows were placeholders). Each `HomeContents` section is filled only while it's missing. The `Profiles` document gets the CV setup from Ram's last hand-made CV, only while `cv` is missing (`cv.md#setup`). The Architecture skill group (2026-10-05) is in the seed for new databases and was added once by hand to the existing one, because the seed never touches a section that exists.
+`npm run db:seed` runs `scripts/seed.mts` with tsx (`--conditions=react-server --env-file=.env`). It writes everything the site needs to go live, and never overwrites real content:
 
-- Upserts by `slug` with `$setOnInsert`, so re-running never overwrites a project edited since.
-- On a project that already exists, fields added to the schema later are filled one at a time, only where the field is missing (`{ field: { $exists: false } }`). Added 2026-10-04 for the case-study fields.
-- The copy is placeholder: fields prefixed `TODO:` need Ram's real content (client, kind, summary, role, overview, deliverables, story). Stack, live URL, dates, cover and screenshots are left unset until the real ones exist.
+- **Projects:** the three live client projects, **Ramlyon**, **HISTORY game** and **St Mary Maadi** (added 2026-10-06), as `published` and `starred`, in order 1 to 3, with full case studies in both languages: client, kind, summary, stack, live URL, role, overview, deliverables, story, dates (from Ram, 2026-10-06) and a cover. The copy comes from Ram's CV (`prompts/Ram_Farid_Full_Stack_Engineer_CV.docx`) and the live sites. Screenshots aren't seeded; they're uploaded from the console.
+- **`HomeContents`:** the home copy as it stood in `messages` and `lib/profile` when the console took it over, the experience timeline from the CV, Ram's portrait, and his six Sololearn certificates (copied from the old ramfarid.com on 2026-10-06, name and month as printed).
+- **`Profiles`:** the CV setup from Ram's last hand-made CV, only while `cv` is missing (`cv.md#setup`), with HISTORY and St Mary Maadi in Selected Projects and all six certificates.
+
+### Seed images
+
+- The images live in the repo under `scripts/seed-assets/` (covers, certificates, portrait) and go to R2 under **fixed keys** (`projects/covers/<slug>.webp`, `home/certificates/<id>.jpg`, the portrait's original console key) through `putImageOnce()` in `lib/storage`: a `HeadObject`, then a `PutObject` only when the key is empty. Re-running never duplicates, and a new bucket gets every image.
+- The stored URL is `R2_PUBLIC_URL` + key, so each environment stores its own public origin (the `r2.dev` URL in dev, `https://cdn.ramfarid.com` in production) for the same bucket.
+- Without the R2 variables the seed warns once and leaves the image fields unset.
+- Covers (2026-10-06) are each client's logo from its live site, centred on its brand ground at 1920×1080: Ramlyon's red R on `#0C0C0D`, HISTORY's sword wordmark on `#100E0A`, St Mary's seal on `#F3ECDF`.
+- **Dev and production share the bucket.** The console deletes images a save no longer uses (`portfolio.md#console`), so replacing a seeded cover or certificate from a dev console also deletes the object production shows. Replace seeded images from the production console.
+
+### Re-running
+
+- A new project is inserted with `$setOnInsert` (upsert by `slug`).
+- On a project that already exists, a field is written only while it's **unfilled**: missing, `''`, `[]`, or still holding an earlier seed's `TODO:` placeholder. Localized fields are checked per locale, so an English value Ram wrote survives while a `TODO:` Arabic one is replaced. `status` and `order` always exist, so the seed never changes them on an existing project; `starred` is filled only on documents saved before the field existed. (Before 2026-10-06 only missing fields were filled, so the first seed's `TODO:` copy stayed forever.)
+- Each `HomeContents` section is filled only while it's missing or an empty list (so the certificates reach a document that had `[]`), and `about.portrait` only while missing. A section emptied on purpose in the console comes back on the next seed.
+- The CV setup gets St Mary Maadi and the certificates **once**, in the run that first adds them (the project inserted, the certificates filled), so taking them off the CV in the console sticks.
+- The story HTML is made by `storyHtml()` (`lib/projects/markdown.ts`), the same pipeline the console's save runs. That module imports `server-only`, which throws outside a React Server environment; `--conditions=react-server` resolves it to its empty export, as Next.js does on the server.
 - tsx was chosen over Node's own type stripping because it resolves the `@/*` alias and extensionless imports the app code uses.
+
+Every seeded project, the About section, the certificates and the CV setup pass the console's own schemas (`projectPublishZSchema`, `aboutZSchema`, `certificationsZSchema`, `cvConfigZSchema`; checked 2026-10-06), so each one saves from the console as-is.

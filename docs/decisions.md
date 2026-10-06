@@ -2,6 +2,14 @@
 
 Newest first. Each entry gives the decision, why it was made, and what it constrains. When a decision is reversed, mark the old entry *Superseded* and link the new one; don't delete it.
 
+## 2026-10-06: The seed carries the real launch content and replaces its own placeholders
+
+- **Decision:** before deployment, `npm run db:seed` carries full case studies (EN + AR) for Ramlyon, HISTORY game and a third project, St Mary Maadi, from Ram's CV and the live sites. On a project that exists, the seed now fills a field (per locale for localized ones) while it's missing, blank or still an earlier seed's `TODO:` placeholder, never otherwise. Story HTML comes from the console's own `storyHtml()`, run under `--conditions=react-server`. St Mary Maadi joins the CV's Selected Projects, pushed once into an existing CV setup.
+- **Why:** the site goes live from a seeded database, and the old rule (fill only missing fields) left the first seed's `TODO:` copy in place forever. Running the real pipeline means the seed can't drift from what a console save stores.
+- **Rejected:** hand-writing the story HTML next to the Markdown (it drifts from the sanitizer's output); overwriting existing projects (would destroy console edits); guessing the start dates of HISTORY and St Mary Maadi (only Ram knows them).
+- **Constrains:** content in the seed must never contain `TODO:` unless it's a placeholder meant to be replaced. Details: `database.md#seeding`.
+- **Update, same day:** the seed now owns its images too (logo covers, the six Sololearn certificates, the portrait), kept in `scripts/seed-assets/` and uploaded to fixed R2 keys only while missing, so a new database or bucket comes up complete. Rejected: storing only the URLs of objects uploaded once by hand (a deleted object could never be restored) and generating covers at seed time (sharp isn't a declared dependency). Ramlyon stays off the CV's Selected Projects: it's already the main experience role.
+
 ## 2026-10-05: The CV is generated from the site, not uploaded
 
 - **Decision:** `/api/cv` renders the CV as a PDF from the site's content (experience roles, skill groups, certificates, projects, the facts in `lib/profile`) and a CV setup edited at `/console/cv` and stored in `Profiles.cv`. The console page has Save (the public CV) and Download one-time (a PDF of the unsaved draft for one application, never stored). The PDF upload of 2026-10-04 is removed entirely: code, R2 folder and record. The CV is English only, laid out for applicant tracking systems, with `@react-pdf/renderer` and the PDF standard font Helvetica. The CV summary and project bullets are written for the CV alone. An "Architecture" skill group joins the site's skills.

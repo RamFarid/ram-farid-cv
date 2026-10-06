@@ -7,7 +7,7 @@ import type { ContactChannel, SpokenLanguage } from './types'
 
 export const careerStart = new Date(Date.UTC(2021, 10, 13))
 
-// TODO(Ram): confirm whether to show "Available for work" (docs/home.md#waiting-on-ram).
+// Confirmed by Ram on 2026-10-06.
 export const isAvailableForWork = true
 
 /** Years since `careerStart`, to one decimal (4.9 on 2026-10-03). */
