@@ -53,7 +53,7 @@ export default async function CaseStudy({ params }: PageProps<'/[locale]/portfol
   if (!caseStudy) notFound()
 
   const { project, next } = caseStudy
-  const t = await getTranslations('Project')
+  const [t, tMeta] = await Promise.all([getTranslations('Project'), getTranslations('Metadata')])
 
   return (
     <>
@@ -76,6 +76,7 @@ export default async function CaseStudy({ params }: PageProps<'/[locale]/portfol
         <JsonLd data={projectJsonLd(project, locale)} />
         <JsonLd
           data={breadcrumbJsonLd([
+            { name: tMeta('home'), url: absoluteUrl('/', locale) },
             { name: t('work'), url: absoluteUrl('/portfolio', locale) },
             { name: project.title, url: absoluteUrl(`/portfolio/${project.slug}`, locale) },
           ])}

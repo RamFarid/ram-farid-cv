@@ -74,7 +74,7 @@ Added with Ram on 2026-10-05 as groundwork for building the CV from site data. T
 - **The study year is computed, never edited:** `getStudyYear()` in `lib/profile`. There are four years, each starting on 21 July, and graduation is 21 July 2028. So it's year 3 until 2027-07-20, year 4 from 2027-07-21, and from 2028-07-21 the row reads "Graduated July 2028". The flip is at 00:00 UTC; the static home page shows it within a day (`revalidate = 86400`).
 - **Languages are fixed in code:** `spokenLanguages` in `lib/profile`: Arabic (native) and English (professional working proficiency). Names and levels are in `Profile.languages`.
 - None of them is in the console, because none is edited by hand.
-- **SEO step:** the full `Person` node should carry `address` (Cairo, `EG`), `knowsLanguage` (`ar`, `en`) and, after graduation, `alumniOf` the university.
+- **SEO:** the `Person` node carries `address` (Cairo, `EG`) and `knowsLanguage` (`ar`, `en`) (2026-10-06). After graduation it also gets `alumniOf` the university.
 
 ## Certifications
 
@@ -102,7 +102,7 @@ Each step stands alone and leaves the app working.
 | 4 | About + stats, Services, Skills, Certifications | Done 2026-10-03, with placeholder content (see Waiting on Ram) |
 | 5 | Contact: form, Turnstile, Server Action (Zod), save to `ContactMsgs`, contact channels | Done 2026-10-04 (see `contact.md`) |
 | 6 | Telegram: `src/lib/telegram/config.ts`, notification to the contact group with WhatsApp (when a phone is given) and Show in console buttons; email and phone as plain text | Done 2026-10-04; untested against the real bot until the token and chat id are in `.env` |
-| 7 | **Next.** SEO: `lib/seo` metadata helper, JSON-LD, `sitemap.ts`, `robots.ts` | |
+| 7 | SEO: `lib/seo` metadata helper, JSON-LD, `sitemap.ts`, `robots.ts` (see `seo.md`) | Done 2026-10-06 |
 
 Update the status column as each step lands.
 

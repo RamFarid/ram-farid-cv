@@ -36,6 +36,12 @@ export async function findFirstPublishedTeaser() {
   return Project.findOne(published).select(teaserFields).sort({ order: 1 }).lean()
 }
 
+/** Slug and last write of every published project, in console order. */
+export async function findPublishedProjectDates() {
+  await connectDB()
+  return Project.find(published).select('slug updatedAt').sort({ order: 1 }).lean()
+}
+
 export async function findPublishedSlugs() {
   await connectDB()
   const records = await Project.find(published).select('slug').lean()

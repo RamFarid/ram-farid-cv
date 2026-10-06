@@ -30,13 +30,17 @@ import type { ProjectActionResult } from './types'
 
 /**
  * The home page's bands, /portfolio, and every case study (a project's "next project" band shows its neighbour, and a
- * slug change moves a page), in both locales, plus the console's counts and lists.
+ * slug change moves a page), in both locales, plus the console's counts and lists, the CV (its projects), the
+ * sitemap and llms.txt. See docs/cv.md#caching, docs/seo.md#site-wide-files
  */
 function revalidateProjects() {
   revalidatePath('/[locale]', 'page')
   revalidatePath('/[locale]/portfolio', 'page')
   revalidatePath('/[locale]/portfolio/[project_id]', 'page')
   revalidatePath('/[locale]/console', 'layout')
+  revalidatePath('/api/cv')
+  revalidatePath('/sitemap.xml')
+  revalidatePath('/llms.txt')
 }
 
 const unauthorized = { ok: false, error: 'unauthorized' } as const
@@ -142,5 +146,7 @@ export async function deleteProjectDraft(id: string): Promise<ProjectActionResul
     return { ok: false, error: 'unavailable' }
   }
   revalidatePath('/[locale]/console', 'layout')
+  // The CV can list a draft. See docs/cv.md#caching
+  revalidatePath('/api/cv')
   return { ok: true }
 }

@@ -1,7 +1,16 @@
 {
   "Metadata": {
     "title": "Ram Farid — Full-stack JavaScript Engineer",
-    "description": "Ram Farid is a full-stack JavaScript engineer in Cairo, building fast, clear web apps with Next.js, React and Node.js."
+    "description": "Ram Farid is a full-stack JavaScript engineer in Cairo, building fast, clear web apps with Next.js, React and Node.js.",
+    "name": "Ram Farid",
+    "jobTitle": "Full-stack JavaScript engineer",
+    "home": "Home",
+    "image": {
+      "alt": "Ram Farid, full-stack JavaScript engineer in Cairo, Egypt",
+      "tagline": "Fast, clear web apps",
+      "stack": "Next.js · React · Node.js",
+      "place": "Cairo, Egypt"
+    }
   },
   "Common": {
     "newTab": "(opens in a new tab)",

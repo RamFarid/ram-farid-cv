@@ -6,7 +6,7 @@ import { PhotoCaption } from '@/components/Reusable/media/PhotoViewer'
 import { cn } from '@/utils'
 
 type ScreenThumbProps = {
-  image: { url: string; width: number; height: number }
+  image: { url: string; width: number; height: number; alt: string }
   /** Accessible name of the button, e.g. "View screen 3 of 12: <alt>". */
   label: string
   caption?: string
@@ -37,9 +37,10 @@ export function ScreenThumb({ image, label, caption, meta, sizes, dir, eager }: 
           'hover:-translate-y-0.5 hover:border-primary hover:shadow-glow motion-reduce:hover:translate-y-0',
         )}
       >
+        {/* The button's label names it for screen readers; the alt is for image search. */}
         <Image
           src={image.url}
-          alt=""
+          alt={image.alt}
           fill
           sizes={sizes}
           loading={eager ? 'eager' : undefined}

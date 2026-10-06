@@ -10,8 +10,8 @@ import { SiteFooter } from '@/components/Reusable/site/SiteFooter'
 import { SiteHeader } from '@/components/Reusable/site/SiteHeader'
 import { Container } from '@/components/ui/Container'
 import { getPortfolioProjects } from '@/lib/projects'
-import { pageMetadata } from '@/lib/seo/metadata'
-import { portfolioJsonLd } from '@/lib/seo/structured-data'
+import { absoluteUrl, pageMetadata } from '@/lib/seo/metadata'
+import { breadcrumbJsonLd, portfolioJsonLd } from '@/lib/seo/structured-data'
 
 // Static like the home page, regenerated daily; the console will revalidate on project changes. See docs/portfolio.md#rendering
 export const revalidate = 86400
@@ -25,7 +25,12 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function Portfolio() {
   const locale = await getLocale()
-  const [projects, t] = await Promise.all([getPortfolioProjects(locale), getTranslations('Portfolio')])
+  const [projects, t, tMeta, tProject] = await Promise.all([
+    getPortfolioProjects(locale),
+    getTranslations('Portfolio'),
+    getTranslations('Metadata'),
+    getTranslations('Project'),
+  ])
 
   return (
     <>
@@ -70,6 +75,12 @@ export default async function Portfolio() {
             description: t('metadata.description'),
             projects,
           })}
+        />
+        <JsonLd
+          data={breadcrumbJsonLd([
+            { name: tMeta('home'), url: absoluteUrl('/', locale) },
+            { name: tProject('work'), url: absoluteUrl('/portfolio', locale) },
+          ])}
         />
       </main>
       <SiteFooter />

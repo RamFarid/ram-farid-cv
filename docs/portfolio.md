@@ -71,12 +71,12 @@ Every published project carries a full case study (Ram, 2026-10-04). The fields 
 - Both pages are static with `revalidate = 86400`, like the home page. The case study prerenders every published slug (`generateStaticParams`); a project published after the build renders on its first visit (`dynamicParams` stays `true`), and unknown or draft slugs 404.
 - `generateMetadata` and the page share one database read through React `cache`.
 - The index reads teaser fields only (`findPublishedProjectTeasers`), not the stories and screenshots.
-- Every console write that changes a project revalidates the home page, `/portfolio` and **every** case study (`revalidatePath('/[locale]/portfolio/[project_id]', 'page')`), in both locales, plus the console layout. Revalidating the whole route covers the previous project's next-project band and a slug change without tracking neighbours; with up to 15 projects that's cheap.
+- Every console write that changes a project revalidates the home page, `/portfolio` and **every** case study (`revalidatePath('/[locale]/portfolio/[project_id]', 'page')`), in both locales, plus the console layout, the CV, the sitemap and `/llms.txt`. Revalidating the whole route covers the previous project's next-project band and a slug change without tracking neighbours; with up to 15 projects that's cheap.
 
 ## SEO
 
-- Metadata through `pageMetadata()` in `lib/seo/metadata.ts`: title, description, canonical, `en`/`ar`/`x-default` alternates and the Open Graph card (the cover on case studies). The home page doesn't use it yet; the SEO step moves it over.
-- JSON-LD from `lib/seo/structured-data.ts`, rendered by `components/Reusable/seo/JsonLd`: `CollectionPage` with an `ItemList` on the index; `CreativeWork` and `BreadcrumbList` on each case study. The `creator`/`author` is a `Person` reference by `@id`; the full `Person` node belongs to the SEO step.
+- Metadata through `pageMetadata()` in `lib/seo/metadata.ts`: title, description, canonical, `en`/`ar`/`x-default` alternates and the Open Graph card (the cover on case studies, the locale's social card on the index).
+- JSON-LD from `lib/seo/structured-data.ts`, rendered by `components/Reusable/seo/JsonLd`: `CollectionPage` with an `ItemList` and a `BreadcrumbList` on the index; `CreativeWork` and `BreadcrumbList` on each case study. Breadcrumbs start at Home. The `creator`/`author` is a `Person` reference by `@id`; the full node is on the home page (`seo.md#structured-data`).
 - All copy, the contents list and every link are in the server HTML; only the counter and buttons need JavaScript.
 
 ## Starred

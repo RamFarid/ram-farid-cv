@@ -53,7 +53,7 @@ Ram's rule (2026-10-05): the CV must be ATS-compatible. Applicant tracking syste
 
 `/console/cv` is its own manager in the rail (Home page, CV, Messages, Projects), with anchors for its six groups: Header, Summary, Experience, Projects, Skills, Sections and file. The whole page is **one draft** (`useSectionDraft('cv', …)`). Its sticky bar holds:
 
-- **Save** (`saveCv` in `lib/cv/actions.ts`): checks the session and `cvConfigZSchema`, lines the setup up with today's content, renders it once (a setup that can't become a PDF never goes live), then stores it. The next `/api/cv` request serves it.
+- **Save** (`saveCv` in `lib/cv/actions.ts`): checks the session and `cvConfigZSchema`, lines the setup up with today's content, renders it once (a setup that can't become a PDF never goes live), then stores it and purges the cached public CV, so the next `/api/cv` request serves it.
 - **Download one-time** (`downloadOneTimeCv`): builds a PDF from the draft as it stands, saved or not, for one application. It **stores nothing and purges nothing**, so the public CV is untouched. The "Company" field names the file only (`Ram-Farid-CV-Acme-Corp.pdf`, via `cvFileName`) and is never saved. The action returns the bytes, and the page downloads them and reports the page count.
 - **Discard**, as everywhere in the console.
 
@@ -61,13 +61,12 @@ Projects and skill groups are added with `OptionPicker`, a combobox that filters
 
 ## Caching
 
-Not built yet: Ram moved it into the SEO/AEO/GEO turn (2026-10-05). Until then `/api/cv` is `force-dynamic` and renders on every request (about 10 KB, a few hundred milliseconds).
+Built 2026-10-06 (the SEO/AEO/GEO round). `/api/cv` is a static route handler (`dynamic = 'force-static'`, `revalidate = 604800`): rendered at build time, served from the cache for **7 days**, then regenerated in the background.
 
-The plan for that turn:
-
-- Cache the response for **7 days**.
-- **Purge it on every save that changes the CV.** That means the CV page's Save, but also the experience, skills and certificate sections on the console's home page and project saves, because the CV reads them all.
-- A one-time download never purges.
+- **Every save that changes the CV purges it** with `revalidatePath('/api/cv')`: the CV page's Save, every home-content section save (the CV reads experience, skills and certificates; the other sections purge too, which is harmless), every project write through `revalidateProjects()`, and deleting a draft (the CV can list drafts).
+- **A one-time download never purges.**
+- **Errors throw** instead of answering 503: a 503 would be cached for 7 days, while a failed regeneration keeps serving the last good PDF. A failure at build time fails the build, as the pages' database reads already do.
+- The years-of-experience figure and the study year are computed when the PDF is rendered, so they can lag by up to 7 days. Accepted.
 
 ## Not built
 

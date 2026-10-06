@@ -1,7 +1,7 @@
 import 'server-only'
 import { cache } from 'react'
 import type { Locale } from 'next-intl'
-import { findHomeContent, updateHomeContent } from '@/lib/db/home'
+import { findHomeContent, findHomeContentUpdatedAt, updateHomeContent } from '@/lib/db/home'
 import { findPublishedSlugsByIds } from '@/lib/db/projects'
 import type { HomeContentRecord } from '@/lib/db/models/HomeContent'
 import { deleteObjects } from '@/lib/storage'
@@ -77,6 +77,11 @@ export const getHomeContent = cache(async (locale: Locale): Promise<HomeContent>
     })),
   }
 })
+
+/** When the home page's content last changed, for the sitemap's `lastmod`. */
+export function getHomeContentUpdatedAt() {
+  return findHomeContentUpdatedAt()
+}
 
 const localizedPair = (value: { en: string; ar: string } | null | undefined) => ({ en: value?.en ?? '', ar: value?.ar ?? '' })
 const imageOrNull = (image: ImageRecord) => toImage(image) ?? null

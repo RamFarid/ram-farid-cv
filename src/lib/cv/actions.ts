@@ -1,5 +1,6 @@
 'use server'
 
+import { revalidatePath } from 'next/cache'
 import { getSession } from '@/lib/auth/session'
 import { toFieldErrors, type SaveResult } from '@/lib/validations/errors'
 import { cvConfigZSchema, cvOneTimeZSchema, type CvConfigInput, type CvOneTimeInput } from '@/lib/validations/cv'
@@ -20,7 +21,8 @@ export async function saveCv(input: CvConfigInput): Promise<SaveResult<CvConfigI
     // Render once before saving, so a setup that can't become a PDF never replaces the public CV.
     await renderCv(config, sources)
     await saveCvConfig(config)
-    // The public CV is rendered per request for now; its cache and purge come with the SEO turn (docs/cv.md#caching).
+    // The public CV is cached for 7 days; a save replaces it now. See docs/cv.md#caching
+    revalidatePath('/api/cv')
     return { ok: true, value: config }
   } catch (error) {
     console.error('Saving the CV failed:', error)

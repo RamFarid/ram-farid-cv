@@ -36,9 +36,10 @@ export function CertificateThumb({ image, label, name, meta, dir }: CertificateT
         )}
       >
         <span className="relative block aspect-[4/3]">
+          {/* The button's label names it for screen readers; the alt is for image search. */}
           <Image
             src={image.url}
-            alt=""
+            alt={name}
             fill
             sizes="(min-width: 1200px) 360px, (min-width: 1024px) 30vw, (min-width: 640px) 45vw, 100vw"
             className="object-contain"

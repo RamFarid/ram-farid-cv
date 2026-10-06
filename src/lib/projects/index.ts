@@ -4,6 +4,7 @@ import {
   countPublishedProjects,
   findFirstPublishedTeaser,
   findPublishedProjectBySlug,
+  findPublishedProjectDates,
   findPublishedProjects,
   findPublishedProjectTeasers,
   findPublishedSlugs,
@@ -58,6 +59,12 @@ export async function getHomeProjects(locale: Locale): Promise<PublicProject[]> 
 export async function getPortfolioProjects(locale: Locale): Promise<ProjectTeaser[]> {
   const records = await findPublishedProjectTeasers()
   return records.map((record) => toTeaser(record, locale))
+}
+
+/** Every published project's slug and last write, for the sitemap. */
+export async function getPublishedProjectDates(): Promise<{ slug: string; updatedAt: Date }[]> {
+  const records = await findPublishedProjectDates()
+  return records.map((record) => ({ slug: record.slug, updatedAt: record.updatedAt }))
 }
 
 export function getPublishedProjectSlugs() {

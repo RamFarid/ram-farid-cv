@@ -1,4 +1,5 @@
-import { getLocale } from 'next-intl/server'
+import type { Metadata } from 'next'
+import { getLocale, getTranslations } from 'next-intl/server'
 import { About } from '@/components/Home/About'
 import { Certifications } from '@/components/Home/Certifications'
 import { Contact } from '@/components/Home/Contact'
@@ -7,22 +8,36 @@ import { Intro } from '@/components/Home/Intro'
 import { Services } from '@/components/Home/Services'
 import { Skills } from '@/components/Home/Skills'
 import { Work } from '@/components/Home/Work'
+import { JsonLd } from '@/components/Reusable/seo/JsonLd'
 import { SiteFooter } from '@/components/Reusable/site/SiteFooter'
 import { SiteHeader } from '@/components/Reusable/site/SiteHeader'
 import { Container } from '@/components/ui/Container'
-import { getHomeContent } from '@/lib/home'
+import { getHomeContent, getHomeContentUpdatedAt } from '@/lib/home'
 import { getHomeProjects, getPublishedProjectCount } from '@/lib/projects'
+import { pageMetadata } from '@/lib/seo/metadata'
+import { profilePageJsonLd } from '@/lib/seo/structured-data'
 
 // Static, regenerated daily so the experience figure stays current; console saves revalidate it.
 // See docs/home.md#rendering
 export const revalidate = 86400
 
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getLocale()
+  const t = await getTranslations('Metadata')
+
+  return pageMetadata({ locale, href: '/', title: t('title'), description: t('description') })
+}
+
 export default async function Home() {
   const locale = await getLocale()
-  const [projects, projectCount, content] = await Promise.all([
+  const [projects, projectCount, content, updatedAt, t, tAr, tEn] = await Promise.all([
     getHomeProjects(locale),
     getPublishedProjectCount(),
     getHomeContent(locale),
+    getHomeContentUpdatedAt(),
+    getTranslations('Metadata'),
+    getTranslations({ locale: 'ar', namespace: 'Metadata' }),
+    getTranslations({ locale: 'en', namespace: 'Metadata' }),
   ])
 
   return (
@@ -43,6 +58,18 @@ export default async function Home() {
         )}
         <Certifications certifications={content.certifications} />
         <Contact />
+
+        <JsonLd
+          data={profilePageJsonLd({
+            locale,
+            names: { en: tEn('name'), ar: tAr('name') },
+            title: t('title'),
+            description: t('description'),
+            jobTitle: t('jobTitle'),
+            home: content,
+            updatedAt,
+          })}
+        />
       </main>
       <SiteFooter />
     </>

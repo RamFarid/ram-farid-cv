@@ -22,7 +22,8 @@ import {
 } from '@/lib/validations/home'
 import { deleteUnusedImages, saveHomeSection } from '.'
 
-// The console's home-content mutation boundary: session, Zod, save, revalidate both locales of the home page.
+// The console's home-content mutation boundary: session, Zod, save, revalidate both locales of the home page and
+// what's built from the same content.
 // See docs/console.md#saving
 
 type Saver<T> = (data: T) => Promise<string[]>
@@ -54,6 +55,10 @@ async function save<T>(
 
   revalidatePath('/[locale]', 'page')
   revalidatePath('/[locale]/console', 'page')
+  // The CV reads the experience, skills and certificates, and the sitemap dates the home page.
+  // See docs/cv.md#caching, docs/seo.md#site-wide-files
+  revalidatePath('/api/cv')
+  revalidatePath('/sitemap.xml')
   return { ok: true, value: parsed.data }
 }
 

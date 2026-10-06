@@ -10,6 +10,13 @@ export async function findHomeContent() {
   return HomeContent.findOne().lean()
 }
 
+/** When the content document was last saved, or null before the seed has run. */
+export async function findHomeContentUpdatedAt() {
+  await connectDB()
+  const record = await HomeContent.findOne().select('updatedAt').lean()
+  return record?.updatedAt ?? null
+}
+
 /** Replaces the given sections of the single content document (creating it if needed) and returns it as it was before. */
 export async function updateHomeContent(patch: HomeContentPatch) {
   await connectDB()

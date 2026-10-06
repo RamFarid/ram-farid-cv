@@ -30,6 +30,9 @@ export function getStudyYear(now = new Date()) {
   return 1 + laterYearStarts.filter((start) => now >= start).length
 }
 
+// Where Ram is based, for structured data (ISO 3166 country). The visible wording is in messages (`Profile.location`).
+export const homeLocation = { city: 'Cairo', country: 'EG' } as const
+
 // Fixed (Ram, 2026-10-05). Names and levels are in messages (`Profile.languages`).
 export const spokenLanguages: SpokenLanguage[] = [
   { id: 'ar', level: 'native' },

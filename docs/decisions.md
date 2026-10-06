@@ -2,6 +2,13 @@
 
 Newest first. Each entry gives the decision, why it was made, and what it constrains. When a decision is reversed, mark the old entry *Superseded* and link the new one; don't delete it.
 
+## 2026-10-06: SEO/AEO/GEO round: site-wide files, entity graph, social cards and Next.js caching
+
+- **Decision:** after a full audit of the live site, add `robots.ts`, `sitemap.ts`, `/llms.txt`, `favicon.ico` and `apple-icon.png`; move the home page to `pageMetadata()` with a `ProfilePage` / `WebSite` / `Person` JSON-LD graph built from the home content; generate a per-locale social card with `next/og`; turn off next-intl's hreflang `Link` header; cache `/api/cv` for 7 days with a purge on every save it reads from. `x-default` stays the English page.
+- **Why:** robots and sitemap returned 404 on the live site, the home page (the one about Ram) had no canonical, hreflang, Open Graph or structured data, and the `Link` header's `x-default` contradicted the HTML. The CV took about 6 s per download. `llms.txt` is cheap when generated from the same sources as the pages.
+- **Rejected:** keeping the `Link` header in agreement by moving `x-default` to the unprefixed URL (it 307s by `Accept-Language`; a 200 page is the plainer signal, and one source is simpler); fetching fonts from Google at build time for the card (network at build; the static TTFs are committed instead); a hand-written `llms.txt` (it would drift); `use cache` / Cache Components for the CV (a large switch for one route; a static route handler and `revalidatePath` do it).
+- **Constrains:** a page's `openGraph` must keep naming an image (`pageMetadata()` does it), or it drops the card. Social-card copy must avoid mixing scripts inside one word. Any new save that changes what the CV, the sitemap or `llms.txt` read must purge them. Details: `seo.md`, `cv.md#caching`.
+
 ## 2026-10-06: The seed carries the real launch content and replaces its own placeholders
 
 - **Decision:** before deployment, `npm run db:seed` carries full case studies (EN + AR) for Ramlyon, HISTORY game and a third project, St Mary Maadi, from Ram's CV and the live sites. On a project that exists, the seed now fills a field (per locale for localized ones) while it's missing, blank or still an earlier seed's `TODO:` placeholder, never otherwise. Story HTML comes from the console's own `storyHtml()`, run under `--conditions=react-server`. St Mary Maadi joins the CV's Selected Projects, pushed once into an existing CV setup.
