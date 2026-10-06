@@ -79,6 +79,20 @@ The Next.js side. Cloudflare passes HTML through uncached and caches static file
 
 ## Audits
 
+### 2026-10-06: third run, after the FAQ and the Cloudflare round
+
+SEO 8/10, GEO 8/10, AEO 8/10 (24/30, up from 21).
+
+- **What lifted it:** AEO rose with the FAQ. Every crawler tested, GPTBot and ClaudeBot included, now gets a 200. The email is plain HTML again.
+- **Still open:**
+  - case-study results and length (380 to 480 words, no metrics or client quotes);
+  - the `Screens1 screen` h2;
+  - the home project bands link only to the live sites, not to their case studies;
+  - `Person.worksFor` "Freelance";
+  - the home `h1`;
+  - the "form below" wording in `llms.txt`.
+- **Report:** `seo-audits/seo-audit-ramfarid-com-2026-10-06-after-cloudflare.md`.
+
 ### 2026-10-06: re-run after deploying `9cf16fa`
 
 SEO 8/10, GEO 8/10, AEO 5/10 (21/30, up from 15/30). Every fix below is live: robots, sitemap (10 URLs with alternates), canonical, hreflang and a social card on all 10 pages, the home JSON-LD graph, `llms.txt`, icons, alt text, and `/api/cv` served from cache. All 18 JSON-LD blocks parse.

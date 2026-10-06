@@ -45,5 +45,11 @@ next-env.d.ts
 .impeccable/questions/
 .impeccable/review/
 
+# prompts
+/prompts
+
+# seo audits, we have already the /docs contains everything we need for seo audits.
+/seo-audits
+
 # Git Bash crash dumps
 *.stackdump
