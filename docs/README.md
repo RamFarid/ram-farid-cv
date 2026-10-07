@@ -8,6 +8,7 @@ This folder is the long-term memory for ramfarid.com. Every session and every AI
 | --- | --- |
 | [project.md](project.md) | What we're building: identity, site sections, `/console`, contact + Telegram flow, infrastructure |
 | [home.md](home.md) | Home page plan: audience, section structure, constraints, build steps and their status |
+| [projects-setup.md](projects-setup.md) | How each portfolio project gets its case study and screenshots: the method, the rules and each project's status |
 | [portfolio.md](portfolio.md) | `/portfolio` and the case-study pages: structure, content fields, story HTML rules, images, rendering, SEO |
 | [cv.md](cv.md) | The generated CV: sources, the console setup, ATS rules, the PDF route, one-time CVs, caching plan |
 | [console.md](console.md) | `/console`: phases, sign-in, layout, home content, messages inbox, saving, the multi-language input, sortable lists, R2 uploads (the projects console is in `portfolio.md#console`) |
@@ -18,6 +19,7 @@ This folder is the long-term memory for ramfarid.com. Every session and every AI
 | [architecture.md](architecture.md) | Layer contracts, data flow, server/client boundaries, naming |
 | [database.md](database.md) | MongoDB connection, model/collection naming, localized fields, collection contracts, seeding |
 | [decisions.md](decisions.md) | Dated log of choices that steer future work |
+| `projects/<slug>/` | Git-ignored: each portfolio project's full case study (`README.md`) and screenshots (`assets/`), read by the seed (`database.md#case-studies-in-docsprojects`) |
 | [design-system.md](design-system.md) | Where the design system comes from, how to re-sync it, how it maps to code |
 | [design-system/](design-system/) | Mirror of the Claude Design system: brand book, tokens, components, fonts, logos |
 

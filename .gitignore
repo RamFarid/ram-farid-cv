@@ -53,3 +53,6 @@ next-env.d.ts
 
 # Git Bash crash dumps
 *.stackdump
+
+# Per-project case-study drafts and their screenshots, fed to the seed. See docs/database.md#seeding
+/docs/projects/

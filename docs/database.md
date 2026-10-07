@@ -126,13 +126,29 @@ Trusted console devices. `tokenHash` (SHA-256 of the cookie's token, unique), `u
 
 `npm run db:seed` runs `scripts/seed.mts` with tsx (`--conditions=react-server --env-file=.env`). It writes everything the site needs to go live, and never overwrites real content:
 
-- **Projects:** the three live client projects, **Ramlyon**, **HISTORY game** and **St Mary Maadi** (added 2026-10-06), as `published` and `starred`, in order 1 to 3, with full case studies in both languages: client, kind, summary, stack, live URL, role, overview, deliverables, story, dates (from Ram, 2026-10-06) and a cover. The copy comes from Ram's CV (`prompts/Ram_Farid_Full_Stack_Engineer_CV.docx`) and the live sites. Screenshots aren't seeded; they're uploaded from the console.
+- **Projects:** the three live client projects, **Ramlyon**, **HISTORY game** and **St Mary Maadi** (added 2026-10-06), as `published` and `starred`, in order 1 to 3, with full case studies in both languages: client, kind, summary, stack, live URL, role, overview, deliverables, story, dates (from Ram, 2026-10-06) and a cover. The copy comes from Ram's CV (`prompts/Ram_Farid_Full_Stack_Engineer_CV.docx`) and the live sites. A project written in [`docs/projects/`](#case-studies-in-docsprojects) comes from there instead, screenshots included: since 2026-10-07 that's Ramlyon, the HISTORY website (`history-game`, which replaces the inline entry that covered the website and the wiki together) and the HISTORY Wiki (`history-wiki`, new); the others' screenshots are uploaded from the console.
 - **`HomeContents`:** the home copy as it stood in `messages` and `lib/profile` when the console took it over, the experience timeline from the CV, Ram's portrait, and his six Sololearn certificates (copied from the old ramfarid.com on 2026-10-06, name and month as printed).
 - **`Profiles`:** the CV setup from Ram's last hand-made CV, only while `cv` is missing (`cv.md#setup`), with HISTORY and St Mary Maadi in Selected Projects and all six certificates.
 
+### Case studies in `docs/projects/`
+
+A project's seed data can live in `docs/projects/<slug>/` (added 2026-10-07, Ram's call). That folder is **git-ignored** (`.gitignore`): it holds drafts, notes and full-size screenshots that don't belong in the repo. A project there replaces the inline entry with the same slug in `scripts/seed.mts`; a fresh clone without the folder simply doesn't seed it.
+
+- `README.md`:
+  - **Front matter** has the plain fields: `slug`, `status`, `order`, `starred`, `liveUrl`, `repoUrl`, `startedAt`, `endedAt` (`YYYY-MM-DD`, empty while ongoing), `cover` (a file in `assets/`) and `stack` (a `- id` list, ids from `lib/projects/stack.ts`).
+  - **Fields:** every `## field: <name>` heading starts one field, read up to the next such heading:
+    - localized fields as `title.en`, `title.ar` and so on, including `cover.alt.en` and `cover.alt.ar`;
+    - `deliverables.en` and `deliverables.ar` as `- ` bullets;
+    - `story.en` and `story.ar` as the Markdown the console's editor would hold. Any other heading level is story content.
+  - **`screenshots`:** a Markdown table with the columns `file | device | alt.en | alt.ar | caption.en | caption.ar`, in gallery order.
+  - **Notes:** anything above the first field is for people; the seed ignores it.
+- `assets/`: the cover and the screenshots (WebP, PNG or JPEG). Pixel sizes are read from the files (sharp).
+- **Upload keys:** the cover goes to `projects/covers/<slug>.<ext>`, each screenshot to `projects/screens/<slug>/<file>`, with `putImageOnce()` (below).
+- **Checks:** the reader is `scripts/seed-projects.mts`. It refuses a project that fails `projectPublishZSchema`, so whatever it writes saves from the console as-is.
+
 ### Seed images
 
-- The images live in the repo under `scripts/seed-assets/` (covers, certificates, portrait) and go to R2 under **fixed keys** (`projects/covers/<slug>.webp`, `home/certificates/<id>.jpg`, the portrait's original console key) through `putImageOnce()` in `lib/storage`: a `HeadObject`, then a `PutObject` only when the key is empty. Re-running never duplicates, and a new bucket gets every image.
+- The images live in the repo under `scripts/seed-assets/` (covers, certificates, portrait), or in a `docs/projects/<slug>/assets/` folder, and go to R2 under **fixed keys** (`projects/covers/<slug>.webp`, `home/certificates/<id>.jpg`, the portrait's original console key) through `putImageOnce()` in `lib/storage`: a `HeadObject`, then a `PutObject` only when the key is empty. Re-running never duplicates, and a new bucket gets every image.
 - The stored URL is `R2_PUBLIC_URL` + key, so each environment stores its own public origin (the `r2.dev` URL in dev, `https://cdn.ramfarid.com` in production) for the same bucket.
 - Without the R2 variables the seed warns once and leaves the image fields unset.
 - Covers (2026-10-06) are each client's logo from its live site, centred on its brand ground at 1920×1080: Ramlyon's red R on `#0C0C0D`, HISTORY's sword wordmark on `#100E0A`, St Mary's seal on `#F3ECDF`.
@@ -146,5 +162,7 @@ Trusted console devices. `tokenHash` (SHA-256 of the cookie's token, unique), `u
 - The CV setup gets St Mary Maadi and the certificates **once**, in the run that first adds them (the project inserted, the certificates filled), so taking them off the CV in the console sticks.
 - The story HTML is made by `storyHtml()` (`lib/projects/markdown.ts`), the same pipeline the console's save runs. That module imports `server-only`, which throws outside a React Server environment; `--conditions=react-server` resolves it to its empty export, as Next.js does on the server.
 - tsx was chosen over Node's own type stripping because it resolves the `@/*` alias and extensionless imports the app code uses.
+
+- **`docs/projects/` follows the same fill-only rule.** It's there so a new database (a migration, a new environment) can be rebuilt with every case study and screenshot. On the live database Ram enters and edits project copy in the console, and the seed leaves it alone. (A `--refresh` mode that overwrote one project was tried on 2026-10-07 and dropped the same day: Ram prefers the console for live edits.)
 
 Every seeded project, the About section, the certificates and the CV setup pass the console's own schemas (`projectPublishZSchema`, `aboutZSchema`, `certificationsZSchema`, `cvConfigZSchema`; checked 2026-10-06), so each one saves from the console as-is.

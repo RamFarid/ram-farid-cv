@@ -12,7 +12,7 @@ export const projectLimits = {
   client: 80,
   summary: 220,
   url: 300,
-  stack: 16,
+  stack: 32,
   alt: 160,
   caption: 140,
   // Desktop and phone shots together. See docs/portfolio.md#case-study-content

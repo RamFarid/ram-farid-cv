@@ -7,9 +7,11 @@ import { Profile } from '@/lib/db/models/Profile'
 import { Project } from '@/lib/db/models/Project'
 import { storyHtml } from '@/lib/projects/markdown'
 import { putImageOnce, type ImageType } from '@/lib/storage'
+import { readProjectDocs, type ImageResolver } from './seed-projects.mjs'
 
 const uri = process.env.MONGO_URI
 if (!uri) throw new Error('MONGO_URI is not set; add it to .env (see .env.example)')
+
 
 const l = (en: string, ar: string) => ({ en, ar })
 
@@ -33,97 +35,24 @@ async function cover(slug: string, alt: { en: string; ar: string }) {
   return image && { ...image, alt }
 }
 
-// The case studies as Ram's CV and the live sites describe them (2026-10-06), with dates from Ram. Screenshots are
-// uploaded in the console. See docs/portfolio.md#case-study-content
-const projects = [
-  {
-    slug: 'ramlyon',
-    title: l('Ramlyon', 'Ramlyon'),
-    client: l('Ramlyon, my own product', 'Ramlyon، منتجي الخاص'),
-    kind: l('Multi-tenant SaaS', 'منصة SaaS متعددة المستأجرين'),
-    summary: l(
-      'A restaurant operating system: a digital menu that takes web, WhatsApp and delivery orders, with POS, kitchen, staff, customers and analytics in one mobile-first app.',
-      'نظام تشغيل للمطاعم: منيو إلكتروني يستقبل طلبات الويب وواتساب والتوصيل، مع نقطة البيع والمطبخ والفريق والعملاء والتحليلات في تطبيق واحد مصمم للموبايل.',
-    ),
-    stack: ['nextjs', 'typescript', 'postgresql', 'prisma', 'coolify', 'cloudflare'],
-    liveUrl: 'https://ramlyon.com',
-    starred: true,
-    cover: await cover('ramlyon', l('The Ramlyon logo: a red R with an arrow', 'شعار Ramlyon: حرف R أحمر مع سهم')),
-    startedAt: new Date('2026-05-01'),
-    role: l('Founder and full-stack engineer', 'مؤسس ومهندس Full-stack'),
-    overview: l(
-      'Ramlyon is my own product: an operating system for restaurants. A venue gets a digital menu that takes orders from the web, WhatsApp and delivery, and runs its point of sale, kitchen, staff, customers and analytics from one mobile-first app.\n\nI built and launched it in under four months as a multi-tenant ERP and SaaS platform, and I run it in production: product architecture, front end, back end, database design, deployment and operations.',
-      'Ramlyon منتجي الخاص: نظام تشغيل للمطاعم. يحصل المطعم على منيو إلكتروني يستقبل الطلبات من الويب وواتساب والتوصيل، ويدير نقطة البيع والمطبخ والفريق والعملاء والتحليلات من تطبيق واحد مصمم للموبايل.\n\nبنيته وأطلقته في أقل من أربعة أشهر كمنصة ERP وSaaS متعددة المستأجرين، وأديره في الإنتاج: معمارية المنتج والواجهة والخادم وتصميم قاعدة البيانات والنشر والتشغيل.',
-    ),
-    deliverables: {
-      en: [
-        'Digital menu that takes web, WhatsApp and delivery orders',
-        'Sales and order management with live order updates',
-        'Point of sale and kitchen workflows',
-        'Customer relationship management',
-        'Subscription billing',
-        'Analytics',
-        'Staff access control: 45 permissions across 13 product areas',
-        'Offline mode that syncs safely once back online',
-      ],
-      ar: [
-        'منيو إلكتروني يستقبل طلبات الويب وواتساب والتوصيل',
-        'إدارة المبيعات والطلبات مع تحديثات فورية للطلبات',
-        'نقطة البيع ومسارات عمل المطبخ',
-        'إدارة علاقات العملاء',
-        'الاشتراكات والفوترة',
-        'التحليلات',
-        'صلاحيات الموظفين: 45 صلاحية في 13 قسمًا من المنتج',
-        'وضع العمل دون اتصال مع مزامنة آمنة عند عودة الاتصال',
-      ],
-    },
-    storyMarkdown: l(
-      `# Built for many venues at once
+const docImage: ImageResolver = async ({ file, key, contentType, width, height }) => {
+  const stored = await putImageOnce(key, await readFile(new URL(`../docs/projects/${file}`, import.meta.url)), contentType)
+  if (!stored) {
+    if (!imagesSkipped) console.warn('R2 is not configured (see .env.example): images skipped')
+    imagesSkipped = true
+    return undefined
+  }
+  if (stored.uploaded) console.log(`${key}: uploaded`)
+  return { url: stored.url, width, height }
+}
 
-Ramlyon is multi-tenant: every venue runs on the same platform, and data access is tenant-isolated with PostgreSQL and Prisma, so one venue never sees another's orders, customers or staff.
+// Case studies written in docs/projects/<slug>/ (git-ignored), screenshots included. They replace an inline entry
+// with the same slug. See docs/portfolio.md#case-study-content
+const docProjects = await readProjectDocs(docImage)
 
-# Money and access, checked on the server
-
-- Prices are validated on the server, so the total a customer pays never comes from the browser.
-- Sign-in uses Argon2 password hashing.
-- Staff access is granular: 45 permissions across 13 product areas, so each role gets only what it needs.
-
-# Live orders, even offline
-
-New orders reach staff screens live over server-sent events (SSE). When the connection drops, the app keeps working and replays its changes once it's back. The replay is durable and idempotent, so a retry never records an order twice.
-
-# Fast public menus
-
-Most visits to a public menu used to cost five database reads. Edge caching with immediate invalidation took that to zero, and an edit still shows up at once.
-
-# Deployment
-
-Hetzner servers through Coolify, behind Cloudflare, with files in Cloudflare R2. I run it in production myself.`,
-      `# مبني لعدة منشآت في آن واحد
-
-Ramlyon منصة متعددة المستأجرين: تعمل كل المنشآت على المنصة نفسها، والوصول إلى البيانات معزول لكل مستأجر باستخدام PostgreSQL وPrisma، فلا ترى منشأة طلبات منشأة أخرى أو عملاءها أو فريقها.
-
-# الأسعار والصلاحيات يتحقق منها الخادم
-
-- يتحقق الخادم من الأسعار، فلا يأتي المبلغ الذي يدفعه العميل من المتصفح أبدًا.
-- يعتمد تسجيل الدخول على تجزئة كلمات المرور (hashing) بـ Argon2.
-- صلاحيات الموظفين دقيقة: 45 صلاحية في 13 قسمًا من المنتج، فيحصل كل دور على ما يحتاجه فقط.
-
-# طلبات فورية، حتى دون اتصال
-
-تصل الطلبات الجديدة إلى شاشات الفريق فورًا عبر Server-Sent Events (SSE). وإذا انقطع الاتصال يواصل التطبيق العمل، ثم يعيد إرسال التغييرات عند عودته. إعادة الإرسال موثوقة ولا تتكرر آثارها (idempotent)، فلا يُسجَّل الطلب مرتين أبدًا.
-
-# قوائم عامة سريعة
-
-كانت أغلب زيارات القائمة العامة تكلّف خمس قراءات من قاعدة البيانات. خفّض التخزين المؤقت على الحافة مع الإبطال الفوري هذا العدد إلى صفر، ويظهر أي تعديل في الحال.
-
-# النشر
-
-خوادم Hetzner عبر Coolify، خلف Cloudflare، مع حفظ الملفات في Cloudflare R2. وأتولى تشغيله في الإنتاج بنفسي.`,
-    ),
-    status: 'published',
-    order: 1,
-  },
+// The case studies not yet moved to docs/projects, as Ram's CV and the live sites describe them (2026-10-06), with
+// dates from Ram. Their screenshots are uploaded in the console.
+const inlineProjects = [
   {
     slug: 'history-game',
     title: l('HISTORY game', 'HISTORY game'),
@@ -300,6 +229,9 @@ The interface is in Arabic and English with next-intl, right to left in Arabic, 
   },
 ]
 
+const docSlugs = new Set(docProjects.map((project) => project.slug))
+const projects = [...docProjects, ...inlineProjects.filter((project) => !docSlugs.has(project.slug))].sort((a, b) => a.order - b.order)
+
 // A field, or one locale of a localized field, counts as unfilled while it's missing, blank or an earlier seed's
 // `TODO:` placeholder. Only those are written on a project that already exists, so console edits always win.
 const isUnfilled = (value: unknown) =>
@@ -324,15 +256,19 @@ function unfilledFields(current: Record<string, unknown>, seed: Record<string, u
 
 await mongoose.connect(uri)
 
-const insertedSlugs = new Set<string>()
-for (const project of projects) {
-  // The console saves the HTML made from the Markdown; the seed makes it with the same pipeline.
-  const seed = Object.fromEntries(
+// The console saves the HTML made from the Markdown; the seed makes it with the same pipeline.
+async function withStory<T extends { storyMarkdown: { en: string; ar: string } }>(project: T) {
+  return Object.fromEntries(
     Object.entries({
       ...project,
       story: l(await storyHtml(project.storyMarkdown.en, 'en'), await storyHtml(project.storyMarkdown.ar, 'ar')),
     }).filter(([, value]) => value !== undefined),
-  ) as typeof project & { story: { en: string; ar: string } }
+  ) as T & { story: { en: string; ar: string } }
+}
+
+const insertedSlugs = new Set<string>()
+for (const project of projects) {
+  const seed = await withStory(project)
 
   const { upsertedCount } = await Project.updateOne({ slug: seed.slug }, { $setOnInsert: seed }, { upsert: true })
   if (upsertedCount) {
