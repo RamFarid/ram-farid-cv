@@ -29,14 +29,26 @@ Empty state (no published projects): the head, a one-line note and the contact c
 
 1. **Head** (`<header>` inside the page's `<article>`): breadcrumb (Work / title), the `h1`, the summary; on the end side a ruled facts list (client, role, type, timeline) with the stack as `Tag`s, then the links. Under `lg` the facts sit two to a row with the label above the value, so the screens start sooner on phones.
    - **Timeline:** a localized month range (`format.dateTimeRange`) plus a duration from `getProjectDuration()` (days under about six weeks, whole months after that). An unset `endedAt` reads "<start> – present" with no duration.
-2. **Screens, straight after the head:**
-   - **From `sm`:** justified rows. Each item's flex-grow and flex-basis come from its stored aspect ratio (`--ratio`) and a base row height (220px at `sm`, 300px at `lg`), so desktop and phone shots share one height and every row ends flush, with no JavaScript and no layout shift. Growth is capped at 1.5× so a row that wraps early doesn't balloon; a trailing pseudo-element with a huge flex-grow keeps a short last row from stretching.
-   - **Under `sm`:** a two-column grid. Desktop shots span both columns and phones pair up, in source order. A phone without a pair keeps its single cell. Rejected: `grid-flow-dense`, which filled the gaps by reordering screens, so the layout no longer matched the Tab order, the "n / N" captions and the viewer's arrow keys.
-   - Every screen is a labelled button that opens in the shared `PhotoViewer` (react-photo-view): arrow keys step through the whole set, Esc closes, and the caption reads "Phone · 3 / 12" (numbers isolated so they keep their order in Arabic).
+2. **Screens, straight after the head,** on a full-width `surface` band: a centred stage with a caption and a thumbnail strip (see Screens below).
    - Without screenshots the cover stands in as the only screen; with neither, a monogram mat.
 3. **Story, in ruled rows** (a heading on the start side, the text at reading measure on the end side): **Overview** (paragraphs split on blank lines), **What I delivered** (a ruled list), **How I built it** (the story HTML). The role appears only in the facts.
 4. **Next project:** the next published project by `order`, wrapping to the first, in the index's vocabulary (dark slab and brief on a violet field, one stretched link). Hidden when there's only one project.
 5. **Contact call** on the dot grid, worded for one project ("Have a project like this one?", `ContactCall about="one"`).
+
+## Screens
+
+Rebuilt with Ram on 2026-10-07 (chosen from four previews: a snap rail, a stage with thumbnails, a rail per device, and the old rows collapsed). The rows it replaced made a 15-screen project several viewports tall. `ScreenGallery` (server) builds the strings; `ScreenStage` (client) owns the interaction.
+
+- **Band:** full width on `surface`, hairlines above and below; the story's first row drops its own top rule. The heading with its mono count and the controls (`03 / 15` counter, 44px prev/next) stay inside the container. The stage runs edge to edge.
+- **Stage:** one native scroll-snap rail (`screen-stage` in `globals.css`). Every screen is `clamp(300px, 56svh, 600px)` tall at its own ratio, never cropped, capped at `min(78vw, 1040px)` wide; on phones a wide shot comes out shorter and the stage is only as tall as its tallest screen. Screens snap to the centre, and the list's end paddings (from the first and last screens' ratios) let the first and last reach it. 56svh keeps the thumbnails in the first view of a 1440×900 screen; 78vw lets the neighbours peek in on phones.
+- **Focus:** the island sets `--frame-focus` on each screen from its distance to the stage's centre (1 centred, 0 a screen's width away), and the film strip's rule dims (to 35%) and shrinks (to 90%) it. Under reduced motion only the dimming stays, so the centred screen still reads as active; without JavaScript every screen is at full strength.
+- **Moving:** swipe, trackpad and Shift+wheel scroll natively. The arrows, a thumbnail or the arrow keys glide the stage with an exponential ease-out tween (420–720ms by distance), with snapping paused while it runs; a wheel or touch takes over mid-glide. Reduced motion jumps.
+- **Opening:** the centred screen opens the shared viewer (a controlled `PhotoSlider` with the same options as `PhotoViewer`, zooming from the screen). A side screen glides to the centre instead. Stepping inside the viewer moves the stage behind the mask, so closing zooms back into the screen you ended on.
+- **Caption:** under the stage, the active screen's caption (or alt) and the mono "Desktop · 3 / 15", swapping in with a short fade and rise.
+- **Thumbnails:** a 56px strip on every size, pointer only (`aria-hidden`, out of the Tab order). A 2px violet marker slides to the active thumbnail and the strip scrolls to keep it centred.
+- **Keyboard and screen readers:** roving focus, so only the active screen is in the Tab order; ArrowLeft/ArrowRight (in reading direction), Home and End move along the stage. Each screen is a button named "View screen 3 of 15: <alt>"; the counter has a "Screen 3 of 15" text for screen readers.
+- **One screen:** no counter, arrows or thumbnails; the hint drops "centre".
+- **Rejected:** the justified rows (too tall); the per-device rails (split the console order); a rail without a stage (no screen in focus); `scrollIntoView({ behavior: 'smooth' })` for the glide (its speed and curve vary by browser, and snapping cuts it short).
 
 ## Case-study content
 
@@ -49,7 +61,7 @@ Every published project carries a full case study (Ram, 2026-10-04). The fields 
 | `client`, `stack`, `liveUrl` | Case-study head, home bands |
 | `role`, `startedAt`, `endedAt`, `repoUrl` | Case-study head (the year everywhere comes from `endedAt`, or `startedAt` while ongoing) |
 | `overview`, `deliverables`, `story` | Case-study story rows |
-| `screenshots` (≤ 15, desktop and phone combined) | Case-study gallery |
+| `screenshots` (≤ 15, desktop and phone combined) | Case-study screen stage |
 
 ### Story HTML
 
@@ -85,7 +97,7 @@ Every published project carries a full case study (Ram, 2026-10-04). The fields 
 
 ## Stack
 
-- `lib/projects/stack.ts` is the static list of tools a project can name: 89 entries, each with an id, display name, group (language, front end, styling, back end, data, hosting and infrastructure, services, tooling), brand colour and logo path. Projects store ids.
+- `lib/projects/stack.ts` is the static list of tools a project can name: 115 entries (13 added for Ramlyon, 10 for the HISTORY Wiki and 3 for the HISTORY website on 2026-10-07), each with an id, display name, group (language, front end, styling, back end, data, hosting and infrastructure, services, tooling), brand colour and logo path. Projects store ids.
 - **Logos** are the single-path 24×24 marks from [Simple Icons](https://simpleicons.org) (CC0), copied into the file; no icon package is installed. Regenerate or extend by copying the `path` and `hex` from Simple Icons' `icons/<slug>.svg` and `data/simple-icons.json`.
 - **Colours:** each logo draws in its brand colour (Ram's call; the one exception to the one-violet rule). A brand colour under 2.5:1 against `surface` (black or near-black marks: Next.js, Vercel, GitHub, Express, Prisma and others) is stored as `color: null` and draws in the tag's text colour. A tool Simple Icons doesn't carry (Jotai, Zustand, next-intl, Nodemailer, AWS) gets a two-letter mono monogram.
 - `StackTag` (`components/Reusable/projects/StackTag.tsx`) renders a tool as a `Tag` with its logo. Inside a violet field it becomes a dark chip (`violet-ink` ground, `violet-fill` text), so brand colours stay readable on violet. An id that isn't in the config renders as plain text.
@@ -113,7 +125,7 @@ Every published project carries a full case study (Ram, 2026-10-04). The fields 
   - **Published:** Unpublish (keeps local edits), View on site (when clean) and Save.
 - **Sections** (anchored in the rail under Projects): Details (title, kind, client, address, summary, live and source links, Recommended), Dates and stack (start, end or empty for ongoing, the stack picker), Cover and gallery (16:9 cover with its description, up to 15 screens), Case study (role, overview, deliverables, the story editor).
 - **Gallery:** several uploads at once (drop or choose). A portrait image is guessed to be a phone screen. Each screen has its device, description (alt) and optional caption, and moves by its grip.
-- **Stack picker:** the chosen tools first (click to remove), then the catalogue by group with a search; at most 16, shown in the order picked.
+- **Stack picker:** the chosen tools first (click to remove), then the catalogue by group with a search; at most 32 (16 until 2026-10-07, raised so a project can name every tool it used), shown in the order picked.
 - **Slug:** editing a published project's slug warns that the old address stops working.
 
 ### Validation and saving
@@ -137,6 +149,8 @@ Every published project carries a full case study (Ram, 2026-10-04). The fields 
 
 ## Waiting on Ram
 
-- The case studies for **Ramlyon**, **HISTORY game** and **St Mary Maadi** are seeded complete (2026-10-06: text from Ram's CV and the live sites, dates from Ram, logo covers, all three starred; `database.md#seeding`). Still missing: the **screenshots**, paused until Ram decides what to show. Ram to review the Arabic.
+- The case studies for **Ramlyon**, **HISTORY game** and **St Mary Maadi** are seeded complete (2026-10-06: text from Ram's CV and the live sites, dates from Ram, logo covers, all three starred; `database.md#seeding`). Ram to review the Arabic.
+- **Full case studies with screenshots, one project at a time, in `docs/projects/<slug>/`** (2026-10-07, `database.md#case-studies-in-docsprojects`):
+  - The method and each project's status: `projects-setup.md`.
 - `R2_PUBLIC_URL` for the hosting environment. The bucket's CORS rule allows `https://ramfarid.com` (confirmed 2026-10-06).
 - Arabic copy for both pages and the console (drafted by Claude).

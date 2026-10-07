@@ -326,6 +326,51 @@
 }
 
 /*
+ * The case study's screen stage (docs/portfolio.md#screens): a full-width scroll-snap rail whose active screen snaps to
+ * the centre. Each screen is the stage height at its own ratio, capped in width so a wide shot fits a phone (where it
+ * comes out shorter, and the stage is only as tall as its tallest screen); the list's
+ * end paddings let the first and last screens reach the centre too (percent padding resolves against the rail).
+ */
+@utility screen-stage {
+  /* 56svh keeps the thumbnails in the first view of a 1440×900 screen; 78vw lets the neighbours peek in on phones. */
+  --stage-height: clamp(300px, 56svh, 600px);
+  --stage-max-width: min(78vw, 1040px);
+
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  /* The counter, arrows and thumbnails stand in for the scrollbar. */
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  & > ol {
+    --first-width: min(var(--stage-max-width), var(--stage-height) * var(--first-ratio));
+    --last-width: min(var(--stage-max-width), var(--stage-height) * var(--last-ratio));
+
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    width: max-content;
+    padding-inline: max(var(--space-4), 50% - var(--first-width) / 2) max(var(--space-4), 50% - var(--last-width) / 2);
+  }
+
+  & [data-screen] {
+    flex: none;
+    width: min(var(--stage-max-width), var(--stage-height) * var(--ratio));
+    scroll-snap-align: center;
+  }
+
+  @media (width >= 48rem) {
+    & > ol {
+      gap: var(--space-5);
+    }
+  }
+}
+
+/*
  * A case study's story: sanitized HTML from the console (docs/portfolio.md#story-html), styled from the tokens.
  * The row above it is an h2, so the story's own headings start at h3; an h2 inside it is styled the same.
  */
@@ -497,16 +542,42 @@
 
 /*
  * Frames away from the active position dim and shrink, tracking the scroll. FilmStrip sets --frame-focus on each
- * frame (1 fully in view, 0 out of it). Without JavaScript or with reduced motion every frame stays at full strength.
+ * frame (1 fully in view, 0 out of it); ScreenStage sets it on each screen (1 centred, 0 a screen's width away).
+ * Without JavaScript every frame stays at full strength. Under reduced motion the film strip stays still and the
+ * stage keeps only the dimming, so the centred screen still reads as the active one.
  * Not a CSS view timeline: Chromium's inline view timelines don't work in RTL scrollers. See docs/portfolio.md#index
  */
-@media (prefers-reduced-motion: no-preference) {
-  [data-frame] > article {
-    /* Squared, so a frame half in view already reads as clearly set back. */
-    --frame-strength: calc(var(--frame-focus, 1) * var(--frame-focus, 1));
+:is([data-frame] > article, [data-screen] > button) {
+  /* Squared, so a frame half in view already reads as clearly set back. */
+  --frame-strength: calc(var(--frame-focus, 1) * var(--frame-focus, 1));
+}
 
+[data-screen] > button {
+  opacity: calc(0.35 + 0.65 * var(--frame-strength));
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  :is([data-frame] > article, [data-screen] > button) {
     opacity: calc(0.35 + 0.65 * var(--frame-strength));
     scale: calc(0.9 + 0.1 * var(--frame-strength));
+  }
+
+  /* The stage's caption swaps in with each new screen; the thumbnail marker slides to the active thumbnail. */
+  .caption-swap {
+    animation: caption-swap var(--duration-base) cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  .thumb-marker[data-ready] {
+    transition:
+      translate var(--duration-slow) cubic-bezier(0.16, 1, 0.3, 1),
+      width var(--duration-slow) cubic-bezier(0.16, 1, 0.3, 1);
+  }
+}
+
+@keyframes caption-swap {
+  from {
+    opacity: 0;
+    translate: 0 var(--space-1);
   }
 }
 

@@ -14,7 +14,7 @@ The work leads. The first two published projects by console `order` each get a c
 
 0. **Nav:** the design system's floating `NavBar`: the R icon with "Ram", six section links (Work, About, Experience, Services, Skills, Contact), a square language switch showing the other language's mark («ع» on English pages, "EN" on Arabic ones, named in full for screen readers), and **Download CV** as a small secondary button. Six links were Ram's call on 2026-10-05, over the brand book's cap of five; they show from `lg` and fold into the menu below it. There's no primary button in the nav, because the intro already has one.
 1. **Intro strip:** on the dot grid, about 40% of the viewport height so project 1's band starts above the fold. The page's only `h1` ("I build fast, clear web apps.", with "web apps" in `primary-ink`), a first-person lead naming Ram, an availability `StatusBadge`, then **Start a project** (primary) and **Download CV** (secondary).
-2. **Project band 1, on a violet field, full width:** the Work heading with **See all projects** (to `/portfolio`) at its end, then a 16:9 screenshot (half the width on desktop), `kind · year`, the title, a one-sentence summary, the client, stack tags and **Visit live site**.
+2. **Project band 1, on a violet field, full width:** the Work heading with **See all projects** (to `/portfolio`) at its end, then a 16:9 screenshot (half the width on desktop), `kind · year`, the title, a one-sentence summary, the client, stack tags, **Read the case study** and **Visit live site** (see Project bands below).
 3. **Project band 2, on `surface`:** the same anatomy, so the two bands alternate.
 4. **About + stats:** the portrait and a first-person paragraph that opens with a plain one-sentence answer (AEO/GEO). Three figures, each in a form that fits it: years (calculated live from 2021-11-13), 16 clients, and the count of published projects.
 4b. **Experience:** the career timeline (see Experience below).
@@ -48,6 +48,15 @@ The work leads. The first two published projects by console `order` each get a c
 - **Header:** fixed, so the intro's dot grid runs under it. The skip link goes to `#main`. Under `lg` the links move into the menu; under `md` the CV button does too.
 - **Download CV** is a plain link to `/api/cv`, the CV generated from the site's content and the console's CV setup (`cv.md`). It's always available.
 - **Placeholders:** a missing screenshot or portrait shows a mono monogram, never a stock image.
+
+## Project bands
+
+Changed with Ram on 2026-10-07: a band leads to its case study, not the live site.
+
+- **The whole band is one link to `/portfolio/<slug>`:** the title's link stretches over the band (screenshot, text and tags), the same pattern as the `/portfolio` frames. Hovering anywhere lifts the screenshot; keyboard focus outlines the whole band.
+- **Read the case study** is the primary-styled cue. It's `aria-hidden` and not focusable, because the title link already is the way in for keyboard and screen-reader users.
+- **Visit live site** stays as a secondary button, raised above the stretched link (`relative z-10`), so it's the only part of the band that leaves the site. It's kept for visitors who want to see the real product, not for search: the home page's SEO gain is the internal link to the case study, and the live URL already reaches crawlers through the case study's button and its `CreativeWork.about` JSON-LD.
+- **Rejected:** the screenshot opening the live site (the first build). It sent the band's biggest target off the site and left the case study unlinked from the home page.
 
 ## Experience
 

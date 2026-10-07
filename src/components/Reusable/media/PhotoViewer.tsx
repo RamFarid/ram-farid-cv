@@ -9,19 +9,18 @@ import { PhotoProvider } from 'react-photo-view'
 
 const reducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
+/** Shared by the provider and by controlled `PhotoSlider`s (the case study's screen stage), so both open alike. */
+export const viewerOptions = {
+  maskOpacity: 0.92,
+  // The library animates the zoom from the thumbnail; near-instant when motion is reduced.
+  speed: () => (reducedMotion() ? 1 : 360),
+  easing: () => 'cubic-bezier(0.2, 0.8, 0.2, 1)',
+  // Each image's `overlay` (the caption) is only drawn through this.
+  overlayRender: ({ overlay }: { overlay?: ReactNode }) => overlay,
+}
+
 export function PhotoViewer({ children }: { children: ReactNode }) {
-  return (
-    <PhotoProvider
-      maskOpacity={0.92}
-      // The library animates the zoom from the thumbnail; near-instant when motion is reduced.
-      speed={() => (reducedMotion() ? 1 : 360)}
-      easing={() => 'cubic-bezier(0.2, 0.8, 0.2, 1)'}
-      // Each PhotoView's `overlay` (the caption) is only drawn through this.
-      overlayRender={({ overlay }) => overlay}
-    >
-      {children}
-    </PhotoProvider>
-  )
+  return <PhotoProvider {...viewerOptions}>{children}</PhotoProvider>
 }
 
 /** The caption bar drawn over the viewer, in the page's direction. */

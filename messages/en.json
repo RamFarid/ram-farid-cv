@@ -49,6 +49,7 @@
       "title": "Client projects, live in production",
       "client": "Client",
       "stack": "Built with",
+      "read": "Read the case study",
       "visit": "Visit live site",
       "all": "See all projects"
     },
@@ -211,7 +212,11 @@
     "source": "Source code",
     "screens": {
       "title": "Screens",
-      "hint": "Select a screen to see it full size.",
+      "hint": "{count, plural, one {Select the screen to see it full size.} other {Select the centre screen to see it full size.}}",
+      "stage": "Screens",
+      "previous": "Previous screen",
+      "next": "Next screen",
+      "position": "Screen {current} of {total}",
       "count": "{count, plural, one {# screen} other {# screens}}",
       "view": "View screen {n} of {total}: {alt}",
       "desktop": "Desktop",

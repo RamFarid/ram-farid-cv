@@ -5,7 +5,7 @@ import type { ProjectCaseStudy } from '@/lib/projects/types'
 
 function StoryRow({ id, title, children }: { id: string; title: string; children: ReactNode }) {
   return (
-    <section aria-labelledby={id} className="grid gap-space-4 border-t border-line py-space-7 lg:grid-cols-12 lg:gap-space-6">
+    <section aria-labelledby={id} className="grid gap-space-4 border-t border-line py-space-7 first:border-t-0 lg:grid-cols-12 lg:gap-space-6">
       <h2 id={id} className="text-h3 text-balance text-ink lg:col-span-4">
         {title}
       </h2>

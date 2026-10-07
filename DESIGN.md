@@ -199,7 +199,7 @@ English and Arabic are built together. Layout uses logical sides only, so the wh
 - Radii of 4, 8 and 12px, nothing rounder except status dots.
 - Mono for data, Readex Pro for words.
 - Two signature layouts for shipped work: the project band, and the film strip of dark slabs on a violet field.
-- One motion grammar, tied to scroll: the media rise, the nav shadow and the film strip's frame focus, plus 3px arrow nudges and 2px hover lifts. All off under reduced motion.
+- One motion grammar, tied to scroll: the media rise, the nav shadow and the frame focus on the film strip and the screen stage, plus the stage's eased glide, 3px arrow nudges and 2px hover lifts. All off under reduced motion.
 
 ## Colors
 
@@ -268,7 +268,7 @@ Each `text-*` utility sets size, leading, weight and tracking together. Headings
 - **Dot grid:** 1px `line` dots at a 64px pitch, behind the intro and a standalone contact close only, never behind long text.
 - **Page heads off home:** compact, so the work starts in the first view. The top pad clears the nav plus 16px, then 48px (index) or 32px rising to 64px from `md` (case study). From `lg` the h1 and lead take the start columns and the facts or controls sit on the end side (columns 9 to 12).
 - **Film rail:** a full-bleed violet band holding a sideways scroll-snap rail. The first frame lines up with the container edge and the next frame peeks past the end edge. Frames are `min(84vw, 840px)`, also capped by the viewport height so a frame and its caption fit the first view. The scrollbar is hidden; a mono `01 / 08` counter and 44px square secondary prev/next buttons stand in for it.
-- **Justified rows:** screenshots of mixed ratios share rows at one height (220px from `sm`, 300px from `lg`), each growing in proportion to its ratio, capped at 1.5x, with a trailing filler so a short last row doesn't stretch. Under `sm` desktop shots go full width and phones pair up. CSS only, never cropped.
+- **Screen stage:** a full-bleed scroll-snap rail on a `surface` band. Screens share one height (`clamp(300px, 56svh, 600px)`) at their own ratio, capped at `min(78vw, 1040px)` wide, never cropped; the active one snaps to the centre and its neighbours peek in, set back by the frame focus. The counter and 44px prev/next sit in the head; a caption and a 56px thumbnail strip with a 2px violet marker sit under it, inside the container.
 - **Ruled rows:** long-form content sits in rows split by 1px hairlines, the heading on the start 4 columns and the text on the end 8 at the 68ch measure. Fact lists and contents lists are ruled the same way, label then value.
 - **Nav:** fixed, floating 16px below the top, inside the container. Anchor targets clear it with `scroll-margin-top` of nav height plus 16px.
 - **Logical sides only:** `ps`, `me`, `start`, `text-start`, so the page mirrors in RTL.
@@ -326,8 +326,9 @@ Built in `src/components/ui/` from the component READMEs in `docs/design-system/
 
 ### Project band
 The signature component. One of the first two published projects by console order, in a compact band: a 16:9 media frame on 6 columns and the text on 6, alternating sides from band to band. The Work heading above the first band links to /portfolio.
-- **Media:** 12px frame on `surface-raised` with a hairline, or a dark `violet-ink` slab inside the violet field. Without a screenshot it shows a mono monogram, never a stock image. Linked media lifts 2px and takes the glow on hover.
-- **Text:** mono meta line (kind and year), the project title, a body-large summary, a hairline, the client and the stack as tags, then a secondary "Visit" button that opens the live site.
+- **Media:** 12px frame on `surface-raised` with a hairline, or a dark `violet-ink` slab inside the violet field. Without a screenshot it shows a mono monogram, never a stock image. It lifts 2px and takes the glow while the band is hovered.
+- **Text:** mono meta line (kind and year), the project title, a body-large summary, a hairline, the client and the stack as tags, then a primary-styled "Read the case study" cue and a secondary "Visit live site" button.
+- **Link:** the title's link to the case study stretches over the whole band; only the live-site button sits above it. Focus outlines the whole band.
 - **Rise:** the media rises 64px into place as the band scrolls in (`animation-timeline: view()`, entry 0% to cover 40%). No JavaScript. Off under reduced motion, and static where scroll timelines are unsupported.
 
 ### Experience timeline
@@ -350,8 +351,8 @@ A project's 16:9 cover on a dark `violet-ink` slab with a violet-ink hairline an
 - **Link:** the title's link stretches over the whole teaser; focus draws the focus ring around the whole teaser at 4px offset.
 - **Hover:** the slab lifts 2px and takes the glow, and the arrow nudges.
 
-### Screen gallery
-Screenshots in justified rows (see Layout), under a title with a mono count. Each thumbnail is a button on `surface-raised` with a 1px hairline and 8px corners; hover turns the border violet, lifts 2px and adds the glow. Each opens full size in the image viewer.
+### Screen stage
+A case study's screens, one in focus at a time (see Layout). Each screen is a button on `surface-raised` with a 1px hairline and 8px corners; the centred one takes a violet border and the glow on hover and opens full size in the image viewer, a side one glides to the centre. The glide is an exponential ease-out of 420 to 720ms; the caption fades and rises 4px into place; the thumbnail marker slides in 420ms. Reduced motion jumps and keeps only the dimming.
 - **Image viewer:** shared by certificates and screenshots. Arrow keys step through the set and Esc closes. The caption bar is a `surface` strip with a hairline above it: label-type title, mono device and position.
 
 ### Story
@@ -367,7 +368,7 @@ The close of every page except home: an h2, a body-large line, and the primary S
 - **Do** turn a whole region violet with `field-violet` and let the primitives inside remap themselves.
 - **Do** set data (tech names, figures, years, issuers, dates) in JetBrains Mono, figures with tabular numerals.
 - **Do** separate with 1px hairlines and step between `bg`, `surface` and `surface-raised` before reaching for a shadow.
-- **Do** keep motion to the scroll-linked rise, the nav shadow, the film strip's frame focus, 3px arrow nudges and 2px hover lifts, all behind `prefers-reduced-motion: no-preference`, with content visible and at full strength when it doesn't run.
+- **Do** keep motion to the scroll-linked rise, the nav shadow, the frame focus (film strip and screen stage), the screen stage's glide, caption swap and thumbnail marker, 3px arrow nudges and 2px hover lifts, all behind `prefers-reduced-motion: no-preference`, with content visible and at full strength when it doesn't run.
 - **Do** use logical sides and build English and Arabic in the same change.
 - **Do** use lucide icons at stroke 1.75.
 - **Do** show a mono monogram where a screenshot or portrait is missing.

@@ -2,6 +2,44 @@
 
 Newest first. Each entry gives the decision, why it was made, and what it constrains. When a decision is reversed, mark the old entry *Superseded* and link the new one; don't delete it.
 
+## 2026-10-07: Case-study screens on a centred stage, not justified rows
+
+- **Decision:** a case study's screens show on a full-width `surface` band as a centred scroll-snap stage (one screen in focus, neighbours peeking in, dimmed), with a caption and a thumbnail strip on every size. Arrows, thumbnails and keys glide it with an eased tween; the centred screen opens the viewer. Contract: `portfolio.md#screens`.
+- **Why:** the justified rows made a 15-screen project several viewports tall. Ram compared four previews and chose the stage, asked that it feel like the `/portfolio` film strip, glide on desktop and swipe on phones, and run full width.
+- **Rejected:** a snap rail without a stage, a rail per device (splits console order), and the old rows collapsed behind "Show all".
+- **Constrains:** the frame-focus rule in `globals.css` is shared by the film strip and the stage; change both together. The stage's caps in `screen-stage` are mirrored in `ScreenGallery`'s `sizes`.
+
+## 2026-10-07: Home project bands link to the case study
+
+- **Decision:** each home band is one link to its case study (the stretched title link, with a **Read the case study** cue). **Visit live site** stays as a secondary button above it. Details: `home.md#project-bands`.
+- **Why:** Ram wants the case study to be where a visitor goes next. Internal links to the case studies help search more than the outbound link, and the live URL is still on the case study and in its JSON-LD.
+- **Constrains:** nothing else in a band may be interactive unless it's raised above the stretched link the way the live button is.
+
+## 2026-10-07: Case-study data lives in git-ignored `docs/projects/<slug>/`, and the seed reads it fill-only
+
+- **Decision:**
+  - Each project's full case study is written in `docs/projects/<slug>/`: a `README.md` with front matter, `## field:` sections and notes, plus an `assets/` folder with the screenshots. It's git-ignored, and the seed reads it (`database.md#case-studies-in-docsprojects`). Ramlyon is the first; HISTORY (website and wiki), St Mary Maadi and this CV site follow.
+  - The seed stays idempotent and fill-only for these projects too: it inserts a missing project and fills unfilled fields, and never overwrites. Live copy is edited in the console.
+  - How each project is researched, written and screenshotted: `projects-setup.md`.
+- **Why:**
+  - Ram reviews and filters the copy in Markdown before anything reaches the database. He asked that nothing be applied before he's told.
+  - If the site ever moves to a new database, one seed run rebuilds every case study with its screenshots.
+  - Screenshots and working notes stay out of the repo.
+- **Rejected:**
+  - Keeping the copy inline in `seed.mts`, which is hard to review and edit as prose.
+  - A JSON or YAML file per project, which is awkward for long bilingual Markdown stories.
+  - A `--refresh=<slug> [--apply]` mode that overwrote one live project from its README, after a diff. Built and dropped the same day: Ram enters live copy in the console himself.
+- **Constrains:**
+  - A fresh clone without `docs/projects/` doesn't seed those projects.
+  - Changing a README doesn't change a live project; the console does.
+  - Deploy the code a project's data relies on (`lib/projects/stack.ts` ids, limits) before seeding a database with it.
+
+## 2026-10-07: A project names every tool it was built with, up to 32
+
+- **Decision:** the stack limit went from 16 to 32 (`projectLimits.stack`), and the catalogue gained the tools Ramlyon uses that it lacked: Base UI, Framer Motion, nuqs, date-fns, Sonner, QR Code Styling, Dexie.js, Argon2, sharp, ExcelJS, Hetzner, EasyKash and ZeptoMail. That's 102 entries. The HISTORY Wiki added 10 more the same day (Emotion, Tiptap, html-react-parser, unified, dnd kit, React Photo View, React-Toastify, Bunny.net, OpenAI Codex and jsdom), for 112, and the HISTORY website 3 (Lucide, sanitize-html, node-cron), for 115. Tools with no Simple Icons mark get a monogram; trivial utilities (slugify, JSZip and the like) are left out.
+- **Why:** Ram asked for every tool a project actually used, not a highlight list.
+- **Constrains:** the case-study head and the home band render the whole stack, so a 30-tool project shows a tall block of tags. Cap the home band if that reads badly.
+
 ## 2026-10-06: Cloudflare lets AI search and agent bots in and doesn't cache HTML while the site is on Vercel
 
 - **Decision:**
