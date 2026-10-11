@@ -26,9 +26,20 @@ export const revalidate = 86400
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale()
-  const t = await getTranslations('Metadata')
+  const [t, about, content] = await Promise.all([
+    getTranslations('Metadata'),
+    getTranslations('Home.about'),
+    getHomeContent(locale),
+  ])
+  const portrait = content.about?.portrait
 
-  return pageMetadata({ locale, href: '/', title: t('title'), description: t('description') })
+  return pageMetadata({
+    locale,
+    href: '/',
+    title: t('title'),
+    description: t('description'),
+    image: portrait ? { ...portrait, alt: about('portraitAlt') } : undefined,
+  })
 }
 
 export default async function Home() {

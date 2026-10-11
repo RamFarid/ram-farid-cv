@@ -50,11 +50,21 @@ The `Person` node is built from the same content the page shows, so it can't dri
 
 ## Social cards
 
+- **Home portrait (2026-10-12):** both home locales use the console-managed About portrait for Open Graph and Twitter, with its stored dimensions and localized `Home.about.portraitAlt`. `ProfilePage.primaryImageOfPage` and `Person.image` use that same original R2 URL, and both home sitemap entries list it as an image. With no portrait, omit those structured-data/sitemap image fields and fall back to the generated social card. Console saves already revalidate the home pages and sitemap.
 - `app/[locale]/opengraph-image.tsx` draws the card for each locale with `next/og`: name, job title, tagline, stack and place on the dark ground with the violet rule. Copy is in `Metadata.image`.
 - **A page's `openGraph` replaces the segment's file-based image instead of merging with it**, so `pageMetadata()` names the card (`/<locale>/opengraph-image/card`, `socialCard` in `lib/seo/metadata.ts`) unless the page passes its own image. Case studies pass their cover.
 - **Fonts:** Satori reads TTF, OTF and WOFF, not the site's variable WOFF2, so `src/fonts/og/` holds static Readex Pro 400 and 600 (OFL, from Google Fonts, Latin + Arabic).
 - **Arabic:** Satori shapes Arabic letters but lays words out left to right. The card's `Line` puts every Arabic word in its own flex item, keeps Latin words together, and orders them with `row-reverse`. Keep card copy to short lines: a line can't wrap. Copy that mixes scripts inside one word (`وReact`) renders wrong; avoid it on the card.
-- Twitter uses `summary_large_image` with the same image.
+- Twitter uses `summary_large_image` with the same explicitly supplied image as Open Graph, including page-specific images.
+
+### Search portrait verification (2026-10-12)
+
+- Live `/en` HTML contained the portrait as an `<img>` with descriptive alt text and as `Person.image`. The Ramlyon project cover was the first large content image, ahead of the About portrait. `og:image` and `twitter:image` pointed at the generated text card; `ProfilePage` had no `primaryImageOfPage`.
+- The original portrait and its Next.js optimized URL returned HTTP 200 with image content types and no `X-Robots-Tag` restriction in the checked responses. The site's robots file allows these paths; the CDN's robots file returned 404, not a disallow policy. These public requests do not prove what verified Googlebot last received.
+- The likely issue is competing image signals after the redesign. Google's exact selection reason and the old indexed image cannot be established from public HTML alone. The local checkout has only `new-era` history; no historical search-result comparison was verified.
+- The changes above align the home image signals with the person the page describes. They follow [Google's preferred-image guidance](https://developers.google.com/search/docs/appearance/google-images#preferred-image), which accepts `primaryImageOfPage`, main-entity images and `og:image`. Google chooses previews automatically; metadata cannot guarantee a portrait or any thumbnail.
+- After deployment, use Search Console URL Inspection for `/en` and `/ar`: test the live URL, check rendered HTML and portrait availability, then request indexing. Resubmit `/sitemap.xml` and verify the CDN is covered by the domain property (or verify it separately). Recrawling can take days to weeks; check the last crawl date before judging the result. If the previous portrait URL is known, inspect whether it still resolves and consider a redirect if it was removed.
+- Keep portrait URLs stable between actual photo changes. Do not rename/re-upload the current portrait just for keywords, hide project images from indexing, or treat the favicon as the search thumbnail.
 
 ## Site-wide files
 

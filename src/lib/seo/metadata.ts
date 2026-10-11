@@ -38,6 +38,14 @@ type PageMetadataInput = {
 export async function pageMetadata({ locale, href, title, description, image }: PageMetadataInput): Promise<Metadata> {
   const url = absoluteUrl(href, locale)
   const t = await getTranslations({ locale, namespace: 'Metadata' })
+  const images = [
+    image ?? {
+      url: absoluteUrl(`/opengraph-image/${socialCard.id}`, locale),
+      width: socialCard.width,
+      height: socialCard.height,
+      alt: t('image.alt'),
+    },
+  ]
 
   return {
     title,
@@ -55,15 +63,8 @@ export async function pageMetadata({ locale, href, title, description, image }: 
       locale: ogLocales[locale],
       alternateLocale: routing.locales.filter((code) => code !== locale).map((code) => ogLocales[code]),
       siteName: t('name'),
-      images: [
-        image ?? {
-          url: absoluteUrl(`/opengraph-image/${socialCard.id}`, locale),
-          width: socialCard.width,
-          height: socialCard.height,
-          alt: t('image.alt'),
-        },
-      ],
+      images,
     },
-    twitter: { card: 'summary_large_image' },
+    twitter: { card: 'summary_large_image', images },
   }
 }

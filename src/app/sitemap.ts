@@ -1,6 +1,6 @@
 import type { MetadataRoute } from 'next'
 import { routing } from '@/i18n/routing'
-import { getHomeContentUpdatedAt } from '@/lib/home'
+import { getHomeContent, getHomeContentUpdatedAt } from '@/lib/home'
 import { getPublishedProjectDates } from '@/lib/projects'
 import { absoluteUrl, languageAlternates } from '@/lib/seo/metadata'
 
@@ -12,7 +12,12 @@ const latest = (dates: (Date | null | undefined)[]) =>
   dates.reduce<Date | undefined>((max, date) => (date && (!max || date > max) ? date : max), undefined)
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const [homeUpdatedAt, projects] = await Promise.all([getHomeContentUpdatedAt(), getPublishedProjectDates()])
+  const [homeUpdatedAt, projects, home] = await Promise.all([
+    getHomeContentUpdatedAt(),
+    getPublishedProjectDates(),
+    getHomeContent(routing.defaultLocale),
+  ])
+  const portrait = home.about?.portrait
   const projectsUpdatedAt = latest(projects.map((project) => project.updatedAt))
 
   // `lastModified` is the last content write a page shows: the home page shows projects too.
@@ -27,6 +32,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     routing.locales.map((locale) => ({
       url: absoluteUrl(href, locale),
       lastModified,
+      images: href === '/' && portrait ? [portrait.url] : undefined,
       alternates: { languages: languageAlternates(href) },
     })),
   )

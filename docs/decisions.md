@@ -2,6 +2,13 @@
 
 Newest first. Each entry gives the decision, why it was made, and what it constrains. When a decision is reversed, mark the old entry *Superseded* and link the new one; don't delete it.
 
+## 2026-10-12: The home page's preferred image is Ram's portrait
+
+- **Decision:** use the current About portrait for both home locales' Open Graph and Twitter images, `ProfilePage.primaryImageOfPage`, the existing `Person.image`, and home sitemap image entries. Read the console-managed photo rather than duplicating or hard-coding it. Details and deployment checks: `seo.md#search-portrait-verification-2026-10-12`.
+- **Why:** Ram reports that searches for his name now show the Ramlyon cover instead of his photo. Live HTML confirms competing signals: a text-only preview card and prominent project covers, despite a valid personal image in the Person node. Aligning those signals follows Google's preferred-image guidance; the exact Google selection reason remains unverified.
+- **Rejected:** removing legitimate project images, renaming the existing portrait URL for keywords, or replacing the site favicon. Those do not reliably control result thumbnails.
+- **Constrains:** no portrait means the generated social card remains the fallback and portrait schema/sitemap fields are omitted. Portfolio and case-study image choices remain page-specific. Google controls result appearance; deployment and recrawling are required before evaluating this change.
+
 ## 2026-10-07: Case-study screens on a centred stage, not justified rows
 
 - **Decision:** a case study's screens show on a full-width `surface` band as a centred scroll-snap stage (one screen in focus, neighbours peeking in, dimmed), with a caption and a thumbnail strip on every size. Arrows, thumbnails and keys glide it with an eased tween; the centred screen opens the viewer. Contract: `portfolio.md#screens`.

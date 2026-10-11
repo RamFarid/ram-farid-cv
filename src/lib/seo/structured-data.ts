@@ -69,6 +69,7 @@ export function profilePageJsonLd({
         inLanguage: locale,
         isPartOf: website,
         mainEntity: { '@id': personId },
+        primaryImageOfPage: home.about?.portrait?.url,
         dateModified: updatedAt?.toISOString(),
       },
       {
